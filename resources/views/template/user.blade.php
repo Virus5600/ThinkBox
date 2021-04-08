@@ -1,11 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 	<head>
-		<title>{{ env('APP_NAME') }} | @yield('title')</title>
-
 		{{-- META DATA --}}
 		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 		{{-- SITE META --}}
 		<meta name="url" content="">
@@ -51,24 +49,27 @@
 
 		{{-- Favicon --}}
 		<link rel='icon' type='image/png' href='/images/UI/favicon.png'>
+
+		{{-- Title --}}
+		<title>{{ env('APP_NAME') }} | @yield('title')</title>
 	</head>
 	<body>
 		<div>
 			{{-- Navigation Bar --}}
-			<nav class="navbar navbar-expand navbar-light shadow py-0 px-3" style="z-index: 9999;">
+			<nav class="navbar navbar-expand-lg navbar-light shadow py-0 px-3" style="z-index: 9999;">
 				{{-- Branding --}}
 				<a class="navbar-brand m-0 py-0" href="{{route('home')}}" style="height: auto;">
-					<img src="/images/UI/Branding.png" style="max-height: 100%;" width="auto" height="50" class="m-0 p-0" />
+					<img src="/images/UI/Branding.png" style="max-height: 100%;" width="auto" height="50" class="m-0 p-0" alt="Myriad Files" />
 				</a>
 
 				{{-- Navbar toggler (on small screens) --}}
-				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="#navbar" aria-expanded="false" aria-label="Toggle navigation">
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
 
 				{{-- Navbar contents --}}
 				<div class="collapse navbar-collapse" id="navbar">
-					<ul class="navbar-nav">
+					<ul class="navbar-nav mr-auto">
 						<li class="nav-item">
 							@if (\Request::is('/'))
 							<span class="nav-link active custom-link">Home</span>
@@ -78,49 +79,68 @@
 						</li>
 
 						<li class="nav-item">
-							@if(\Request::is('research'))
+							@if(\Request::is('researches'))
 							<span class="nav-link active custom-link">Research</span>
-							@elseif(\Request::is('research/*'))
-							<a class="nav-link active custom-link" href="">Research</a>
+							@elseif(\Request::is('researches/*'))
+							<a class="nav-link active custom-link" href="{{route('research')}}">Research</a>
 							@else
-							<a class="nav-link custom-link" href="">Research</a>
+							<a class="nav-link custom-link" href="{{route('research')}}">Research</a>
 							@endif
 						</li>
 
 						<li class="nav-item">
-							<a class="nav-link custom-link" href="">Innovations</a>
+							@if(\Request::is('innovations'))
+							<span class="nav-link active custom-link">Innovations</span>
+							@elseif(\Request::is('innovations/*'))
+							<a class="nav-link active custom-link" href="{{route('innovations')}}">Innovations</a>
+							@else
+							<a class="nav-link custom-link" href="{{route('innovations')}}">Innovations</a>
+							@endif
 						</li>
 
 						<li class="nav-item">
-							<a class="nav-link custom-link" href="">Department</a>
+							@if(\Request::is('faculty'))
+							<span class="nav-link active custom-link">Department</span>
+							@elseif(\Request::is('faculty/*'))
+							<a class="nav-link active custom-link" href="{{route('faculty')}}">Department</a>
+							@else
+							<a class="nav-link custom-link" href="{{route('faculty')}}">Department</a>
+							@endif
 						</li>
 
 						<li class="nav-item">
-							<a class="nav-link custom-link" href="">Announcements</a>
+							@if(\Request::is('announcements'))
+							<span class="nav-link active custom-link">Announcements</span>
+							@elseif(\Request::is('announcements/*'))
+							<a class="nav-link active custom-link" href="{{route('announcements.index')}}">Announcements</a>
+							@else
+							<a class="nav-link custom-link" href="{{route('announcements.index')}}">Announcements</a>
+							@endif
 						</li>
-
 					</ul>
 					
+					<div>
+						<img src="/images/users/default.png" class="circular-border" width='35' height='35' draggable='false' alt="User"/>
+						<label>
+							<div class="dropdown">
+								<a href='' role="button" class="nav-link dropdown-toggle text-dark" style="font-size: 1.25rem;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									Anonymous
+								</a>
+								
+								<div class="dropdown-menu dropdown-menu-right">
+									<a class="dropdown-item" href="">My Profile</a>
+									<a class="dropdown-item" href="">Edit Profile</a>
+									<a class="dropdown-item" href="">Topics & Materials</a>
+									<a class="dropdown-item" href="">Research</a>
+									<a class="dropdown-item" href="">Innovations</a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" href="">Sign out</a>
+								</div>
+							</div>
+						</label>
+					</div>
 				</div>
 				
-				<div class="float-right">
-					<img src="/images/users/default.png" class="circular-border" width='48' height='48' draggable='false'/>
-					<label>
-						<div class="dropdown">
-							<a href='' role="button" class="nav-link dropdown-toggle text-dark" style="font-size: 1.25rem;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								Anonymous
-							</a>
-							
-							<div class="dropdown-menu dropdown-menu-right">
-								<a class="dropdown-item" href="#">Action</a>
-								<a class="dropdown-item" href="#">Another action</a>
-								<a class="dropdown-item" href="#">Something else here</a>
-								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="#">Separated link</a>
-							</div>
-						</div>
-					</label>
-				</div>
 			</nav>
 
 			{{-- Page Contents --}}
@@ -129,29 +149,25 @@
 			</div>
 
 			{{-- Footer --}}
-			<div class="row justify-content-center p-3 footer" style="background-color: #444; max-width: 100vw;">
-				{{-- Add-On --}}
+			<div class="row justify-content-center p-3 footer mx-0" style="background-color: #444; max-width: 100vw;">
 				<div class="col-12 col-lg-2 order-1 order-lg-0 text-center text-lg-left my-3">
-					<a href="/">Home</a><br>
-					<a href="">Researchers</a><br>
-					<a href="">Research</a><br>
-					<a href="">Innovations</a><br>
+					<a href="{{ route('home') }}">Home</a><br>
+					<a href="{{ route('research') }}">Research</a><br>
+					<a href="{{ route('innovations') }}">Innovations</a><br>
+					<a href="{{ route('announcements.index') }}">Announcements</a>
 				</div>
 
-				{{-- Contents --}}
 				<div class="col-12 col-lg-2 order-2 order-lg-1 text-center text-lg-left my-3">
 					<span class="font-weight-bold">Departments</span><br>
-					<a href="">Computer Science</a><br>
+					<a href="{{ route('faculty') }}?dept=CompSci">Computer Science</a><br>
 				</div>
 
-				{{-- About Me --}}
 				<div class="col-12 col-lg-2 order-3 order-lg-2 text-center text-lg-left my-3">
 					<a href="">About Us</a><br>
 					<a href="">Our Partners</a><br>
 					<a href="">Contact Us</a><br>
 				</div>
 					
-				{{-- Website --}}
 				<div class="col-12 col-lg-2 order-4 order-lg-3 text-center text-lg-left my-3">
 					<a href="">Privacy Policy</a><br>
 					<a href="">Terms of Use</a><br>
@@ -159,7 +175,7 @@
 
 				{{-- Branding --}}
 				<div class="col-12 col-lg-4 order-0 order-lg-4 text-center my-3">
-					<img src="/images/UI/Branding.png" style="max-height: 100%" height="125" width="auto" class="pb-0 mb-0"><br>
+					<img src="/images/UI/Branding.png" style="max-height: 100%; max-width: 100%" height="auto" width="350" class="pb-0 mb-0" alt="Myriad Files"/><br>
 					<small class="pt-0 mt-0 display-block">&copy; Myriad Files 2021-2023</small>
 				</div>
 			</div>
@@ -169,8 +185,17 @@
 		@yield('script')
 
 		<script type="text/javascript">
+			function genericSocialShare(url){
+				window.open(url,'sharer','toolbar=0,status=0,width=648,height=395');
+				return true;
+			}
+
 			$(document).ready(function() {
 				$('.items-inherit-height .custom-link').addClass('py-auto');
+
+				$('.share-link').click(function() {
+					genericSocialShare($(this).attr('data-link'));
+				});
 			});
 		</script>
 	</body>

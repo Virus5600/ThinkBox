@@ -12,3 +12,10 @@
 */
 
 Route::get('/', 'PageController@index')->name('home');
+Route::get('/researches', 'PageController@researches')->name('research');
+Route::get('/innovations', 'PageController@innovations')->name('innovations');
+Route::get('/faculty', 'PageController@faculty')->name('faculty');
+
+// Announcements
+// Route::get('/announcements', 'AnnouncementsController@index')->name('announcements');
+Route::resource('announcements', 'AnnouncementsController');
