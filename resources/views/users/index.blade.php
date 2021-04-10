@@ -6,7 +6,7 @@
 <div class="px-0 mx-0" style="max-width: 100vw!important; width: auto!important; height: 100vh!important; background: #fff url('/images/UI/banners/index.jpg') no-repeat center; background-size: cover;">
 	<div class="row h-100 darken-backdrop m-0" style="width: 100%;">
 		<div class="col-6 ml-5 banner-text-adjust">
-			<h1 class="text-light">
+			<h1 class="text-light h3 h1-md">
 				Countless number of IDEAS<br>
 				that is INNOVATIVE, in a form of file
 			</h1>
@@ -22,7 +22,7 @@
 	<div class="row my-5">
 		<div class="col">
 			<p class="m-0 text-center">
-				<span class="h3 font-weight-bold text-custom border-custom border border-thick border-left-0 border-top-0 border-right-0 px-3">Latest Announcements</span>
+				<span class="h4 h3-md font-weight-bold text-custom border-custom border border-thick border-left-0 border-top-0 border-right-0 px-3">Latest Announcements</span>
 			</p>
 
 			{{-- MAX: 3 ANNOUNCEMENTS --}}
@@ -53,7 +53,7 @@
 									</div>
 								</div>
 
-								<a class="float-right text-decoration-none read-more" href=''>View Details <i class="fas fa-chevron-right"></i></a>
+								<a class="float-right text-decoration-none read-more" href="{{ route('announcements.show', [1]) }}">View Details <i class="fas fa-chevron-right"></i></a>
 							</div>
 						</div>
 
@@ -79,7 +79,7 @@
 									</div>
 								</div>
 
-								<a class="float-right text-decoration-none read-more" href=''>View Details <i class="fas fa-chevron-right"></i></a>
+								<a class="float-right text-decoration-none read-more" href="{{ route('announcements.show', [2]) }}">View Details <i class="fas fa-chevron-right"></i></a>
 							</div>
 						</div>
 
@@ -109,7 +109,7 @@
 									</div>
 								</div>
 
-								<a class="float-right text-decoration-none read-more" href=''>View Details <i class="fas fa-chevron-right"></i></a>
+								<a class="float-right text-decoration-none read-more" href="{{ route('announcements.show', [3]) }}">View Details <i class="fas fa-chevron-right"></i></a>
 							</div>
 						</div>
 					</div>
@@ -126,7 +126,7 @@
 	<div class="row my-5">
 		<div class="col">
 			<p class="m-0 text-center">
-				<span class="h3 font-weight-bold text-custom border-custom border border-thick border-left-0 border-top-0 border-right-0 px-3">Latest Research</span>
+				<span class="h4 h3-md font-weight-bold text-custom border-custom border border-thick border-left-0 border-top-0 border-right-0 px-3">Latest Research</span>
 			</p>
 
 			{{-- MAX: 3 RESEARCH --}}
@@ -257,7 +257,7 @@
 	<div class="row my-5">
 		<div class="col">
 			<p class="m-0 text-center">
-				<span class="h3 font-weight-bold text-custom border-custom border border-thick border-left-0 border-top-0 border-right-0 px-3">Latest Innovations</span>
+				<span class="h4 h3-md font-weight-bold text-custom border-custom border border-thick border-left-0 border-top-0 border-right-0 px-3">Latest Innovations</span>
 			</p>
 
 			{{-- MAX: 3 INNOVATIONS --}}
@@ -387,11 +387,11 @@
 	{{-- FACULTY --}}
 	<div class="row my-5">
 		<div class="col text-center">
-			<span class="h3 font-weight-bold text-custom border-custom border border-thick border-left-0 border-top-0 border-right-0 px-3">Meet Our Faculty</span>
+			<span class="h4 h3-md font-weight-bold text-custom border-custom border border-thick border-left-0 border-top-0 border-right-0 px-3">Meet Our Faculty</span>
 
 			{{-- MAX: 4 FACULTY --}}
 			<div class="row mt-5">
-				<div class="col-8 col-sm-12 col-md-10 offset-2 offset-sm-0 offset-md-1">
+				<div class="col-10 col-sm-12 col-md-10 offset-1 offset-sm-0 offset-md-1">
 					<div class="card-deck">
 						<div class="card dark-shadow">
 							<div class="card-header p-0" style="background: #fff url('/images/TEMPORARY/home/user4.jpg') no-repeat center; background-size: cover;">
@@ -408,7 +408,7 @@
 							</div>
 							
 							<div class="card-footer">
-								<a class="float-right text-decoration-none read-more" href=''>View Profile <i class="fas fa-chevron-right"></i></a>
+								<a class="float-right text-decoration-none read-more" href="{{ route('faculty.show', [4]) }}">View Profile <i class="fas fa-chevron-right"></i></a>
 							</div>
 						</div>
 
@@ -427,7 +427,7 @@
 							</div>
 							
 							<div class="card-footer">
-								<a class="float-right text-decoration-none read-more" href=''>View Profile <i class="fas fa-chevron-right"></i></a>
+								<a class="float-right text-decoration-none read-more" href="{{ route('faculty.show', [1]) }}">View Profile <i class="fas fa-chevron-right"></i></a>
 							</div>
 						</div>
 
@@ -446,7 +446,7 @@
 							</div>
 							
 							<div class="card-footer">
-								<a class="float-right text-decoration-none read-more" href=''>View Profile <i class="fas fa-chevron-right"></i></a>
+								<a class="float-right text-decoration-none read-more" href="{{ route('faculty.show', [2]) }}">View Profile <i class="fas fa-chevron-right"></i></a>
 							</div>
 						</div>
 
@@ -465,7 +465,7 @@
 							</div>
 							
 							<div class="card-footer">
-								<a class="float-right text-decoration-none read-more" href=''>View Profile <i class="fas fa-chevron-right"></i></a>
+								<a class="float-right text-decoration-none read-more" href="{{ route('faculty.show', [3]) }}">View Profile <i class="fas fa-chevron-right"></i></a>
 							</div>
 						</div>
 					</div>
@@ -473,7 +473,7 @@
 			</div>
 
 			<p class="mx-0 my-3 text-center">
-				<span class="h5 text-center font-weight-bold border-custom border border-thick border-left-0 border-top-0 border-right-0 px-1"><a class="view-more text-decoration-none" href="{{ route('faculty') }}">View More</a></span>
+				<span class="h5 text-center font-weight-bold border-custom border border-thick border-left-0 border-top-0 border-right-0 px-1"><a class="view-more text-decoration-none" href="{{ route('faculty.index') }}">View More</a></span>
 			</p>
 		</div>
 	</div>
