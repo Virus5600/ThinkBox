@@ -13,6 +13,7 @@
 <h6 class="px-2 my-2">Contents</h6>
 
 <hr class="hr-thick-50 my-2">
+
 @if(\Request::is('profile/materials'))
 <span class="nav-link active bg-custom text-light">Course Materials</span>
 @elseif (\Request::is('profile/materials/*'))
