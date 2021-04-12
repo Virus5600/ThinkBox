@@ -38,14 +38,21 @@
 		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.css"/>
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.js"></script>
 
+		{{-- Sweet Alert 2 --}}
+		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
 		{{-- Custom CSS --}}
 		@yield('css')
 
 		{{-- Local CSS --}}
-		<link rel="stylesheet" href="/css/style.css" type="text/css"/>
+		<link rel="stylesheet" href="/css/style.css" type="text/css">
 
 		{{-- Fontawesome --}}
 		<script src="https://kit.fontawesome.com/d4492f0e4d.js" crossorigin="anonymous"></script>
+
+		{{-- Read More --}}
+		<link rel="stylesheet" type="text/css" href="/css/readmore.css">
+		<script type="text/javascript" src="/js/readmore.js"></script>
 
 		{{-- Favicon --}}
 		<link rel='icon' type='image/png' href='/images/UI/favicon.png'>
@@ -53,10 +60,11 @@
 		{{-- Title --}}
 		<title>{{ env('APP_NAME') }} | @yield('title')</title>
 	</head>
+	
 	<body>
-		<div>
+		<div class="d-flex flex-column min-vh-100">
 			{{-- Navigation Bar --}}
-			<nav class="navbar navbar-expand-lg navbar-light shadow py-0 px-3" style="z-index: 9999;">
+			<nav class="navbar navbar-expand-lg navbar-light shadow py-0 px-3" style="z-index: 1000;">
 				{{-- Branding --}}
 				<a class="navbar-brand m-0 py-0" href="{{route('home')}}" style="height: auto;">
 					<img src="/images/UI/Branding.png" style="max-height: 100%;" width="auto" height="50" class="m-0 p-0" alt="Myriad Files" />
@@ -102,9 +110,9 @@
 							@if(\Request::is('faculty'))
 							<span class="nav-link active custom-link">Department</span>
 							@elseif(\Request::is('faculty/*'))
-							<a class="nav-link active custom-link" href="{{route('faculty')}}">Department</a>
+							<a class="nav-link active custom-link" href="{{route('faculty.index')}}">Department</a>
 							@else
-							<a class="nav-link custom-link" href="{{route('faculty')}}">Department</a>
+							<a class="nav-link custom-link" href="{{route('faculty.index')}}">Department</a>
 							@endif
 						</li>
 
@@ -120,19 +128,19 @@
 					</ul>
 					
 					<div>
-						<img src="/images/users/default.png" class="circular-border" width='35' height='35' draggable='false' alt="User"/>
+						<img src="/images/TEMPORARY/home/user1.jpg" class="circular-border" width='35' height='35' draggable='false' alt="User"/>
 						<label>
 							<div class="dropdown">
-								<a href='' role="button" class="nav-link dropdown-toggle text-dark" style="font-size: 1.25rem;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-									Anonymous
+								<a href='' role="button" class="nav-link dropdown-toggle text-dark dynamic-size-lg-h6" style="font-size: 1.25rem;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									Angelique Lacasandile
 								</a>
 								
 								<div class="dropdown-menu dropdown-menu-right">
-									<a class="dropdown-item" href="">My Profile</a>
-									<a class="dropdown-item" href="">Edit Profile</a>
-									<a class="dropdown-item" href="">Topics & Materials</a>
-									<a class="dropdown-item" href="">Research</a>
-									<a class="dropdown-item" href="">Innovations</a>
+									<a class="dropdown-item" href="{{ route('profile.index') }}">My Profile</a>
+									<a class="dropdown-item" href="{{ route('profile.edit', ['1']) }}">Edit Profile</a>
+									<a class="dropdown-item" href="{{ route('profile.materials.index') }}">Topics & Materials</a>
+									<a class="dropdown-item" href="{{ route('profile.research.index') }}">Research</a>
+									<a class="dropdown-item" href="{{ route('profile.innovations.index') }}">Innovations</a>
 									<div class="dropdown-divider"></div>
 									<a class="dropdown-item" href="">Sign out</a>
 								</div>
@@ -140,11 +148,10 @@
 						</label>
 					</div>
 				</div>
-				
 			</nav>
 
 			{{-- Page Contents --}}
-			<div style="max-width: 100vw!important;">
+			<div class="flex-fill" style="max-width: 100vw!important;">
 				@yield('body')
 			</div>
 
@@ -159,7 +166,7 @@
 
 				<div class="col-12 col-lg-2 order-2 order-lg-1 text-center text-lg-left my-3">
 					<span class="font-weight-bold">Departments</span><br>
-					<a href="{{ route('faculty') }}?dept=CompSci">Computer Science</a><br>
+					<a href="{{ route('faculty.index') }}?dept=CompSci">Computer Science</a><br>
 				</div>
 
 				<div class="col-12 col-lg-2 order-3 order-lg-2 text-center text-lg-left my-3">
@@ -190,12 +197,28 @@
 				return true;
 			}
 
+			function confirmLeave(urlTo) {
+				Swal.fire({
+					icon: 'warning',
+					html: '<h4>Are you sure?</h4><p>You have unsave changes.</p>',
+					showDenyButton: true,
+					confirmButtonText: 'Yes',
+					denyButtonText: 'No'
+				}).then((result) => {
+					if (result.isConfirmed) {
+						window.location.href = urlTo;
+					}
+				});
+			}
+
 			$(document).ready(function() {
 				$('.items-inherit-height .custom-link').addClass('py-auto');
 
 				$('.share-link').click(function() {
 					genericSocialShare($(this).attr('data-link'));
 				});
+
+				$('[data-toggle=tooltip]').tooltip();
 			});
 		</script>
 	</body>

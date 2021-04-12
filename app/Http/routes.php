@@ -11,11 +11,42 @@
 |
 */
 
+// GENERAL -----
+// Home
 Route::get('/', 'PageController@index')->name('home');
-Route::get('/researches', 'PageController@researches')->name('research');
-Route::get('/innovations', 'PageController@innovations')->name('innovations');
-Route::get('/faculty', 'PageController@faculty')->name('faculty');
 
 // Announcements
-// Route::get('/announcements', 'AnnouncementsController@index')->name('announcements');
 Route::resource('announcements', 'AnnouncementsController');
+// GENERAL END -----
+
+// NEEDS AUTH -----
+// Profile Research
+Route::get('/profile/research', 'ProfileController@researchProfileIndex')->name('profile.research');
+Route::get('/profile/research/list', 'ProfileController@researchIndex')->name('profile.research.index');
+
+// Profile Innovations
+Route::get('/profile/innovations', 'ProfileController@innovationsIndex')->name('profile.innovations');
+Route::get('/profile/innovations/list', 'ProfileController@innovationsIndex')->name('profile.innovations.index');
+
+// Profile Materials
+Route::get('/profile/materials', 'ProfileController@materialsProfileIndex')->name('profile.materials');
+Route::get('/profile/materials/topics', 'ProfileController@materialsIndex')->name('profile.materials.index');
+
+// Profile Materials Topic
+Route::get('/profile/materials/topics/{id}', 'ProfileController@materialsTopicIndex')->name('profile.materials.topics.index');
+
+// My Profile
+Route::resource('profile', 'ProfileController');
+
+// Research
+Route::get('/researches', 'PageController@researches')->name('research');
+
+// Innovations
+Route::get('/innovations', 'PageController@innovations')->name('innovations');
+
+// Faculty
+Route::get('/faculty/{id}/research', 'FacultyController@research')->name('faculty.research');
+Route::get('/faculty/{id}/innovations', 'FacultyController@innovations')->name('faculty.innovations');
+Route::get('/faculty/{id}/materials', 'FacultyController@materials')->name('faculty.materials');
+Route::resource('faculty', 'FacultyController');
+// NEEDS AUTH END -----

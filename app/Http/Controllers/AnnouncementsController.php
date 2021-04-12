@@ -9,11 +9,11 @@ use App\Http\Requests;
 class AnnouncementsController extends Controller
 {
 	protected function index() {
-		return view('announcements.index');
+		return view('users.announcements.index');
 	}
 
 	protected function show($id) {
-		return view('announcements.show', [
+		return view('users.announcements.show', [
 			'id' => $id
 		]);
 	}

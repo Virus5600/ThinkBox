@@ -7,26 +7,14 @@ use Illuminate\Http\Request;
 class PageController extends Controller
 {
 	protected function index() {
-		return view('index');
+		return view('users.index');
 	}
 
 	protected function researches() {
-		return view('research');
+		return view('users.auth.research');
 	}
 
 	protected function innovations() {
-		return view('innovations');
-	}
-
-	protected function faculty() {
-		
-		$dept = 'all';
-		if (\Request::has('dept')) {
-			$dept = \Request::get('dept');
-		}
-		
-		return view('faculty', [
-			'dept' => $dept
-		]);
+		return view('users.auth.innovations');
 	}
 }
