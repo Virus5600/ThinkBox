@@ -6,7 +6,7 @@
 <div class="container-fluid my-5 px-5">
 	{{-- DETAILS --}}
 	<div class="row">
-		<div class="col-12 col-md-8 order-1 order-md-0">
+		<div class="col-12 col-md-8 order-0 order-md-0">
 			<div class="row">
 				<div class="col-12 col-md-4 text-center">
 					<img src='/images/TEMPORARY/home/user{{$id}}.jpg' class='img-fluid invisiborder circle-border w-75'/>
@@ -54,7 +54,7 @@
 			</div>
 		</div>
 
-		<div class="col-12 col-md-4 order-0 order-md-1">
+		<div class="col-12 col-md-4 order-1 order-md-1">
 			<div class="container-fluid py-2 bg-custom-light">
 				<div class="row">
 					<div class="col">
@@ -111,7 +111,7 @@
 				<hr class="hr-thick my-1">
 
 				<div class="row my-2 mt-3">
-					<div class="col">
+					<div class="col text-center">
 						<a href="" data-toggle="tooltip" data-placement="top" title="Facebook" class="mx-1"><i class="fab fa-facebook text-dark fa-2x"></i></a>
 						<a href="" data-toggle="tooltip" data-placement="top" title="Google Scholar" class="mx-1"><i class="fas fa-atom text-light fa-2x bg-dark invisiborder circle-border p-1 custom-fa-2x"></i></a>
 						<a href="" data-toggle="tooltip" data-placement="top" title="Twitter" class="mx-1"><i class="fab fa-twitter text-light fa-2x bg-dark invisiborder circle-border p-1 custom-fa-2x"></i></a>
@@ -131,7 +131,7 @@
 
 			<hr class="hr-thick my-3">
 
-			<div class="row my-3 bg-custom-light mx-1">
+			<div class="row my-3 bg-custom-light mx-1 p-3">
 				<p class="font-weight-bold">
 					Development of an Information-Based Dashboard: Automation of Barangay Information Profiling System (BIPS) for Decision Support towards e-Governance
 				</p>
@@ -145,7 +145,7 @@
 				</p>
 			</div>
 
-			<div class="row my-3 bg-custom-light mx-1">
+			<div class="row my-3 bg-custom-light mx-1 p-3">
 				<p class="font-weight-bold">
 					e-government concept from cabal to community: a demand side perspective in the philippines utilizing information technology systems
 				</p>
@@ -168,7 +168,7 @@
 
 			<hr class="hr-thick my-3">
 
-			<div class="row my-3 bg-custom-light mx-1">
+			<div class="row my-3 bg-custom-light mx-1 p-3">
 				<p class="font-weight-bold">
 					e-government concept from cabal to community: a demand side perspective in the philippines utilizing information technology systems
 				</p>
@@ -182,7 +182,7 @@
 				</p>
 			</div>
 
-			<div class="row my-3 bg-custom-light mx-1">
+			<div class="row my-3 bg-custom-light mx-1 p-3">
 				<p class="font-weight-bold">
 					Development of an Information-Based Dashboard: Automation of Barangay Information Profiling System (BIPS) for Decision Support towards e-Governance
 				</p>
@@ -208,7 +208,7 @@
 			<hr class="hr-thick my-3">
 
 			<div class="my-3 mx-1 container-fluid">
-				<div class="row flex-row flex-nowrap overflow-x-scroll p-2 border border-rounded">
+				<div class="row flex-row flex-nowrap overflow-x-scroll p-2 border border-rounded custom-scrollbar">
 					<div class="mx-3 bg-custom-light text-dark w-50 p-3 col-12 col-md-3">
 						<a href="" class="text-decoration-none text-dark">
 							<p><em>Programming</em></p>

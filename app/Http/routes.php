@@ -49,4 +49,10 @@ Route::get('/faculty/{id}/research', 'FacultyController@research')->name('facult
 Route::get('/faculty/{id}/innovations', 'FacultyController@innovations')->name('faculty.innovations');
 Route::get('/faculty/{id}/materials', 'FacultyController@materials')->name('faculty.materials');
 Route::resource('faculty', 'FacultyController');
+
+// ----- ADMIN SIDE
+Route::group(['prefix' => 'admin'], function() {
+	Route::get('/dashboard', 'PageController@dashboard')->name('dashboard');
+});
+// ----- ADMIN SIDE END
 // NEEDS AUTH END -----

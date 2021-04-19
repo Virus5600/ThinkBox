@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 class PageController extends Controller
 {
+	// USER SIDE (AUTH AND UNAUTH)
 	protected function index() {
 		return view('users.index');
 	}
@@ -16,5 +17,10 @@ class PageController extends Controller
 
 	protected function innovations() {
 		return view('users.auth.innovations');
+	}
+
+	// ADMIN SIDE
+	protected function dashboard() {
+		return view('users.auth.admin.dashboard');
 	}
 }

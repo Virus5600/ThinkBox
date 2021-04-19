@@ -15,7 +15,7 @@
 
 <div class="container-fluid my-5 mb-7">
 	<div class="row">
-		<div class="col-12 col-lg-2">
+		<div class="col-12 col-lg-3">
 			<div class="input-group">
 				<input type="text" class="form-control" name='search' placeholder="Search..." />
 				<div class="input-group-append">
@@ -35,7 +35,7 @@
 			</div>
 		</div>
 
-		<div class="col col-lg-10 my-3">
+		<div class="col col-lg-9 my-3">
 			<div class="card-deck">
 				<div class="card dark-shadow">
 					<div class="card-body">
@@ -67,7 +67,7 @@
 
 				<div class="card dark-shadow">
 					<div class="card-body">
-						<div class="announcement-img" style="background: #fff url('/images/TEMPORARY/home/announcement2.jpg') no-repeat center"></div>
+						<div class="announcement-img" style="background: #fff url('/images/TEMPORARY/home/announcement2.jpg') no-repeat center;"></div>
 						<h5 class="card-title text-truncate">BDO EasyPay Cash Tuition Program</h5>
 						<div class="card-text">
 							EASYPAY-CASH-TUITION-PROMO-MECHANICS-v121620

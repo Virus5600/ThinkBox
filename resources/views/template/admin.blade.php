@@ -88,10 +88,10 @@
 		</div>
 
 		<div class="d-flex flex-column min-vh-100 js-only">
-			{{-- Navigation Bar --}}
-			<nav class="navbar navbar-expand-lg navbar-light shadow py-0 px-3" style="z-index: 1000;">
+			{{-- Navigation Bar (TOP) --}}
+			<nav class="navbar navbar-expand-lg navbar-light dark-shadow py-0 px-3" style="z-index: 1000;">
 				{{-- Branding --}}
-				<a class="navbar-brand m-0 py-0" href="{{route('home')}}" style="height: auto;">
+				<a class="navbar-brand m-0 py-0" href="{{route('dashboard')}}" style="height: auto;">
 					<img src="/images/UI/Branding.png" style="max-height: 3.25rem;" class="m-0 p-0" alt="Myriad Files" />
 				</a>
 
@@ -102,57 +102,7 @@
 
 				{{-- Navbar contents --}}
 				<div class="collapse navbar-collapse" id="navbar">
-					<ul class="navbar-nav mr-auto">
-						<li class="nav-item">
-							@if (\Request::is('/'))
-							<span class="nav-link active custom-link">Home</span>
-							@else
-							<a class="nav-link custom-link" href="{{route('home')}}">Home</a>
-							@endif
-						</li>
-
-						<li class="nav-item">
-							@if(\Request::is('researches'))
-							<span class="nav-link active custom-link">Research</span>
-							@elseif(\Request::is('researches/*'))
-							<a class="nav-link active custom-link" href="{{route('research')}}">Research</a>
-							@else
-							<a class="nav-link custom-link" href="{{route('research')}}">Research</a>
-							@endif
-						</li>
-
-						<li class="nav-item">
-							@if(\Request::is('innovations'))
-							<span class="nav-link active custom-link">Innovations</span>
-							@elseif(\Request::is('innovations/*'))
-							<a class="nav-link active custom-link" href="{{route('innovations')}}">Innovations</a>
-							@else
-							<a class="nav-link custom-link" href="{{route('innovations')}}">Innovations</a>
-							@endif
-						</li>
-
-						<li class="nav-item">
-							@if(\Request::is('faculty'))
-							<span class="nav-link active custom-link">Department</span>
-							@elseif(\Request::is('faculty/*'))
-							<a class="nav-link active custom-link" href="{{route('faculty.index')}}">Department</a>
-							@else
-							<a class="nav-link custom-link" href="{{route('faculty.index')}}">Department</a>
-							@endif
-						</li>
-
-						<li class="nav-item">
-							@if(\Request::is('announcements'))
-							<span class="nav-link active custom-link">Announcements</span>
-							@elseif(\Request::is('announcements/*'))
-							<a class="nav-link active custom-link" href="{{route('announcements.index')}}">Announcements</a>
-							@else
-							<a class="nav-link custom-link" href="{{route('announcements.index')}}">Announcements</a>
-							@endif
-						</li>
-					</ul>
-					
-					<div>
+					<div class="ml-auto">
 						<img src="/images/TEMPORARY/home/user1.jpg" class="circular-border" width='30' height='30' draggable='false' alt="User"/>
 						<label>
 							<div class="dropdown">
@@ -161,12 +111,6 @@
 								</a>
 								
 								<div class="dropdown-menu dropdown-menu-right">
-									<a class="dropdown-item" href="{{ route('profile.index') }}">My Profile</a>
-									<a class="dropdown-item" href="{{ route('profile.edit', ['1']) }}">Edit Profile</a>
-									<a class="dropdown-item" href="{{ route('profile.materials.index') }}">Topics & Materials</a>
-									<a class="dropdown-item" href="{{ route('profile.research.index') }}">Research</a>
-									<a class="dropdown-item" href="{{ route('profile.innovations.index') }}">Innovations</a>
-									<div class="dropdown-divider"></div>
 									<a class="dropdown-item" href="">Sign out</a>
 								</div>
 							</div>
@@ -175,40 +119,41 @@
 				</div>
 			</nav>
 
-			{{-- Page Contents --}}
-			<div class="flex-fill" style="max-width: 100vw!important;">
-				@yield('body')
-			</div>
+			<div class="d-flex flex-d-row flex-grow-1">
+				{{-- Navigation Bar (SIDE) --}}
+				<div class="sidebar dark-shadow custom-scroll d-flex flex-d-col flex-fill py-3 px-0">
+					@if (\Request::is('admin/dashboard'))
+					<span class="bg-primary text-white"><i class="fas fa-tachometer-alt mr-2"></i>Dashboard</span>
+					@else
+					<a class="text-decoration-none text-dark" href="{{ route('dashboard') }}"><i class="fas fa-tachometer-alt mr-2"></i>Dashboard</a>
+					@endif
 
-			{{-- Footer --}}
-			<div class="row justify-content-center p-3 footer mx-0" style="background-color: #444; max-width: 100vw;">
-				<div class="col-12 col-lg-2 order-1 order-lg-0 text-center text-lg-left my-3">
-					<a href="{{ route('home') }}">Home</a><br>
-					<a href="{{ route('research') }}">Research</a><br>
-					<a href="{{ route('innovations') }}">Innovations</a><br>
-					<a href="{{ route('announcements.index') }}">Announcements</a>
+					@if (\Request::is('admin/faculty-member'))
+					<span class="bg-primary text-white"><i class="fas fa-tachometer-alt mr-2"></i>Faculty Members</span>
+					@else
+					<a class="text-decoration-none text-dark" href="{{ route('dashboard') }}"><i class="fas fa-users mr-2"></i>Faculty Members</a>
+					@endif
+
+					@if (\Request::is('admin/announcements'))
+					<span class="bg-primary text-white"><i class="fas fa-tachometer-alt mr-2"></i>Announcements</span>
+					@else
+					<a class="text-decoration-none text-dark" href="{{ route('dashboard') }}"><i class="fas fa-bullhorn mr-2"></i>Announcements</a>
+					@endif
+
+					@if (\Request::is('admin/skills'))
+					<span class="bg-primary text-white"><i class="fas fa-tachometer-alt mr-2"></i>Skills</span>
+					@else
+					<a class="text-decoration-none text-dark" href="{{ route('dashboard') }}"><i class="fas fa-pencil-ruler mr-2"></i>Skills</a>
+					@endif
+
+					<a class="text-decoration-none text-dark" href="#"><i class="fas fa-sign-out-alt mr-2"></i>Sign Out</a>
 				</div>
 
-				<div class="col-12 col-lg-2 order-2 order-lg-1 text-center text-lg-left my-3">
-					<span class="font-weight-bold">Departments</span><br>
-					<a href="{{ route('faculty.index') }}?dept=CompSci">Computer Science</a><br>
-				</div>
-
-				<div class="col-12 col-lg-2 order-3 order-lg-2 text-center text-lg-left my-3">
-					<a href="">About Us</a><br>
-					<a href="">Our Partners</a><br>
-					<a href="">Contact Us</a><br>
-				</div>
-					
-				<div class="col-12 col-lg-2 order-4 order-lg-3 text-center text-lg-left my-3">
-					<a href="">Privacy Policy</a><br>
-					<a href="">Terms of Use</a><br>
-				</div>
-
-				{{-- Branding --}}
-				<div class="col-12 col-lg-4 order-0 order-lg-4 text-center my-3">
-					<img src="/images/UI/Branding.png" style="max-height: 100%; max-width: 100%" height="auto" width="350" class="pb-0 mb-0" alt="Myriad Files"/><br>
-					<small class="pt-0 mt-0 display-block">&copy; Myriad Files 2021-2023</small>
+				{{-- Page Contents --}}
+				<div class="content flex-fill">
+					<div class="container-fluid my-4">
+						@yield('body')
+					</div>
 				</div>
 			</div>
 		</div>

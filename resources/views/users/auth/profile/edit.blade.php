@@ -5,13 +5,13 @@
 @section('body')
 <div class="container-fluid my-5 px-5">
 	<div class="row">
-		<div class="col-12 col-lg-3 px-0">
+		<div class="col-12 col-lg-3 px-0 mb-3">
 			<div class="border rounded" style="border-width: 1.5px!important;">
 				@include('users.auth.profile.sidenav')
 			</div>
 		</div>
 
-		<div class="col-12 col-lg-9">
+		<div class="col-12 col-lg-9 my-3">
 			<form action="" method="POST" enctype="multipart/form-data">
 				<div class="row">
 					{{-- PROFILE IMAGE --}}
@@ -73,7 +73,7 @@
 				{{-- AFFILIATIONS & OTHER PROFILE --}}
 				<div class="row">
 					{{-- AFFILIATIONS --}}
-					<div class="col-12 col-lg-6">
+					<div class="col-12 col-lg-6 mt-5">
 						<h3>Affiliations</h3>
 						
 						<div class="row mx-2">
@@ -88,7 +88,7 @@
 							<div class="row m-2" id="affiliations{{$i}}">
 								<div class="col-1"><span class="cursor-pointer remove-row"><i class="fas fa-minus-circle"></i></span></div>
 								<div class="col-4"><input class="form-control" name="position{{$i}}" value="{{$positions[$i-1]}}"/></div>
-								<div class="col-7"><input class="form-control" name="organization{{$i}}" value="{{$organizations[$i-1]}}"/></div>
+								<div class="col-6 col-md-7"><input class="form-control" name="organization{{$i}}" value="{{$organizations[$i-1]}}"/></div>
 							</div>
 							@endfor
 							@else
@@ -109,7 +109,7 @@
 					</div>
 
 					{{-- OTHER PROFILE --}}
-					<div class="col-12 col-lg-6">
+					<div class="col-12 col-lg-6 mt-5">
 						<h3>Other Profile</h3>
 						
 						<div class="row mx-2">
@@ -132,7 +132,7 @@
 										<option value="twitter" {{$website[$i-1] == 'twitter' ? 'selected' : ''}}>Twitter</option>
 									</select>
 								</div>
-								<div class="col-7"><input class="form-control" name="url{{$i}}" value="{{$url[$i-1]}}"/></div>
+								<div class="col-6 col-md-7"><input class="form-control" name="url{{$i}}" value="{{$url[$i-1]}}"/></div>
 							</div>
 							@endfor
 							@else
@@ -153,7 +153,7 @@
 					</div>
 				</div>
 
-				<div class="row">
+				<div class="row mt-5">
 					<div class="col">
 						<button type="button" class="btn btn-primary" onclick='$(this).html(`<div class="spinner-border spinner-border-sm text-light" role="status"><span class="sr-only"></span></div> Updating...`)'>Submit</button>
 						<button type="button" class="btn border-primary text-primary" onclick="confirmLeave('{{ route('profile.index', ['1']) }}')">Cancel</button>

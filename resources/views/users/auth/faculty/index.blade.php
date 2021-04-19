@@ -15,7 +15,7 @@
 
 <div class="container-fluid my-5 mb-7">
 	<div class="row">
-		<div class="col-12 col-lg-2">
+		<div class="col-12 col-lg-3">
 			<div class="input-group">
 				<input type="text" class="form-control" name='search' placeholder="Search..." />
 				<div class="input-group-append">
@@ -45,27 +45,31 @@
 		</div>
 
 		{{-- DEFINES THE COLUMN --}}
-		<div class="col col-lg-10 my-4 mb-md-4">
+		<div class="col col-lg-9 my-4 mb-md-4">
 			{{-- DEFINES THE ROW INSIDE THE COLUMN --}}
 			<div class="row">
 				{{-- DEFINES A CELL --}}
 				<div class="col-12 col-lg-6 my-3">
 					<div class="container-fluid dark-shadow invisiborder rounded overflow-hidden h-100 w-100">
 						<div class="row h-100">
-							<div class="col-12 col-md-4 pb-faculty" style="background: #fff url('/images/TEMPORARY/home/user1.jpg') no-repeat center; background-size: cover; min-height: calc(100%/3);">
+							<div class="col-12 col-md-4 pb-faculty-holder p-0">
+								<div class="pb-faculty text-center mx-auto h-100" style="background: #fff url('/images/TEMPORARY/home/user1.jpg') no-repeat center; background-size: cover;">
+								</div>
 							</div>
 
-							<div class="col-12 col-md-8">
-								<h3 class="font-weight-bold m-0">Dr. Angelique Lacasandile</h3>
-								<p class="font-weight-bold m-0">Department Chair, National University</p>
-								<p class="m-0"><em>Computer Science</em></p>
+							<div class="col-12 col-md-8 py-3">
+								<div class="text-center text-md-left">
+									<h3 class="font-weight-bold m-0">Dr. Angelique Lacasandile</h3>
+									<p class="font-weight-bold m-0">Department Chair, National University</p>
+									<p class="m-0"><em>Computer Science</em></p>
+								</div>
 
 								<p class="text-truncate-2 my-2">
 									Dr. Angelique D. Lacasandile is the Department Chair of the Computer Science Department at National University, Manila. She is also the Academe and Industry Linkage Coordinator, and a recipient of CHED Scholarship for Graduate Studies that enjoys full-privileges to earn doctorate degree. She graduated at Technological Institute of the Philippines – Manila with a degree of Doctor in Information Technology (DIT), her current research papers and system developed focused on the projects about the government.
 								</p>
 
-								<p class="m-3">
-									<a class="float-right text-decoration-none read-more mb-3" href="{{ route('faculty.show', [1]) }}">View Profile <i class="fas fa-chevron-right"></i></a>
+								<p class="m-3 mt-4">
+									<a class="float-right text-decoration-none read-more bottom-left" href="{{ route('faculty.show', [1]) }}">View Profile <i class="fas fa-chevron-right"></i></a>
 								</p>
 							</div>
 						</div>
@@ -76,20 +80,24 @@
 				<div class="col-12 col-lg-6 my-3">
 					<div class="container-fluid dark-shadow invisiborder rounded overflow-hidden h-100 w-100">
 						<div class="row h-100">
-							<div class="col-12 col-md-4 pb-faculty" style="background: #fff url('/images/TEMPORARY/home/user4.jpg') no-repeat center; background-size: cover;">
+							<div class="col-12 col-md-4 pb-faculty-holder p-0">
+								<div class="pb-faculty text-center mx-auto h-100" style="background: #fff url('/images/TEMPORARY/home/user4.jpg') no-repeat center; background-size: cover;">
+								</div>
 							</div>
 
-							<div class="col-12 col-md-8">
-								<h3 class="font-weight-bold m-0">Dr. Arlene O. Trillanes</h3>
-								<p class="font-weight-bold m-0">Dean, National University</p>
-								<p class="m-0"><em>Computer Science</em></p>
+							<div class="col-12 col-md-8 py-3">
+								<div class="text-center text-md-left">
+									<h3 class="font-weight-bold m-0">Dr. Arlene O. Trillanes</h3>
+									<p class="font-weight-bold m-0">Dean, National University</p>
+									<p class="m-0"><em>Computer Science</em></p>
+								</div>
 
 								<p class="text-truncate-2 my-2">
 									Dr. Arlese Trillanes is the Dean of the College of Computing and Information Technologies at National University, Manila.
 								</p>
 
-								<p class="m-3">
-									<a class="float-right text-decoration-none read-more mb-3" href="{{ route('faculty.show', [4]) }}">View Profile <i class="fas fa-chevron-right"></i></a>
+								<p class="m-3 mt-4">
+									<a class="float-right text-decoration-none read-more bottom-left" href="{{ route('faculty.show', [4]) }}">View Profile <i class="fas fa-chevron-right"></i></a>
 								</p>
 							</div>
 						</div>
@@ -103,20 +111,24 @@
 				<div class="col-12 col-lg-6 my-3">
 					<div class="container-fluid dark-shadow invisiborder rounded overflow-hidden h-100 w-100">
 						<div class="row h-100">
-							<div class="col-12 col-md-4 pb-faculty" style="background: #fff url('/images/TEMPORARY/home/user2.jpg') no-repeat center; background-size: cover; min-height: calc(100%/3);">
+							<div class="col-12 col-md-4 pb-faculty-holder p-0">
+								<div class="pb-faculty text-center mx-auto h-100" style="background: #fff url('/images/TEMPORARY/home/user2.jpg') no-repeat center; background-size: cover;">
+								</div>
 							</div>
 
-							<div class="col-12 col-md-8">
-								<h3 class="font-weight-bold m-0">Joseph Marvin Imperial</h3>
-								<p class="font-weight-bold m-0">Professor, National University</p>
-								<p class="m-0"><em>Computer Science</em></p>
+							<div class="col-12 col-md-8 py-3">
+								<div class="text-center text-md-left">
+									<h3 class="font-weight-bold m-0">Joseph Marvin Imperial</h3>
+									<p class="font-weight-bold m-0">Professor, National University</p>
+									<p class="m-0"><em>Computer Science</em></p>
+								</div>
 
 								<p class="text-truncate-2 my-2">
 									I am a graduate student at De La Salle University under the MS Computer Science program. I am also a full-time faculty member of the Computer Science Department at National University-Manila. My research works are focused on applying Natural Language Processing (NLP) on Philippine languages using Machine Learning and Deep Learning methods.
 								</p>
 
-								<p class="m-3">
-									<a class="float-right text-decoration-none read-more mb-3" href="{{ route('faculty.show', [2]) }}">View Profile <i class="fas fa-chevron-right"></i></a>
+								<p class="m-3 mt-4">
+									<a class="float-right text-decoration-none read-more bottom-left" href="{{ route('faculty.show', [2]) }}">View Profile <i class="fas fa-chevron-right"></i></a>
 								</p>
 							</div>
 						</div>
@@ -127,20 +139,24 @@
 				<div class="col-12 col-lg-6 my-3">
 					<div class="container-fluid dark-shadow invisiborder rounded overflow-hidden h-100 w-100">
 						<div class="row h-100">
-							<div class="col-12 col-md-4 pb-faculty" style="background: #fff url('/images/TEMPORARY/home/user3.jpg') no-repeat center; background-size: cover;">
+							<div class="col-12 col-md-4 pb-faculty-holder p-0">
+								<div class="pb-faculty text-center mx-auto h-100" style="background: #fff url('/images/TEMPORARY/home/user3.jpg') no-repeat center; background-size: cover;">
+								</div>
 							</div>
 
-							<div class="col-12 col-md-8">
-								<h3 class="font-weight-bold m-0">Manolito Octaviano Jr.</h3>
-								<p class="font-weight-bold m-0">Professor, National University</p>
-								<p class="m-0"><em>Computer Science</em></p>
+							<div class="col-12 col-md-8 py-3">
+								<div class="text-center text-md-left">
+									<h3 class="font-weight-bold m-0">Manolito Octaviano Jr.</h3>
+									<p class="font-weight-bold m-0">Professor, National University</p>
+									<p class="m-0"><em>Computer Science</em></p>
+								</div>
 
 								<p class="text-truncate-2 my-2">
 									Manolito Octaviano is a Professor at the Computer Science Department at National University, Manila. His research works are more focused on Natural Language Processing and Computational Linguistics.
 								</p>
 
-								<p class="m-3">
-									<a class="float-right text-decoration-none read-more mb-3" href="{{ route('faculty.show', [3]) }}">View Profile <i class="fas fa-chevron-right"></i></a>
+								<p class="m-3 mt-4">
+									<a class="float-right text-decoration-none read-more bottom-left" href="{{ route('faculty.show', [3]) }}">View Profile <i class="fas fa-chevron-right"></i></a>
 								</p>
 							</div>
 						</div>

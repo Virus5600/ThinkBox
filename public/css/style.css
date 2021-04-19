@@ -1,14 +1,256 @@
+/* BREAKPOINT RELATED CSS */
+@media (min-width: 388px) {
+	.banner-text-adjust {
+		position: relative;
+		top: 25%!important;
+	}
+}
+
+@media (min-width: 1368px) {
+	.banner-text-adjust {
+		position: relative;
+		top: 37.5%!important;
+	}
+}
+
+@media (max-width: 767px) and (min-width: 576px) {
+	.pb-faculty-holder {
+		width: 100%;
+	}
+
+	.pb-faculty {
+		padding-bottom: 37.5vw;
+		min-height: calc(100% * 2);
+		max-width: calc(50%);
+	}
+}
+
+@media (max-width: 575px) {
+	.pb-faculty {
+		padding-bottom: 90vw;
+	}
+}
+
+/* SM breakpoint */
+@media (min-width: 576px) {
+	.d-sm-none {
+		display: none;
+	}
+
+	.d-sm-block {
+		display: block;
+	}
+
+	.text-sm-left {
+		text-align: left!important;
+	}
+
+	.text-sm-center {
+		text-align: center!important;
+	}
+
+	.text-sm-right {
+		text-align: right!important;
+	}
+
+	.text-sm-justify {
+		text-align: justify!important;
+	}
+
+	.h1-sm {
+		font-size: 2.5rem;
+	}
+
+	.h2-sm {
+		font-size: 2rem;
+	}
+
+	.h3-sm {
+		font-size: 1.75rem;
+	}
+
+	.h4-sm {
+		font-size: 1.5rem;
+	}
+
+	.h5-sm {
+		font-size: 1.25rem;
+	}
+
+	.h6-sm {
+		font-size: 1rem;
+	}
+}
+
+/* MD breakpoint*/
+@media (min-width: 768px) {
+	.d-md-none {
+		display: none;
+	}
+
+	.d-md-block {
+		display: block;
+	}
+
+	.mt-md-4, .my-md-4 {
+		margin-top: 1.5rem!important;
+	}
+
+	.mb-md-4, .my-md-4 {
+		margin-bottom: 1.5rem!important;
+	}
+
+	.text-md-left {
+		text-align: left!important;
+	}
+
+	.text-md-center {
+		text-align: center!important;
+	}
+
+	.text-md-right {
+		text-align: right!important;
+	}
+
+	.text-md-justify {
+		text-align: justify!important;
+	}
+
+	.h1-md {
+		font-size: 2.5rem;
+	}
+
+	.h2-md {
+		font-size: 2rem;
+	}
+
+	.h3-md {
+		font-size: 1.75rem;
+	}
+
+	.h4-md {
+		font-size: 1.5rem;
+	}
+
+	.h5-md {
+		font-size: 1.25rem;
+	}
+
+	.h6-md {
+		font-size: 1rem;
+	}
+}
+
+/* LG breakpoint */
+@media (min-width: 992px) {
+	.d-lg-none {
+		display: none;
+	}
+
+	.d-lg-block {
+		display: block;
+	}
+
+	.text-lg-left {
+		text-align: left!important;
+	}
+
+	.text-lg-center {
+		text-align: center!important;
+	}
+
+	.text-lg-right {
+		text-align: right!important;
+	}
+
+	.text-lg-justify {
+		text-align: justify!important;
+	}
+
+	.h1-lg {
+		font-size: 2.5rem;
+	}
+
+	.h2-lg {
+		font-size: 2rem;
+	}
+
+	.h3-lg {
+		font-size: 1.75rem;
+	}
+
+	.h4-lg {
+		font-size: 1.5rem;
+	}
+
+	.h5-lg {
+		font-size: 1.25rem;
+	}
+
+	.h6-lg {
+		font-size: 1rem;
+	}
+
+	.dynamic-size-lg-h6 {
+		font-size: 1.25vw!important;
+	}
+}
+/* END BREAKPOINT RELATED CSS */
+
 body {
 	font-family: 'Segoe UI';
+	font-size: 14px;
 	background-color: #fff;
 	overflow-x: hidden;
+}
+
+/* CUSTOM SCROLLER */
+/* Width */
+.custom-scrollbar::-webkit-scrollbar {
+	width: 10px;
+	height: 10px;
+}
+
+/* Handle */
+.custom-scrollbar::-webkit-scrollbar-thumb {
+	background: rgb(125, 125, 125);
+	opacity: 0.75;
+	border-radius: 10px;
+}
+
+/* Handle on hover */
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+	background: rgb(100, 100, 100);
+	opacity: 0.5;
+}
+/* CUSTOM SCROLLER END */
+
+.sidebar {
+	max-width: 15rem;
+	width: 100%;
+	overflow-y: auto;
+}
+
+.sidebar~ .content {
+	max-width: 100%;
+}
+
+.sidebar > span, .sidebar > a {
+	padding-top: 0.5rem;
+	padding-bottom: 0.5rem;
+	padding-left: 1rem;
+	padding-right: 1rem;
+}
+
+.sidebar > a:hover {
+	background-color: #EAEAEA;
 }
 
 .custom-link {
 	margin-bottom: 0;
 	margin-top: 0;
-	font-size: 1.25rem;
-	padding: 0.75rem!important;
+	font-size: 14px;
+	padding: 1rem 0.75rem !important;
 }
 
 .custom-link:not(.active):hover {
@@ -59,6 +301,11 @@ body {
 	-moz-backdrop-filter: blur(5px);
 	-o-backdrop-filter: blur(5px);
 	backdrop-filter: blur(5px);
+}
+
+.img-announcement {
+	max-width: 100%;
+	max-height: 25rem;
 }
 
 .announcement-img {
@@ -253,8 +500,8 @@ body {
 }
 
 .custom-fa-2x {
-	min-width: 32px!important;
-	min-height: 32px!important;
+	min-width: 1em!important;
+	min-height: 1em!important;
 }
 
 .badge-inverted-secondary {
@@ -272,6 +519,14 @@ body {
 
 .bg-custom-light {
 	background-color: #F6F6F6;
+}
+
+.other-announcement {
+	background-color: rgba(0, 0, 0, 0.5)!important;
+}
+
+.other-announcement.custom-hover:hover {
+	background-color: rgba(0, 0, 0, 0.75)!important;
 }
 
 .custom-hover:hover {
@@ -298,110 +553,152 @@ body {
 	cursor: pointer;
 }
 
+.flex-d-col {
+	flex-direction: column;
+}
+
+.flex-d-inv-col {
+	flex-direction: column-reverse;
+}
+
+.flex-d-row {
+	flex-direction: row;
+}
+
+.flex-d-inv-row {
+	flex-direction: row-reverse;
+}
+
 textarea.not-resizable {
 	resize: none;
 }
 
-/* BREAKPOINT RELATED CSS */
-
-@media (min-width: 388px) {
-	.banner-text-adjust {
-		position: relative;
-		top: 25%!important;
-	}
+.pb-faculty {
+	min-height: calc(100%/3);
 }
 
-@media (min-width: 1368px) {
-	.banner-text-adjust {
-		position: relative;
-		top: 37.5%!important;
-	}
+.bottom-left {
+	position: absolute;
+	right: 1rem;
+	bottom: 0.75rem;
 }
 
-@media (max-width: 575px) {
-	.pb-faculty {
-		padding-bottom: 90vw;
-	}
+.row-spacing-1 > .row {
+	margin-top: .25rem;
+	margin-bottom: .25rem;
 }
 
-/* MD breakpoint*/
-@media (min-width: 768px) {
-	.mt-md-4, .my-md-4 {
-		margin-top: 1.5rem!important;
-	}
-
-	.mb-md-4, .my-md-4 {
-		margin-bottom: 1.5rem!important;
-	}
-
-	.text-md-left {
-		text-align: left!important;
-	}
-
-	.text-md-center {
-		text-align: center!important;
-	}
-
-	.text-md-right {
-		text-align: right!important;
-	}
-
-	.text-md-justify {
-		text-align: justify!important;
-	}
-
-	.h1-md {
-		font-size: 2.5rem;
-	}
-
-	.h2-md {
-		font-size: 2rem;
-	}
-
-	.h3-md {
-		font-size: 1.75rem;
-	}
+.row-spacing-2 > .row {
+	margin-top: .5rem;
+	margin-bottom: .5rem;
 }
 
-@media (max-width: 767px and min-width: 576px) {
-	.pb-faculty {
-		padding-bottom: 37.5vw;
-	}
+.row-spacing-3 > .row {
+	margin-top: 1rem;
+	margin-bottom: 1rem;
 }
 
-/* LG breakpoint */
-@media (min-width: 992px) {
-	.text-lg-left {
-		text-align: left!important;
-	}
-
-	.text-lg-center {
-		text-align: center!important;
-	}
-
-	.text-lg-right {
-		text-align: right!important;
-	}
-
-	.text-lg-justify {
-		text-align: justify!important;
-	}
-
-	.h1-lg {
-		font-size: 2.5rem;
-	}
-
-	.h2-lg {
-		font-size: 2rem;
-	}
-
-	.h3-lg {
-		font-size: 1.75rem;
-	}
-
-	.dynamic-size-lg-h6 {
-		font-size: 1.25vw!important;
-	}
+.row-spacing-4 > .row:first-child {
+	margin-top: 1rem;
+	margin-bottom: 1.5rem;
 }
 
-/* END BREAKPOINT RELATED CSS */
+.row-spacing-4 > .row:last-child {
+	margin-top: 1.5rem;
+	margin-bottom: 1rem;
+}
+
+.row-spacing-4 > .row {
+	margin-top: 1.5rem;
+	margin-bottom: 1.5rem;
+}
+
+.row-spacing-5 > .row:first-child {
+	margin-top: 1rem;
+	margin-bottom: 3rem;
+}
+
+.row-spacing-5 > .row:last-child {
+	margin-top: 3rem;
+	margin-bottom: 1rem;
+}
+
+.row-spacing-5 > .row {
+	margin-top: 3rem;
+	margin-bottom: 3rem;
+}
+
+/* FOR FLEX DIRECTION COL */
+.flex-d-spacing-1.flex-d-col > div, .flex-d-spacing-1.flex-d-inv-col > div {
+	margin-top: .25rem;
+	margin-bottom: .25rem;
+}
+.flex-d-spacing-2.flex-d-col > div, .flex-d-spacing-2.flex-d-inv-col > div {
+	margin-top: .5rem;
+	margin-bottom: .5rem;
+}
+.flex-d-spacing-3.flex-d-col > div, .flex-d-spacing-3.flex-d-inv-col > div {
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+}
+.flex-d-spacing-4.flex-d-col > div, .flex-d-spacing-4.flex-d-inv-col > div:first-child {
+	margin-top: 1rem;
+	margin-bottom: 1.5rem;
+}
+.flex-d-spacing-4.flex-d-col > div, .flex-d-spacing-4.flex-d-inv-col > div:last-child {
+	margin-top: 1.5rem;
+	margin-bottom: 1rem;
+}
+.flex-d-spacing-4.flex-d-col > div, .flex-d-spacing-4.flex-d-inv-col > div {
+	margin-top: 1.5rem;
+	margin-bottom: 1.5rem;
+}
+.flex-d-spacing-5.flex-d-col > div, .flex-d-spacing-5.flex-d-inv-col > div:first-child {
+	margin-top: 1rem;
+	margin-bottom: 3rem;
+}
+.flex-d-spacing-5.flex-d-col > div, .flex-d-spacing-5.flex-d-inv-col > div:last-child {
+	margin-top: 3rem;
+	margin-bottom: 1rem;
+}
+.flex-d-spacing-5.flex-d-col > div, .flex-d-spacing-5.flex-d-inv-col > div {
+	margin-top: 3rem;
+	margin-bottom: 3rem;
+}
+/* FOR FLEX DIRECTION ROW */
+.flex-d-spacing-1.flex-d-row > div, .flex-d-spacing-1.flex-d-inv-row > div {
+	margin-left: .25rem;
+	margin-right: .25rem;
+}
+.flex-d-spacing-2.flex-d-row > div, .flex-d-spacing-2.flex-d-inv-row > div {
+	margin-left: .5rem;
+	margin-right: .5rem;
+}
+.flex-d-spacing-3.flex-d-row > div, .flex-d-spacing-3.flex-d-inv-row > div {
+	margin-left: 1rem;
+	margin-right: 1rem;
+}
+.flex-d-spacing-4.flex-d-row > div, .flex-d-spacing-4.flex-d-inv-row > div:first-child {
+	margin-left: 1rem;
+	margin-right: 1.5rem;
+}
+.flex-d-spacing-4.flex-d-row > div, .flex-d-spacing-4.flex-d-inv-row > div:last-child {
+	margin-left: 1.5rem;
+	margin-right: 1rem;
+}
+.flex-d-spacing-4.flex-d-row > div, .flex-d-spacing-4.flex-d-inv-row > div {
+	margin-left: 1.5rem;
+	margin-right: 1.5rem;
+}
+.flex-d-spacing-5.flex-d-row > div, .flex-d-spacing-5.flex-d-inv-row > div:first-child {
+	margin-left: 1rem;
+	margin-right: 3rem;
+}
+.flex-d-spacing-5.flex-d-row > div, .flex-d-spacing-5.flex-d-inv-row > div:last-child {
+	margin-left: 3rem;
+	margin-right: 1rem;
+}
+.flex-d-spacing-5.flex-d-row > div, .flex-d-spacing-5.flex-d-inv-row > div {
+	margin-left: 3rem;
+	margin-right: 3rem;
+}
