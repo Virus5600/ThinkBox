@@ -8,6 +8,12 @@ use App\Http\Requests;
 
 class FacultyController extends Controller
 {
+	// TEMPORARY SUBSTITUTE... TO BE REMOVE ONCE BACKEND IS ATTACHED
+	private function getStaff() {
+		return PageController::getStaff();
+	}
+
+
 	protected function index() {
 		
 		$dept = 'all';
@@ -16,7 +22,8 @@ class FacultyController extends Controller
 		}
 		
 		return view('users.auth.faculty.index', [
-			'dept' => $dept
+			'dept' => $dept,
+			'staff' => $this->getStaff()
 		]);
 	}
 
@@ -38,6 +45,7 @@ class FacultyController extends Controller
 
 		return view('users.auth.faculty.show', [
 			'id' => $id,
+			'staff' => $this->getStaff()[$id-1],
 			'skills' => $skills
 		]);
 	}

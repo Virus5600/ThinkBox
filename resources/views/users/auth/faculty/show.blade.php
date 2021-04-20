@@ -12,13 +12,13 @@
 		<div class="col-12 col-md-8 order-1 order-md-0">
 			<div class="row">
 				<div class="col-12 col-md-4 text-center">
-					<img src='/images/TEMPORARY/home/user{{$id}}.jpg' class='img-fluid invisiborder circle-border w-75'/>
+					<img src='/images/TEMPORARY/home/{{$staff->avatar}}' class='img-fluid invisiborder circle-border w-75'/>
 				</div>
 
 				<div class="col-12 col-md-8">
-					<h1>Dr. Angelique Lacasandile</h1>
-					<h4>Department Chair, National University</h4>
-					<h4 class="font-weight-normal"><em>Computer Science</em></h4>
+					<h1>{{$staff->name}}</h1>
+					<h4>{{$staff->position}}</h4>
+					<h4 class="font-weight-normal"><em>{{$staff->department}}</em></h4>
 					<br>
 					<p class="text-muted">
 						<span class="mr-3"><i class="fas fa-phone-alt mr-2 fa-sm text-primary"></i>+639667125676</span>
@@ -33,9 +33,7 @@
 
 					<hr class="hr-thick my-2">
 
-					<p>
-						Dr. Angelique D. Lacasandile is the Department Chair of the Computer Science Departnemt at National University, Manila. She graduated at Technological Institute of the Philippines – Manila with a degree of Doctor in Information Technology (DIT), her current research papers and system developed focused on the projects about the government. Much of her time has been dedicated to improving the understanding of the wider concept of “E-Government”, her work is centered on assessing the impact of technologies on the practice, administration of governments and the relationship of this between the public servant and the wider society.
-					</p>
+					<p>{{$staff->description}}</p>
 				</div>
 
 				<div class="col-12">

@@ -393,81 +393,26 @@
 			<div class="row mt-5">
 				<div class="col-10 col-sm-12 col-md-10 offset-1 offset-sm-0 offset-md-1">
 					<div class="card-deck">
+						@foreach($staff as $s)
 						<div class="card dark-shadow">
-							<div class="card-header p-0" style="background: #fff url('/images/TEMPORARY/home/user4.jpg') no-repeat center; background-size: cover;">
+							<div class="card-header p-0" style="background: #fff url('/images/TEMPORARY/home/{{$s->avatar}}') no-repeat center; background-size: cover;">
 								<div class="p-0 m-0 blur-backdrop">
-									<img class="p-0 m-0 img-fluid faculty-img" src='/images/TEMPORARY/home/user4.jpg'>
+									<img class="p-0 m-0 img-fluid faculty-img" src='/images/TEMPORARY/home/{{$s->avatar}}'>
 								</div>
 							</div>
 							<div class="card-body">
 								<div class="card-title">
-									<h4 class="font-weight-bold">Arlene Trillanes</h4>
+									<h4 class="font-weight-bold">{{$s->name}}</h4>
 								</div>
 
-								<p class="card-text">Dean, College of Computing and Information Technology</p>
+								<p class="card-text">{{$s->position}}</p>
 							</div>
 							
 							<div class="card-footer">
-								<a class="float-right text-decoration-none read-more" href="{{ route('faculty.show', [4]) }}">View Profile <i class="fas fa-chevron-right"></i></a>
+								<a class="float-right text-decoration-none read-more" href="{{ route('faculty.show', [$s->id]) }}">View Profile <i class="fas fa-chevron-right"></i></a>
 							</div>
 						</div>
-
-						<div class="card dark-shadow">
-							<div class="card-header p-0" style="background: #fff url('/images/TEMPORARY/home/user1.jpg') no-repeat center; background-size: cover;">
-								<div class="p-0 m-0 blur-backdrop">
-									<img class="p-0 m-0 img-fluid faculty-img" src='/images/TEMPORARY/home/user1.jpg'>
-								</div>
-							</div>
-							<div class="card-body">
-								<div class="card-title">
-									<h4 class="font-weight-bold">Angelique D. Lacasandile</h4>
-								</div>
-
-								<p class="card-text">Computer Science Department Chair</p>
-							</div>
-							
-							<div class="card-footer">
-								<a class="float-right text-decoration-none read-more" href="{{ route('faculty.show', [1]) }}">View Profile <i class="fas fa-chevron-right"></i></a>
-							</div>
-						</div>
-
-						<div class="card dark-shadow">
-							<div class="card-header p-0" style="background: #fff url('/images/TEMPORARY/home/user2.jpg') no-repeat center; background-size: cover;">
-								<div class="p-0 m-0 blur-backdrop">
-									<img class="p-0 m-0 img-fluid faculty-img" src='/images/TEMPORARY/home/user2.jpg'>
-								</div>
-							</div>
-							<div class="card-body">
-								<div class="card-title">
-									<h4 class="font-weight-bold">Joseph Marvin Imperial</h4>
-								</div>
-
-								<p class="card-text">College Professor</p>
-							</div>
-							
-							<div class="card-footer">
-								<a class="float-right text-decoration-none read-more" href="{{ route('faculty.show', [2]) }}">View Profile <i class="fas fa-chevron-right"></i></a>
-							</div>
-						</div>
-
-						<div class="card dark-shadow">
-							<div class="card-header p-0" style="background: #fff url('/images/TEMPORARY/home/user3.jpg') no-repeat center; background-size: cover;">
-								<div class="p-0 m-0 blur-backdrop">
-									<img class="p-0 m-0 img-fluid faculty-img" src='/images/TEMPORARY/home/user3.jpg'>
-								</div>
-							</div>
-							<div class="card-body">
-								<div class="card-title">
-									<h4 class="font-weight-bold">Manolito Octaviano Jr.</h4>
-								</div>
-
-								<p class="card-text">College Professor</p>
-							</div>
-							
-							<div class="card-footer">
-								<a class="float-right text-decoration-none read-more" href="{{ route('faculty.show', [3]) }}">View Profile <i class="fas fa-chevron-right"></i></a>
-							</div>
-						</div>
+						@endforeach
 					</div>
 				</div>
 			</div>

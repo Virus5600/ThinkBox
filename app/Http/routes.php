@@ -53,6 +53,7 @@ Route::resource('faculty', 'FacultyController');
 // ----- ADMIN SIDE
 Route::group(['prefix' => 'admin'], function() {
 	Route::get('/dashboard', 'PageController@dashboard')->name('dashboard');
+	Route::get('/faculty-member', 'PageController@facultyMember')->name('faculty-member');
 });
 // ----- ADMIN SIDE END
 // NEEDS AUTH END -----

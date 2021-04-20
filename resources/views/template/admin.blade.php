@@ -44,6 +44,9 @@
 		{{-- Sweet Alert 2 --}}
 		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
+		{{-- Chart.js 3.1.1 --}}
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.1.1/chart.min.js" integrity="sha512-BqNYFBAzGfZDnIWSAEGZSD/QFKeVxms2dIBPfw11gZubWwKUjEgmFUtUls8vZ6xTRZN/jaXGHD/ZaxD9+fDo0A==" crossorigin="anonymous"></script>
+
 		{{-- Custom CSS --}}
 		@yield('css')
 
@@ -89,14 +92,14 @@
 
 		<div class="d-flex flex-column min-vh-100 js-only">
 			{{-- Navigation Bar (TOP) --}}
-			<nav class="navbar navbar-expand-lg navbar-light dark-shadow py-0 px-3" style="z-index: 1000;">
+			<nav class="navbar navbar-expand-lg navbar-light bg-light position-sticky position-lg-relative dark-shadow py-0 px-3" style="z-index: 1000;">
 				{{-- Branding --}}
 				<a class="navbar-brand m-0 py-0" href="{{route('dashboard')}}" style="height: auto;">
 					<img src="/images/UI/Branding.png" style="max-height: 3.25rem;" class="m-0 p-0" alt="Myriad Files" />
 				</a>
 
-				{{-- Navbar toggler (on small screens) --}}
-				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+				{{-- Navbar Toggler --}}
+				<button class="sidebar-toggler" type="button" data-toggle="sidebar-collapse" data-target="#sidebar" aria-controls="sidebar" aria-label="Toggle Sidebar">
 					<span class="navbar-toggler-icon"></span>
 				</button>
 
@@ -119,9 +122,9 @@
 				</div>
 			</nav>
 
-			<div class="d-flex flex-d-row flex-grow-1">
+			<div class="d-flex flex-d-row flex-grow-1" style="overflow: hidden;">
 				{{-- Navigation Bar (SIDE) --}}
-				<div class="sidebar dark-shadow custom-scroll d-flex flex-d-col flex-fill py-3 px-0">
+				<div class="sidebar dark-shadow custom-scroll d-flex flex-d-col py-3 px-0 collapse-horizontal overflow-y-auto" id="sidebar">
 					@if (\Request::is('admin/dashboard'))
 					<span class="bg-primary text-white"><i class="fas fa-tachometer-alt mr-2"></i>Dashboard</span>
 					@else
@@ -131,7 +134,7 @@
 					@if (\Request::is('admin/faculty-member'))
 					<span class="bg-primary text-white"><i class="fas fa-tachometer-alt mr-2"></i>Faculty Members</span>
 					@else
-					<a class="text-decoration-none text-dark" href="{{ route('dashboard') }}"><i class="fas fa-users mr-2"></i>Faculty Members</a>
+					<a class="text-decoration-none text-dark" href="{{ route('faculty-member') }}"><i class="fas fa-users mr-2"></i>Faculty Members</a>
 					@endif
 
 					@if (\Request::is('admin/announcements'))
@@ -162,6 +165,6 @@
 		@yield('script')
 
 		{{-- Local Script --}}
-		<script type="text/javascript" src="/js/user.js"></script>
+		<script type="text/javascript" src="/js/admin.js"></script>
 	</body>
 </html>
