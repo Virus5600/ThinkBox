@@ -50,6 +50,9 @@
 		{{-- Fontawesome --}}
 		<script src="https://kit.fontawesome.com/d4492f0e4d.js" crossorigin="anonymous"></script>
 
+		{{-- Input Mask 5.0.5 --}}
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.5/jquery.inputmask.min.js"></script>
+
 		{{-- Read More --}}
 		<link rel="stylesheet" type="text/css" href="/css/readmore.css">
 		<script type="text/javascript" src="/js/readmore.js"></script>

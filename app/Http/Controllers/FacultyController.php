@@ -12,7 +12,9 @@ class FacultyController extends Controller
 	private function getStaff() {
 		return PageController::getStaff();
 	}
-
+	private function getSkillList() {
+		return PageController::getSkillList();
+	}
 
 	protected function index() {
 		
@@ -44,7 +46,6 @@ class FacultyController extends Controller
 		);
 
 		return view('users.auth.faculty.show', [
-			'id' => $id,
 			'staff' => $this->getStaff()[$id-1],
 			'skills' => $skills
 		]);

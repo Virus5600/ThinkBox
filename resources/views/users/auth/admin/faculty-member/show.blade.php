@@ -1,12 +1,12 @@
-@extends('template.user')
+@extends('template.admin')
 
-@section('title', 'Faculty')
+@section('title', 'Faculty Staff')
 
 @section('body')
-<h2 class="mx-5 my-4"><a href="{{route('faculty.index')}}" class="text-dark text-decoration-none font-weight-normal"><i class="fas fa-chevron-left fa-lg mr-3"></i>Department</a></h2>
+<h2 class="h5 h2-lg text-center text-lg-left mx-0 mx-lg-5 my-4"><a href="{{route('admin.faculty-member.index')}}" class="text-dark text-decoration-none font-weight-normal"><i class="fas fa-chevron-left fa-lg mr-2"></i>Manage Faculty Members</a></h2>
 <hr class="hr-thick" style="border-color: #707070;">
 
-<div class="container-fluid my-5 px-5">
+<div class="container-fluid my-5 px-5" style="white-space: normal;">
 	{{-- DETAILS --}}
 	<div class="row">
 		<div class="col-12 col-md-8 order-1 order-md-0">
@@ -24,6 +24,7 @@
 						<span class="mr-3"><i class="fas fa-phone-alt mr-2 fa-sm text-primary"></i>+639667125676</span>
 						<span class="ml-3"><i class="fas fa-envelope mr-2 fa-sm text-primary"></i>angelique.lacasandile@gmail.com</span>
 					</p>
+					<a class="btn text-primary border-primary" href="{{ route('admin.faculty-member.edit', [$staff->id]) }}">Edit Profile</a>
 				</div>
 			</div>
 

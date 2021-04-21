@@ -1,8 +1,16 @@
+/**
+ * Opens a new window for sharing the content.
+ * @param url String value. This value determines where it will be shared.
+ */
 function genericSocialShare(url){
 	window.open(url,'sharer','toolbar=0,status=0,width=648,height=395');
 	return true;
 }
 
+/**
+ * Warns the user that they're leaving without saving their changes.
+ * @param urlTo String value. The page they'r attempting to open.
+ */
 function confirmLeave(urlTo) {
 	Swal.fire({
 		icon: 'warning',
@@ -18,11 +26,14 @@ function confirmLeave(urlTo) {
 }
 
 $(document).ready(function() {
-	$('.items-inherit-height .custom-link').addClass('py-auto');
-	
-	$('.share-link').click(function() {
-		genericSocialShare($(this).attr('data-link'));
+	// For sharing link on a different window. This way, the session won't get interrupted.
+	$('.share-link').on('click', function(e) {
+		genericSocialShare($(e.currentTarget).attr('data-link'));
 	});
 	
+	// Activate tooltip
 	$('[data-toggle=tooltip]').tooltip();
+
+	// Activate masking
+	$("[data-mask]").inputmask('mask', {'mask' : "+63 999 999 9999",'removeMaskOnSubmit' : true,'autoUnmask':true});
 });

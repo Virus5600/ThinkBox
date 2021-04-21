@@ -53,6 +53,9 @@
 		{{-- Fontawesome --}}
 		<script src="https://kit.fontawesome.com/d4492f0e4d.js" crossorigin="anonymous"></script>
 
+		{{-- Input Mask 5.0.5 --}}
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.5/jquery.inputmask.min.js"></script>
+
 		{{-- Read More --}}
 		<link rel="stylesheet" type="text/css" href="/css/readmore.css">
 		<script type="text/javascript" src="/js/readmore.js"></script>
@@ -132,9 +135,11 @@
 					@endif
 
 					@if (\Request::is('admin/faculty-member'))
-					<span class="bg-primary text-white"><i class="fas fa-tachometer-alt mr-2"></i>Faculty Members</span>
+					<span class="bg-primary text-white"><i class="fas fa-users mr-2"></i>Faculty Members</span>
+					@elseif (\Request::is('admin/faculty-member/*'))
+					<a class="text-decoration-none bg-primary text-white" href="{{ route('admin.faculty-member.index') }}"><i class="fas fa-users mr-2"></i>Faculty Members</a>
 					@else
-					<a class="text-decoration-none text-dark" href="{{ route('faculty-member') }}"><i class="fas fa-users mr-2"></i>Faculty Members</a>
+					<a class="text-decoration-none text-dark" href="{{ route('admin.faculty-member.index') }}"><i class="fas fa-users mr-2"></i>Faculty Members</a>
 					@endif
 
 					@if (\Request::is('admin/announcements'))
