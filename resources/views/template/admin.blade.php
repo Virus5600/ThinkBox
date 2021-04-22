@@ -143,13 +143,15 @@
 					@endif
 
 					@if (\Request::is('admin/announcements'))
-					<span class="bg-primary text-white"><i class="fas fa-tachometer-alt mr-2"></i>Announcements</span>
+					<span class="bg-primary text-white"><i class="fas fa-bullhorn mr-2"></i>Announcements</span>
+					@elseif (\Request::is('admin/announcements/*'))
+					<a class="text-decoration-none bg-primary text-white" href="{{ route('admin.announcements.index') }}"><i class="fas fa-bullhorn mr-2"></i>Announcements</a>
 					@else
-					<a class="text-decoration-none text-dark" href="{{ route('dashboard') }}"><i class="fas fa-bullhorn mr-2"></i>Announcements</a>
+					<a class="text-decoration-none text-dark" href="{{ route('admin.announcements.index') }}"><i class="fas fa-bullhorn mr-2"></i>Announcements</a>
 					@endif
 
 					@if (\Request::is('admin/skills'))
-					<span class="bg-primary text-white"><i class="fas fa-tachometer-alt mr-2"></i>Skills</span>
+					<span class="bg-primary text-white"><i class="fas fa-pencil-ruler mr-2"></i>Skills</span>
 					@else
 					<a class="text-decoration-none text-dark" href="{{ route('dashboard') }}"><i class="fas fa-pencil-ruler mr-2"></i>Skills</a>
 					@endif

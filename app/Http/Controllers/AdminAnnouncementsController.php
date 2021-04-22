@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
-class AnnouncementsController extends Controller
+class AdminAnnouncementsController extends Controller
 {
 	// TEMPORARY SUBSTITUTE... TO BE REMOVE ONCE BACKEND IS ATTACHED
 	private function getAnnouncements() {
@@ -14,15 +14,12 @@ class AnnouncementsController extends Controller
 	}
 
 	protected function index() {
-		return view('users.announcements.index', [
+		return view("users.auth.admin.announcements.index", [
 			'announcements' => $this->getAnnouncements()
 		]);
 	}
 
-	protected function show($id) {
-		return view('users.announcements.show', [
-			'announcements' => $this->getAnnouncements()->get($id),
-			'otherAnnouncements' => $this->getAnnouncements()->random(3)->shuffle()
-		]);
+	protected function create() {
+		return view("users.auth.admin.announcements.create");
 	}
 }

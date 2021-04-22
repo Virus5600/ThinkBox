@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Announcements;
 use App\FacultyStaff;
 use App\Skills;
 
@@ -140,10 +141,47 @@ class PageController extends Controller
 		return $skill;
 	}
 
+	public static function getAnnouncements() {
+		$announcements = Announcements::hydrate([
+			(object)[
+				'id' => 1,
+				'image' => 'announcement1.jpg',
+				'title' => 'Payment Options',
+				'content' => '
+					<p>Good news, Nationalians!</p>
+					<p>Now you can pay your tuition, miscellaneous, and other school fees via our nominated payment channels and centers nationwide.</p>
+					<p>You may process your payment via credit card, online banking, 7-Eleven, Cebuana, SM Bills payment and many more.</p>',
+				'source' => 'https://www.national-u.edu.ph/payment-options/'
+			],
+			(object)[
+				'id' => 2,
+				'image' => 'announcement2.jpg',
+				'title' => 'BDO EasyPay Cash Tuition Program',
+				'content' => '<p>EASYPAY-CASH-TUITION-PROMO-MECHANICS-v121620</p>',
+				'source' => 'https://www.national-u.edu.ph/payment-options'
+			],
+			(object)[
+				'id' => 3,
+				'image' => 'announcement3.jpg',
+				'title' => 'NU Manila’s COE hosts REFOREST 2020: For Vivid Solutions',
+				'content' => '
+					<p>The National University Manila’s College of Engineering along with PICE and PSSE student chapters of NU successfully hosted the virtual REFOREST 2020: For Vivid Solutions, last January 29 with 1500 global crowd in attendance.</p>
+					<p>Research Forum and Exhibition on Environmental Sustainability and Technologies (REFOREST) aims to produce solutions that will address relevant environmental crises both for present and in the future.</p>
+					<p>Reputable plenary speakers, forum discussants and presenters were present to share their knowledge and experience in the significance of wise environmental decision-making in a well-functioning ecosystem.</p>
+					<p>To top off the event, National-U’s Electronics and Communications Engineering alumnus, Jayvee Boy H. Agustin, was awarded the Best Paper Presenter for the topic: “Development of Subsystems for a Web-based Survey Tool Using Automatic Speech and Optical Character Recognition with Geotagging Features.”</p>
+					<p>With the mission to combat emerging natural and environmental conflicts, REFOREST 2020 will indeed help us attain a sustainable environment.</p>',
+				'source' => 'https://www.national-u.edu.ph/payment-options/'
+			]
+		]);
+
+		return $announcements;
+	}
+
 	// USER SIDE (AUTH AND UNAUTH)
 	protected function index() {
 		return view('users.index', [
-			'staff' => $this->getStaff()
+			'staff' => $this->getStaff(),
+			'announcements' => $this->getAnnouncements()
 		]);
 	}
 

@@ -94,4 +94,10 @@ class FacultyStaffController extends Controller
 			'staff' => $this->getStaff()[$id-1]
 		]);
 	}
+
+	protected function manageContentsShowTopic($id, $topicId) {
+		return view('users.auth.admin.faculty-member.manage-content-topic', [
+			'id' => $id
+		]);
+	}
 }

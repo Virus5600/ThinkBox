@@ -155,7 +155,7 @@
 
 				<div class="row mt-5">
 					<div class="col">
-						<button type="button" class="btn btn-primary" onclick='$(this).html(`<div class="spinner-border spinner-border-sm text-light" role="status"><span class="sr-only"></span></div> Updating...`)'>Submit</button>
+						<button type="submit" class="btn btn-primary" data-action="update">Submit</button>
 						<button type="button" class="btn border-primary text-primary" onclick="confirmLeave('{{ route('profile.index', ['1']) }}')">Cancel</button>
 					</div>
 				</div>

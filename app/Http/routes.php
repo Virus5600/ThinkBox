@@ -52,10 +52,17 @@ Route::resource('faculty', 'FacultyController');
 
 // ----- ADMIN SIDE
 Route::group(['prefix' => 'admin'], function() {
+	// Dashboard
 	Route::get('/dashboard', 'PageController@dashboard')->name('dashboard');
+
+	// Faculty Member
 	Route::get('/faculty-member/{id}/skills', 'FacultyStaffController@skills')->name('admin.faculty-member.skills');
 	Route::get('/faculty-member/{id}/manage-content', 'FacultyStaffController@manageContents')->name('admin.faculty-member.manage-contents');
+	Route::get('/faculty-member/{id}/manage-content/{topicId}', 'FacultyStaffController@manageContentsShowTopic')->name('admin.faculty-member.manage-contents.topic');
 	Route::resource('faculty-member', 'FacultyStaffController');
+
+	// Announcements
+	Route::resource('announcements', 'AdminAnnouncementsController');
 });
 // ----- ADMIN SIDE END
 // NEEDS AUTH END -----
