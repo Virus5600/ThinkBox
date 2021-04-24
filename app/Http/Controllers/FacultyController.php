@@ -10,10 +10,10 @@ class FacultyController extends Controller
 {
 	// TEMPORARY SUBSTITUTE... TO BE REMOVE ONCE BACKEND IS ATTACHED
 	private function getStaff() {
-		return PageController::getStaff();
+		return TmpController::getStaff();
 	}
 	private function getSkillList() {
-		return PageController::getSkillList();
+		return TmpController::getSkillList();
 	}
 
 	protected function index() {
@@ -68,4 +68,31 @@ class FacultyController extends Controller
 			'id' => $id
 		]);
 	}
+
+	// INDEX SORT START
+	protected function indexSort(Request $request) {
+
+		$staff = $this->getStaff();
+		switch ($request->sort) {
+			case 'lastName':
+				$staff->sortBy('last_name');
+				break;
+			
+			case 'firstName':
+			default:
+				$staff->sortBy('first_name');
+				break;
+		}
+
+		$dept = 'all';
+		if (\Request::has('dept')) {
+			$dept = \Request::get('dept');
+		}
+		
+		return view('users.auth.faculty.index', [
+			'dept' => $dept,
+			'staff' => $staff
+		]);
+	}
+	// INDEX SORT END
 }

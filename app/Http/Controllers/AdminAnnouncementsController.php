@@ -10,7 +10,7 @@ class AdminAnnouncementsController extends Controller
 {
 	// TEMPORARY SUBSTITUTE... TO BE REMOVE ONCE BACKEND IS ATTACHED
 	private function getAnnouncements() {
-		return PageController::getAnnouncements();
+		return TmpController::getAnnouncements();
 	}
 
 	protected function index() {
@@ -21,5 +21,11 @@ class AdminAnnouncementsController extends Controller
 
 	protected function create() {
 		return view("users.auth.admin.announcements.create");
+	}
+
+	protected function show($id) {
+		return view("users.auth.admin.announcements.show",[
+			'announcement' => $this->getAnnouncements()->get($id-1)
+		]);
 	}
 }

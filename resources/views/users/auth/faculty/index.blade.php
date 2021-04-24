@@ -15,7 +15,7 @@
 
 <div class="container-fluid my-5 mb-7">
 	<div class="row">
-		<div class="col-12 col-lg-3">
+		<form class="col-12 col-lg-3" action="{{route('indexSort')}}" method="POST" >
 			<div class="input-group">
 				<input type="text" class="form-control" name='search' placeholder="Search..." />
 				<div class="input-group-append">
@@ -27,7 +27,7 @@
 
 			<span class="font-weight-bold">Select Department</span>
 			<div class="input-group">
-				<select name="dept" class="custom-select">
+				<select name="dept" class="custom-select" onchange="$('#facultyParamSubmit').trigger('click');">
 					<option value="All" {{$dept == 'all' ? 'selected' : ''}}>All</option>
 					<option value="CompSci" {{$dept == 'CompSci' ? 'selected' : ''}}>Computer Science</option>
 				</select>
@@ -37,12 +37,15 @@
 
 			<span class="font-weight-bold">Sort By</span>
 			<div class="input-group">
-				<select name="sort" class="custom-select">
+				<select name="sort" class="custom-select" onchange="$('#facultyParamSubmit').trigger('click');">
 					<option value="firstName" selected>First Name</option>
 					<option value="lastName">Last Name</option>
 				</select>
 			</div>
-		</div>
+
+			{{ csrf_field() }}
+			<input type="submit" class="hidden" id="facultyParamSubmit">
+		</form>
 		{{-- DEFINES THE COLUMN --}}
 		<div class="col col-lg-9 my-4 mb-md-4">
 			<div class="row">

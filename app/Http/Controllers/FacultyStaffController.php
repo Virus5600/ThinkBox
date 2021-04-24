@@ -10,10 +10,10 @@ class FacultyStaffController extends Controller
 {
 	// TEMPORARY SUBSTITUTE... TO BE REMOVE ONCE BACKEND IS ATTACHED
 	private function getStaff() {
-		return PageController::getStaff();
+		return TmpController::getStaff();
 	}
 	private function getSkillList() {
-		return PageController::getSkillList();
+		return TmpController::getSkillList();
 	}
 
 	protected function index() {

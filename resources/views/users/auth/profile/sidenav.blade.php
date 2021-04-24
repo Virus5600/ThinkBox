@@ -2,7 +2,7 @@
 
 <hr class="hr-thick-50 my-2">
 
-@if(\Request::is('profile/'.$id.'/edit'))
+@if(\Request::is('profile/*/edit'))
 <span class="nav-link active bg-custom text-light">Edit Profile</span>
 @else
 <a class="nav-link custom-hover text-dark" href="{{route('profile.edit', [1])}}">Edit Profile</a>

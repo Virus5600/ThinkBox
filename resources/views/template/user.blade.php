@@ -156,16 +156,16 @@
 					</ul>
 					
 					<div>
-						<img src="/images/TEMPORARY/home/user1.jpg" class="circular-border" width='30' height='30' draggable='false' alt="User"/>
+						<img src="/images/TEMPORARY/home/{{\App\Http\Controllers\TmpController::getUser()->avatar}}" class="circular-border" width='30' height='30' draggable='false' alt="User"/>
 						<label>
 							<div class="dropdown">
 								<a href='' role="button" class="nav-link dropdown-toggle text-dark dynamic-size-lg-h6" style="font-size: 1.25rem;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-									Angelique Lacasandile
+									{{\App\Http\Controllers\TmpController::getUser()->first_name}} {{\App\Http\Controllers\TmpController::getUser()->last_name}}
 								</a>
 								
 								<div class="dropdown-menu dropdown-menu-right">
 									<a class="dropdown-item" href="{{ route('profile.index') }}">My Profile</a>
-									<a class="dropdown-item" href="{{ route('profile.edit', ['1']) }}">Edit Profile</a>
+									<a class="dropdown-item" href="{{ route('profile.edit', [\App\Http\Controllers\TmpController::getUser()->id]) }}">Edit Profile</a>
 									<a class="dropdown-item" href="{{ route('profile.materials.index') }}">Topics & Materials</a>
 									<a class="dropdown-item" href="{{ route('profile.research.index') }}">Research</a>
 									<a class="dropdown-item" href="{{ route('profile.innovations.index') }}">Innovations</a>
