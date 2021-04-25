@@ -63,6 +63,9 @@ Route::group(['prefix' => 'admin'], function() {
 
 	// Announcements
 	Route::resource('announcements', 'AdminAnnouncementsController');
+
+	// Skills
+	Route::resource('skills', 'SkillsController');
 });
 // ----- ADMIN SIDE END
 // NEEDS AUTH END -----
