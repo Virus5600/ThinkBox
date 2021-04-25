@@ -49,7 +49,6 @@ Route::get('/faculty/{id}/research', 'FacultyController@research')->name('facult
 Route::get('/faculty/{id}/innovations', 'FacultyController@innovations')->name('faculty.innovations');
 Route::get('/faculty/{id}/materials', 'FacultyController@materials')->name('faculty.materials');
 Route::resource('faculty', 'FacultyController');
-Route::post('/faculty', 'FacultyController@indexSort')->name('indexSort');
 
 // ----- ADMIN SIDE
 Route::group(['prefix' => 'admin'], function() {

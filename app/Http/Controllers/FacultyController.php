@@ -16,38 +16,49 @@ class FacultyController extends Controller
 		return TmpController::getSkillList();
 	}
 
-	protected function index() {
-		
-		$dept = 'all';
+	protected function index($dept='All',$sortBy='firstName') {
+		$staff = $this->getStaff();
+
+		// SORT
+		if (\Request::has('sortBy')) {
+			$sortBy = \Request::get('sortBy');
+			switch ($sortBy) {
+				case 'lastName':
+					$staff->sortBy('last_name');
+					break;
+				
+				case 'firstName':
+				default:
+					$staff->sortBy('first_name');
+					break;
+			}
+		}
+
+		// FILTER
 		if (\Request::has('dept')) {
 			$dept = \Request::get('dept');
+			switch ($dept) {
+				case 'CompSci':
+					$staff->where('department', '=', 'Computer Science');
+					break;
+				
+				case 'All':
+				default:
+					break;
+			}
 		}
 		
+		// RETURN
 		return view('users.auth.faculty.index', [
 			'dept' => $dept,
-			'staff' => $this->getStaff()
+			'sortBy' => $sortBy,
+			'staff' => $staff
 		]);
 	}
 
 	protected function show($id) {
-		$skills = array(
-			'Consultancy',
-			'Business Management',
-			'Software Quality Assurance',
-			'Higher Education',
-			'Programming',
-			'Hosting Events',
-			'MySQL',
-			'Project Management',
-			'Curriculum Development',
-			'Event Management',
-			'IT Consulting',
-			'Teaching'
-		);
-
 		return view('users.auth.faculty.show', [
-			'staff' => $this->getStaff()[$id-1],
-			'skills' => $skills
+			'staff' => $this->getStaff()->get($id-1),
 		]);
 	}
 
@@ -68,31 +79,4 @@ class FacultyController extends Controller
 			'id' => $id
 		]);
 	}
-
-	// INDEX SORT START
-	protected function indexSort(Request $request) {
-
-		$staff = $this->getStaff();
-		switch ($request->sort) {
-			case 'lastName':
-				$staff->sortBy('last_name');
-				break;
-			
-			case 'firstName':
-			default:
-				$staff->sortBy('first_name');
-				break;
-		}
-
-		$dept = 'all';
-		if (\Request::has('dept')) {
-			$dept = \Request::get('dept');
-		}
-		
-		return view('users.auth.faculty.index', [
-			'dept' => $dept,
-			'staff' => $staff
-		]);
-	}
-	// INDEX SORT END
 }

@@ -43,8 +43,8 @@
 
 					<div class="row my-2">
 						<div class="col">
-							@forelse ($skills as $s)
-							<span class="badge badge-pill badge-inverted-secondary mx-1">{{$s}}</span>
+							@forelse ($staff->skills as $s)
+							<span class="badge badge-pill badge-inverted-secondary mx-1">{{$s->skill}}</span>
 							@empty
 							Nothing to show
 							@endforelse
