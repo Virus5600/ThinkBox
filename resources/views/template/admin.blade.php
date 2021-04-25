@@ -117,6 +117,12 @@
 								</a>
 								
 								<div class="dropdown-menu dropdown-menu-right">
+									<a class="dropdown-item" href="{{route('home')}}">View Home Page</a>
+									<!-- <a class="dropdown-item" href="{{route('research')}}">View Research Page</a>
+									<a class="dropdown-item" href="{{route('innovations')}}">View Innovations Page</a>
+									<a class="dropdown-item" href="{{route('faculty.index')}}">View Department Page</a>
+									<a class="dropdown-item" href="{{route('announcements.index')}}">View Announcements Page</a> -->
+									<hr class="hr-thick"/>
 									<a class="dropdown-item" href="">Sign out</a>
 								</div>
 							</div>

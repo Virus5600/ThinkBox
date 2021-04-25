@@ -83,7 +83,7 @@
 											<input class="form-control" type="text" name="skill" value="{{$s->skill}}">
 										</div>
 
-										{{ csrf_filed() }}
+										{{ csrf_field() }}
 									</div>
 
 									<div class="modal-footer">
