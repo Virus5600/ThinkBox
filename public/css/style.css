@@ -390,6 +390,10 @@ body {
 	background-image: linear-gradient(to bottom, transparent, #F6F6F6)!important;
 }
 
+.hidden-overridable {
+	display: none;
+}
+
 .hidden {
 	display: none!important;
 }

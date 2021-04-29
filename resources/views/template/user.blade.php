@@ -155,6 +155,7 @@
 						</li>
 					</ul>
 					
+					@if (Auth::check())
 					<div>
 						<img src="/images/TEMPORARY/home/{{\App\Http\Controllers\TmpController::getUser()->avatar}}" class="circular-border" width='30' height='30' draggable='false' alt="User"/>
 						<label>
@@ -175,6 +176,23 @@
 							</div>
 						</label>
 					</div>
+					@else
+					<div class="row">
+						<div class="col d-flex fle-d-row">
+							@if (\Request::is('login'))
+							<span class="nav-link active custom-link">Login</span>
+							@else
+							<a href="{{route('login')}}" class="nav-link custom-link text-dark">Login</a>
+							@endif
+
+							{{-- @if (\Request::is('register')) --}}
+							{{-- <span class="nav-link active custom-link">Register</span> --}}
+							{{-- @else --}}
+							{{-- <a href="{{route('register')}}" class="nav-link custom-link text-dark">Register</a> --}}
+							{{-- @endif --}}
+						</div>
+					</div>
+					@endif
 				</div>
 			</nav>
 

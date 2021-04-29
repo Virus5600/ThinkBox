@@ -6,13 +6,27 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
-class ProfileController extends Controller
+class UserController extends Controller
 {
 	// TEMPORARY SUBSTITUTE... TO BE REMOVE ONCE BACKEND IS ATTACHED
 	private function getUser() {
 		return TmpController::getUser();
 	}
 
+	// AUTHENTICATION AND RELATED
+	protected function login() {
+		return view('users.login');
+	}
+
+	protected function register() {
+		return view('user.register');
+	}
+
+	protected function authenticate() {
+		
+	}
+
+	// RESOURCE GET
 	protected function index() {
 		return view('users.auth.profile.index', [
 			'user' => $this->getUser(),

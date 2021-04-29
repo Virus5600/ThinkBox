@@ -36,7 +36,9 @@ Route::get('/profile/materials/topics', 'ProfileController@materialsIndex')->nam
 Route::get('/profile/materials/topics/{id}', 'ProfileController@materialsTopicIndex')->name('profile.materials.topics.index');
 
 // My Profile
-Route::resource('profile', 'ProfileController');
+Route::get('/login', 'UserController@login')->name('login');
+Route::get('/register', 'UserController@register')->name('register');
+Route::resource('profile', 'UserController');
 
 // Research
 Route::get('/researches', 'PageController@researches')->name('research');
