@@ -103,8 +103,33 @@ if(\Request::has('tab')) {
 
 											<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown1">
 												<a href="{{ route('admin.faculty-member.manage-contents.topic', [$staff->id, 1]) }}" class="dropdown-item">View</a>
-												<a href="" class="dropdown-item">Edit</a>
+												<button class="dropdown-item" data-toggle="modal" data-target="#editTopic1">Edit</button>
 												<a href="" class="dropdown-item">Delete</a>
+											</div>
+										</div>
+
+										<div class="modal fade" id="editTopic1" role="dialog" aria-hidden="true">
+											<div class="modal-dialog modal-dialog-centered" role="document">
+												<form class="modal-content" action="" method="{{-- POST --}}" enctype="multipart/form-data">
+													<div class="modal-header">
+														<h5 class="modal-title">Edit Topic</h5>
+														<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+															<span aria-hidden="true">&times;</span>
+														</button>
+													</div>
+
+													<div class="modal-body text-left">
+														<div class="form-group">
+															<label class="form-label" for='topic_name'>Topic Name</label>
+															<input class="form-control" type="text" name="topic_name" value="Topic 1">
+														</div>
+													</div>
+
+													<div class="modal-footer">
+														<button type="submit" class="btn btn-primary" data-action="update">Submit</button>
+														<input type="button" class="btn btn-secondary" data-dismiss="modal" value="Cancel"/>
+													</div>
+												</form>
 											</div>
 										</div>
 									</td>
@@ -197,8 +222,43 @@ if(\Request::has('tab')) {
 											</button>
 
 											<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown1">
-												<a href="" class="dropdown-item">Edit</a>
+												<button class="dropdown-item" data-toggle="modal" data-target="#editResearch1">Edit</button>
 												<a href="" class="dropdown-item">Delete</a>
+											</div>
+
+											<div class="modal fade" id="editResearch1" role="dialog" aria-hidden="true">
+												<div class="modal-dialog modal-dialog-centered" role="document">
+													<form class="modal-content" action="" method="{{-- POST --}}" enctype="multipart/form-data">
+														<div class="modal-header">
+															<h5 class="modal-title">Edit Research</h5>
+															<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																<span aria-hidden="true">&times;</span>
+															</button>
+														</div>
+														
+														<div class="modal-body text-left">
+															<div class="form-group">
+																<label class="form-label" for='research_title'>Research Title</label>
+																<input class="form-control" type="text" name="research_title" value="Research 1">
+															</div>
+															
+															<div class="form-group">
+																<label class="form-label" for='research_url'>URL</label>
+																<input class="form-control" type="text" name="research_url" value="https://www.sample.com/articles/64209">
+															</div>
+															
+															<div class="form-group">
+																<label class="form-label" for='research_abstract'>Abstract/Description</label>
+																<textarea class="form-control custom-scrollbar" type="text" name="research_abstract" rows="5" style="resize: none;">Some random abstract/description.</textarea>
+															</div>
+														</div>
+														
+														<div class="modal-footer">
+															<button type="submit" class="btn btn-primary" data-action="update">Submit</button>
+															<input type="button" class="btn btn-secondary" data-dismiss="modal" value="Cancel"/>
+														</div>
+													</form>
+												</div>
 											</div>
 										</div>
 									</td>
@@ -291,8 +351,43 @@ if(\Request::has('tab')) {
 											</button>
 
 											<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown1">
-												<a href="" class="dropdown-item">Edit</a>
+												<button class="dropdown-item" data-toggle="modal" data-target="#editInnovation1">Edit</button>
 												<a href="" class="dropdown-item">Delete</a>
+											</div>
+										</div>
+
+										<div class="modal fade" id="editInnovation1" role="dialog" aria-hidden="true">
+											<div class="modal-dialog modal-dialog-centered" role="document">
+												<form class="modal-content" action="" method="{{-- POST --}}" enctype="multipart/form-data">
+													<div class="modal-header">
+														<h5 class="modal-title">Edit Innovation</h5>
+														<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+															<span aria-hidden="true">&times;</span>
+														</button>
+													</div>
+													
+													<div class="modal-body text-left">
+														<div class="form-group">
+															<label class="form-label" for='research_title'>Research Title</label>
+															<input class="form-control" type="text" name="research_title" value="Innovation 1">
+														</div>
+														
+														<div class="form-group">
+															<label class="form-label" for='research_url'>URL</label>
+															<input class="form-control" type="text" name="research_url" value="https://www.sample.com/articles/64209">
+														</div>
+														
+														<div class="form-group">
+															<label class="form-label" for='research_abstract'>Abstract/Description</label>
+															<textarea class="form-control custom-scrollbar" type="text" name="research_abstract" rows="5" style="resize: none;">Some random abstract/description.</textarea>
+														</div>
+													</div>
+													
+													<div class="modal-footer">
+														<button type="submit" class="btn btn-primary" data-action="update">Submit</button>
+														<input type="button" class="btn btn-secondary" data-dismiss="modal" value="Cancel"/>
+													</div>
+												</form>
 											</div>
 										</div>
 									</td>

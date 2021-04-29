@@ -159,7 +159,7 @@
 					@if (\Request::is('admin/skills'))
 					<span class="bg-primary text-white"><i class="fas fa-pencil-ruler mr-2"></i>Skills</span>
 					@else
-					<a class="text-decoration-none text-dark" href="{{ route('dashboard') }}"><i class="fas fa-pencil-ruler mr-2"></i>Skills</a>
+					<a class="text-decoration-none text-dark" href="{{ route('admin.skills.index') }}"><i class="fas fa-pencil-ruler mr-2"></i>Skills</a>
 					@endif
 
 					<a class="text-decoration-none text-dark" href="#"><i class="fas fa-sign-out-alt mr-2"></i>Sign Out</a>

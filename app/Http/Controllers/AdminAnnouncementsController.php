@@ -28,4 +28,10 @@ class AdminAnnouncementsController extends Controller
 			'announcement' => $this->getAnnouncements()->get($id-1)
 		]);
 	}
+
+	protected function edit($id) {
+		return view("users.auth.admin.announcements.edit", [
+			'announcement' => $this->getAnnouncements()->get($id-1)
+		]);
+	}
 }
