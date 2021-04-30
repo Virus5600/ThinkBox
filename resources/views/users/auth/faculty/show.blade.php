@@ -9,7 +9,7 @@
 <div class="container-fluid my-5 px-5">
 	{{-- DETAILS --}}
 	<div class="row">
-		<div class="col-12 col-md-8">
+		<div class="col-12 col-md-8 order-1 order-md-0">
 			<div class="row">
 				<div class="col-12 col-md-4 text-center">
 					<img src='/images/TEMPORARY/home/{{$staff->avatar}}' class='img-fluid invisiborder circle-border w-75'/>
@@ -54,7 +54,7 @@
 			</div>
 		</div>
 
-		<div class="col-12 col-md-4">
+		<div class="col-12 col-md-4 order-0 order-md-1">
 			<div class="container-fluid py-2 bg-custom-light">
 				<div class="row">
 					<div class="col">
