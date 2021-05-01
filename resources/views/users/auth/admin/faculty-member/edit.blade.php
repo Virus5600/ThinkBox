@@ -152,7 +152,7 @@
 			<div class="row mt-5">
 				<div class="col">
 					<button type="submit" class="btn btn-primary" data-action="update">Submit</button>
-					<button type="button" class="btn border-primary text-primary" onclick="confirmLeave('{{ route('profile.index', ['1']) }}')">Cancel</button>
+					<button type="button" class="btn border-primary text-primary" onclick="confirmLeave('{{route('admin.faculty-member.index')}}');">Cancel</button>
 				</div>
 			</div>
 		</form>

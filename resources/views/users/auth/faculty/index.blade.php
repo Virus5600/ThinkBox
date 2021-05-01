@@ -8,7 +8,7 @@
 		<div class="col-6 ml-5" style="position: relative; top: 25%;">
 			<h1 class="text-light h3 h1-md">Department</h1>
 			<hr class="hr-thick" style="border-color: white;" />
-			<p class="text-light">Meet our faculty members with their expertise in their respective department</p>
+			<p class="text-light">Meet our faculty members and learn about their expertise.</p>
 		</div>
 	</div>
 </div>
