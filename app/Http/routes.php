@@ -23,14 +23,10 @@ Route::resource('announcements', 'AnnouncementsController');
 // Profile Research
 Route::get('/profile/research', 'ProfileController@researchProfileIndex')->name('profile.research');
 Route::get('/profile/research/list', 'ProfileController@researchIndex')->name('profile.research.index');
-Route::get('/profile/research/create', 'ProfileController@researchCreate')->name('profile.research.create');
-Route::get('/profile/research/edit/{id}', 'ProfileController@researchEdit')->name('profile.research.edit');
 
 // Profile Innovations
-Route::get('/profile/innovations', 'ProfileController@innovationsProfileIndex')->name('profile.innovations');
+Route::get('/profile/innovations', 'ProfileController@innovationsIndex')->name('profile.innovations');
 Route::get('/profile/innovations/list', 'ProfileController@innovationsIndex')->name('profile.innovations.index');
-Route::get('/profile/innovations/create', 'ProfileController@innovationsCreate')->name('profile.innovations.create');
-Route::get('/profile/innovations/edit/{id}', 'ProfileController@innovationsEdit')->name('profile.innovations.edit');
 
 // Profile Materials
 Route::get('/profile/materials', 'ProfileController@materialsProfileIndex')->name('profile.materials');
@@ -43,11 +39,9 @@ Route::get('/profile/materials/topics/{id}', 'ProfileController@materialsTopicIn
 Route::resource('profile', 'ProfileController');
 
 // Research
-Route::get('/researches/view/{id}', 'PageController@researchShow')->name('research.show');
 Route::get('/researches', 'PageController@researches')->name('research');
 
 // Innovations
-Route::get('/innovations/view/{id}', 'PageController@innovationShow')->name('innovations.show');
 Route::get('/innovations', 'PageController@innovations')->name('innovations');
 
 // Faculty

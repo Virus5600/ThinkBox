@@ -12,12 +12,6 @@ class ProfileController extends Controller
 	private function getUser() {
 		return TmpController::getUser();
 	}
-	private function getResearch($id) {
-		return TmpController::getResearch($id);
-	}
-	private function getResearchList() {
-		return TmpController::getResearchList();
-	}
 
 	protected function index() {
 		return view('users.auth.profile.index', [
@@ -46,66 +40,39 @@ class ProfileController extends Controller
 	// RESEARCH RELATED VIEWS
 	protected function researchProfileIndex() {
 		return view('users.auth.profile.show.research.profile_index', [
-			'id' => $this->getUser()->id,
-			'user' => $this->getUser(),
-			'research' => $this->getResearchList()->where('posted_by', $this->getUser()->id)
+			'id' => 1
 		]);
 	}
 
 	protected function researchIndex() {
 		return view('users.auth.profile.show.research.index', [
-			'id' => $this->getUser()->id,
-			'researches' => $this->getResearchList()->where('posted_by', $this->getUser()->id)
-		]);
-	}
-
-	protected function researchCreate() {
-		return view('users.auth.profile.show.research.create');
-	}
-
-	protected function researchEdit($id) {
-		return view('users.auth.profile.show.research.edit', [
-			'research' => $this->getResearch($id)
+			'id' => 1
 		]);
 	}
 
 	// INNOVATION RELATED VIEWS
 	protected function innovationsProfileIndex() {
 		return view('users.auth.profile.show.innovations.profile_index', [
-			'id' => $this->getUser()->id,
-			'user' => $this->getUser(),
-			'innovations' => $this->getResearchList()->where('posted_by', $this->getUser()->id)
+			'id' => 1
 		]);
 	}
 
 	protected function innovationsIndex() {
 		return view('users.auth.profile.show.innovations.index', [
-			'id' => $this->getUser()->id,
-			'innovations' => $this->getResearchList()->where('posted_by', $this->getUser()->id)
-		]);
-	}
-
-	protected function innovationsCreate() {
-		return view('users.auth.profile.show.innovations.create');
-	}
-
-	protected function innovationsEdit($id) {
-		return view('users.auth.profile.show.innovations.edit', [
-			'innovation' => $this->getResearch($id)
+			'id' => 1
 		]);
 	}
 
 	// COURSE MATERIAL RELATED VIEWS
 	protected function materialsProfileIndex() {
 		return view('users.auth.profile.show.materials.profile_index', [
-			'id' => $this->getUser()->id,
-			'user' => $this->getUser()
+			'id' => 1
 		]);
 	}
 
 	protected function materialsIndex() {
 		return view('users.auth.profile.show.materials.index', [
-			'id' => $this->getUser()->id
+			'id' => 1
 		]);
 	}
 

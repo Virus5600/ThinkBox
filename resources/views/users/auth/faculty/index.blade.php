@@ -54,7 +54,7 @@
 					<div class="container-fluid dark-shadow invisiborder rounded overflow-hidden h-100 w-100">
 						<div class="row h-100">
 							<div class="col-12 col-md-4 pb-faculty-holder p-0">
-								<div class="pb-faculty text-center mx-auto h-100" style="background: #fff url('/images/TEMPORARY/home/{{$s->avatar or 'default.png'}}') no-repeat center; background-size: cover;">
+								<div class="pb-faculty text-center mx-auto h-100" style="background: #fff url('/images/TEMPORARY/home/{{$s->avatar}}') no-repeat center; background-size: cover;">
 								</div>
 							</div>
 

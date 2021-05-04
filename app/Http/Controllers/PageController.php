@@ -16,51 +16,22 @@ class PageController extends Controller
 	private function getUser() {
 		return TmpController::getUser();
 	}
-	private function getFocus() {
-		return TmpController::getFocus();
-	}
-	private function getResearchList() {
-		return TmpController::getResearchList();
-	}
-	private function getResearch($id) {
-		return TmpController::getResearch($id);
-	}
 
 	// USER SIDE (AUTH AND UNAUTH)
 	protected function index() {
 		return view('users.index', [
 			'user' => $this->getUser(),
-			'staff' => $this->getStaff()->take(4),
-			'announcements' => $this->getAnnouncements(),
-			'research' => $this->getResearchList()->take(3),
-			'innovations' => $this->getResearchList()->take(3)
+			'staff' => $this->getStaff(),
+			'announcements' => $this->getAnnouncements()
 		]);
 	}
 
 	protected function researches() {
-		return view('users.auth.research.index', [
-			'focus' => $this->getFocus(),
-			'research' => $this->getResearchList()
-		]);
-	}
-
-	protected function researchShow($id) {
-		return view('users.auth.research.show', [
-			'research' => $this->getResearch($id)
-		]);
+		return view('users.auth.research');
 	}
 
 	protected function innovations() {
-		return view('users.auth.innovations.index', [
-			'focus' => $this->getFocus(),
-			'innovations' => $this->getResearchList()
-		]);
-	}
-
-	protected function innovationShow($id) {
-		return view('users.auth.innovations.show', [
-			'innovation' => $this->getResearch($id)
-		]);
+		return view('users.auth.innovations');
 	}
 
 	// ADMIN SIDE
