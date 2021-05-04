@@ -635,14 +635,14 @@ textarea.not-resizable {
 	color: #fff;
 }
 
-.div-hover-zoom > div, .a-hover-zoom > a, .a-fa-hover-zoom > a > svg, .div-hover-zoom-2 > div, .a-hover-zoom-2 > a, .a-fa-hover-zoom-2 > a > svg, .secondary-hover-dark {
+.hover-zoom, .hover-zoom-2, .div-hover-zoom > div, .a-hover-zoom > a, .a-fa-hover-zoom > a > svg, .div-hover-zoom-2 > div, .a-hover-zoom-2 > a, .a-fa-hover-zoom-2 > a > svg, .secondary-hover-dark {
 	transition: 0.25s;
 }
 
-.div-hover-zoom > div:hover, .a-hover-zoom > a:hover, .a-fa-hover-zoom > a > svg:hover {
+.hover-zoom:hover, .div-hover-zoom > div:hover, .a-hover-zoom > a:hover, .a-fa-hover-zoom > a > svg:hover {
 	transform: scale(1.0625);
 }
-.div-hover-zoom-2 > div:hover, .a-hover-zoom-2 > a:hover, .a-fa-hover-zoom-2 > a > svg:hover {
+.hover-zoom-2:hover ,.div-hover-zoom-2 > div:hover, .a-hover-zoom-2 > a:hover, .a-fa-hover-zoom-2 > a > svg:hover {
 	transform: scale(1.125);
 }
 

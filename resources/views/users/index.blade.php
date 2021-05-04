@@ -44,13 +44,13 @@
 									</a>
 
 									<div class="dropdown-menu dropdown-menu-left" aria-labelledby='share'>
-										<a class="dropdown-item share-link" href="javascript:void(0)" data-link='http://www.facebook.com/sharer.php?u={{$a->source}}'><i class="fab fa-facebook-f mr-2"></i>Facebook</a>
-										{{-- <a class="dropdown-item share-link" href="javascript:void(0)" data-link='fb-messenger://share?link={{$a->source}}'><i class="fab fa-facebook-messenger mr-2"></i>Messenger</a> --}}
-										<a class="dropdown-item share-link" href="javascript:void(0)" data-link='http://twitter.com/share?text={{preg_replace("/\s/", "%20",$a->title)}}&url={{$a->source}}'><i class="fab fa-twitter mr-2"></i>Twitter</a>
+										<a class="dropdown-item share-link bg-light" href="javascript:void(0)" data-link='http://www.facebook.com/sharer.php?u={{$a->source}}'><i class="fab fa-facebook-f mr-2"></i>Facebook</a>
+										{{-- <a class="dropdown-item share-link bg-light" href="javascript:void(0)" data-link='fb-messenger://share?link={{$a->source}}'><i class="fab fa-facebook-messenger mr-2"></i>Messenger</a> --}}
+										<a class="dropdown-item share-link bg-light" href="javascript:void(0)" data-link='http://twitter.com/share?text={{preg_replace("/\s/", "%20",$a->title)}}&url={{$a->source}}'><i class="fab fa-twitter mr-2"></i>Twitter</a>
 									</div>
 								</div>
 
-								<a class="float-right text-decoration-none read-more" href="{{ route('announcements.show', [$a->id]) }}">View Details <i class="fas fa-chevron-right"></i></a>
+								<a class="float-right text-decoration-none read-more underline-at-hover" href="{{ route('announcements.show', [$a->id]) }}">View Details <i class="fas fa-chevron-right"></i></a>
 							</div>
 						</div>
 						@endforeach
@@ -59,7 +59,7 @@
 			</div>
 
 			<p class="mx-0 my-3 text-center">
-				<span class="h5 text-center font-weight-bold border-custom border border-thick border-left-0 border-top-0 border-right-0 px-1"><a class="view-more text-decoration-none" href="{{route('announcements.index')}}">View More</a></span>
+				<span class="h5 text-center font-weight-bold border-custom border border-thick border-left-0 border-top-0 border-right-0 px-1"><a class="view-more text-decoration-none under" href="{{route('announcements.index')}}">View More</a></span>
 			</p>
 		</div>
 	</div>
@@ -106,27 +106,27 @@
 							
 							<div class="card-footer">
 								<div class="dropdown display-inline-block float-left">
-									<a class='dropdown-toggle text-decoration-none share-dropdown' href="" role='button' id='share' data-toggle='dropdown' aria-haspopup="true" aria-expanded="false">
+									<a class='dropdown-toggle text-decoration-none share-dropdown underline-at-hover' href="" role='button' id='share' data-toggle='dropdown' aria-haspopup="true" aria-expanded="false">
 										<i class="fas fa-share-alt mr-1"></i> Share
 									</a>
 
-									<div class="dropdown-menu dropdown-menu-left" aria-labelledby='share'>
+									<div class="dropdown-menu dropdown-menu-left underline-at-hover" aria-labelledby='share'>
 										@if ($r->is_file)
-										<a class="dropdown-item share-link" href="javascript:void(0)" data-link="http://www.facebook.com/sharer.php?u={{route('research.show', [$r->id])}}"><i class="fab fa-facebook-f mr-2"></i>Facebook</a>
-										{{-- <a class="dropdown-item share-link" href="javascript:void(0)" data-link="fb-messenger://share?link={{route('research.show', [$r->id])}}"><i class="fab fa-facebook-messenger mr-2"></i>Messenger</a> --}}
-										<a class="dropdown-item share-link" href="javascript:void(0)" data-link="http://twitter.com/share?url={{route('research.show', [$r->id])}}"><i class="fab fa-twitter mr-2"></i>Twitter</a>
+										<a class="dropdown-item share-link bg-light" href="javascript:void(0)" data-link="http://www.facebook.com/sharer.php?u={{route('research.show', [$r->id])}}"><i class="fab fa-facebook-f mr-2"></i>Facebook</a>
+										{{-- <a class="dropdown-item share-link bg-light" href="javascript:void(0)" data-link="fb-messenger://share?link={{route('research.show', [$r->id])}}"><i class="fab fa-facebook-messenger mr-2"></i>Messenger</a> --}}
+										<a class="dropdown-item share-link bg-light" href="javascript:void(0)" data-link="http://twitter.com/share?url={{route('research.show', [$r->id])}}"><i class="fab fa-twitter mr-2"></i>Twitter</a>
 										@else
-										<a class="dropdown-item share-link" href="javascript:void(0)" data-link='http://www.facebook.com/sharer.php?u={{$r->url}}'><i class="fab fa-facebook-f mr-2"></i>Facebook</a>
-										{{-- <a class="dropdown-item share-link" href="javascript:void(0)" data-link='fb-messenger://share?link={{$r->url}}'><i class="fab fa-facebook-messenger mr-2"></i>Messenger</a> --}}
-										<a class="dropdown-item share-link" href="javascript:void(0)" data-link='http://twitter.com/share?url={{$r->url}}'><i class="fab fa-twitter mr-2"></i>Twitter</a>
+										<a class="dropdown-item share-link bg-light" href="javascript:void(0)" data-link='http://www.facebook.com/sharer.php?u={{$r->url}}'><i class="fab fa-facebook-f mr-2"></i>Facebook</a>
+										{{-- <a class="dropdown-item share-link bg-light" href="javascript:void(0)" data-link='fb-messenger://share?link={{$r->url}}'><i class="fab fa-facebook-messenger mr-2"></i>Messenger</a> --}}
+										<a class="dropdown-item share-link bg-light" href="javascript:void(0)" data-link='http://twitter.com/share?url={{$r->url}}'><i class="fab fa-twitter mr-2"></i>Twitter</a>
 										@endif
 									</div>
 								</div>
 
 								@if ($r->is_file)
-								<a class="float-right text-decoration-none read-more" href="{{route('research.show', [$r->id])}}">View Details <i class="fas fa-chevron-right"></i></a>
+								<a class="float-right text-decoration-none read-more underline-at-hover" href="{{route('research.show', [$r->id])}}">View Details <i class="fas fa-chevron-right"></i></a>
 								@else
-								<a class="float-right text-decoration-none read-more" target="_blank" href='{{$r->url}}'>View Details <i class="fas fa-chevron-right"></i></a>
+								<a class="float-right text-decoration-none read-more underline-at-hover" target="_blank" href='{{$r->url}}'>View Details <i class="fas fa-chevron-right"></i></a>
 								@endif
 							</div>
 						</div>
@@ -184,27 +184,27 @@
 							
 							<div class="card-footer">
 								<div class="dropdown display-inline-block float-left">
-									<a class='dropdown-toggle text-decoration-none share-dropdown' href="" role='button' id='share' data-toggle='dropdown' aria-haspopup="true" aria-expanded="false">
+									<a class='dropdown-toggle text-decoration-none share-dropdown underline-at-hover' href="" role='button' id='share' data-toggle='dropdown' aria-haspopup="true" aria-expanded="false">
 										<i class="fas fa-share-alt mr-1"></i> Share
 									</a>
 
 									<div class="dropdown-menu dropdown-menu-left" aria-labelledby='share'>
 										@if ($i->is_file)
-										<a class="dropdown-item share-link" href="javascript:void(0)" data-link="http://www.facebook.com/sharer.php?u={{route('research.show', [$i->id])}}"><i class="fab fa-facebook-f mr-2"></i>Facebook</a>
-										{{-- <a class="dropdown-item share-link" href="javascript:void(0)" data-link="fb-messenger://share?link={{route('research.show', [$i->id])}}"><i class="fab fa-facebook-messenger mr-2"></i>Messenger</a> --}}
-										<a class="dropdown-item share-link" href="javascript:void(0)" data-link="http://twitter.com/share?url={{route('research.show', [$i->id])}}"><i class="fab fa-twitter mr-2"></i>Twitter</a>
+										<a class="dropdown-item share-link bg-light" href="javascript:void(0)" data-link="http://www.facebook.com/sharer.php?u={{route('research.show', [$i->id])}}"><i class="fab fa-facebook-f mr-2"></i>Facebook</a>
+										{{-- <a class="dropdown-item share-link bg-light" href="javascript:void(0)" data-link="fb-messenger://share?link={{route('research.show', [$i->id])}}"><i class="fab fa-facebook-messenger mr-2"></i>Messenger</a> --}}
+										<a class="dropdown-item share-link bg-light" href="javascript:void(0)" data-link="http://twitter.com/share?url={{route('research.show', [$i->id])}}"><i class="fab fa-twitter mr-2"></i>Twitter</a>
 										@else
-										<a class="dropdown-item share-link" href="javascript:void(0)" data-link='http://www.facebook.com/sharer.php?u={{$i->url}}'><i class="fab fa-facebook-f mr-2"></i>Facebook</a>
-										{{-- <a class="dropdown-item share-link" href="javascript:void(0)" data-link='fb-messenger://share?link={{$i->url}}'><i class="fab fa-facebook-messenger mr-2"></i>Messenger</a> --}}
-										<a class="dropdown-item share-link" href="javascript:void(0)" data-link='http://twitter.com/share?url={{$i->url}}'><i class="fab fa-twitter mr-2"></i>Twitter</a>
+										<a class="dropdown-item share-link bg-light" href="javascript:void(0)" data-link='http://www.facebook.com/sharer.php?u={{$i->url}}'><i class="fab fa-facebook-f mr-2"></i>Facebook</a>
+										{{-- <a class="dropdown-item share-link bg-light" href="javascript:void(0)" data-link='fb-messenger://share?link={{$i->url}}'><i class="fab fa-facebook-messenger mr-2"></i>Messenger</a> --}}
+										<a class="dropdown-item share-link bg-light" href="javascript:void(0)" data-link='http://twitter.com/share?url={{$i->url}}'><i class="fab fa-twitter mr-2"></i>Twitter</a>
 										@endif
 									</div>
 								</div>
 
 								@if ($i->is_file)
-								<a class="float-right text-decoration-none read-more" href="{{route('research.show', [$i->id])}}">View Details <i class="fas fa-chevron-right"></i></a>
+								<a class="float-right text-decoration-none read-more underline-at-hover" href="{{route('research.show', [$i->id])}}">View Details <i class="fas fa-chevron-right"></i></a>
 								@else
-								<a class="float-right text-decoration-none read-more" target="_blank" href='{{$i->url}}'>View Details <i class="fas fa-chevron-right"></i></a>
+								<a class="float-right text-decoration-none read-more underline-at-hover" target="_blank" href='{{$i->url}}'>View Details <i class="fas fa-chevron-right"></i></a>
 								@endif
 							</div>
 						</div>
@@ -245,7 +245,7 @@
 							</div>
 							
 							<div class="card-footer">
-								<a class="float-right text-decoration-none read-more" href="{{ route('faculty.show', [$s->id]) }}">View Profile <i class="fas fa-chevron-right"></i></a>
+								<a class="float-right text-decoration-none read-more underline-at-hover" href="{{ route('faculty.show', [$s->id]) }}">View Profile <i class="fas fa-chevron-right"></i></a>
 							</div>
 						</div>
 						@endforeach

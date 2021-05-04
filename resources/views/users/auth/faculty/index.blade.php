@@ -43,6 +43,18 @@
 				</select>
 			</div>
 
+			<hr class="hr-thick">
+
+			<span class="font-weight-bold">Research Focus</span>
+			<div class="input-group">
+				<select name="researchFocus" class="custom-select" onchange="$('#facultyParamSubmit').trigger('click');">
+					<option value="all">All</option>
+					@foreach($research_focus as $rf)
+					<option value="{{preg_replace('/\s+/', '_', $rf->name)}}" {{$sortBy == preg_replace('/\s+/', '_', $rf->name) ? 'selected' : ''}}>{{ucwords($rf->name)}}</option>
+					@endforeach
+				</select>
+			</div>
+
 			<input type="submit" class="hidden" id="facultyParamSubmit">
 		</form>
 		{{-- DEFINES THE COLUMN --}}
@@ -68,7 +80,7 @@
 								<p class="text-truncate-2 my-2">{{$s->description}}</p>
 
 								<p class="m-3 mt-4">
-									<a class="float-right text-decoration-none read-more bottom-left" href="{{ route('faculty.show', [$s->id]) }}">View Profile <i class="fas fa-chevron-right"></i></a>
+									<a class="float-right text-decoration-none read-more bottom-left underline-at-hover" href="{{ route('faculty.show', [$s->id]) }}">View Profile <i class="fas fa-chevron-right"></i></a>
 								</p>
 							</div>
 						</div>

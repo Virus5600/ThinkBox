@@ -169,11 +169,11 @@
 					</div>
 
 					<div class="row">
-						<p>
+						<p class="w-100">
 							@if ($r->is_file)
-							<a class="float-right text-decoration-none read-more" href="{{route('research.show', [$r->id])}}">View Details <i class="fas fa-chevron-right"></i></a>
+							<a class="float-right text-decoration-none read-more underline-at-hover" href="{{route('research.show', [$r->id])}}">View Details <i class="fas fa-chevron-right"></i></a>
 							@else
-							<a class="float-right text-decoration-none read-more" target="_blank" href='{{$r->url}}'>View Details <i class="fas fa-chevron-right"></i></a>
+							<a class="float-right text-decoration-none read-more underline-at-hover" target="_blank" href='{{$r->url}}'>View Details <i class="fas fa-chevron-right"></i></a>
 							@endif
 						</p>
 					</div>
@@ -216,11 +216,11 @@
 					</div>
 
 					<div class="row">
-						<p>
+						<p class="w-100">
 							@if ($i->is_file)
-							<a class="float-right text-decoration-none read-more" href="{{route('research.show', [$i->id])}}">View Details <i class="fas fa-chevron-right"></i></a>
+							<a class="float-right text-decoration-none read-more underline-at-hover" href="{{route('innovations.show', [$i->id])}}">View Details <i class="fas fa-chevron-right"></i></a>
 							@else
-							<a class="float-right text-decoration-none read-more" target="_blank" href='{{$i->url}}'>View Details <i class="fas fa-chevron-right"></i></a>
+							<a class="float-right text-decoration-none read-more underline-at-hover" target="_blank" href='{{$i->url}}'>View Details <i class="fas fa-chevron-right"></i></a>
 							@endif
 						</p>
 					</div>

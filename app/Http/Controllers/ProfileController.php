@@ -22,6 +22,8 @@ class ProfileController extends Controller
 	protected function index() {
 		return view('users.auth.profile.index', [
 			'user' => $this->getUser(),
+			'research' => $this->getResearchList()->where('posted_by', $this->getUser()->id),
+			'innovations' => $this->getResearchList()->where('posted_by', $this->getUser()->id),
 		]);
 	}
 

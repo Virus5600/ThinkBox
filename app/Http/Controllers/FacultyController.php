@@ -15,11 +15,14 @@ class FacultyController extends Controller
 	private function getSkillList() {
 		return TmpController::getSkillList();
 	}
+	private function getFocus() {
+		return TmpController::getFocus();
+	}
 	private function getResearchList() {
 		return TmpController::getResearchList();
 	}
 
-	protected function index($dept='All',$sortBy='firstName') {
+	protected function index($dept='All',$sortBy='firstName',$rf='all') {
 		$staff = $this->getStaff();
 
 		// SORT
@@ -50,11 +53,22 @@ class FacultyController extends Controller
 					break;
 			}
 		}
+
+		// RESEARCH FOCUS
+		if (\Request::has('researchFocus')) {
+			$rf = \Request::get('researchFocus');
+			switch ($dept) {
+				default:
+				break;
+			}
+		}
 		
 		// RETURN
 		return view('users.auth.faculty.index', [
 			'dept' => $dept,
 			'sortBy' => $sortBy,
+			'researchFocus' => $rf,
+			'research_focus' => $this->getFocus(),
 			'staff' => $staff
 		]);
 	}

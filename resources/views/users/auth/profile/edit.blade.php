@@ -17,7 +17,7 @@
 					{{-- PROFILE IMAGE --}}
 					<div class="col-12 col-md-4">
 						<div class="form-group text-center">
-							<img src="/images/TEMPORARY/home/{{$user->avatar}}" class="img-fluid avatar circle-border" id="avatar" width="250" height="250" alt="Profile Image">
+							<img src="/images/TEMPORARY/home/{{$user->avatar}}" class="img-fluid avatar circle-border hover-zoom" id="avatar" width="250" height="250" alt="Profile Image">
 							<input type="file" name="avatar" class="hidden" accept=".jpg,.jpeg,.png">
 							<h6 id="profile_img">{{$user->avatar}}</h6>
 							<small class="text-muted"><b>FORMATS ALLOWED:</b> JPEG, JPG, PNG</small>

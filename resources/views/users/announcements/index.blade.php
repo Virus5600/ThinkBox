@@ -49,18 +49,18 @@
 					
 					<div class="card-footer">
 						<div class="dropdown display-inline-block float-left">
-							<a class='dropdown-toggle text-decoration-none share-dropdown' href="" role='button' id='share' data-toggle='dropdown' aria-haspopup="true" aria-expanded="false">
+							<a class='dropdown-toggle text-decoration-none share-dropdown underline-at-hover' href="" role='button' id='share' data-toggle='dropdown' aria-haspopup="true" aria-expanded="false">
 								<i class="fas fa-share-alt mr-1"></i> Share
 							</a>
 
 							<div class="dropdown-menu dropdown-menu-left" aria-labelledby='share'>
-								<a class="dropdown-item share-link" href="javascript:void(0)" data-link='http://www.facebook.com/sharer.php?u={{$a->source}}'><i class="fab fa-facebook-f mr-2"></i>Facebook</a>
-								{{-- <a class="dropdown-item share-link" href="javascript:void(0)" data-link='fb-messenger://share?link={{$a->source}}'><i class="fab fa-facebook-messenger mr-2"></i>Messenger</a> --}}
-								<a class="dropdown-item share-link" href="javascript:void(0)" data-link='http://twitter.com/share?text=Payment%20Options&url={{$a->source}}'><i class="fab fa-twitter mr-2"></i>Twitter</a>
+								<a class="dropdown-item share-link bg-light" href="javascript:void(0)" data-link='http://www.facebook.com/sharer.php?u={{$a->source}}'><i class="fab fa-facebook-f mr-2"></i>Facebook</a>
+								{{-- <a class="dropdown-item share-link bg-light" href="javascript:void(0)" data-link='fb-messenger://share?link={{$a->source}}'><i class="fab fa-facebook-messenger mr-2"></i>Messenger</a> --}}
+								<a class="dropdown-item share-link bg-light" href="javascript:void(0)" data-link='http://twitter.com/share?text=Payment%20Options&url={{$a->source}}'><i class="fab fa-twitter mr-2"></i>Twitter</a>
 							</div>
 						</div>
 
-						<a class="float-right text-decoration-none read-more" href="{{ route('announcements.show', [$a->id]) }}">View Details <i class="fas fa-chevron-right"></i></a>
+						<a class="float-right text-decoration-none read-more underline-at-hover" href="{{ route('announcements.show', [$a->id]) }}">View Details <i class="fas fa-chevron-right"></i></a>
 					</div>
 				</div>
 				@endforeach
