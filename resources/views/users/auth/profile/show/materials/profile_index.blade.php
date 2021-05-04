@@ -16,21 +16,21 @@
 				</div>
 
 				<div class="col-12 col-md-8">
-					<h1>{{$user->name}}</h1>
-					<h4>{{$user->position}}</h4>
-					<h4 class="font-weight-normal"><em>{{$user->department}}</em></h4>
+					<h1>Dr. Angelique Lacasandile</h1>
+					<h4>Department Chair, National University</h4>
+					<h4 class="font-weight-normal"><em>Computer Science</em></h4>
 					<br>
 					<p class="text-muted">
-						<span class="mr-lg-3 mx-0 d-block d-lg-revert"><i class="fas fa-phone-alt mr-2 fa-sm text-primary"></i>{{$user->contact_no == '' ? '' : '+63 ' . $user->contact_no}}</span>
-						<span class="ml-lg-3 mx-0 d-block d-lg-revert"><i class="fas fa-envelope mr-2 fa-sm text-primary"></i><a class="text-muted" href="mailto:{{$user->email}}">{{$user->email}}</a></span>
+						<span class="mr-3"><i class="fas fa-phone-alt mr-2 fa-sm text-primary"></i>+639667125676</span>
+						<span class="ml-3"><i class="fas fa-envelope mr-2 fa-sm text-primary"></i>angelique.lacasandile@gmail.com</span>
 					</p>
 
 					<p>
-						<a href="" class="mx-1"><i class="fab fa-facebook text-dark fa-2x"></i></a>
-						<a href="" class="mx-1"><i class="fas fa-atom text-light fa-2x bg-dark invisiborder circle-border p-1 custom-fa-2x"></i></a>
-						<a href="" class="mx-1"><i class="fab fa-twitter text-light fa-2x bg-dark invisiborder circle-border p-1 custom-fa-2x"></i></a>
-						<a href="" class="mx-1"><i class="fab fa-linkedin-in text-light fa-2x bg-dark invisiborder circle-border p-1 custom-fa-2x"></i></a>
-						<a href="" class="mx-1"><i class="fab fa-github text-dark fa-2x"></i></a>
+						<a href="" data-toggle="tooltip" data-placement="top" title="Facebook" class="mx-1"><i class="fab fa-facebook text-dark fa-2x"></i></a>
+						<a href="" data-toggle="tooltip" data-placement="top" title="Google Scholar" class="mx-1"><i class="fas fa-atom text-light fa-2x bg-dark invisiborder circle-border p-1 custom-fa-2x"></i></a>
+						<a href="" data-toggle="tooltip" data-placement="top" title="Twitter" class="mx-1"><i class="fab fa-twitter text-light fa-2x bg-dark invisiborder circle-border p-1 custom-fa-2x"></i></a>
+						<a href="" data-toggle="tooltip" data-placement="top" title="LinkedIn" class="mx-1"><i class="fab fa-linkedin-in text-light fa-2x bg-dark invisiborder circle-border p-1 custom-fa-2x"></i></a>
+						<a href="" data-toggle="tooltip" data-placement="top" title="Facebook" class="mx-1"><i class="fab fa-github text-dark fa-2x"></i></a>
 					</p>
 				</div>
 			</div>
@@ -65,7 +65,7 @@
 		<div class="col-12 col-md-9">
 			<div class="container-fluid">
 				<h4>Branding (1)</h4>
-				<div class="row flex-row flex-nowrap overflow-x-auto p-2 div-hover-zoom">
+				<div class="row flex-row flex-nowrap overflow-x-auto p-2">
 					<div class="col-12 col-md-4 m-3 bg-custom-light p-3">
 						<p><em>Branding</em></p>
 
@@ -83,7 +83,7 @@
 				</div>
 
 				<h4>Microsoft (1)</h4>
-				<div class="row flex-row flex-nowrap overflow-x-auto p-2 div-hover-zoom">
+				<div class="row flex-row flex-nowrap overflow-x-auto p-2">
 					<div class="col-12 col-md-4 m-3 bg-custom-light p-3">
 						<p><em>Microsoft</em></p>
 
@@ -101,7 +101,7 @@
 				</div>
 
 				<h4>Programming (2)</h4>
-				<div class="row flex-row flex-nowrap overflow-x-auto p-2 div-hover-zoom">
+				<div class="row flex-row flex-nowrap overflow-x-auto p-2">
 					<div class="col-12 col-md-4 m-3 bg-custom-light p-3">
 						<p><em>Programming</em></p>
 
@@ -134,7 +134,7 @@
 				</div>
 
 				<h4>Project Management (1)</h4>
-				<div class="row flex-row flex-nowrap overflow-x-auto p-2 div-hover-zoom">
+				<div class="row flex-row flex-nowrap overflow-x-auto p-2">
 					<div class="col-12 col-md-4 m-3 bg-custom-light p-3">
 						<p><em>Project Management</em></p>
 
