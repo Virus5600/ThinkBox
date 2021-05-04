@@ -3,110 +3,120 @@
 @section('title', 'My Profile')
 
 @section('body')
+<h2 class="h5 h2-lg text-center text-lg-left mx-0 mx-lg-5 my-4"><a href="javascript:void(0);" onclick="confirmLeave('{{ route('profile.research.index') }}')" class="text-decoration-none text-dark"><i class="fas fa-chevron-left mr-2"></i>Research</a></h2>
+<hr class="hr-thick" style="border-color: #707070;">
+
 <div class="container-fluid my-5 px-5">
 	<div class="row">
-		<div class="col-12 col-lg-3 px-0">
-			<div class="border rounded" style="border-width: 1.5px!important;">
-				@include('users.auth.profile.sidenav')
-			</div>
-		</div>
+		<div class="col-12 my-3">
+			<form action="" method="{{-- POST --}}" enctype="multipart/form-data">
+				<div class="row">
+					<div class="form-group col-md-6">
+						<label class="form-label" for="title">Research Title</label>
+						<input type="text" class="form-control" name="title" value="{{$research->title}}"/>
+					</div>
 
-		<div class="col-12 col-lg-9">
-			<div class="row">
-				<div class="col-12 col-lg-7 text-center text-lg-left"><h1>Course Materials</h1></div>
+					<div class="col-md-6">
+						<div class="row">
+							<div class="col-md-2 my-auto">
+								<div class="custom-control custom-switch custom-switch-md">
+									<input type="checkbox" class="custom-control-input" name="is_file" id="is_file" {{$research->is_file ? 'checked' : ''}}>
+									<label class="custom-control-label pl-3 pt-1 pb-0" for="is_file">File</label>
+								</div>
+							</div>
 
-				<div class="col-12 col-sm-4 col-lg-2 text-center text-md-left my-2">
-					<!-- ADD MODAL FOR CREATE -->
-					{{-- ADD MODAL FOR CREATE --}}
-					<a href="" class="btn btn-success px-2 py-1">Add Item</a>
-				</div>
-				
-				<div class="col-12 col-sm-8 col-lg-3 text-center my-2">
-					<div class="input-group">
-						<input type="text" class="form-control" name="search" placeholder="Search..."/>
-						<div class="input-group-append">
-							<button type="button" class="btn btn-secondary"><i class="fas fa-search"></i></button>
+							<div class="form-group col-10" id="source_parent">
+								@if ($research->is_file)
+								<label class="form-label">File</label>
+								<div class="custom-file">
+									<input type="file" class="custom-file-input" name="url" id="url" onchange="swapLbl(this);" accept=".pdf">
+			  						<label class="custom-file-label" for="url" id="file_label">{{$research->url}}</label>
+			  					</div>
+								@else
+								<label class="form-label" for="url">URL/Link to source</label>
+								<input type="text" class="form-control" name="url" value="{{$research->url}}"/>
+								@endif
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
 
-			<div class="row overflow-x-auto" style="white-space: nowrap; display: block;">
-				<table class="table">
-					<thead>
-						<tr>
-							<td scope="col" class="font-weight-bold">Research Title</td>
-							<td scope="col" class="font-weight-bold">Research URL</td>
-							<td scope="col" class="font-weight-bold">Date Added</td>
-							<td></td>
-						</tr>
-					</thead>
+				<div class="row">
+					<div class="form-group col-12 col-md-6">
+						<label class="form-label" for="authors">Authors</label>
+						<input type="text" class="form-control" name="authors" value="{{$research->authors}}"/>
+					</div>
 
-					<tbody>
-						<tr>
-							<td>Research 1</td>
-							<td>https://www.sample.com/...</td>
-							<td>Jan 4, 2021</td>
-							<td>
-								<div class="dropdown">
-									<a href='javascript:void(0)' role="button" class="dropdown-toggle btn btn-primary btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-										Action
-									</a>
-									
-									<div class="dropdown-menu dropdown-menu-right">
-										<a class="dropdown-item" href="">Edit</a>
-										<a class="dropdown-item" href="">Delete</a>
-									</div>
-								</div>
-							</td>
-						</tr>
+					<div class="form-group col-12 col-md-6">
+						<label class="form-label" for="date_published">Date Publsihed</label>
+						<input type="date" class="form-control" name="date_published" value="{{$research->date_published->format('Y-m-d')}}"/>
+					</div>
+				</div>
 
-						<tr>
-							<td>Research 2</td>
-							<td>https://www.sample.com/...</td>
-							<td>Feb 14, 2021</td>
-							<td>
-								<div class="dropdown">
-									<a href='javascript:void(0)' role="button" class="dropdown-toggle btn btn-primary btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-										Action
-									</a>
-									
-									<div class="dropdown-menu dropdown-menu-right">
-										<a class="dropdown-item" href="">Edit</a>
-										<a class="dropdown-item" href="">Delete</a>
-									</div>
-								</div>
-							</td>
-						</tr>
+				<div class="row">
+					<div class="form-group col-12">
+						<label class="form-label" for="description">Abstract/Description</label>
+						<textarea class="form-control not-resizable" rows="5" name="description">{{$research->description}}</textarea>
+					</div>
+				</div>
 
-						<tr>
-							<td>Research 3</td>
-							<td>https://www.sample.com/...</td>
-							<td>Mar 1, 2021</td>
-							<td>
-								<div class="dropdown">
-									<a href='javascript:void(0)' role="button" class="dropdown-toggle btn btn-primary btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-										Action
-									</a>
-									
-									<div class="dropdown-menu dropdown-menu-right">
-										<a class="dropdown-item" href="">Edit</a>
-										<a class="dropdown-item" href="">Delete</a>
-									</div>
-								</div>
-							</td>
-						</tr>
-					</tbody>
-
-					<tfoot>
-						<div class="row">
-							<div class="col justify-content-center">
-							</div>
-						</div>
-					</tfoot>
-				</table>
-			</div>
+				<div class="row">
+					<div class="col">
+						<button type="submit" class="btn btn-primary" data-action="update">Submit</button>
+						<a href="javascript:void(0);" onclick="confirmLeave('{{ route('profile.research.index') }}')" class="btn btn-secondary">Cancel</a>
+					</div>
+				</div>
+			</form>
 		</div>
 	</div>
 </div>
+@endsection
+
+@section('script')
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#is_file').on('change', function() {
+			if ($(this).prop('checked')) {
+				let parent = $("#source_parent");
+				parent.html(
+					'<label class="form-label">File</label>' +
+					'<div class="custom-file">' +
+						'<input type="file" class="custom-file-input" name="url" id="url" onchange="swapLbl(this);" accept=".pdf">' +
+						@if ($research->is_file)
+  						'<label class="custom-file-label" for="url" id="file_label">{{$research->url}}</label>' +
+  						@else
+  						'<label class="custom-file-label" for="url" id="file_label">Choose File</label>' +
+  						@endif
+  					'</div>'
+				);
+			}
+			else {
+				let parent = $("#source_parent");
+				parent.html(
+					'<label class="form-label" for="url">URL/Link to source</label>' +
+					@if ($research->is_file)
+					'<input type="text" class="form-control" name="url" value="{{old("url")}}"/>'
+					@else
+					'<input type="text" class="form-control" name="url" value="{{$research->url}}"/>'
+					@endif
+				);
+			}
+		});
+	});
+
+	function swapLbl(obj) {
+		if (obj.files && obj.files[0]) {
+			let reader = new FileReader();
+
+			reader.onload = function(e) {
+				$("#file_label").html(obj.files[0].name);
+			}
+
+			reader.readAsDataURL(obj.files[0])
+		}
+		else {
+			$("#file_label").html("{{$research->url}}");
+		}
+	}
+</script>
 @endsection
