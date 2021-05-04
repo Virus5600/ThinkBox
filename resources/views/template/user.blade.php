@@ -156,10 +156,10 @@
 					</ul>
 					
 					<div>
-						<img src="/images/TEMPORARY/home/{{\App\Http\Controllers\TmpController::getUser()->avatar}}" class="circular-border" width='30' height='30' draggable='false' alt="User"/>
-						<label>
+						<label class="py-0 my-0">
 							<div class="dropdown">
 								<a href='' role="button" class="nav-link dropdown-toggle text-dark dynamic-size-lg-h6" style="font-size: 1.25rem;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<img src="/images/TEMPORARY/home/{{\App\Http\Controllers\TmpController::getUser()->avatar}}" class="circular-border" width='30' height='30' draggable='false' alt="User"/>
 									{{\App\Http\Controllers\TmpController::getUser()->first_name}} {{\App\Http\Controllers\TmpController::getUser()->last_name}}
 								</a>
 								

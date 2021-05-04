@@ -18,8 +18,8 @@
 					<h4 class="font-weight-normal"><em>{{$user->department}}</em></h4>
 					<br>
 					<p class="text-muted">
-						<span class="mr-3"><i class="fas fa-phone-alt mr-2 fa-sm text-primary"></i>{{$user->contact_no}}</span>
-						<span class="ml-3"><i class="fas fa-envelope mr-2 fa-sm text-primary"></i>{{$user->email}}</span>
+						<span class="mr-lg-3 mx-0 d-block d-lg-revert"><i class="fas fa-phone-alt mr-2 fa-sm text-primary"></i>{{$user->contact_no == '' ? '' : '+63 ' . $user->contact_no}}</span>
+						<span class="ml-lg-3 mx-0 d-block d-lg-revert"><i class="fas fa-envelope mr-2 fa-sm text-primary"></i><a class="text-muted" href="mailto:{{$user->email}}">{{$user->email}}</a></span>
 					</p>
 					<a class="btn text-primary border-primary" href="{{ route('profile.edit', [$user->id]) }}">Edit Profile</a>
 				</div>
@@ -32,6 +32,22 @@
 					<hr class="hr-thick my-2">
 
 					<div>{{$user->description}}</div>
+				</div>
+				
+				<div class="col-12">
+					<h4 class="text-custom-2 font-weight-bold my-2">Research Focus</h4>
+
+					<hr class="hr-thick my-2">
+
+					<div class="row my-2">
+						<div class="col">
+							@forelse ($user->focus as $f)
+							<span class="badge badge-pill badge-inverted-secondary mx-1">{{$f->name}}</span>
+							@empty
+							Nothing to show
+							@endforelse
+						</div>
+					</div>
 				</div>
 
 				<div class="col-12">
@@ -109,12 +125,12 @@
 				<hr class="hr-thick my-1">
 
 				<div class="row my-2 mt-3">
-					<div class="col text-center">
-						<a href="" data-toggle="tooltip" data-placement="top" title="Facebook" class="mx-1"><i class="fab fa-facebook text-dark fa-2x"></i></a>
-						<a href="" data-toggle="tooltip" data-placement="top" title="Google Scholar" class="mx-1"><i class="fas fa-atom text-light fa-2x bg-dark invisiborder circle-border p-1 custom-fa-2x"></i></a>
-						<a href="" data-toggle="tooltip" data-placement="top" title="Twitter" class="mx-1"><i class="fab fa-twitter text-light fa-2x bg-dark invisiborder circle-border p-1 custom-fa-2x"></i></a>
-						<a href="" data-toggle="tooltip" data-placement="top" title="LinkedIn" class="mx-1"><i class="fab fa-linkedin-in text-light fa-2x bg-dark invisiborder circle-border p-1 custom-fa-2x"></i></a>
-						<a href="" data-toggle="tooltip" data-placement="top" title="Github" class="mx-1"><i class="fab fa-github text-dark fa-2x"></i></a>
+					<div class="col text-center a-fa-hover-zoom-2">
+						<a href="" class="mx-1"><i class="fab fa-facebook text-dark secondary-hover fa-2x"></i></a>
+						<a href="" class="mx-1"><i class="fas fa-atom text-light fa-2x bg-dark secondary-hover invisiborder circle-border p-1 custom-fa-2x"></i></a>
+						<a href="" class="mx-1"><i class="fab fa-twitter text-light fa-2x bg-dark secondary-hover invisiborder circle-border p-1 custom-fa-2x"></i></a>
+						<a href="" class="mx-1"><i class="fab fa-linkedin-in text-light fa-2x bg-dark secondary-hover invisiborder circle-border p-1 custom-fa-2x"></i></a>
+						<a href="" class="mx-1"><i class="fab fa-github text-dark secondary-hover fa-2x"></i></a>
 					</div>
 				</div>
 			</div>
@@ -124,7 +140,7 @@
 	{{-- UPLOADS --}}
 	<div class="row my-5">
 		{{-- RESEARCH --}}
-		<div class="col-12 col-md-6">
+		<div class="col-12 col-md-6 div-hover-zoom">
 			<h4 class="text-custom-2 font-weight-bold my-2">Latest Researches</h4>
 
 			<hr class="hr-thick my-3">
@@ -161,7 +177,7 @@
 		</div>
 
 		{{-- INNOVATIONS --}}
-		<div class="col-12 col-md-6">
+		<div class="col-12 col-md-6 div-hover-zoom">
 			<h4 class="text-custom-2 font-weight-bold my-2">Latest Innovations</h4>
 
 			<hr class="hr-thick my-3">
@@ -206,7 +222,7 @@
 			<hr class="hr-thick my-3">
 
 			<div class="my-3 mx-1 container-fluid">
-				<div class="row flex-row flex-nowrap overflow-x-scroll p-2 border border-rounded custom-scrollbar">
+				<div class="row flex-row flex-nowrap overflow-x-scroll p-2 border border-rounded custom-scrollbar div-hover-zoom">
 					<div class="mx-3 bg-custom-light text-dark w-50 p-3 col-12 col-md-3">
 						<a href="" class="text-decoration-none text-dark">
 							<p><em>Programming</em></p>

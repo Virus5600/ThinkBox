@@ -72,23 +72,32 @@
 			</p>
 
 			{{-- MAX: 3 RESEARCH --}}
+			@if (count($research) > 0)
 			<div class="row mt-5">
 				<div class="col col-md-10 offset-md-1">
 					<div class="card-deck">
+						@foreach ($research as $r)
 						<div class="card dark-shadow">
 							<div class="card-body">
 								<div class="card-title">
 									<div class="row">
 										<div class="col-12 d-flex align-items-center">
-											<img src="/images/TEMPORARY/home/user1.jpg" class="circular-border" width='50' height='50' draggable='false' alt="User"/>
-											<h3 class="h4 mx-2"><a class="text-dark text-decoration-none" href=''>Angelique Lacasandile</a></h3>
+											<img src="/images/TEMPORARY/home/{{\App\Http\Controllers\TmpController::getUser($r->posted_by)->avatar}}" class="circular-border" style="align-self: flex-start;" width='50' height='50' draggable='false' alt="User"/>
+											<div class="d-flex flex-d-col">
+												<h3 class="h4 mx-2 my-0"><a class="text-dark text-decoration-none" href=''>{{\App\Http\Controllers\TmpController::getUser($r->posted_by)->name}}</a></h3>
+												<p class="mx-2 my-0">{{\App\Http\Controllers\TmpController::getUser($r->posted_by)->position}}</p>
+											</div>
 										</div>
 
 										<div class="col-12">
-											<h4 class="text-truncate text-custom my-3">Development of an Information-Based Dashboard: Automation of Barangay Information Profiling System (BIPS) for Decision Support towards e-Governance</h4>
+											<h4 class="text-truncate text-custom my-3">{{$r->title}}</h4>
 											
+											<p class="text-truncate-2">
+												<small><em>{{$r->authors}} | {{$r->date_published->format('M Y')}}</em></small>
+											</p>
+
 											<div class="card-text text-truncate-5">
-												The need to address societal issues of every community is a salient aspect that demands attention from the people in authority. These are important responsibilities of every barangay and its official in the Philippines. Profiling each household in the community using information and communication technology could achieve good governance through E-government as its core. Once profile data is aggregated, essential information could provide statistics in labor and employment, family income and expenditures, demography by (population) and (age), water and sanitation, type of housing and education. The focus is based on the profiling of Zone 42 and adding other facets as mentioned above was initiated, with the idea that educational institution around the barangay can help towards the areas included. This paper intends to aid barangay official in budget allocation and decision making in their respective governed …
+												{{$r->description}}
 											</div>
 										</div>
 									</div>
@@ -102,89 +111,26 @@
 									</a>
 
 									<div class="dropdown-menu dropdown-menu-left" aria-labelledby='share'>
-										<a class="dropdown-item share-link" href="javascript:void(0)" data-link='http://www.facebook.com/sharer.php?u=https://dl.acm.org/doi/abs/10.1145/3421682.3421691'><i class="fab fa-facebook-f mr-2"></i>Facebook</a>
-										{{-- <a class="dropdown-item share-link" href="javascript:void(0)" data-link='fb-messenger://share?link=https://dl.acm.org/doi/abs/10.1145/3421682.3421691'><i class="fab fa-facebook-messenger mr-2"></i>Messenger</a> --}}
-										<a class="dropdown-item share-link" href="javascript:void(0)" data-link='http://twitter.com/share?text=Payment%20Options&url=https://dl.acm.org/doi/abs/10.1145/3421682.3421691'><i class="fab fa-twitter mr-2"></i>Twitter</a>
+										@if ($r->is_file)
+										<a class="dropdown-item share-link" href="javascript:void(0)" data-link="http://www.facebook.com/sharer.php?u={{route('research.show', [$r->id])}}"><i class="fab fa-facebook-f mr-2"></i>Facebook</a>
+										{{-- <a class="dropdown-item share-link" href="javascript:void(0)" data-link="fb-messenger://share?link={{route('research.show', [$r->id])}}"><i class="fab fa-facebook-messenger mr-2"></i>Messenger</a> --}}
+										<a class="dropdown-item share-link" href="javascript:void(0)" data-link="http://twitter.com/share?url={{route('research.show', [$r->id])}}"><i class="fab fa-twitter mr-2"></i>Twitter</a>
+										@else
+										<a class="dropdown-item share-link" href="javascript:void(0)" data-link='http://www.facebook.com/sharer.php?u={{$r->url}}'><i class="fab fa-facebook-f mr-2"></i>Facebook</a>
+										{{-- <a class="dropdown-item share-link" href="javascript:void(0)" data-link='fb-messenger://share?link={{$r->url}}'><i class="fab fa-facebook-messenger mr-2"></i>Messenger</a> --}}
+										<a class="dropdown-item share-link" href="javascript:void(0)" data-link='http://twitter.com/share?url={{$r->url}}'><i class="fab fa-twitter mr-2"></i>Twitter</a>
+										@endif
 									</div>
 								</div>
 
-								<a class="float-right text-decoration-none read-more" target="_blank" href='https://scholar.google.com/scholar?oi=bibs&cluster=13452525736665322785&btnI=1&hl=en'>View Details <i class="fas fa-chevron-right"></i></a>
+								@if ($r->is_file)
+								<a class="float-right text-decoration-none read-more" href="{{route('research.show', [$r->id])}}">View Details <i class="fas fa-chevron-right"></i></a>
+								@else
+								<a class="float-right text-decoration-none read-more" target="_blank" href='{{$r->url}}'>View Details <i class="fas fa-chevron-right"></i></a>
+								@endif
 							</div>
 						</div>
-
-						<div class="card dark-shadow">
-							<div class="card-body">
-								<div class="card-title">
-									<div class="row">
-										<div class="col-12 d-flex align-items-center">
-											<img src="/images/TEMPORARY/home/user2.jpg" class="circular-border" width='50' height='50' draggable='false' alt="User"/>
-											<h3 class="h4 mx-2"><a class="text-dark text-decoration-none" href=''>Joseph Marvin Imperial</a></h3>
-										</div>
-
-										<div class="col-12">
-											<h4 class="text-truncate text-custom my-3">Exploring Hybrid Linguistic Feature Sets to Measure Filipino Text Readability</h4>
-											
-											<div class="card-text text-truncate-5">
-												Proper identification of the difficulty level of materials prescribed as required readings in an educational setting is key towards effective learning in children. Educators and publishers have relied on readability formulas in predicting text readability. While these formulas abound in the English language, limited work has been done on automatic readability assessment for the Filipino language. In this study, we build upon the previous works using traditional (TRAD) and lexical (LEX) linguistic features by incorporating language model (LM) features for possible improvement in identifying readability levels of Filipino storybooks. Results showed that combining LM predictors to TRAD and LEX, forming a hybrid feature set, increased the performances of readability models trained using Logistic Regression and Support Vector Machines by up to  25% – 32%. From the results of performing feature selection using …
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<div class="card-footer">
-								<div class="dropdown display-inline-block float-left">
-									<a class='dropdown-toggle text-decoration-none share-dropdown' href="" role='button' id='share' data-toggle='dropdown' aria-haspopup="true" aria-expanded="false">
-										<i class="fas fa-share-alt mr-1"></i> Share
-									</a>
-
-									<div class="dropdown-menu dropdown-menu-left" aria-labelledby='share'>
-										<a class="dropdown-item share-link" href="javascript:void(0)" data-link='http://www.facebook.com/sharer.php?u=https://ieeexplore.ieee.org/abstract/document/9310473'><i class="fab fa-facebook-f mr-2"></i>Facebook</a>
-										{{-- <a class="dropdown-item share-link" href="javascript:void(0)" data-link='fb-messenger://share?link=https://ieeexplore.ieee.org/abstract/document/9310473'><i class="fab fa-facebook-messenger mr-2"></i>Messenger</a> --}}
-										<a class="dropdown-item share-link" href="javascript:void(0)" data-link='http://twitter.com/share?text=Payment%20Options&url=https://ieeexplore.ieee.org/abstract/document/9310473'><i class="fab fa-twitter mr-2"></i>Twitter</a>
-									</div>
-								</div>
-
-								<a class="float-right text-decoration-none read-more" href='https://scholar.google.com/scholar?oi=bibs&cluster=8940472677338940170&btnI=1&hl=en'>View Details <i class="fas fa-chevron-right"></i></a>
-							</div>
-						</div>
-
-						<div class="card dark-shadow">
-							<div class="card-body">
-								<div class="card-title">
-									<div class="row">
-										<div class="col-12 d-flex align-items-center">
-											<img src="/images/TEMPORARY/home/user3.jpg" class="circular-border" width='50' height='50' draggable='false' alt="User"/>
-											<h3 class="h4 mx-2"><a class="text-dark text-decoration-none" href=''>Manolito Octaviano Jr.</a></h3>
-										</div>
-
-										<div class="col-12">
-											<h4 class="text-truncate text-custom my-3">A Speaker Accent Recognition System for Filipino Language</h4>
-											
-											<div class="card-text text-truncate-5">
-												This paper presents the development of an accent recognition system for the native speakers of Bikol and Tagalog using deep learning. The results of the work serve as baseline for the advancement of recognizing speakers with Tagalog and Bikol accents in Filipino language. A monologue written in Filipino is prepared as script for the development of the speech corpus. The script is used to capture the Bikol accent and Tagalog accent in the recordings. The corpus was validated, cleaned and divided into 80: 20 ratios for training and testing. Afterwards, Praat is utilized to analyze and extract prosodic features such as F1 and energy of speech. The model was tested and yields 79.28% and 78.33% accuracy for Tagalog and Bikol accent, respectively.
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<div class="card-footer">
-								<div class="dropdown display-inline-block float-left">
-									<a class='dropdown-toggle text-decoration-none share-dropdown' href="" role='button' id='share' data-toggle='dropdown' aria-haspopup="true" aria-expanded="false">
-										<i class="fas fa-share-alt mr-1"></i> Share
-									</a>
-
-									<div class="dropdown-menu dropdown-menu-left" aria-labelledby='share'>
-										<a class="dropdown-item share-link" href="javascript:void(0)" data-link='http://www.facebook.com/sharer.php?u=https://scholar.google.com/scholar?oi=bibs&cluster=6255688371458420982&btnI=1&hl=en'><i class="fab fa-facebook-f mr-2"></i>Facebook</a>
-										{{-- <a class="dropdown-item share-link" href="javascript:void(0)" data-link='fb-messenger://share?link=https://scholar.google.com/scholar?oi=bibs&cluster=6255688371458420982&btnI=1&hl=en'><i class="fab fa-facebook-messenger mr-2"></i>Messenger</a> --}}
-										<a class="dropdown-item share-link" href="javascript:void(0)" data-link='http://twitter.com/share?text=Payment%20Options&url=https://scholar.google.com/scholar?oi=bibs&cluster=6255688371458420982&btnI=1&hl=en'><i class="fab fa-twitter mr-2"></i>Twitter</a>
-									</div>
-								</div>
-
-								<a class="float-right text-decoration-none read-more" href='https://scholar.google.com/scholar?oi=bibs&cluster=6255688371458420982&btnI=1&hl=en'>View Details <i class="fas fa-chevron-right"></i></a>
-							</div>
-						</div>
+						@endforeach
 					</div>
 				</div>
 			</div>
@@ -194,8 +140,10 @@
 			</p>
 		</div>
 	</div>
+	@endif
 
 	{{-- LATEST INNOVATIONS --}}
+	@if (count($innovations) > 0)
 	<div class="row my-5">
 		<div class="col">
 			<p class="m-0 text-center">
@@ -206,20 +154,28 @@
 			<div class="row mt-5">
 				<div class="col col-md-10 offset-md-1">
 					<div class="card-deck">
+						@foreach ($innovations as $i)
 						<div class="card dark-shadow">
 							<div class="card-body">
 								<div class="card-title">
 									<div class="row">
 										<div class="col-12 d-flex align-items-center">
-											<img src="/images/TEMPORARY/home/user1.jpg" class="circular-border" width='50' height='50' draggable='false' alt="User"/>
-											<h3 class="h4 mx-2"><a class="text-dark text-decoration-none" href=''>Angelique Lacasandile</a></h3>
+											<img src="/images/TEMPORARY/home/{{\App\Http\Controllers\TmpController::getUser($i->posted_by)->avatar}}" class="circular-border" style="align-self: flex-start;" width='50' height='50' draggable='false' alt="User"/>
+											<div class="d-flex flex-d-col">
+												<h3 class="h4 mx-2 my-0"><a class="text-dark text-decoration-none" href=''>{{\App\Http\Controllers\TmpController::getUser($i->posted_by)->name}}</a></h3>
+												<p class="mx-2 my-0">{{\App\Http\Controllers\TmpController::getUser($i->posted_by)->position}}</p>
+											</div>
 										</div>
 
 										<div class="col-12">
-											<h4 class="text-truncate text-custom my-3">Development of an Information-Based Dashboard: Automation of Barangay Information Profiling System (BIPS) for Decision Support towards e-Governance</h4>
+											<h4 class="text-truncate text-custom my-3">{{$i->title}}</h4>
 											
+											<p class="text-truncate-2">
+												<small><em>{{$i->authors}} | {{$i->date_published->format('M Y')}}</em></small>
+											</p>
+
 											<div class="card-text text-truncate-5">
-												The need to address societal issues of every community is a salient aspect that demands attention from the people in authority. These are important responsibilities of every barangay and its official in the Philippines. Profiling each household in the community using information and communication technology could achieve good governance through E-government as its core. Once profile data is aggregated, essential information could provide statistics in labor and employment, family income and expenditures, demography by (population) and (age), water and sanitation, type of housing and education. The focus is based on the profiling of Zone 42 and adding other facets as mentioned above was initiated, with the idea that educational institution around the barangay can help towards the areas included. This paper intends to aid barangay official in budget allocation and decision making in their respective governed …
+												{{$i->description}}
 											</div>
 										</div>
 									</div>
@@ -233,89 +189,26 @@
 									</a>
 
 									<div class="dropdown-menu dropdown-menu-left" aria-labelledby='share'>
-										<a class="dropdown-item share-link" href="javascript:void(0)" data-link='http://www.facebook.com/sharer.php?u=https://www.national-u.edu.ph/payment-options/'><i class="fab fa-facebook-f mr-2"></i>Facebook</a>
-										{{-- <a class="dropdown-item share-link" href="javascript:void(0)" data-link='fb-messenger://share?link=https://www.national-u.edu.ph/payment-options/'><i class="fab fa-facebook-messenger mr-2"></i>Messenger</a> --}}
-										<a class="dropdown-item share-link" href="javascript:void(0)" data-link='http://twitter.com/share?text=Payment%20Options&url=https://www.national-u.edu.ph/payment-options/'><i class="fab fa-twitter mr-2"></i>Twitter</a>
+										@if ($i->is_file)
+										<a class="dropdown-item share-link" href="javascript:void(0)" data-link="http://www.facebook.com/sharer.php?u={{route('research.show', [$i->id])}}"><i class="fab fa-facebook-f mr-2"></i>Facebook</a>
+										{{-- <a class="dropdown-item share-link" href="javascript:void(0)" data-link="fb-messenger://share?link={{route('research.show', [$i->id])}}"><i class="fab fa-facebook-messenger mr-2"></i>Messenger</a> --}}
+										<a class="dropdown-item share-link" href="javascript:void(0)" data-link="http://twitter.com/share?url={{route('research.show', [$i->id])}}"><i class="fab fa-twitter mr-2"></i>Twitter</a>
+										@else
+										<a class="dropdown-item share-link" href="javascript:void(0)" data-link='http://www.facebook.com/sharer.php?u={{$i->url}}'><i class="fab fa-facebook-f mr-2"></i>Facebook</a>
+										{{-- <a class="dropdown-item share-link" href="javascript:void(0)" data-link='fb-messenger://share?link={{$i->url}}'><i class="fab fa-facebook-messenger mr-2"></i>Messenger</a> --}}
+										<a class="dropdown-item share-link" href="javascript:void(0)" data-link='http://twitter.com/share?url={{$i->url}}'><i class="fab fa-twitter mr-2"></i>Twitter</a>
+										@endif
 									</div>
 								</div>
 
-								<a class="float-right text-decoration-none read-more" target="_blank" href='https://scholar.google.com/scholar?oi=bibs&cluster=13452525736665322785&btnI=1&hl=en'>View Details <i class="fas fa-chevron-right"></i></a>
+								@if ($i->is_file)
+								<a class="float-right text-decoration-none read-more" href="{{route('research.show', [$i->id])}}">View Details <i class="fas fa-chevron-right"></i></a>
+								@else
+								<a class="float-right text-decoration-none read-more" target="_blank" href='{{$i->url}}'>View Details <i class="fas fa-chevron-right"></i></a>
+								@endif
 							</div>
 						</div>
-
-						<div class="card dark-shadow">
-							<div class="card-body">
-								<div class="card-title">
-									<div class="row">
-										<div class="col-12 d-flex align-items-center">
-											<img src="/images/TEMPORARY/home/user2.jpg" class="circular-border" width='50' height='50' draggable='false' alt="User"/>
-											<h3 class="h4 mx-2"><a class="text-dark text-decoration-none" href=''>Joseph Marvin Imperial</a></h3>
-										</div>
-
-										<div class="col-12">
-											<h4 class="text-truncate text-custom my-3">Exploring Hybrid Linguistic Feature Sets to Measure Filipino Text Readability</h4>
-											
-											<div class="card-text text-truncate-5">
-												Proper identification of the difficulty level of materials prescribed as required readings in an educational setting is key towards effective learning in children. Educators and publishers have relied on readability formulas in predicting text readability. While these formulas abound in the English language, limited work has been done on automatic readability assessment for the Filipino language. In this study, we build upon the previous works using traditional (TRAD) and lexical (LEX) linguistic features by incorporating language model (LM) features for possible improvement in identifying readability levels of Filipino storybooks. Results showed that combining LM predictors to TRAD and LEX, forming a hybrid feature set, increased the performances of readability models trained using Logistic Regression and Support Vector Machines by up to  25% – 32%. From the results of performing feature selection using …
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<div class="card-footer">
-								<div class="dropdown display-inline-block float-left">
-									<a class='dropdown-toggle text-decoration-none share-dropdown' href="" role='button' id='share' data-toggle='dropdown' aria-haspopup="true" aria-expanded="false">
-										<i class="fas fa-share-alt mr-1"></i> Share
-									</a>
-
-									<div class="dropdown-menu dropdown-menu-left" aria-labelledby='share'>
-										<a class="dropdown-item share-link" href="javascript:void(0)" data-link='http://www.facebook.com/sharer.php?u=https://www.national-u.edu.ph/payment-options/'><i class="fab fa-facebook-f mr-2"></i>Facebook</a>
-										{{-- <a class="dropdown-item share-link" href="javascript:void(0)" data-link='fb-messenger://share?link=https://www.national-u.edu.ph/payment-options/'><i class="fab fa-facebook-messenger mr-2"></i>Messenger</a> --}}
-										<a class="dropdown-item share-link" href="javascript:void(0)" data-link='http://twitter.com/share?text=Payment%20Options&url=https://www.national-u.edu.ph/payment-options/'><i class="fab fa-twitter mr-2"></i>Twitter</a>
-									</div>
-								</div>
-
-								<a class="float-right text-decoration-none read-more" href='https://scholar.google.com/scholar?oi=bibs&cluster=8940472677338940170&btnI=1&hl=en'>View Details <i class="fas fa-chevron-right"></i></a>
-							</div>
-						</div>
-
-						<div class="card dark-shadow">
-							<div class="card-body">
-								<div class="card-title">
-									<div class="row">
-										<div class="col-12 d-flex align-items-center">
-											<img src="/images/TEMPORARY/home/user3.jpg" class="circular-border" width='50' height='50' draggable='false' alt="User"/>
-											<h3 class="h4 mx-2"><a class="text-dark text-decoration-none" href=''>Manolito Octaviano Jr.</a></h3>
-										</div>
-
-										<div class="col-12">
-											<h4 class="text-truncate text-custom my-3">A Speaker Accent Recognition System for Filipino Language</h4>
-											
-											<div class="card-text text-truncate-5">
-												This paper presents the development of an accent recognition system for the native speakers of Bikol and Tagalog using deep learning. The results of the work serve as baseline for the advancement of recognizing speakers with Tagalog and Bikol accents in Filipino language. A monologue written in Filipino is prepared as script for the development of the speech corpus. The script is used to capture the Bikol accent and Tagalog accent in the recordings. The corpus was validated, cleaned and divided into 80: 20 ratios for training and testing. Afterwards, Praat is utilized to analyze and extract prosodic features such as F1 and energy of speech. The model was tested and yields 79.28% and 78.33% accuracy for Tagalog and Bikol accent, respectively.
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<div class="card-footer">
-								<div class="dropdown display-inline-block float-left">
-									<a class='dropdown-toggle text-decoration-none share-dropdown' href="" role='button' id='share' data-toggle='dropdown' aria-haspopup="true" aria-expanded="false">
-										<i class="fas fa-share-alt mr-1"></i> Share
-									</a>
-
-									<div class="dropdown-menu dropdown-menu-left" aria-labelledby='share'>
-										<a class="dropdown-item share-link" href="javascript:void(0)" data-link='http://www.facebook.com/sharer.php?u=https://www.national-u.edu.ph/payment-options/'><i class="fab fa-facebook-f mr-2"></i>Facebook</a>
-										{{-- <a class="dropdown-item share-link" href="javascript:void(0)" data-link='fb-messenger://share?link=https://www.national-u.edu.ph/payment-options/'><i class="fab fa-facebook-messenger mr-2"></i>Messenger</a> --}}
-										<a class="dropdown-item share-link" href="javascript:void(0)" data-link='http://twitter.com/share?text=Payment%20Options&url=https://www.national-u.edu.ph/payment-options/'><i class="fab fa-twitter mr-2"></i>Twitter</a>
-									</div>
-								</div>
-
-								<a class="float-right text-decoration-none read-more" href='https://scholar.google.com/scholar?oi=bibs&cluster=6255688371458420982&btnI=1&hl=en'>View Details <i class="fas fa-chevron-right"></i></a>
-							</div>
-						</div>
+						@endforeach
 					</div>
 				</div>
 			</div>
@@ -325,6 +218,7 @@
 			</p>
 		</div>
 	</div>
+	@endif
 
 	{{-- FACULTY --}}
 	<div class="row my-5">
@@ -337,9 +231,9 @@
 					<div class="card-deck">
 						@foreach($staff as $s)
 						<div class="card dark-shadow">
-							<div class="card-header p-0" style="background: #fff url('/images/TEMPORARY/home/{{$s->avatar}}') no-repeat center; background-size: cover;">
+							<div class="card-header p-0" style="background: #fff url('/images/TEMPORARY/home/{{$s->avatar or 'default.png'}}') no-repeat center; background-size: cover;">
 								<div class="p-0 m-0 blur-backdrop">
-									<img class="p-0 m-0 img-fluid faculty-img" src='/images/TEMPORARY/home/{{$s->avatar}}'>
+									<img class="p-0 m-0 img-fluid faculty-img" src='/images/TEMPORARY/home/{{$s->avatar or 'default.png'}}'>
 								</div>
 							</div>
 							<div class="card-body">

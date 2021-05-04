@@ -15,6 +15,9 @@ class FacultyController extends Controller
 	private function getSkillList() {
 		return TmpController::getSkillList();
 	}
+	private function getResearchList() {
+		return TmpController::getResearchList();
+	}
 
 	protected function index($dept='All',$sortBy='firstName') {
 		$staff = $this->getStaff();
@@ -59,23 +62,30 @@ class FacultyController extends Controller
 	protected function show($id) {
 		return view('users.auth.faculty.show', [
 			'staff' => $this->getStaff()->get($id-1),
+			'research' => $this->getResearchList()->where('posted_by', (int)$id),
+			'innovations' => $this->getResearchList()->where('posted_by', (int)$id)
 		]);
 	}
 
 	protected function research($id) {
 		return view('users.auth.faculty.show.research', [
+			'staff' => $this->getStaff()->get($id-1),
+			'research' => $this->getResearchList()->where('posted_by', (int)$id),
 			'id' => $id
 		]);
 	}
 
 	protected function innovations($id) {
 		return view('users.auth.faculty.show.innovations', [
+			'staff' => $this->getStaff()->get($id-1),
+			'innovations' => $this->getResearchList()->where('posted_by', (int)$id),
 			'id' => $id
 		]);
 	}
 
 	protected function materials($id) {
 		return view('users.auth.faculty.show.materials', [
+			'staff' => $this->getStaff()->get($id-1),
 			'id' => $id
 		]);
 	}

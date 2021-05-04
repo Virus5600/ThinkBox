@@ -8,7 +8,7 @@
 		<div class="col-6 ml-5" style="position: relative; top: 25%;">
 			<h1 class="text-light h3 h1-md">Announcements</h1>
 			<hr class="hr-thick" style="border-color: white;" />
-			<p class="text-light">Be updated with the latest announcements from the university.</p>
+			<p class="text-light h4">Be updated with the latest announcements from the university.</p>
 		</div>
 	</div>
 </div>
