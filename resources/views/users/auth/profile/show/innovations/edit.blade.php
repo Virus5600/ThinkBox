@@ -11,21 +11,21 @@
 		<div class="col-12 my-3">
 			<form action="" method="{{-- POST --}}" enctype="multipart/form-data">
 				<div class="row">
-					<div class="form-group col-md-6">
+					<div class="form-group col-lg-6">
 						<label class="form-label font-weight-bold" for="title">Innovation Title</label>
 						<input type="text" class="form-control" name="title" value="{{$innovation->title}}"/>
 					</div>
 
-					<div class="col-md-6">
+					<div class="col-lg-6">
 						<div class="row">
-							<div class="col-md-2 my-auto">
+							<div class="col-12 col-lg-2 my-lg-auto mb-3 my-lg-0 text-center text-lg-left">
 								<div class="custom-control custom-switch custom-switch-md">
 									<input type="checkbox" class="custom-control-input" name="is_file" id="is_file" {{$innovation->is_file ? 'checked' : ''}}>
 									<label class="custom-control-label font-weight-bold pl-3 pt-1 pb-0" for="is_file">File</label>
 								</div>
 							</div>
 
-							<div class="form-group col-10" id="source_parent">
+							<div class="form-group col-12 col-lg-10" id="source_parent">
 								@if ($innovation->is_file)
 								<label class="form-label">File</label>
 								<div class="custom-file">
@@ -42,13 +42,13 @@
 				</div>
 
 				<div class="row">
-					<div class="form-group col-12 col-md-6">
+					<div class="form-group col-12 col-lg-6">
 						{{-- TO BE UPDATED TO WORK AKIN TO PROJECT RUSH'S "ADD PROFESSIONAL TO PROJECT" --}}
 						<label class="form-label font-weight-bold" for="authors">Authors</label>
 						<input type="text" class="form-control" name="authors" value="{{$innovation->authors}}"/>
 					</div>
 
-					<div class="form-group col-12 col-md-6">
+					<div class="form-group col-12 col-lg-6">
 						<label class="form-label font-weight-bold" for="date_published">Date Publsihed</label>
 						<input type="date" class="form-control" name="date_published" value="{{$innovation->date_published->format('Y-m-d')}}"/>
 					</div>
@@ -75,21 +75,21 @@
 
 				<div class="row">
 					<label class="form-label font-weight-bold">Miscellaneous</label>
-					<div class="form-group col-12 d-flex flex-d-row">
+					<div class="form-group col-12 d-flex flex-d-row" id="misc">
 						<div class="form-check mx-3">
-							<input class="form-check-input" type="checkbox" name="is_viewable" id="is_viewable" {{$innovation->is_viewable ? 'checked' : ''}}/>
+							<input class="form-check-input" type="checkbox" name="is_viewable" id="is_viewable" {{$innovation->is_viewable ? 'checked' : ''}} {{$innovation->is_file ? '' : 'disabled'}}/>
 							<label class="form-check-label font-weight-bold" for="is_viewable">Viewable</label>
 						</div>
 
 						<div class="form-check mx-3">
-							<input class="form-check-input" type="checkbox" name="is_downloadable" id="is_downloadable" {{$innovation->is_downloadable ? 'checked' : ''}}/>
+							<input class="form-check-input" type="checkbox" name="is_downloadable" id="is_downloadable" {{$innovation->is_downloadable ? 'checked' : ''}} {{$innovation->is_file ? '' : 'disabled'}}/>
 							<label class="form-check-label font-weight-bold" for="is_downloadable">Downloadble</label>
 						</div>
 					</div>
 				</div>
 
 				<div class="row">
-					<div class="col">
+					<div class="col text-center text-lg-left">
 						<button type="submit" class="btn btn-primary" data-action="update">Submit</button>
 						<a href="javascript:void(0);" onclick="confirmLeave('{{ route('profile.innovations.index') }}')" class="btn btn-secondary">Cancel</a>
 					</div>
@@ -117,6 +117,7 @@
   						@endif
   					'</div>'
 				);
+				$('#misc').find('input').prop('disabled', false);
 			}
 			else {
 				let parent = $("#source_parent");
@@ -128,6 +129,7 @@
 					'<input type="text" class="form-control" name="url" value="{{$innovation->url}}"/>'
 					@endif
 				);
+				$('#misc').find('input').prop('disabled', true);
 			}
 		});
 	});

@@ -115,6 +115,16 @@
 						</li>
 
 						<li class="nav-item">
+							@if(\Request::is('faculty'))
+							<span class="nav-link active custom-link">Department</span>
+							@elseif(\Request::is('faculty/*'))
+							<a class="nav-link active custom-link" href="{{route('faculty.index')}}">Department</a>
+							@else
+							<a class="nav-link custom-link" href="{{route('faculty.index')}}">Department</a>
+							@endif
+						</li>
+
+						<li class="nav-item">
 							@if(\Request::is('researches'))
 							<span class="nav-link active custom-link">Research</span>
 							@elseif(\Request::is('researches/*'))
@@ -131,16 +141,6 @@
 							<a class="nav-link active custom-link" href="{{route('innovations')}}">Innovations</a>
 							@else
 							<a class="nav-link custom-link" href="{{route('innovations')}}">Innovations</a>
-							@endif
-						</li>
-
-						<li class="nav-item">
-							@if(\Request::is('faculty'))
-							<span class="nav-link active custom-link">Department</span>
-							@elseif(\Request::is('faculty/*'))
-							<a class="nav-link active custom-link" href="{{route('faculty.index')}}">Department</a>
-							@else
-							<a class="nav-link custom-link" href="{{route('faculty.index')}}">Department</a>
 							@endif
 						</li>
 
