@@ -31,7 +31,7 @@
 								<div class="modal-body">
 									<form>
 										<div class="form-group">
-											<label class="form-label" for="topic_name">Topic Name</label>
+											<label class="form-label font-weight-bold" for="topic_name">Topic Name</label>
 											<input type="text" class="form-control" name="topic_name"/>
 										</div>
 									</form>
@@ -101,7 +101,7 @@
 										<div class="modal-body">
 											<form>
 												<div class="form-group">
-													<label class="form-label" for="topic_name1">Topic Name</label>
+													<label class="form-label font-weight-bold" for="topic_name1">Topic Name</label>
 													<input type="text" class="form-control" name="topic_name1" value="Topic 1"/>
 												</div>
 											</form>

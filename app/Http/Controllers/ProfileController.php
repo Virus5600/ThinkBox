@@ -12,6 +12,9 @@ class ProfileController extends Controller
 	private function getUser() {
 		return TmpController::getUser();
 	}
+	private function getFocus() {
+		return TmpController::getFocus();
+	}
 	private function getResearch($id) {
 		return TmpController::getResearch($id);
 	}
@@ -62,12 +65,15 @@ class ProfileController extends Controller
 	}
 
 	protected function researchCreate() {
-		return view('users.auth.profile.show.research.create');
+		return view('users.auth.profile.show.research.create', [
+			'focus' => $this->getFocus()
+		]);
 	}
 
 	protected function researchEdit($id) {
 		return view('users.auth.profile.show.research.edit', [
-			'research' => $this->getResearch($id)
+			'research' => $this->getResearch($id),
+			'focus' => $this->getFocus()
 		]);
 	}
 
@@ -88,12 +94,15 @@ class ProfileController extends Controller
 	}
 
 	protected function innovationsCreate() {
-		return view('users.auth.profile.show.innovations.create');
+		return view('users.auth.profile.show.innovations.create', [
+			'focus' => $this->getFocus()
+		]);
 	}
 
 	protected function innovationsEdit($id) {
 		return view('users.auth.profile.show.innovations.edit', [
-			'innovation' => $this->getResearch($id)
+			'innovation' => $this->getResearch($id),
+			'focus' => $this->getFocus()
 		]);
 	}
 

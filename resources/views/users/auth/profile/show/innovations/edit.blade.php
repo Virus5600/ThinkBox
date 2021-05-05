@@ -12,7 +12,7 @@
 			<form action="" method="{{-- POST --}}" enctype="multipart/form-data">
 				<div class="row">
 					<div class="form-group col-md-6">
-						<label class="form-label" for="title">Innovation Title</label>
+						<label class="form-label font-weight-bold" for="title">Innovation Title</label>
 						<input type="text" class="form-control" name="title" value="{{$innovation->title}}"/>
 					</div>
 
@@ -21,7 +21,7 @@
 							<div class="col-md-2 my-auto">
 								<div class="custom-control custom-switch custom-switch-md">
 									<input type="checkbox" class="custom-control-input" name="is_file" id="is_file" {{$innovation->is_file ? 'checked' : ''}}>
-									<label class="custom-control-label pl-3 pt-1 pb-0" for="is_file">File</label>
+									<label class="custom-control-label font-weight-bold pl-3 pt-1 pb-0" for="is_file">File</label>
 								</div>
 							</div>
 
@@ -30,10 +30,10 @@
 								<label class="form-label">File</label>
 								<div class="custom-file">
 									<input type="file" class="custom-file-input" name="url" id="url" onchange="swapLbl(this);" accept=".pdf">
-			  						<label class="custom-file-label" for="url" id="file_label">{{$innovation->url}}</label>
+			  						<label class="custom-file-label font-weight-bold" for="url" id="file_label">{{$innovation->url}}</label>
 			  					</div>
 								@else
-								<label class="form-label" for="url">URL/Link to source</label>
+								<label class="form-label font-weight-bold" for="url">URL/Link to source</label>
 								<input type="text" class="form-control" name="url" value="{{$innovation->url}}"/>
 								@endif
 							</div>
@@ -43,20 +43,48 @@
 
 				<div class="row">
 					<div class="form-group col-12 col-md-6">
-						<label class="form-label" for="authors">Authors</label>
+						{{-- TO BE UPDATED TO WORK AKIN TO PROJECT RUSH'S "ADD PROFESSIONAL TO PROJECT" --}}
+						<label class="form-label font-weight-bold" for="authors">Authors</label>
 						<input type="text" class="form-control" name="authors" value="{{$innovation->authors}}"/>
 					</div>
 
 					<div class="form-group col-12 col-md-6">
-						<label class="form-label" for="date_published">Date Publsihed</label>
+						<label class="form-label font-weight-bold" for="date_published">Date Publsihed</label>
 						<input type="date" class="form-control" name="date_published" value="{{$innovation->date_published->format('Y-m-d')}}"/>
 					</div>
 				</div>
 
 				<div class="row">
 					<div class="form-group col-12">
-						<label class="form-label" for="description">Abstract/Description</label>
-						<textarea class="form-control not-resizable" rows="5" name="description">{{$innovation->description}}</textarea>
+						<label class="form-label font-weight-bold" for="description">Abstract/Description</label>
+						<textarea class="form-control not-resizable" rows="5" name="description" placeholder="Provide an abstract or description here...">{{$innovation->description}}</textarea>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="form-group">
+						<label class="form-label font-weight-bold">Research Focus</label>
+						<select class="custom-select">
+							<option {{$innovation->focus == null ? 'selected' : ''}}>Select Research Focus</option>
+							@foreach ($focus as $f)
+							<option value="{{$f->id}}" {{$innovation->focus == $f->id ? 'selected' : ''}}>{{ucwords($f->name)}}</option>
+							@endforeach
+						</select>
+					</div>
+				</div>
+
+				<div class="row">
+					<label class="form-label font-weight-bold">Miscellaneous</label>
+					<div class="form-group col-12 d-flex flex-d-row">
+						<div class="form-check mx-3">
+							<input class="form-check-input" type="checkbox" name="is_viewable" id="is_viewable" {{$innovation->is_viewable ? 'checked' : ''}}/>
+							<label class="form-check-label font-weight-bold" for="is_viewable">Viewable</label>
+						</div>
+
+						<div class="form-check mx-3">
+							<input class="form-check-input" type="checkbox" name="is_downloadable" id="is_downloadable" {{$innovation->is_downloadable ? 'checked' : ''}}/>
+							<label class="form-check-label font-weight-bold" for="is_downloadable">Downloadble</label>
+						</div>
 					</div>
 				</div>
 
@@ -79,7 +107,7 @@
 			if ($(this).prop('checked')) {
 				let parent = $("#source_parent");
 				parent.html(
-					'<label class="form-label">File</label>' +
+					'<label class="form-label font-weight-bold">File</label>' +
 					'<div class="custom-file">' +
 						'<input type="file" class="custom-file-input" name="url" id="url" onchange="swapLbl(this);" accept=".pdf">' +
 						@if ($innovation->is_file)
@@ -93,7 +121,7 @@
 			else {
 				let parent = $("#source_parent");
 				parent.html(
-					'<label class="form-label" for="url">URL/Link to source</label>' +
+					'<label class="form-label font-weight-bold" for="url">URL/Link to source</label>' +
 					@if ($innovation->is_file)
 					'<input type="text" class="form-control" name="url" value="{{old("url")}}"/>'
 					@else

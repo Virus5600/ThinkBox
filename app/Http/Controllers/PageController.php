@@ -31,7 +31,7 @@ class PageController extends Controller
 		return view('users.index', [
 			'user' => $this->getUser(),
 			'staff' => $this->getStaff()->take(4),
-			'announcements' => $this->getAnnouncements(),
+			'announcements' => $this->getAnnouncements()->take(3),
 			'research' => $this->getResearchList()->take(3),
 			'innovations' => $this->getResearchList()->take(3)
 		]);

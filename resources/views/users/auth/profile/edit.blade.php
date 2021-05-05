@@ -17,6 +17,7 @@
 					{{-- PROFILE IMAGE --}}
 					<div class="col-12 col-md-4">
 						<div class="form-group text-center">
+							<label class="form-label font-weight-bold" for="avatar">Avatar</label><br>
 							<img src="/images/TEMPORARY/home/{{$user->avatar}}" class="img-fluid avatar circle-border hover-zoom" id="avatar" width="250" height="250" alt="Profile Image">
 							<input type="file" name="avatar" class="hidden" accept=".jpg,.jpeg,.png">
 							<h6 id="profile_img">{{$user->avatar}}</h6>
@@ -28,34 +29,34 @@
 					<div class="col-12 col-md-8">
 						<div class="row">
 							<div class="col-12 col-md-4 form-group">
-								<label class="form-label" for="first_name">First Name</label>
+								<label class="form-label font-weight-bold" for="first_name">First Name</label>
 								<input class="form-control" type="text" name="first_name" value="{{$user->first_name}}"/>
 							</div>
 
 							<div class="col-12 col-md-4 form-group">
-								<label class="form-label" for="last_name">Last Name</label>
+								<label class="form-label font-weight-bold" for="last_name">Last Name</label>
 								<input class="form-control" type="text" name="last_name" value="{{$user->last_name}}"/>
 							</div>
 
 							<div class="col-6 col-md-2 form-group">
-								<label class="form-label" for="suffix">Suffix</label>
+								<label class="form-label font-weight-bold" for="suffix">Suffix</label>
 								<input class="form-control" type="text" name="suffix" value="{{$user->suffix}}"/>
 							</div>
 
 							<div class="col-6 col-md-2 form-group">
-								<label class="form-label" for="title">Title</label>
+								<label class="form-label font-weight-bold" for="title">Title</label>
 								<input class="form-control" type="text" name="title" value="{{$user->title}}"/>
 							</div>
 						</div>
 
 						<div class="row">
 							<div class="col-12 col-md-4">
-								<label class="form-label" for="contact_no">Contact No.</label>
+								<label class="form-label font-weight-bold" for="contact_no">Contact No.</label>
 								<input class="form-control" type="text" name="contact_no" data-mask title="+63 xxx xxx xxxx" value="{{$user->contact_no}}">
 							</div>
 
 							<div class="col-12 col-md-4">
-								<label class="form-label" for="email">Email</label>
+								<label class="form-label font-weight-bold" for="email">Email</label>
 								<input class="form-control" type="email" name="email" value="{{$user->email}}">
 							</div>
 						</div>
@@ -65,7 +66,7 @@
 				{{-- ABOUT --}}
 				<div class="row my-3">
 					<div class="col">
-						<label class="form-label" for="about">About</label>
+						<label class="form-label font-weight-bold" for="about">About</label>
 						<textarea class="form-control not-resizable" name="description" rows="5">{{$user->description}}</textarea>
 					</div>
 				</div>

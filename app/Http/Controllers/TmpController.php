@@ -392,8 +392,10 @@ class TmpController extends Controller
 				'posted_by' => 1,
 				'is_file' => 0,
 				'date_added' => \Carbon\Carbon::parse('2021-5-4'),
-				'is_viewable' => 1,
-				'is_downloadable' => 1
+				'is_viewable' => 0,
+				'is_downloadable' => 0,
+				'focus' => 1
+
 			],
 			(object) [
 				'id' => 2,
@@ -405,8 +407,9 @@ class TmpController extends Controller
 				'posted_by' => 4,
 				'is_file' => 0,
 				'date_added' => \Carbon\Carbon::parse('2021-5-4'),
-				'is_viewable' => 1,
-				'is_downloadable' => 1
+				'is_viewable' => 0,
+				'is_downloadable' => 0,
+				'focus' => 6
 			],
 			(object) [
 				'id' => 3,
@@ -418,8 +421,9 @@ class TmpController extends Controller
 				'posted_by' => 3,
 				'is_file' => 0,
 				'date_added' => \Carbon\Carbon::parse('2021-5-4'),
-				'is_viewable' => 1,
-				'is_downloadable' => 1
+				'is_viewable' => 0,
+				'is_downloadable' => 0,
+				'focus' => 12
 			],
 			(object) [
 				'id' => 4,
@@ -432,7 +436,8 @@ class TmpController extends Controller
 				'is_file' => 1,
 				'date_added' => \Carbon\Carbon::parse('2021-5-4'),
 				'is_viewable' => 1,
-				'is_downloadable' => 1
+				'is_downloadable' => 1,
+				'focus' => 6
 			]
 		]);
 
