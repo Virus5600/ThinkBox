@@ -1133,6 +1133,12 @@ nav.position-sticky {
 		display: revert!important;
 	}
 
+	.vertical-lg-card {
+		max-height: 5rem;
+		height: 5rem;
+		min-height: 5rem;
+	}
+
 	/* サイドバースタート */
 	.sidebar-toggler {
 		display: none;

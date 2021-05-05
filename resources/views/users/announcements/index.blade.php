@@ -57,6 +57,7 @@
 								<a class="dropdown-item share-link bg-light" href="javascript:void(0)" data-link='http://www.facebook.com/sharer.php?u={{$a->source}}'><i class="fab fa-facebook-f mr-2"></i>Facebook</a>
 								{{-- <a class="dropdown-item share-link bg-light" href="javascript:void(0)" data-link='fb-messenger://share?link={{$a->source}}'><i class="fab fa-facebook-messenger mr-2"></i>Messenger</a> --}}
 								<a class="dropdown-item share-link bg-light" href="javascript:void(0)" data-link='http://twitter.com/share?text=Payment%20Options&url={{$a->source}}'><i class="fab fa-twitter mr-2"></i>Twitter</a>
+								<a class="dropdown-item bg-light" href="javascript:void(0)" data-copy-link='{{$a->source}}'><i class="fas fa-link mr-2"></i>Copy Link</a>
 							</div>
 						</div>
 

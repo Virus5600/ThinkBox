@@ -66,22 +66,22 @@
 							<div class="card-title">
 								<div class="row">
 									<div class="col-12 align-items-center">
-										<div class="row">
+										<div class="row vertical-lg-card">
 											<div class="col-12 col-md-3 text-center px-0">
 												<img src="/images/TEMPORARY/home/{{\App\Http\Controllers\TmpController::getUser($r->posted_by)->avatar}}" class="circle-border img-fluid" style="max-width: 75%;" draggable='false' alt="User"/>
 											</div>
 
 											<div class="col-12 col-md-9 ml-0 pl-1 text-center text-sm-left">
 												<a class="text-dark text-decoration-none" href="{{route('faculty.show', [$r->id])}}">
-													<h5 class="h2 h5-lg m-0">{{\App\Http\Controllers\TmpController::getUser($r->posted_by)->name}}</h5>
-													<p class="h4 h6-lg m-0">{{\App\Http\Controllers\TmpController::getUser($r->posted_by)->position}}</p>
+													<h5 class="h2 h5-lg m-0 text-truncate-2">{{\App\Http\Controllers\TmpController::getUser($r->posted_by)->name}}</h5>
+													<p class="h4 h6-lg m-0 text-truncate-2">{{\App\Http\Controllers\TmpController::getUser($r->posted_by)->position}}</p>
 												</a>
 											</div>
 										</div>
 									</div>
 
 									<div class="col-12">
-										<h4 class="text-truncate-2 my-3 tooltip-html" data-toggle="tooltip" data-placement="bottom" title="{{$r->title}}">
+										<h4 class="text-truncate-2 mt-3 mb-0 tooltip-html" data-toggle="tooltip" data-placement="bottom" title="{{$r->title}}">
 											{{$r->title}}
 										</h4>
 										
@@ -108,10 +108,12 @@
 									<a class="dropdown-item share-link bg-light" href="javascript:void(0)" data-link="http://www.facebook.com/sharer.php?u={{route('research.show', [$r->id])}}"><i class="fab fa-facebook-f mr-2"></i>Facebook</a>
 									{{-- <a class="dropdown-item share-link bg-light" href="javascript:void(0)" data-link="fb-messenger://share?link={{route('research.show', [$r->id])}}"><i class="fab fa-facebook-messenger mr-2"></i>Messenger</a> --}}
 									<a class="dropdown-item share-link bg-light" href="javascript:void(0)" data-link="http://twitter.com/share?url={{route('research.show', [$r->id])}}"><i class="fab fa-twitter mr-2"></i>Twitter</a>
+									<a class="dropdown-item bg-light" href="javascript:void(0)" data-copy-link='{{route("research.show" , [$r->id])}}'><i class="fas fa-link mr-2"></i>Copy Link</a>
 									@else
 									<a class="dropdown-item share-link bg-light" href="javascript:void(0)" data-link='http://www.facebook.com/sharer.php?u={{$r->url}}'><i class="fab fa-facebook-f mr-2"></i>Facebook</a>
 									{{-- <a class="dropdown-item share-link bg-light" href="javascript:void(0)" data-link='fb-messenger://share?link={{$r->url}}'><i class="fab fa-facebook-messenger mr-2"></i>Messenger</a> --}}
 									<a class="dropdown-item share-link bg-light" href="javascript:void(0)" data-link='http://twitter.com/share?url={{$r->url}}'><i class="fab fa-twitter mr-2"></i>Twitter</a>
+									<a class="dropdown-item bg-light" href="javascript:void(0)" data-copy-link='{{$r->url}}'><i class="fas fa-link mr-2"></i>Copy Link</a>
 									@endif
 								</div>
 							</div>
