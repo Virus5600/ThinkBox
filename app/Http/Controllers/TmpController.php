@@ -209,6 +209,26 @@ class TmpController extends Controller
 			// ],
 			(object) [
 				'id' => 7,
+				'avatar' => 'user7.jpg',
+				'first_name' => 'Mark Emmanuel',
+				'last_name' => 'Malimban',
+				'title' => null,
+				'suffix' => null,
+				'name' => 'Mark Emmanuel Malimban',
+				'department' => 'Computer Science',
+				'position' => 'Professor, National University',
+				'description' => 'Driven with passion and concrete objectives to meet a high quality and technologically in-lined actions for short and long term goals.',
+				'contact_no' => null,
+				'email' => null,
+				'skills' => Skills::hydrate([
+					(object)['id' => 1, 'skill' => 'Higher Education'],
+					(object)['id' => 2, 'skill' => 'Programming'],
+					(object)['id' => 3, 'skill' => 'Teaching']
+				]),
+				'focus' => null
+			],
+			(object) [
+				'id' => 8,
 				'avatar' => null,
 				'first_name' => 'Rogel',
 				'last_name' => 'Labanan',
@@ -270,14 +290,16 @@ class TmpController extends Controller
 					<p>Good news, Nationalians!</p>
 					<p>Now you can pay your tuition, miscellaneous, and other school fees via our nominated payment channels and centers nationwide.</p>
 					<p>You may process your payment via credit card, online banking, 7-Eleven, Cebuana, SM Bills payment and many more.</p>',
-				'source' => 'https://www.national-u.edu.ph/payment-options/'
+				'source' => 'https://www.national-u.edu.ph/payment-options/',
+				'created_at' => \Carbon\Carbon::parse('2021-03-18')
 			],
 			(object)[
 				'id' => 2,
 				'image' => 'announcement2.jpg',
 				'title' => 'BDO EasyPay Cash Tuition Program',
 				'content' => '<p>EASYPAY-CASH-TUITION-PROMO-MECHANICS-v121620</p>',
-				'source' => 'https://www.national-u.edu.ph/payment-options'
+				'source' => 'https://www.national-u.edu.ph/payment-options',
+				'created_at' => \Carbon\Carbon::parse('2021-02-15')
 			],
 			(object)[
 				'id' => 3,
@@ -289,7 +311,39 @@ class TmpController extends Controller
 					<p>Reputable plenary speakers, forum discussants and presenters were present to share their knowledge and experience in the significance of wise environmental decision-making in a well-functioning ecosystem.</p>
 					<p>To top off the event, National-U’s Electronics and Communications Engineering alumnus, Jayvee Boy H. Agustin, was awarded the Best Paper Presenter for the topic: “Development of Subsystems for a Web-based Survey Tool Using Automatic Speech and Optical Character Recognition with Geotagging Features.”</p>
 					<p>With the mission to combat emerging natural and environmental conflicts, REFOREST 2020 will indeed help us attain a sustainable environment.</p>',
-				'source' => 'https://www.national-u.edu.ph/payment-options/'
+				'source' => 'https://www.national-u.edu.ph/payment-options/',
+				'created_at' => \Carbon\Carbon::parse('2021-01-31')
+			],
+			(object)[
+				'id' => 4,
+				'image' => 'announcement4.jpg',
+				'title' => 'Enrollment for 1st Term AY 2021-2022 is ongoing.',
+				'content' => '
+					<p>
+						The NU Manila ENROLLMENT for 1st Term AY 2021-2022 is ONGOING.<br>
+						Applicants may register online via <a href="bit.ly/NUManilaOnlineApplication">bit.ly/NUManilaOnlineApplication</a>.
+					</p>
+					
+					<p>To all ENROLLEES of 1st Term AY 2021-2022 (Freshmen, Transferee, 2nd Degree, Graduate Studies, and Cross Enrollee) kindly upload your requirements here:</p>
+					
+					<p>For FRESHMEN Online Enrollment: <a href="http://bit.ly/NUMNLFreshmenEnrollment">http://bit.ly/NUMNLFreshmenEnrollment</a></p>
+					
+					<p>For Transferee, 2nd Degree, Graduate Studies and Cross Enrollees:<br><a href="http://bit.ly/NUMNLOnlineEnrollment">http://bit.ly/NUMNLOnlineEnrollment</a></p>
+					
+					<p>Should you have any questions, please don\'t hesitate to reach us at: </p>
+					
+					<p>
+						📧 : <a href="mailto:admissions@national-u.edu.ph">admissions@national-u.edu.ph</a><br>
+						📞 : 09479961932 and 09479961933 (Smart) / 09223016192 (Sun)<br>
+						☎️ : 8712-1900 local 1201 | 8743-7951
+					</p>
+					<p>Or send us a personal message here at NU Admissions Office-Manila\'s official Facebook Page account.</p>
+					<p>
+						Keep safe and we hope to see all of you here at NU!<br>
+						#EducationThatWorks
+					</p>',
+					'source' => 'https://www.facebook.com/nuadmissionsmnl/posts/282474563481754',
+					'created_at' => \Carbon\Carbon::parse('2021-04-28')
 			]
 		]);
 
@@ -337,7 +391,9 @@ class TmpController extends Controller
 				'description' => 'The need to address societal issues of every community is a salient aspect that demands attention from the people in authority. These are important responsibilities of every barangay and its official in the Philippines. Profiling each household in the community using information and communication technology could achieve good governance through E-government as its core. Once profile data is aggregated, essential information could provide statistics in labor and employment, family income and expenditures, demography by (population) and (age), water and sanitation, type of housing and education. The focus is based on the profiling of Zone 42 and adding other facets as mentioned above was initiated, with the idea that educational institution around the barangay can help towards the areas included. This paper intends to aid barangay official in budget allocation and decision making in their respective governed …',
 				'posted_by' => 1,
 				'is_file' => 0,
-				'date_added' => \Carbon\Carbon::parse('2021-5-4')
+				'date_added' => \Carbon\Carbon::parse('2021-5-4'),
+				'is_viewable' => 1,
+				'is_downloadable' => 1
 			],
 			(object) [
 				'id' => 2,
@@ -348,7 +404,9 @@ class TmpController extends Controller
 				'description' => 'While the literature presents various advantages of using blended learning, policymakers must identify the barriers and challenges faced by students that may cripple their online learning experience. Understanding these barriers can help academic institutions craft policies to advance and improve the students\' online learning experience. This study was conducted to determine the challenges of computing students in one private University in the Philippines during the period where the entire Luzon region was placed under the Enhanced Community Quarantine (ECQ) as a response to the COVID-19 pandemic. A survey through MS Forms Pro was performed to identify the experiences of students in online learning. The survey ran from March 16 to March 18, 2020, which yielded a total of 300 responses. Descriptive statistics revealed that the top three barriers and challenges encountered by students were 1. the difficulty of clarifying topics or discussions with the professors, 2. the lack of study or working area for doing online activities, and 3. the lack of a good Internet connection for participating in online activities. It can be concluded that both students and faculty members were not fully prepared to undergo full online learning. More so, some faculty members may have failed to adapt to the needs of the students in an online learning environment. While the primary data of the study mainly came from the students, it would also be an excellent addition to understand the perspective of the faculty members in terms of their experiences with their students. Their insights could help validate the responses in the survey and provide other barriers that may …',
 				'posted_by' => 4,
 				'is_file' => 0,
-				'date_added' => \Carbon\Carbon::parse('2021-5-4')
+				'date_added' => \Carbon\Carbon::parse('2021-5-4'),
+				'is_viewable' => 1,
+				'is_downloadable' => 1
 			],
 			(object) [
 				'id' => 3,
@@ -359,7 +417,9 @@ class TmpController extends Controller
 				'description' => 'Proper identification of the difficulty level of materials prescribed as required readings in an educational setting is key towards effective learning in children. Educators and publishers have relied on readability formulas in predicting text readability. While these formulas abound in the English language, limited work has been done on automatic readability assessment for the Filipino language. In this study, we build upon the previous works using traditional (TRAD) and lexical (LEX) linguistic features by incorporating language model (LM) features for possible improvement in identifying readability levels of Filipino storybooks. Results showed that combining LM predictors to TRAD and LEX, forming a hybrid feature set, increased the performances of readability models trained using Logistic Regression and Support Vector Machines by up to ≈ 25% – 32%. From the results of performing feature selection using …',
 				'posted_by' => 3,
 				'is_file' => 0,
-				'date_added' => \Carbon\Carbon::parse('2021-5-4')
+				'date_added' => \Carbon\Carbon::parse('2021-5-4'),
+				'is_viewable' => 1,
+				'is_downloadable' => 1
 			],
 			(object) [
 				'id' => 4,
@@ -370,7 +430,9 @@ class TmpController extends Controller
 				'description' => 'A sample pdf upload for testing and presentation purposes.',
 				'posted_by' => 1,
 				'is_file' => 1,
-				'date_added' => \Carbon\Carbon::parse('2021-5-4')
+				'date_added' => \Carbon\Carbon::parse('2021-5-4'),
+				'is_viewable' => 1,
+				'is_downloadable' => 1
 			]
 		]);
 
