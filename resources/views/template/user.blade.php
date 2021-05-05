@@ -95,7 +95,7 @@
 			<nav class="navbar navbar-expand-lg navbar-light shadow py-0 px-3" style="z-index: 1000;">
 				{{-- Branding --}}
 				<a class="navbar-brand m-0 py-0" href="{{route('home')}}" style="height: auto;">
-					<img src="/images/UI/Branding.png" style="max-height: 3.25rem;" class="m-0 p-0" alt="Myriad Files" />
+					<img src="/images/UI/Branding.jpg" style="max-height: 3.25rem;" class="m-0 p-0" alt="Myriad Files" />
 				</a>
 
 				{{-- Navbar toggler (on small screens) --}}
@@ -210,7 +210,7 @@
 
 				{{-- Branding --}}
 				<div class="col-12 col-lg-4 order-0 order-lg-4 text-center my-3">
-					<img src="/images/UI/Branding.png" style="max-height: 100%; max-width: 100%" height="auto" width="350" class="pb-0 mb-0" alt="Myriad Files"/><br>
+					<img src="/images/UI/Branding.jpg" style="max-height: 100%; max-width: 100%" height="auto" width="350" class="pb-0 mb-0" alt="Myriad Files"/><br>
 					<small class="pt-0 mt-0 display-block">&copy; {{env('APP_NAME')}} 2021-2023</small>
 				</div>
 			</div>
