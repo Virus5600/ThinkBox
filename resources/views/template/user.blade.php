@@ -115,6 +115,16 @@
 						</li>
 
 						<li class="nav-item">
+							@if(\Request::is('faculty'))
+							<span class="nav-link active custom-link">Department</span>
+							@elseif(\Request::is('faculty/*'))
+							<a class="nav-link active custom-link" href="{{route('faculty.index')}}">Department</a>
+							@else
+							<a class="nav-link custom-link" href="{{route('faculty.index')}}">Department</a>
+							@endif
+						</li>
+
+						<li class="nav-item">
 							@if(\Request::is('researches'))
 							<span class="nav-link active custom-link">Research</span>
 							@elseif(\Request::is('researches/*'))
@@ -135,16 +145,6 @@
 						</li>
 
 						<li class="nav-item">
-							@if(\Request::is('faculty'))
-							<span class="nav-link active custom-link">Department</span>
-							@elseif(\Request::is('faculty/*'))
-							<a class="nav-link active custom-link" href="{{route('faculty.index')}}">Department</a>
-							@else
-							<a class="nav-link custom-link" href="{{route('faculty.index')}}">Department</a>
-							@endif
-						</li>
-
-						<li class="nav-item">
 							@if(\Request::is('announcements'))
 							<span class="nav-link active custom-link">Announcements</span>
 							@elseif(\Request::is('announcements/*'))
@@ -157,10 +157,10 @@
 					
 					@if (Auth::check())
 					<div>
-						<img src="/images/TEMPORARY/home/{{\App\Http\Controllers\TmpController::getUser()->avatar}}" class="circular-border" width='30' height='30' draggable='false' alt="User"/>
-						<label>
+						<label class="py-0 my-0">
 							<div class="dropdown">
 								<a href='' role="button" class="nav-link dropdown-toggle text-dark dynamic-size-lg-h6" style="font-size: 1.25rem;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<img src="/images/TEMPORARY/home/{{\App\Http\Controllers\TmpController::getUser()->avatar}}" class="circular-border" width='30' height='30' draggable='false' alt="User"/>
 									{{\App\Http\Controllers\TmpController::getUser()->first_name}} {{\App\Http\Controllers\TmpController::getUser()->last_name}}
 								</a>
 								
@@ -229,7 +229,7 @@
 				{{-- Branding --}}
 				<div class="col-12 col-lg-4 order-0 order-lg-4 text-center my-3">
 					<img src="/images/UI/Branding.png" style="max-height: 100%; max-width: 100%" height="auto" width="350" class="pb-0 mb-0" alt="Myriad Files"/><br>
-					<small class="pt-0 mt-0 display-block">&copy; Myriad Files 2021-2023</small>
+					<small class="pt-0 mt-0 display-block">&copy; {{env('APP_NAME')}} 2021-2023</small>
 				</div>
 			</div>
 		</div>

@@ -25,11 +25,41 @@ function confirmLeave(urlTo) {
 	});
 }
 
+function copyToClipboard(element) {
+	let $temp = $("<input>");
+	$("body").append($temp);
+	$temp.val($(element).attr("data-copy-link")).select();
+	document.execCommand("copy");
+	$temp.remove();
+	
+	Swal.fire({
+		title: `Link copied`,
+		position: `bottom`,
+		showConfirmButton: false,
+		toast: true,
+		timer: 3750,
+		background: `#28a745`,
+		customClass: {
+			title: `text-white`,
+			popup: `px-0`
+		},
+		width: 150
+	});
+}
+
 $(document).ready(function() {
 	// For sharing link on a different window. This way, the session won't get interrupted.
 	$('.share-link').on('click', function(e) {
 		genericSocialShare($(e.currentTarget).attr('data-link'));
 	});
+
+	// For copying link function to work
+	$('[data-copy-link]').on('click', function(e) {
+		if ($(e.currentTarget).attr('onclick') == undefined) {
+			$(e.currentTarget).attr('onclick', 'copyToClipboard(this);');
+			$(e.currentTarget).trigger('click');
+		}
+	})
 	
 	// Activate tooltip
 	$('[data-toggle=tooltip]').tooltip();

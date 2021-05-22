@@ -22,7 +22,7 @@ class AnnouncementsController extends Controller
 	protected function show($id) {
 		return view('users.announcements.show', [
 			'announcements' => $this->getAnnouncements()->get($id-1),
-			'otherAnnouncements' => $this->getAnnouncements()->random(3)->shuffle()
+			'otherAnnouncements' => $this->getAnnouncements()->random(3)->shuffle()	// Will be changed to ->where('id', '<>', $id)
 		]);
 	}
 }

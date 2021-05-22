@@ -8,7 +8,7 @@
 		<div class="col-6 ml-5" style="position: relative; top: 25%;">
 			<h1 class="text-light h3 h1-md">Department</h1>
 			<hr class="hr-thick" style="border-color: white;" />
-			<p class="text-light">Meet our faculty members and learn about their expertise.</p>
+			<p class="text-light h4">Meet our faculty members and learn about their expertise.</p>
 		</div>
 	</div>
 </div>
@@ -43,6 +43,18 @@
 				</select>
 			</div>
 
+			<hr class="hr-thick">
+
+			<span class="font-weight-bold">Research Focus</span>
+			<div class="input-group">
+				<select name="researchFocus" class="custom-select" onchange="$('#facultyParamSubmit').trigger('click');">
+					<option value="all">All</option>
+					@foreach($research_focus as $rf)
+					<option value="{{preg_replace('/\s+/', '_', $rf->name)}}" {{$sortBy == preg_replace('/\s+/', '_', $rf->name) ? 'selected' : ''}}>{{ucwords($rf->name)}}</option>
+					@endforeach
+				</select>
+			</div>
+
 			<input type="submit" class="hidden" id="facultyParamSubmit">
 		</form>
 		{{-- DEFINES THE COLUMN --}}
@@ -54,7 +66,7 @@
 					<div class="container-fluid dark-shadow invisiborder rounded overflow-hidden h-100 w-100">
 						<div class="row h-100">
 							<div class="col-12 col-md-4 pb-faculty-holder p-0">
-								<div class="pb-faculty text-center mx-auto h-100" style="background: #fff url('/images/TEMPORARY/home/{{$s->avatar}}') no-repeat center; background-size: cover;">
+								<div class="pb-faculty text-center mx-auto h-100" style="background: #fff url('/images/TEMPORARY/home/{{$s->avatar or 'default.png'}}') no-repeat center; background-size: cover;">
 								</div>
 							</div>
 
@@ -68,7 +80,7 @@
 								<p class="text-truncate-2 my-2">{{$s->description}}</p>
 
 								<p class="m-3 mt-4">
-									<a class="float-right text-decoration-none read-more bottom-left" href="{{ route('faculty.show', [$s->id]) }}">View Profile <i class="fas fa-chevron-right"></i></a>
+									<a class="float-right text-decoration-none read-more bottom-left underline-at-hover" href="{{ route('faculty.show', [$s->id]) }}">View Profile <i class="fas fa-chevron-right"></i></a>
 								</p>
 							</div>
 						</div>

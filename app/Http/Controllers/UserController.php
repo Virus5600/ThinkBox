@@ -12,6 +12,15 @@ class UserController extends Controller
 	private function getUser() {
 		return TmpController::getUser();
 	}
+	private function getFocus() {
+		return TmpController::getFocus();
+	}
+	private function getResearch($id) {
+		return TmpController::getResearch($id);
+	}
+	private function getResearchList() {
+		return TmpController::getResearchList();
+	}
 
 	// AUTHENTICATION AND RELATED
 	protected function login() {
@@ -30,6 +39,8 @@ class UserController extends Controller
 	protected function index() {
 		return view('users.auth.profile.index', [
 			'user' => $this->getUser(),
+			'research' => $this->getResearchList()->where('posted_by', $this->getUser()->id),
+			'innovations' => $this->getResearchList()->where('posted_by', $this->getUser()->id),
 		]);
 	}
 
@@ -54,39 +65,72 @@ class UserController extends Controller
 	// RESEARCH RELATED VIEWS
 	protected function researchProfileIndex() {
 		return view('users.auth.profile.show.research.profile_index', [
-			'id' => 1
+			'id' => $this->getUser()->id,
+			'user' => $this->getUser(),
+			'research' => $this->getResearchList()->where('posted_by', $this->getUser()->id)
 		]);
 	}
 
 	protected function researchIndex() {
 		return view('users.auth.profile.show.research.index', [
-			'id' => 1
+			'id' => $this->getUser()->id,
+			'researches' => $this->getResearchList()->where('posted_by', $this->getUser()->id)
+		]);
+	}
+
+	protected function researchCreate() {
+		return view('users.auth.profile.show.research.create', [
+			'focus' => $this->getFocus()
+		]);
+	}
+
+	protected function researchEdit($id) {
+		return view('users.auth.profile.show.research.edit', [
+			'research' => $this->getResearch($id),
+			'focus' => $this->getFocus()
 		]);
 	}
 
 	// INNOVATION RELATED VIEWS
 	protected function innovationsProfileIndex() {
 		return view('users.auth.profile.show.innovations.profile_index', [
-			'id' => 1
+			'id' => $this->getUser()->id,
+			'user' => $this->getUser(),
+			'innovations' => $this->getResearchList()->where('posted_by', $this->getUser()->id)
 		]);
 	}
 
 	protected function innovationsIndex() {
 		return view('users.auth.profile.show.innovations.index', [
-			'id' => 1
+			'id' => $this->getUser()->id,
+			'innovations' => $this->getResearchList()->where('posted_by', $this->getUser()->id)
+		]);
+	}
+
+	protected function innovationsCreate() {
+		return view('users.auth.profile.show.innovations.create', [
+			'focus' => $this->getFocus()
+		]);
+	}
+
+	protected function innovationsEdit($id) {
+		return view('users.auth.profile.show.innovations.edit', [
+			'innovation' => $this->getResearch($id),
+			'focus' => $this->getFocus()
 		]);
 	}
 
 	// COURSE MATERIAL RELATED VIEWS
 	protected function materialsProfileIndex() {
 		return view('users.auth.profile.show.materials.profile_index', [
-			'id' => 1
+			'id' => $this->getUser()->id,
+			'user' => $this->getUser()
 		]);
 	}
 
 	protected function materialsIndex() {
 		return view('users.auth.profile.show.materials.index', [
-			'id' => 1
+			'id' => $this->getUser()->id
 		]);
 	}
 
