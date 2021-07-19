@@ -13,6 +13,7 @@ class FacultyFocus extends Model
 
 	public $timestamps = false;
 	public $table = 'faculty_focus';
+	public $primary_key = null;
 
 	protected function focus() {
 		return $this->belongsTo('App\Focus');

@@ -13,6 +13,7 @@ class ResearchFile extends Model
 	];
 
 	public $timestamps = false;
+	public $primary_key = null;
 
 	protected function research() {
 		return $this->belongsTo('App\Research', 'research_id', 'id');

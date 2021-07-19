@@ -37,7 +37,7 @@ class RolePrivilegesTableSeeder extends Seeder
 		else {
 			RP::create([
 				'role_id' => $id,
-				'privilege_id' => $p
+				'privilege_id' => $privilege_id
 			]);
 		}
 	}

@@ -13,4 +13,5 @@ class InnovationFocus extends Model
 
 	public $timestamps = false;
 	public $table = 'innovation_focus';
+	public $primary_key = null;
 }
