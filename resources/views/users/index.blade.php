@@ -45,10 +45,10 @@
 										</a>
 
 										<div class="dropdown-menu dropdown-menu-left" aria-labelledby='share'>
-											<a class="dropdown-item share-link bg-light" href="javascript:void(0)" data-link='http://www.facebook.com/sharer.php?u={{$a->source}}'><i class="fab fa-facebook-f mr-2"></i>Facebook</a>
-											{{-- <a class="dropdown-item share-link bg-light" href="javascript:void(0)" data-link='fb-messenger://share?link={{$a->source}}'><i class="fab fa-facebook-messenger mr-2"></i>Messenger</a> --}}
-											<a class="dropdown-item share-link bg-light" href="javascript:void(0)" data-link='http://twitter.com/share?text={{preg_replace("/\s/", "%20",$a->title)}}&url={{$a->source}}'><i class="fab fa-twitter mr-2"></i>Twitter</a>
-											<a class="dropdown-item bg-light" href="javascript:void(0)" data-copy-link='{{$a->source}}'><i class="fas fa-link mr-2"></i>Copy Link</a>
+											<a class="dropdown-item share-link" href="javascript:void(0)" data-link='http://www.facebook.com/sharer.php?u={{ route("announcements.show", [$a->id]) }}'><i class="fab fa-facebook-f mr-2"></i>Facebook</a>
+											{{-- <a class="dropdown-item share-link" href="javascript:void(0)" data-link='fb-messenger://share?link={{ route("announcements.show", [$a->id]) }}'><i class="fab fa-facebook-messenger mr-2"></i>Messenger</a> --}}
+											<a class="dropdown-item share-link" href="javascript:void(0)" data-link='http://twitter.com/share?text={{preg_replace("/\s/", "%20",$a->title)}}&url={{ route("announcements.show", [$a->id]) }}'><i class="fab fa-twitter mr-2"></i>Twitter</a>
+											<a class="dropdown-item" href="javascript:void(0)" data-copy-link='{{ route("announcements.show", [$a->id]) }}'><i class="fas fa-link mr-2"></i>Copy Link</a>
 										</div>
 									</div>
 
@@ -122,18 +122,11 @@
 											<i class="fas fa-share-alt mr-1"></i> Share
 										</a>
 
-										<div class="dropdown-menu dropdown-menu-left underline-at-hover" aria-labelledby='share'>
-											@if ($r->is_file)
-											<a class="dropdown-item share-link bg-light" href="javascript:void(0)" data-link="http://www.facebook.com/sharer.php?u={{route('research.show', [$r->id])}}"><i class="fab fa-facebook-f mr-2"></i>Facebook</a>
-											{{-- <a class="dropdown-item share-link bg-light" href="javascript:void(0)" data-link="fb-messenger://share?link={{route('research.show', [$r->id])}}"><i class="fab fa-facebook-messenger mr-2"></i>Messenger</a> --}}
-											<a class="dropdown-item share-link bg-light" href="javascript:void(0)" data-link="http://twitter.com/share?url={{route('research.show', [$r->id])}}"><i class="fab fa-twitter mr-2"></i>Twitter</a>
-											<a class="dropdown-item bg-light" href="javascript:void(0)" data-copy-link='{{route("research.show" , [$r->id])}}'><i class="fas fa-link mr-2"></i>Copy Link</a>
-											@else
-											<a class="dropdown-item share-link bg-light" href="javascript:void(0)" data-link='http://www.facebook.com/sharer.php?u={{$r->url}}'><i class="fab fa-facebook-f mr-2"></i>Facebook</a>
-											{{-- <a class="dropdown-item share-link bg-light" href="javascript:void(0)" data-link='fb-messenger://share?link={{$r->url}}'><i class="fab fa-facebook-messenger mr-2"></i>Messenger</a> --}}
-											<a class="dropdown-item share-link bg-light" href="javascript:void(0)" data-link='http://twitter.com/share?url={{$r->url}}'><i class="fab fa-twitter mr-2"></i>Twitter</a>
-											<a class="dropdown-item bg-light" href="javascript:void(0)" data-copy-link='{{$r->url}}'><i class="fas fa-link mr-2"></i>Copy Link</a>
-											@endif
+										<div class="dropdown-menu dropdown-menu-left" aria-labelledby='share'>
+											<a class="dropdown-item share-link" href="javascript:void(0)" data-link="http://www.facebook.com/sharer.php?u={{route('research.show', [$r->id])}}"><i class="fab fa-facebook-f mr-2"></i>Facebook</a>
+											{{-- <a class="dropdown-item share-link" href="javascript:void(0)" data-link="fb-messenger://share?link={{route('research.show', [$r->id])}}"><i class="fab fa-facebook-messenger mr-2"></i>Messenger</a> --}}
+											<a class="dropdown-item share-link" href="javascript:void(0)" data-link="http://twitter.com/share?url={{route('research.show', [$r->id])}}"><i class="fab fa-twitter mr-2"></i>Twitter</a>
+											<a class="dropdown-item" href="javascript:void(0)" data-copy-link='{{route("research.show" , [$r->id])}}'><i class="fas fa-link mr-2"></i>Copy Link</a>
 										</div>
 									</div>
 
@@ -209,17 +202,10 @@
 										</a>
 
 										<div class="dropdown-menu dropdown-menu-left" aria-labelledby='share'>
-											@if ($i->is_file)
-											<a class="dropdown-item share-link bg-light" href="javascript:void(0)" data-link="http://www.facebook.com/sharer.php?u={{route('innovations.show', [$i->id])}}"><i class="fab fa-facebook-f mr-2"></i>Facebook</a>
-											{{-- <a class="dropdown-item share-link bg-light" href="javascript:void(0)" data-link="fb-messenger://share?link={{route('innovations.show', [$i->id])}}"><i class="fab fa-facebook-messenger mr-2"></i>Messenger</a> --}}
-											<a class="dropdown-item share-link bg-light" href="javascript:void(0)" data-link="http://twitter.com/share?url={{route('innovations.show', [$i->id])}}"><i class="fab fa-twitter mr-2"></i>Twitter</a>
-											<a class="dropdown-item bg-light" href="javascript:void(0)" data-copy-link='{{route("innovations.show" , [$i->id])}}'><i class="fas fa-link mr-2"></i>Copy Link</a>
-											@else
-											<a class="dropdown-item share-link bg-light" href="javascript:void(0)" data-link='http://www.facebook.com/sharer.php?u={{$i->url}}'><i class="fab fa-facebook-f mr-2"></i>Facebook</a>
-											{{-- <a class="dropdown-item share-link bg-light" href="javascript:void(0)" data-link='fb-messenger://share?link={{$i->url}}'><i class="fab fa-facebook-messenger mr-2"></i>Messenger</a> --}}
-											<a class="dropdown-item share-link bg-light" href="javascript:void(0)" data-link='http://twitter.com/share?url={{$i->url}}'><i class="fab fa-twitter mr-2"></i>Twitter</a>
-											<a class="dropdown-item bg-light" href="javascript:void(0)" data-copy-link='{{$i->url}}'><i class="fas fa-link mr-2"></i>Copy Link</a>
-											@endif
+											<a class="dropdown-item share-link" href="javascript:void(0)" data-link="http://www.facebook.com/sharer.php?u={{route('innovations.show', [$i->id])}}"><i class="fab fa-facebook-f mr-2"></i>Facebook</a>
+											{{-- <a class="dropdown-item share-link" href="javascript:void(0)" data-link="fb-messenger://share?link={{route('innovations.show', [$i->id])}}"><i class="fab fa-facebook-messenger mr-2"></i>Messenger</a> --}}
+											<a class="dropdown-item share-link" href="javascript:void(0)" data-link="http://twitter.com/share?url={{route('innovations.show', [$i->id])}}"><i class="fab fa-twitter mr-2"></i>Twitter</a>
+											<a class="dropdown-item" href="javascript:void(0)" data-copy-link='{{route("innovations.show" , [$i->id])}}'><i class="fas fa-link mr-2"></i>Copy Link</a>
 										</div>
 									</div>
 

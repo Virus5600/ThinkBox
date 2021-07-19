@@ -10,11 +10,6 @@ use App\Announcements;
 
 class AnnouncementsController extends Controller
 {
-	// TEMPORARY SUBSTITUTE... TO BE REMOVE ONCE BACKEND IS ATTACHED
-	private function getAnnouncements() {
-		return TmpController::getAnnouncements();
-	}
-
 	protected function index($sortBy='date') {
 		$announcements = new announcements;
 

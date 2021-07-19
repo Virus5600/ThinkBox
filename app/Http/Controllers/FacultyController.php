@@ -228,11 +228,11 @@ class FacultyController extends Controller
 		}
 
 		return view('users.faculty.show.innovations', [
+			'id' => $id,
 			'staff' => FacultyStaff::find($id),
-			'innovations' => $innovations,
 			'sortBy' => $sortBy,
 			'searchVal' => \Request::get('search'),
-			'id' => $id
+			'innovations' => $innovations,
 		]);
 	}
 

@@ -29,20 +29,6 @@ use Log;
 
 class UserController extends Controller
 {
-	// TEMPORARY SUBSTITUTE... TO BE REMOVE ONCE BACKEND IS ATTACHED
-	private function getUser() {
-		return TmpController::getUser();
-	}
-	private function getFocus() {
-		return TmpController::getFocus();
-	}
-	private function getResearch($id) {
-		return TmpController::getResearch($id);
-	}
-	private function getResearchList() {
-		return TmpController::getResearchList();
-	}
-
 	// AUTHENTICATION AND RELATED
 	protected function login() {
 		if (!Auth::check())
@@ -86,8 +72,12 @@ class UserController extends Controller
 	protected function index() {
 		return view('users.auth.profile.index', [
 			'user' => FacultyStaff::find(Auth::user()->id),
-			'research' => Research::where('posted_by', Auth::user()->id)->orderBy('created_at', 'DESC')->get(),
-			'innovations' => Innovation::where('posted_by', Auth::user()->id)->orderBy('created_at', 'DESC')->get()
+			'research' => Research::where('posted_by', Auth::user()->staff->id)->orderBy('created_at', 'DESC')->get(),
+			'innovations' => Innovation::where('posted_by', Auth::user()->staff->id)->orderBy('created_at', 'DESC')->get(),
+			'materials' => Material::where('faculty_staff_id', Auth::user()->staff->id)->take(5)->get(),
+			'matCount' => count(Material::where('faculty_staff_id', Auth::user()->staff->id)->get()),
+			'affiliations' => Affiliation::where('user_id', Auth::user()->staff->id)->get(),
+			'other_profiles' => OtherProfile::where('user_id', Auth::user()->staff->id)->get()
 		]);
 	}
 
@@ -98,7 +88,7 @@ class UserController extends Controller
 		$website = array('facebook', 'google_scholar', 'twitter', 'linkedin', 'github');
 		$url = array('https://www.facebook.com/angelique.lacasandile.3', 'https://scholar.google.com/citations?hl=en&user=ZsEoUCgAAAAJ', 'https://www.linkedin.com/in/joseph-marvin-imperial-9382b9a7/', 'https://www.linkedin.com/in/dr-angelique-lacasandile-034a3780/', 'https://github.com/');
 		return view('users.auth.profile.edit', [
-			'user' => $user
+			'user' => $user,
 		]);
 	}
 
@@ -762,13 +752,28 @@ class UserController extends Controller
 	}
 
 	protected function innovationsIndex() {
+		$sortBy = 'none';
 		$innovations = Innovation::where('posted_by', '=', Auth::user()->id);
+
+		// SORT
+		if (\Request::has('sortBy')) {
+			$sortBy = \Request::get('sortBy');
+			if ($sortBy == 'titleAsc') {
+				$innovations = $innovations->orderBy('title', 'ASC');
+			}
+			else if	($sortBy == 'titleDesc') {
+				$innovations = $innovations->orderBy('title', 'DESC');
+			}
+			else if ($sortBy == 'datePublished') {
+				$innovations = $innovations->orderBy('date_published', 'DESC');
+			}
+		}// Fix disscrepancies between faculty and profile
 
 		// SEARCH
 		if (\Request::has('search')) {
 			$search = \Request::get('search');
 			
-			// Joining the many-to-many tables research, research_focus, and focus
+			// Joining the many-to-many tables innovation, innovation_focus, and focus
 			$innovations = $innovations->join('innovation_focus', 'innovations.id', '=', 'innovation_focus.innovation_id')
 				->join('focus', 'innovation_focus.focus_id', '=', 'focus.id');
 

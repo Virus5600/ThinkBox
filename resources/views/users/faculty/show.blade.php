@@ -39,8 +39,8 @@
 					</em></h4>
 					<br>
 					<p class="text-muted">
-						<span class="mr-lg-3 mx-0 d-block d-lg-revert"><i class="fas fa-phone-alt mr-2 fa-sm text-primary"></i>{{$staff->user->contact_no == '' ? '' : '+63' . $staff->user->contact_no}}</span>
-						<span class="ml-lg-3 mx-0 d-block d-lg-revert"><i class="fas fa-envelope mr-2 fa-sm text-primary"></i><a class="text-muted" href="mailto:{{$staff->user->email}}">{{$staff->user->email}}</a></span>
+						<span class="mr-lg-3 mx-0 d-block d-lg-revert"><i class="fas fa-phone-alt mr-2 fa-sm text-custom"></i>{{$staff->user->contact_no == '' ? '' : '+63' . $staff->user->contact_no}}</span>
+						<span class="ml-lg-3 mx-0 d-block d-lg-revert"><i class="fas fa-envelope mr-2 fa-sm text-custom"></i><a class="text-muted" href="mailto:{{$staff->user->email}}">{{$staff->user->email}}</a></span>
 					</p>
 				</div>
 			</div>
@@ -88,7 +88,7 @@
 			</div>
 		</div>
 
-		<div class="col-12 col-md-4">
+		<div class="col-12 col-md-4 order-1 order-md-1">
 			<div class="container-fluid py-2 bg-custom-light">
 				<div class="row">
 					<div class="col">
@@ -180,7 +180,17 @@
 
 					<div class="row">
 						<p>
-							<small><em>{{preg_replace('/,/', ', ', $r->authors)}} | {{\Carbon\Carbon::parse($r->date_published)->format('M d, Y')}}</em></small>
+							<small><em>
+								@for ($i = 0; $i < count($r->researchAuthors); $i++)
+									@if ($i-1 == count($r->researchAuthors) || $r->authors != null)
+										{{ucwords($r->researchAuthors[$i]->user->getFullName())}},
+									@else
+										{{ucwords($r->researchAuthors[$i]->user->getFullName())}}
+									@endif
+								@endfor
+								
+								{{preg_replace('/,/', ', ', $r->authors)}} | {{\Carbon\Carbon::parse($r->date_published)->format('M d, Y')}}
+							</em></small>
 						</p>
 					</div>
 
@@ -192,11 +202,7 @@
 
 					<div class="row">
 						<p class="w-100">
-							@if ($r->is_file)
 							<a class="float-right text-decoration-none read-more underline-at-hover" href="{{route('research.show', [$r->id])}}">View Details <i class="fas fa-chevron-right"></i></a>
-							@else
-							<a class="float-right text-decoration-none read-more underline-at-hover" target="_blank" href='{{$r->url}}'>View Details <i class="fas fa-chevron-right"></i></a>
-							@endif
 						</p>
 					</div>
 				</div>
@@ -205,8 +211,11 @@
 			<span class="w-100 text-center">Nothing to show</span>
 			@endforelse
 
-			@if(count($research) > 0)
-			<span class="text-center font-weight-bold border-custom border border-thick border-left-0 border-top-0 border-right-0 px-1"><a class="text-custom-2 text-decoration-none" href="{{ route('faculty.research', [$staff->id]) }}">View all research paper</a></span>
+			@if (count($research) > 0)
+			<div class="d-block d-md-none col-12 m-0 p-0">
+				<span class="text-center font-weight-bold border-custom border border-thick border-left-0 border-top-0 border-right-0 px-1"><a class="text-custom-2 text-decoration-none" href="{{ route('profile.research', [$staff->user->id]) }}">View all research paper</a></span>
+			</div>
+			@else
 			@endif
 		</div>
 
@@ -253,7 +262,23 @@
 			@endforelse
 
 			@if (count($innovations) > 0)
-			<span class="text-center font-weight-bold border-custom border border-thick border-left-0 border-top-0 border-right-0 px-1"><a class="text-custom-2 text-decoration-none" href="{{ route('faculty.innovations', [$staff->id]) }}">View all innovations</a></span>
+			<div class="d-block d-md-none col-12 m-0 p-0">
+				<span class="text-center font-weight-bold border-custom border border-thick border-left-0 border-top-0 border-right-0 px-1"><a class="text-custom-2 text-decoration-none" href="{{ route('profile.innovations', [$staff->user->id]) }}">View all innovations</a></span>
+			</div>
+			@endif
+		</div>
+	</div>
+
+	<div class="row mt-0 mb-5">
+		<div class="hidden-overridable d-md-block col-md-6">
+			@if (count($research) > 0)
+			<span class="text-center font-weight-bold border-custom border border-thick border-left-0 border-top-0 border-right-0 px-1"><a class="text-custom-2 text-decoration-none" href="{{ route('profile.research', [$staff->user->id]) }}">View all research paper</a></span>
+			@endif
+		</div>
+
+		<div class="hidden-overridable d-md-block col-md-6">
+			@if (count($innovations) > 0)
+			<span class="text-center font-weight-bold border-custom border border-thick border-left-0 border-top-0 border-right-0 px-1"><a class="text-custom-2 text-decoration-none" href="{{ route('profile.innovations', [$staff->user->id]) }}">View all innovations</a></span>
 			@endif
 		</div>
 	</div>
@@ -267,24 +292,21 @@
 
 			<div class="my-3 mx-1 container-fluid">
 				<div class="row flex-row flex-nowrap overflow-x-scroll p-2 border border-rounded custom-scrollbar div-hover-zoom" id="matContainer">
-					@if (Auth::check())
-						@forelse ($materials as $m)
-						<div class="mx-3 bg-custom-light text-dark w-50 p-3 col-12 col-md-3">
-							<a href="{{$m->url}}" class="text-decoration-none text-dark">
-								<p><em>{{$m->topic->topic_name}}</em></p>
+					@forelse ($materials as $m)
+					<div class="mx-3 bg-custom-light text-dark w-50 p-3 col-12 col-md-3">
+						<a href="{{$m->url}}" class="text-decoration-none text-dark">
+							<p><em>{{$m->topic->topic_name}}</em></p>
 
-								<p class="font-weight-bold">{{$m->material_name}}</p>
+							<p class="font-weight-bold">{{$m->material_name}}</p>
 
-								<p>{{$m->description}}</p>
-							</a>
-						</div>
-						@empty
-						<h2 class="text-center w-100">Nothing to show</h2>
-						<script id="remove">$("#matContainer").addClass("bg-custom-light"); $("#remove").remove();</script>
-						@endforelse
-					@else
-					@include('include.redirect_login', ['route' => route('redirect-login'), 'target_route' => "faculty.show", 'param' => '<input type="hidden" name="param[]" value="'.$staff->id.'">'])
-					@endif
+							<p>{{$m->description}}</p>
+						</a>
+					</div>
+					@empty
+					<h2 class="text-center w-100">Nothing to show</h2>
+					<script id="remove">$("#matContainer").addClass("bg-custom-light"); $("#remove").remove();</script>
+					@endforelse
+				</div>
 			</div>
 
 			<span class="text-center font-weight-bold border-custom border border-thick border-left-0 border-top-0 border-right-0 px-1"><a class="text-custom-2 text-decoration-none" href="{{ route('faculty.materials', [$staff->id]) }}">View all course materials</a></span>

@@ -6,16 +6,13 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
+use App\Announcements;
+
 class AdminAnnouncementsController extends Controller
 {
-	// TEMPORARY SUBSTITUTE... TO BE REMOVE ONCE BACKEND IS ATTACHED
-	private function getAnnouncements() {
-		return TmpController::getAnnouncements();
-	}
-
 	protected function index() {
 		return view("users.auth.admin.announcements.index", [
-			'announcements' => $this->getAnnouncements()
+			'announcements' => Announcements::get()
 		]);
 	}
 
@@ -25,13 +22,13 @@ class AdminAnnouncementsController extends Controller
 
 	protected function show($id) {
 		return view("users.auth.admin.announcements.show",[
-			'announcement' => $this->getAnnouncements()->get($id-1)
+			'announcement' => Announcements::find($id)
 		]);
 	}
 
 	protected function edit($id) {
 		return view("users.auth.admin.announcements.edit", [
-			'announcement' => $this->getAnnouncements()->get($id-1)
+			'announcement' => Announcements::find($id)
 		]);
 	}
 }

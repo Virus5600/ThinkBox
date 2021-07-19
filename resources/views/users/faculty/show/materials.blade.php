@@ -20,7 +20,7 @@
 				</div>
 
 				<div class="col-12 col-md-8">
-					<h1>{{$staff->user->title == null ? '' : $staff->user->title . ' '}}{{$staff->user->first_name}} {{$staff->user->middle_name == null ? '' : substr($staff->user->middle_name, 0) . '. '}}{{$staff->user->last_name}}{{$staff->user->suffix == null ? '' : ', ' . $staff->user->suffix}}</h1>
+					<h1>{{$staff->getFullName()}}</h1>
 					<h4>{{ucwords(preg_replace("/_/", " ", $staff->positionAttr->type))}}, {{$staff->location}}</h4>
 					<h4 class="font-weight-normal"><em>
 						@if ($staff->position == 1)
@@ -39,8 +39,8 @@
 					</em></h4>
 					<br>
 					<p class="text-muted">
-						<span class="mr-lg-3 mx-0 d-block d-lg-revert"><i class="fas fa-phone-alt mr-2 fa-sm text-primary"></i>{{$staff->user->contact_no == '' ? '' : '+63' . $staff->user->contact_no}}</span>
-						<span class="ml-lg-3 mx-0 d-block d-lg-revert"><i class="fas fa-envelope mr-2 fa-sm text-primary"></i><a class="text-muted" href="mailto:{{$staff->email}}">{{$staff->user->email}}</a></span>
+						<span class="mr-lg-3 mx-0 d-block d-lg-revert"><i class="fas fa-phone-alt mr-2 fa-sm text-custom"></i>{{$staff->user->contact_no == '' ? '' : '+63' . $staff->user->contact_no}}</span>
+						<span class="ml-lg-3 mx-0 d-block d-lg-revert"><i class="fas fa-envelope mr-2 fa-sm text-custom"></i><a class="text-muted" href="mailto:{{$staff->email}}">{{$staff->user->email}}</a></span>
 					</p>
 
 					<p class="a-fa-hover-zoom-2">
@@ -64,7 +64,7 @@
 			<div class="input-group my-3">
 				<input type="text" class="form-control" name='search' placeholder="Search..." />
 				<div class="input-group-append">
-					<button type="submit" class="btn btn-secondary"><i class="fas fa-search"></i></button>
+					<button type="submit" class="btn btn-custom"><i class="fas fa-search"></i></button>
 				</div>
 			</div>
 

@@ -44,7 +44,7 @@
 					</p>
 
 					<p class="a-fa-hover-zoom-2">
-						@foreach($user->user->otherProfiles as $o)
+						@foreach($staff->user->otherProfiles as $o)
 						@if ($o->website == 'Facebook')
 						<a href="{{$o->url}}" class="mx-1"><i class="fab fa-facebook text-dark secondary-hover fa-2x"></i></a>
 						@elseif ($o->website == 'Google Scholar')
@@ -81,7 +81,7 @@
 			<span class="font-weight-bold">Sort By</span>
 			<div class="input-group">
 				<select name="sortBy" class="custom-select" onchange="$('#researchParamSubmit').trigger('click');">
-					<option value="titleAsc" {{$sortBy == 'titleAsc' ? 'selected' : ''}}>Title (A-Z)</option>
+					<option value="titleAsc" {{$sortBy == 'none' ? 'selected' : ''}}>Title (A-Z)</option>
 					<option value="titleDesc" {{$sortBy == 'titleDesc' ? 'selected' : ''}}>Title (Z-A)</option>
 					<option value="date" {{$sortBy == 'date' ? 'selected' : ''}}>Date Published</option>
 				</select>

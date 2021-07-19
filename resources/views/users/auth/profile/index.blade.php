@@ -17,7 +17,7 @@
 				</div>
 
 				<div class="col-12 col-md-8">
-					<h1>{{$user->user->title == null ? '' : $user->user->title . ' '}}{{$user->user->first_name}} {{$user->user->middle_name == null ? '' : substr($user->user->middle_name, 0) . '. '}}{{$user->user->last_name}}{{$user->user->suffix == null ? '' : ', ' . $user->user->suffix}}</h1>
+					<h1>{{$user->getFullName()}}</h1>
 					<h4>{{ucwords(preg_replace("/_/", " ", $user->positionAttr->type))}}, {{$user->location}}</h4>
 					<h4 class="font-weight-normal"><em>
 						@if ($user->position == 1)
@@ -108,10 +108,10 @@
 
 				<div class="row my-2">
 					<div class="col text-left">Course Materials</div>
-					<div class="col text-right font-weight-bold">12</div> {{-- TO ADD COURSE MATERIALS TABLE SOON --}}
+					<div class="col text-right font-weight-bold">{{$matCount}}</div>
 				</div>
 
-				{{-- TO ADD AFFILIATIONS TABLE SOON --}}
+				@if (count($affiliations) > 0)
 				<div class="row my-2">
 					<div class="col">
 						<h4 class="text-custom-2 font-weight-bold">Affiliations</h4>
@@ -120,21 +120,15 @@
 
 				<hr class="hr-thick my-1">
 
+				@foreach ($affiliations as $a)
 				<div class="row my-2">
-					<div class="col-12 font-weight-bold">Aguora IT Solutions and Technology Inc.</div>
-					<div class="col-12"><em>Co-founder</em></div>
+					<div class="col-12 font-weight-bold">{{$a->organization}}</div>
+					<div class="col-12"><em>{{$a->position}}</em></div>
 				</div>
+				@endforeach
+				@endif
 
-				<div class="row my-2">
-					<div class="col-12 font-weight-bold">Microsoft</div>
-					<div class="col-12"><em>Ambassador</em></div>
-				</div>
-
-				<div class="row my-2">
-					<div class="col-12 font-weight-bold">House of Representative & TNC Cafe</div>
-					<div class="col-12"><em>Technical Consultant</em></div>
-				</div>
-
+				@if (count($other_profiles))
 				<div class="row my-2 mt-5">
 					<div class="col">
 						<h4 class="text-custom-2 font-weight-bold">Other Profiles</h4>
@@ -143,16 +137,24 @@
 
 				<hr class="hr-thick my-1">
 
-				{{-- TO ADD OTHER PROFILES TABLE SOON --}}
 				<div class="row my-2 mt-3">
 					<div class="col text-center a-fa-hover-zoom-2">
-						<a href="" class="mx-1"><i class="fab fa-facebook text-dark secondary-hover fa-2x"></i></a>
-						<a href="" class="mx-1"><i class="fas fa-atom text-light fa-2x bg-dark secondary-hover invisiborder circle-border p-1 custom-fa-2x"></i></a>
-						<a href="" class="mx-1"><i class="fab fa-twitter text-light fa-2x bg-dark secondary-hover invisiborder circle-border p-1 custom-fa-2x"></i></a>
-						<a href="" class="mx-1"><i class="fab fa-linkedin-in text-light fa-2x bg-dark secondary-hover invisiborder circle-border p-1 custom-fa-2x"></i></a>
-						<a href="" class="mx-1"><i class="fab fa-github text-dark secondary-hover fa-2x"></i></a>
+						@foreach ($other_profiles as $o)
+						@if ($o->website == 'Facebook')
+						<a href="{{$o->url}}" class="mx-1"><i class="fab fa-facebook text-dark secondary-hover fa-2x"></i></a>
+						@elseif ($o->website == 'Google Scholar')
+						<a href="{{$o->url}}" class="mx-1"><i class="fas fa-atom text-light fa-2x bg-dark secondary-hover invisiborder circle-border p-1 custom-fa-2x"></i></a>
+						@elseif ($o->website == 'Twitter')
+						<a href="{{$o->url}}" class="mx-1"><i class="fab fa-twitter text-light fa-2x bg-dark secondary-hover invisiborder circle-border p-1 custom-fa-2x"></i></a>
+						@elseif ($o->website == 'LinkedIn')
+						<a href="{{$o->url}}" class="mx-1"><i class="fab fa-linkedin-in text-light fa-2x bg-dark secondary-hover invisiborder circle-border p-1 custom-fa-2x"></i></a>
+						@elseif ($o->website == 'Github')
+						<a href="{{$o->url}}" class="mx-1"><i class="fab fa-github text-dark secondary-hover fa-2x"></i></a>
+						@endif
+						@endforeach
 					</div>
 				</div>
+				@endif
 			</div>
 		</div>
 	</div>
@@ -203,11 +205,7 @@
 
 					<div class="row">
 						<p class="w-100">
-							@if ($r->is_file)
 							<a class="float-right text-decoration-none read-more underline-at-hover" href="{{route('research.show', [$r->id])}}">View Details <i class="fas fa-chevron-right"></i></a>
-							@else
-							<a class="float-right text-decoration-none read-more underline-at-hover" target="_blank" href='{{$r->url}}'>View Details <i class="fas fa-chevron-right"></i></a>
-							@endif
 						</p>
 					</div>
 				</div>
@@ -218,7 +216,7 @@
 
 			@if (count($research) > 0)
 			<div class="d-block d-md-none col-12 m-0 p-0">
-				<span class="text-center font-weight-bold border-custom border border-thick border-left-0 border-top-0 border-right-0 px-1"><a class="text-custom-2 text-decoration-none" href="{{ route('profile.research', [$user->id]) }}">View all research paper</a></span>
+				<span class="text-center font-weight-bold border-custom border border-thick border-left-0 border-top-0 border-right-0 px-1"><a class="text-custom-2 text-decoration-none" href="{{ route('profile.research', [$staff->user->id]) }}">View all research paper</a></span>
 			</div>
 			@endif
 		</div>
@@ -257,11 +255,7 @@
 
 					<div class="row">
 						<p class="w-100">
-							@if ($i->is_file)
 							<a class="float-right text-decoration-none read-more underline-at-hover" href="{{route('innovations.show', [$i->id])}}">View Details <i class="fas fa-chevron-right"></i></a>
-							@else
-							<a class="float-right text-decoration-none read-more underline-at-hover" target="_blank" href='{{$i->url}}'>View Details <i class="fas fa-chevron-right"></i></a>
-							@endif
 						</p>
 					</div>
 				</div>
@@ -300,76 +294,25 @@
 			<hr class="hr-thick my-3">
 
 			<div class="my-3 mx-1 container-fluid">
-				<div class="row flex-row flex-nowrap overflow-x-scroll p-2 border border-rounded custom-scrollbar div-hover-zoom">
-					<div class="mx-3 bg-custom-light text-dark w-50 p-3 col-12 col-md-3">
-						<a href="" class="text-decoration-none text-dark">
-							<p><em>Programming</em></p>
+				<div class="row flex-row flex-nowrap overflow-x-scroll p-2 border border-rounded custom-scrollbar div-hover-zoom" id="matContainer">
+					@if (Auth::check())
+						@forelse ($materials as $m)
+						<div class="mx-3 bg-custom-light text-dark w-50 p-3 col-12 col-md-3">
+							<a href="{{$m->url}}" class="text-decoration-none text-dark">
+								<p><em>{{$m->topic->topic_name}}</em></p>
 
-							<p class="font-weight-bold">
-								Getting started with GitLab
-							</p>
+								<p class="font-weight-bold">{{$m->material_name}}</p>
 
-							<p>
-								In this course material, I will be discussing on how to get started with GitLab to practice version control on all programming related projects. This course materials includes introduction to GitLab, setting up, creating a repository, etc.
-							</p>
-						</a>
-					</div>
-
-					<div class="mx-3 bg-custom-light text-dark w-50 p-3 col-12 col-md-3">
-						<a href="" class="text-decoration-none text-dark">
-							<p><em>Project Management</em></p>
-
-							<p class="font-weight-bold">
-								Developers Timeline
-							</p>
-
-							<p>
-								In this course material, I will be discussing on how to create a developer's timeline to track project timeline using Microsoft Excel. This material includes formatting of document and creating a Gantt chart. This material would ensure to increase productivity.
-							</p>
-						</a>
-					</div>
-
-					<div class="mx-3 bg-custom-light text-dark w-50 p-3 col-12 col-md-3">
-						<a href="" class="text-decoration-none text-dark">
-							<p><em>Branding</em></p>
-
-							<p class="font-weight-bold">
-								Logo Documentation
-							</p>
-
-							<p>
-								In this course material, I will be discussing on how to create a documentation for a logo or brand. This material would include the important information that should be in the documentation, formatting the document and detailed user instruction.
-							</p>
-						</a>
-					</div>
-
-					<div class="mx-3 bg-custom-light text-dark w-50 p-3 col-12 col-md-3">
-						<a href="" class="text-decoration-none text-dark">
-							<p><em>Programming</em></p>
-
-							<p class="font-weight-bold">
-								Object-Oriented Programming
-							</p>
-
-							<p>
-								In this course material, I would be teaching object-oriented programming. It is used to structure a software program into simple, reusable pieces of code blueprints (usually called classes), which are used to create individual instances of objects
-							</p>
-						</a>
-					</div>
-
-					<div class="mx-3 bg-custom-light text-dark w-50 p-3 col-12 col-md-3">
-						<a href="" class="text-decoration-none text-dark">
-							<p><em>Microsoft</em></p>
-
-							<p class="font-weight-bold">
-								Basics of MS Powerpoint
-							</p>
-
-							<p>
-								PowerPoint presentations work like slide shows. To convey a message or a story, you break it down into slides. Think of each slide as a blank canvas for the pictures and words that help you tell your story. In this course material, I would be teaching you on how to
-							</p>
-						</a>
-					</div>
+								<p>{{$m->description}}</p>
+							</a>
+						</div>
+						@empty
+						<h2 class="text-center w-100">Nothing to show</h2>
+						<script id="remove">$("#matContainer").addClass("bg-custom-light"); $("#remove").remove();</script>
+						@endforelse
+					@else
+					@include('include.redirect_login', ['route' => route('redirect-login'), 'target_route' => "faculty.show", 'param' => '<input type="hidden" name="param[]" value="'.$staff->id.'">'])
+					@endif
 				</div>
 			</div>
 

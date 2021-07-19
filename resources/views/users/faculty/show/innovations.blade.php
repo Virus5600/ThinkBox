@@ -20,7 +20,7 @@
 				</div>
 
 				<div class="col-12 col-md-8">
-					<h1>{{$staff->user->title == null ? '' : $staff->user->title . ' '}}{{$staff->user->first_name}} {{$staff->user->middle_name == null ? '' : substr($staff->user->middle_name, 0) . '. '}}{{$staff->user->last_name}}{{$staff->user->suffix == null ? '' : ', ' . $staff->user->suffix}}</h1>
+					<h1>{{$staff->getFullName()}}</h1>
 					<h4>{{ucwords(preg_replace("/_/", " ", $staff->positionAttr->type))}}, {{$staff->location}}</h4>
 					<h4 class="font-weight-normal"><em>
 						@if ($staff->position == 1)
@@ -39,16 +39,24 @@
 					</em></h4>
 					<br>
 					<p class="text-muted">
-						<span class="mr-lg-3 mx-0 d-block d-lg-revert"><i class="fas fa-phone-alt mr-2 fa-sm text-primary"></i>{{$staff->user->contact_no == '' ? '' : '+63' . $staff->user->contact_no}}</span>
-						<span class="ml-lg-3 mx-0 d-block d-lg-revert"><i class="fas fa-envelope mr-2 fa-sm text-primary"></i><a class="text-muted" href="mailto:{{$staff->email}}">{{$staff->user->email}}</a></span>
+						<span class="mr-lg-3 mx-0 d-block d-lg-revert"><i class="fas fa-phone-alt mr-2 fa-sm text-custom"></i>{{$staff->user->contact_no == '' ? '' : '+63' . $staff->user->contact_no}}</span>
+						<span class="ml-lg-3 mx-0 d-block d-lg-revert"><i class="fas fa-envelope mr-2 fa-sm text-custom"></i><a class="text-muted" href="mailto:{{$staff->email}}">{{$staff->user->email}}</a></span>
 					</p>
 
 					<p class="a-fa-hover-zoom-2">
-						<a href="" class="mx-1"><i class="fab fa-facebook text-dark secondary-hover fa-2x"></i></a>
-						<a href="" class="mx-1"><i class="fas fa-atom text-light fa-2x bg-dark secondary-hover invisiborder circle-border p-1 custom-fa-2x"></i></a>
-						<a href="" class="mx-1"><i class="fab fa-twitter text-light fa-2x bg-dark secondary-hover invisiborder circle-border p-1 custom-fa-2x"></i></a>
-						<a href="" class="mx-1"><i class="fab fa-linkedin-in text-light fa-2x bg-dark secondary-hover invisiborder circle-border p-1 custom-fa-2x"></i></a>
-						<a href="" class="mx-1"><i class="fab fa-github text-dark secondary-hover fa-2x"></i></a>
+						@foreach($user->user->otherProfiles as $o)
+						@if ($o->website == 'Facebook')
+						<a href="{{$o->url}}" class="mx-1"><i class="fab fa-facebook text-dark secondary-hover fa-2x"></i></a>
+						@elseif ($o->website == 'Google Scholar')
+						<a href="{{$o->url}}" class="mx-1"><i class="fas fa-atom text-light fa-2x bg-dark secondary-hover invisiborder circle-border p-1 custom-fa-2x"></i></a>
+						@elseif ($o->website == 'Twitter')
+						<a href="{{$o->url}}" class="mx-1"><i class="fab fa-twitter text-light fa-2x bg-dark secondary-hover invisiborder circle-border p-1 custom-fa-2x"></i></a>
+						@elseif ($o->website == 'LinkedIn')
+						<a href="{{$o->url}}" class="mx-1"><i class="fab fa-linkedin-in text-light fa-2x bg-dark secondary-hover invisiborder circle-border p-1 custom-fa-2x"></i></a>
+						@elseif ($o->website == 'Github')
+						<a href="{{$o->url}}" class="mx-1"><i class="fab fa-github text-dark secondary-hover fa-2x"></i></a>
+						@endif
+						@endforeach
 					</p>
 				</div>
 			</div>
@@ -64,7 +72,7 @@
 			<div class="input-group my-3">
 				<input type="text" class="form-control" name='search' placeholder="Search..." value="{{$searchVal}}" />
 				<div class="input-group-append">
-					<button type="submit" class="btn btn-secondary"><i class="fas fa-search"></i></button>
+					<button type="submit" class="btn btn-custom"><i class="fas fa-search"></i></button>
 				</div>
 			</div>
 
