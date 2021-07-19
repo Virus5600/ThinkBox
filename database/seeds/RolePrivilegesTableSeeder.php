@@ -28,14 +28,14 @@ class RolePrivilegesTableSeeder extends Seeder
 	private function addPrivilege(int $id, $privilege_id) {
 		if (is_array($privilege_id)) {
 			foreach($privilege_id as $p) {
-				RP::create([
+				RP::insert([
 					'role_id' => $id,
 					'privilege_id' => $p
 				]);
 			}
 		}
 		else {
-			RP::create([
+			RP::insert([
 				'role_id' => $id,
 				'privilege_id' => $privilege_id
 			]);

@@ -12,7 +12,6 @@ class FacultySkill extends Model
 	];
 
 	public $timestamps = false;
-	public $primary_key = 'faculty_staff_id';
 
 	protected function facultyStaff() {
 		return $this->belongsTo('App\FacultyStaff');

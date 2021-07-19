@@ -34,14 +34,14 @@ class ResearchAuthorsTableSeeder extends Seeder
 	private function addAuthors(int $id, $staff_id) {
 		if (is_array($staff_id)) {
 			foreach($staff_id as $s) {
-				RA::create([
+				RA::insert([
 					'research_id' => $id,
 					'staff_id' => $s
 				]);
 			}
 		}
 		else {
-			RA::create([
+			RA::insert([
 				'faculty_staff_id' => $id,
 				'staff_id' => $staff_id
 			]);

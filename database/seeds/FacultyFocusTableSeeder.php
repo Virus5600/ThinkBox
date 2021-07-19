@@ -45,14 +45,14 @@ class FacultyFocusTableSeeder extends Seeder
 	private function addFocus(int $id, $focus_id) {
 		if (is_array($focus_id)) {
 			foreach($focus_id as $f) {
-				FF::create([
+				FF::insert([
 					'faculty_staff_id' => $id,
 					'focus_id' => $f
 				]);
 			}
 		}
 		else {
-			FF::create([
+			FF::insert([
 				'faculty_staff_id' => $id,
 				'focus_id' => $focus_id
 			]);

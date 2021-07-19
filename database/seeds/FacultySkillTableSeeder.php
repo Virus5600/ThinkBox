@@ -46,14 +46,14 @@ class FacultySkillTableSeeder extends Seeder
 	private function addSkills(int $id, $skill_id) {
 		if (is_array($skill_id)) {
 			foreach($skill_id as $s) {
-				FS::create([
+				FS::insert([
 					'faculty_staff_id' => $id,
 					'skill_id' => $s
 				]);
 			}
 		}
 		else {
-			FS::create([
+			FS::insert([
 				'faculty_staff_id' => $id,
 				'skill_id' => $s
 			]);

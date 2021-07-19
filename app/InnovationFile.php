@@ -13,7 +13,6 @@ class InnovationFile extends Model
 	];
 
 	public $timestamps = false;
-	public $primary_key = 'innovation_id';
 
 	protected function research() {
 		return $this->belongsTo('App\Innovation', 'innovation_id', 'id');

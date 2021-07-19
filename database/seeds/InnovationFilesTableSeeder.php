@@ -13,7 +13,7 @@ class InnovationFilesTableSeeder extends Seeder
 	 */
 	public function run()
 	{
-		IFI::create([
+		IFI::insert([
 			'innovation_id' => 4,
 			'original_name' => 'sample_pdf.pdf',
 			'file' => 'sample_pdf.pdf'

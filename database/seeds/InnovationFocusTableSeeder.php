@@ -34,14 +34,14 @@ class InnovationFocusTableSeeder extends Seeder
 	private function addFocus(int $id, $focus_id) {
 		if (is_array($focus_id)) {
 			foreach($focus_id as $f) {
-				IFo::create([
+				IFo::insert([
 					'innovation_id' => $id,
 					'focus_id' => $f
 				]);
 			}
 		}
 		else {
-			IFo::create([
+			IFo::insert([
 				'faculty_staff_id' => $id,
 				'focus_id' => $f
 			]);

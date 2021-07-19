@@ -34,14 +34,14 @@ class ResearchFocusTableSeeder extends Seeder
 	private function addFocus(int $id, $focus_id) {
 		if (is_array($focus_id)) {
 			foreach($focus_id as $f) {
-				RF::create([
+				RF::insert([
 					'research_id' => $id,
 					'focus_id' => $f
 				]);
 			}
 		}
 		else {
-			RF::create([
+			RF::insert([
 				'research_id' => $id,
 				'focus_id' => $focus_id
 			]);

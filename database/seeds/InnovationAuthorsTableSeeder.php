@@ -34,14 +34,14 @@ class InnovationAuthorsTableSeeder extends Seeder
 	private function addAuthors(int $id, $staff_id) {
 		if (is_array($staff_id)) {
 			foreach($staff_id as $s) {
-				IA::create([
+				IA::insert([
 					'innovation_id' => $id,
 					'staff_id' => $s
 				]);
 			}
 		}
 		else {
-			IA::create([
+			IA::insert([
 				'innovation_id' => $id,
 				'staff_id' => $staff_id
 			]);

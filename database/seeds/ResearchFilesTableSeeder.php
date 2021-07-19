@@ -13,7 +13,7 @@ class ResearchFilesTableSeeder extends Seeder
 	 */
 	public function run()
 	{
-		RF::create([
+		RF::insert([
 			'research_id' => 4,
 			'original_name' => 'sample_pdf.pdf',
 			'file' => 'sample_pdf.pdf'
