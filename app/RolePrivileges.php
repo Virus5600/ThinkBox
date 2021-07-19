@@ -12,5 +12,5 @@ class RolePrivileges extends Model
 	];
 
 	public $timestamps = false;
-	public $primary_key = null;
+	public $primary_key = 'role_id';
 }
