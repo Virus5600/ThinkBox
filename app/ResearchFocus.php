@@ -6,12 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class ResearchFocus extends Model
 {
-	/**
-	 * The attributes that are mass assignable.
-	 *
-	 * @var array
-	 */
 	protected $fillable = [
-		'name'
+		'research_id',
+		'focus_id'
 	];
+
+	public $timestamps = false;
+	public $table = 'research_focus';
 }

@@ -12,25 +12,51 @@
 		<div class="col-12 col-md-8 offset-md-2">
 			<div class="row">
 				<div class="col-12 col-md-4 text-center">
-					<img src='/images/TEMPORARY/home/user{{$id}}.jpg' class='img-fluid invisiborder circle-border w-75'/>
+					@if ($user->user->avatar == null)
+					<img src='/uploads/users/default.png' class='img-fluid invisiborder circle-border w-75'/>
+					@else
+					<img src='/uploads/users/user{{$user->user->id}}/{{$user->user->avatar}}' class='img-fluid invisiborder circle-border w-75'/>
+					@endif
 				</div>
 
 				<div class="col-12 col-md-8">
-					<h1>{{$user->name}}</h1>
-					<h4>{{$user->position}}</h4>
-					<h4 class="font-weight-normal"><em>{{$user->department}}</em></h4>
+					<h1>{{$user->getFullName()}}</h1>
+					<h4>{{ucwords(preg_replace("/_/", " ", $user->positionAttr->type))}}, {{$user->location}}</h4>
+					<h4 class="font-weight-normal"><em>
+						@if ($user->position == 1)
+							{{ucwords(\App\College::find($user->department)->name)}}
+							@php
+								echo "(";
+								foreach (explode(" ", \App\College::find($user->department)->name) as $w) {
+									if (ctype_upper(substr($w, 0, 1)))
+										echo substr($w, 0, 1);
+								}
+								echo ")";
+							@endphp
+						@else
+							{{\App\Departments::find($user->department)->name}}
+						@endif
+					</em></h4>
 					<br>
 					<p class="text-muted">
-						<span class="mr-lg-3 mx-0 d-block d-lg-revert"><i class="fas fa-phone-alt mr-2 fa-sm text-primary"></i>{{$user->contact_no == '' ? '' : '+63 ' . $user->contact_no}}</span>
-						<span class="ml-lg-3 mx-0 d-block d-lg-revert"><i class="fas fa-envelope mr-2 fa-sm text-primary"></i><a class="text-muted" href="mailto:{{$user->email}}">{{$user->email}}</a></span>
+						<span class="mr-lg-3 mx-0 d-block d-lg-revert"><i class="fas fa-phone-alt mr-2 fa-sm text-primary"></i>{{$user->user->contact_no == '' ? 'Not Available' : '+63' . $user->user->contact_no}}</span>
+						<span class="ml-lg-3 mx-0 d-block d-lg-revert"><i class="fas fa-envelope mr-2 fa-sm text-primary"></i><a class="text-muted" href="mailto:{{$user->email}}">{{$user->user->email}}</a></span>
 					</p>
 
 					<p class="a-fa-hover-zoom-2">
-						<a href="" class="mx-1"><i class="fab fa-facebook text-dark secondary-hover fa-2x"></i></a>
-						<a href="" class="mx-1"><i class="fas fa-atom text-light fa-2x bg-dark secondary-hover invisiborder circle-border p-1 custom-fa-2x"></i></a>
-						<a href="" class="mx-1"><i class="fab fa-twitter text-light fa-2x bg-dark secondary-hover invisiborder circle-border p-1 custom-fa-2x"></i></a>
-						<a href="" class="mx-1"><i class="fab fa-linkedin-in text-light fa-2x bg-dark secondary-hover invisiborder circle-border p-1 custom-fa-2x"></i></a>
-						<a href="" class="mx-1"><i class="fab fa-github text-dark secondary-hover fa-2x"></i></a>
+						@foreach($user->user->otherProfiles as $o)
+						@if ($o->website == 'Facebook')
+						<a href="{{$o->url}}" class="mx-1"><i class="fab fa-facebook text-dark secondary-hover fa-2x"></i></a>
+						@elseif ($o->website == 'Google Scholar')
+						<a href="{{$o->url}}" class="mx-1"><i class="fas fa-atom text-light fa-2x bg-dark secondary-hover invisiborder circle-border p-1 custom-fa-2x"></i></a>
+						@elseif ($o->website == 'Twitter')
+						<a href="{{$o->url}}" class="mx-1"><i class="fab fa-twitter text-light fa-2x bg-dark secondary-hover invisiborder circle-border p-1 custom-fa-2x"></i></a>
+						@elseif ($o->website == 'LinkedIn')
+						<a href="{{$o->url}}" class="mx-1"><i class="fab fa-linkedin-in text-light fa-2x bg-dark secondary-hover invisiborder circle-border p-1 custom-fa-2x"></i></a>
+						@elseif ($o->website == 'Github')
+						<a href="{{$o->url}}" class="mx-1"><i class="fab fa-github text-dark secondary-hover fa-2x"></i></a>
+						@endif
+						@endforeach
 					</p>
 				</div>
 			</div>
@@ -42,9 +68,9 @@
 	<hr class="hr-thick my-3">
 
 	<div class="row my-3">
-		<div class="col-12 col-md-3 order-0">
+		<form class="col-12 col-lg-3 order-0" action="{{route('profile.research')}}" method="GET">
 			<div class="input-group my-3">
-				<input type="text" class="form-control" name='search' placeholder="Search..." />
+				<input type="text" class="form-control" name='search' placeholder="Search..." value="{{$searchVal}}"/>
 				<div class="input-group-append">
 					<button type="submit" class="btn btn-secondary"><i class="fas fa-search"></i></button>
 				</div>
@@ -54,29 +80,52 @@
 
 			<span class="font-weight-bold">Sort By</span>
 			<div class="input-group">
-				<select name="sort" class="custom-select">
-					<option value="titleAsc" selected>Title (A-Z)</option>
-					<option value="titleDesc">Title (Z-A)</option>
-					<option value="datePublished">Date Published</option>
+				<select name="sortBy" class="custom-select" onchange="$('#researchParamSubmit').trigger('click');">
+					<option value="titleAsc" {{$sortBy == 'titleAsc' ? 'selected' : ''}}>Title (A-Z)</option>
+					<option value="titleDesc" {{$sortBy == 'titleDesc' ? 'selected' : ''}}>Title (Z-A)</option>
+					<option value="date" {{$sortBy == 'date' ? 'selected' : ''}}>Date Published</option>
 				</select>
 			</div>
-		</div>
+
+			<input type="submit" class="hidden" id="researchParamSubmit">
+		</form>
 
 		<div class="col-12 col-md-9 div-hover-zoom">
 			@foreach ($research as $r)
-			<div class="row">
-				<div class="col my-3 mx-5 bg-custom-light p-3">
-					<p class="font-weight-bold">
-						{{$r->title}}
-					</p>
+			<div class="row my-3 bg-custom-light mx-1 p-3">
+				<div class="col-12">
+					<div class="row">
+						<p class="font-weight-bold col-11">
+							{{$r->title}}
+						</p>
+						<div class="col-1 text-right">
+							<a href="{{ route('profile.research.toggle.is_featured', [$r->id, true]) }}" data-toggle='tooltip' data-placement='top' title='{{$r->is_featured ? "Pin" : "Unpin"}}'>
+								<i class="{{$r->is_featured ? 'far' : 'fas'}} fa-star text-custom"></i>
+							</a>
+						</div>
+					</div>
 
-					<p>
-						<small><em>{{$r->authors}} | {{$r->date_published->format('D Y')}}</em></small>
-					</p>
+					<div class="row">
+						<p>
+							<small><em>{{preg_replace('/,/', ', ', $r->authors)}} | {{\Carbon\Carbon::parse($r->date_published)->format('M d, Y')}}</em></small>
+						</p>
+					</div>
 
-					<p class="text-truncate-3">
-						{{$r->description}}
-					</p>
+					<div class="row">
+						<p class="text-truncate-3">
+							{{$r->description}}
+						</p>
+					</div>
+
+					<div class="row">
+						<p class="w-100">
+							@if ($r->is_file)
+							<a class="float-right text-decoration-none read-more underline-at-hover" href="{{route('research.show', [$r->id])}}">View Details <i class="fas fa-chevron-right"></i></a>
+							@else
+							<a class="float-right text-decoration-none read-more underline-at-hover" target="_blank" href='{{$r->url}}'>View Details <i class="fas fa-chevron-right"></i></a>
+							@endif
+						</p>
+					</div>
 				</div>
 			</div>
 			@endforeach

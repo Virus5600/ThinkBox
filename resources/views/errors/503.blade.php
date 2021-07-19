@@ -55,8 +55,9 @@
             </div>
 
 			<div class="row mb-auto">
-				<div class="col-12 col-lg-6 offset-lg-3">
-                    <h2 class="text-center" style="font-size: 12.5vh">Be right back.</h2>
+				<div class="col-12 col-lg-6 offset-lg-3 text-center">
+                    <h2 style="font-size: 12.5vh">Be right back.</h2>
+                    <a href="{{url()->previous()}}" class="btn btn-secondary">Go Back</a>
                 </div>
 			</div>
 		</div>

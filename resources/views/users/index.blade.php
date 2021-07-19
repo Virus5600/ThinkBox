@@ -33,7 +33,7 @@
 						<div class="col-12 col-md-4 mx-auto">
 							<div class="card dark-shadow h-100">
 								<div class="card-body">
-									<div class="announcement-img" style="background: #fff url('/images/TEMPORARY/home/{{$a->image}}') no-repeat center"></div>
+									<div class="announcement-img" style="background: #fff url('/uploads/announcements/{{$a->image}}') no-repeat center"></div>
 									<h5 class="card-title text-truncate-2">{{$a->title}}</h5>
 									<div class="card-text">{!!$a->content!!}</div>
 								</div>
@@ -85,11 +85,19 @@
 								<div class="card-body">
 									<div class="card-title">
 										<div class="row">
-											<div class="col-12 d-flex align-items-center">
-												<img src="/images/TEMPORARY/home/{{\App\Http\Controllers\TmpController::getUser($r->posted_by)->avatar}}" class="circular-border" style="align-self: flex-start;" width='50' height='50' draggable='false' alt="User"/>
-												<div class="d-flex flex-d-col">
-													<h3 class="h4 mx-2 my-0"><a class="text-dark text-decoration-none" href=''>{{\App\Http\Controllers\TmpController::getUser($r->posted_by)->name}}</a></h3>
-													<p class="mx-2 my-0">{{\App\Http\Controllers\TmpController::getUser($r->posted_by)->position}}</p>
+											<div class="col-12 d-flex align-items-center" style="overflow-x: hidden; text-overflow: ellipsis;" data-toggle='tooltip' data-placement='top' title="{{$r->user->title == null ? '' : $r->user->title . ' '}}{{$r->user->first_name}} {{$r->user->middle_name == null ? '' : substr($r->user->middle_name, 0) . '. '}}{{$r->user->last_name}}{{$r->user->suffix == null ? '' : ', ' . $r->user->suffix}}">
+												@if ($r->user->avatar == null)
+												<img src="/uploads/users/default.png" class="circular-border" style="align-self: flex-start;" width='50' height='50' draggable='false' alt="User"/>
+												@else
+												<img src="/uploads/users/user{{$r->user->id}}/{{$r->user->avatar}}" class="circular-border" style="align-self: flex-start;" width='50' height='50' draggable='false' alt="User"/>
+												@endif
+												<div class="d-flex flex-d-col" style="overflow-x: hidden; text-overflow: ellipsis;" >
+													<h3 class="h4 mx-2 my-0" style="overflow: hidden; text-overflow: ellipsis;" >
+														<a class="text-dark text-decoration-none text-truncate" style="overflow-x: hidden; text-overflow: ellipsis;" href="{{route('faculty.show', [$r->posted_by])}}">
+															{{$r->user->title == null ? '' : $r->user->title . ' '}}{{$r->user->first_name}} {{$r->user->middle_name == null ? '' : substr($r->user->middle_name, 0) . '. '}}{{$r->user->last_name}}{{$r->user->suffix == null ? '' : ', ' . $r->user->suffix}}
+														</a>
+													</h3>
+													<p class="mx-2 my-0">{{ucwords(preg_replace("/_/", " ", $r->facultyStaff->positionAttr->type))}}, {{$r->facultyStaff->location}}</p>
 												</div>
 											</div>
 
@@ -97,7 +105,7 @@
 												<h4 class="text-truncate text-custom my-3">{{$r->title}}</h4>
 												
 												<p class="text-truncate-2">
-													<small><em>{{$r->authors}} | {{$r->date_published->format('M Y')}}</em></small>
+													<small><em>{{preg_replace('/,/', ', ', $r->authors)}} | {{\Carbon\Carbon::parse($r->date_published)->format('M Y')}}</em></small>
 												</p>
 
 												<div class="card-text text-truncate-5">
@@ -110,7 +118,7 @@
 								
 								<div class="card-footer">
 									<div class="dropdown display-inline-block float-left">
-										<a class='dropdown-toggle text-decoration-none share-dropdown underline-at-hover' href="" role='button' id='share' data-toggle='dropdown' aria-haspopup="true" aria-expanded="false">
+										<a class='dropdown-toggle text-decoration-none share-dropdown underline-at-hover' href="javascript:void(0)" role='button' id='share' data-toggle='dropdown' aria-haspopup="true" aria-expanded="false">
 											<i class="fas fa-share-alt mr-1"></i> Share
 										</a>
 
@@ -129,11 +137,7 @@
 										</div>
 									</div>
 
-									@if ($r->is_file)
 									<a class="float-right text-decoration-none read-more underline-at-hover" href="{{route('research.show', [$r->id])}}">View Details <i class="fas fa-chevron-right"></i></a>
-									@else
-									<a class="float-right text-decoration-none read-more underline-at-hover" target="_blank" href='{{$r->url}}'>View Details <i class="fas fa-chevron-right"></i></a>
-									@endif
 								</div>
 							</div>
 						</div>
@@ -168,10 +172,18 @@
 									<div class="card-title">
 										<div class="row">
 											<div class="col-12 d-flex align-items-center">
-												<img src="/images/TEMPORARY/home/{{\App\Http\Controllers\TmpController::getUser($i->posted_by)->avatar}}" class="circular-border" style="align-self: flex-start;" width='50' height='50' draggable='false' alt="User"/>
+												@if ($i->user->avatar == null)
+												<img src="/uploads/users/default.png" class="circular-border" style="align-self: flex-start;" width='50' height='50' draggable='false' alt="User"/>
+												@else
+												<img src="/uploads/users/user{{$i->user->id}}/{{$i->user->avatar}}" class="circular-border" style="align-self: flex-start;" width='50' height='50' draggable='false' alt="User"/>
+												@endif
 												<div class="d-flex flex-d-col">
-													<h3 class="h4 mx-2 my-0"><a class="text-dark text-decoration-none" href=''>{{\App\Http\Controllers\TmpController::getUser($i->posted_by)->name}}</a></h3>
-													<p class="mx-2 my-0">{{\App\Http\Controllers\TmpController::getUser($i->posted_by)->position}}</p>
+													<h3 class="h4 mx-2 my-0">
+														<a class="text-dark text-decoration-none" href=''>
+															{{$i->user->title == null ? '' : $i->user->title . ' '}}{{$i->user->first_name}} {{$i->user->middle_name == null ? '' : substr($i->user->middle_name, 0) . '. '}}{{$i->user->last_name}}{{$i->user->suffix == null ? '' : ', ' . $i->user->suffix}}
+														</a>
+													</h3>
+													<p class="mx-2 my-0">{{ucwords(preg_replace("/_/", " ", $i->facultyStaff->positionAttr->type))}}, {{$i->facultyStaff->location}}</p>
 												</div>
 											</div>
 
@@ -179,7 +191,7 @@
 												<h4 class="text-truncate text-custom my-3">{{$i->title}}</h4>
 												
 												<p class="text-truncate-2">
-													<small><em>{{$i->authors}} | {{$i->date_published->format('M Y')}}</em></small>
+													<small><em>{{$i->authors}} | {{\Carbon\Carbon::parse($i->date_published)->format('M Y')}}</em></small>
 												</p>
 
 												<div class="card-text text-truncate-5">
@@ -192,7 +204,7 @@
 								
 								<div class="card-footer">
 									<div class="dropdown display-inline-block float-left">
-										<a class='dropdown-toggle text-decoration-none share-dropdown underline-at-hover' href="" role='button' id='share' data-toggle='dropdown' aria-haspopup="true" aria-expanded="false">
+										<a class='dropdown-toggle text-decoration-none share-dropdown underline-at-hover' href="javascript:void(0)" role='button' id='share' data-toggle='dropdown' aria-haspopup="true" aria-expanded="false">
 											<i class="fas fa-share-alt mr-1"></i> Share
 										</a>
 
@@ -243,17 +255,25 @@
 						@foreach($staff as $s)
 						<div class="col-12 col-md-3 mr-auto">
 							<div class="card dark-shadow h-100">
-								<div class="card-header p-0" style="background: #fff url('/images/TEMPORARY/home/{{$s->avatar or 'default.png'}}') no-repeat center; background-size: cover;">
+								@if ($s->user->avatar == null)
+								<div class="card-header p-0" style="background: #fff url('/uploads/users/default.png') no-repeat center; background-size: cover;">
+								@else
+								<div class="card-header p-0" style="background: #fff url('/uploads/users/user{{$s->user->id}}/{{$s->user->avatar}}') no-repeat center; background-size: cover;">
+									@endif
 									<div class="p-0 m-0 blur-backdrop">
-										<img class="p-0 m-0 img-fluid faculty-img" src='/images/TEMPORARY/home/{{$s->avatar or 'default.png'}}'>
+										@if ($s->user->avatar == null)
+										<img class="p-0 m-0 img-fluid faculty-img" src="/uploads/users/default.png">
+										@else
+										<img class="p-0 m-0 img-fluid faculty-img" src="/uploads/users/user{{$s->user->id}}/{{$s->user->avatar}}">
+										@endif
 									</div>
 								</div>
 								<div class="card-body">
 									<div class="card-title">
-										<h4 class="font-weight-bold">{{$s->name}}</h4>
+										<h4 class="font-weight-bold">{{$s->user->title == null ? '' : $s->user->title . ' '}}{{$s->user->first_name}} {{$s->user->middle_name == null ? '' : substr($s->user->middle_name, 0) . '. '}}{{$s->user->last_name}}{{$s->user->suffix == null ? '' : ', ' . $s->user->suffix}}</h4>
 									</div>
 
-									<p class="card-text">{{$s->position}}</p>
+									<p class="card-text">{{ucwords(preg_replace("/_/", " ", $s->positionAttr->type))}}, {{ucwords($s->location)}}</p>
 								</div>
 								
 								<div class="card-footer">

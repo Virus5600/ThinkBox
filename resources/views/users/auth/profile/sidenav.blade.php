@@ -14,12 +14,12 @@
 
 <hr class="hr-thick-50 my-2">
 
-@if(\Request::is('profile/materials'))
+@if(\Request::is('profile/topics'))
 <span class="nav-link active bg-custom text-light">Course Materials</span>
-@elseif (\Request::is('profile/materials/*'))
-<a class="nav-link active bg-custom text-light" href="{{ route('profile.materials.index') }}">Course Materials</a>
+@elseif (\Request::is('profile/topics/*'))
+<a class="nav-link active bg-custom text-light" href="{{ route('profile.topics.index') }}">Course Materials</a>
 @else
-<a class="nav-link custom-hover text-dark" href="{{ route('profile.materials.index') }}">Course Materials</a>
+<a class="nav-link custom-hover text-dark" href="{{ route('profile.topics.index') }}">Course Materials</a>
 @endif
 
 @if(\Request::is('profile/research/list'))

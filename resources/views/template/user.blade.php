@@ -25,6 +25,11 @@
 
 		{{-- jQuery 3.6.0 --}}
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+		<!-- <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script> -->
+
+		{{-- jQuery UI 1.12.1 --}}
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 		{{-- Removes the code that shows up when script is disabled/not allowed/blocked --}}
 		<script type="text/javascript" id="for-js-disabled-js">$('head').append('<style id="for-js-disabled">#js-disabled { display: none; }</style>');$(document).ready(function() {$('#js-disabled').remove();$('#for-js-disabled').remove();$('#for-js-disabled-js').remove();});</script>
@@ -43,6 +48,10 @@
 
 		{{-- Sweet Alert 2 --}}
 		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+		{{-- Bootstrap 4 Select --}}
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css"/>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
 
 		{{-- Custom CSS --}}
 		@yield('css')
@@ -160,18 +169,30 @@
 						<label class="py-0 my-0">
 							<div class="dropdown">
 								<a href='' role="button" class="nav-link dropdown-toggle text-dark dynamic-size-lg-h6" style="font-size: 1.25rem;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-									<img src="/images/TEMPORARY/home/{{\App\Http\Controllers\TmpController::getUser()->avatar}}" class="circular-border" width='30' height='30' draggable='false' alt="User"/>
-									{{\App\Http\Controllers\TmpController::getUser()->first_name}} {{\App\Http\Controllers\TmpController::getUser()->last_name}}
+									@if (!Auth::user()->isAvatarLink)
+									@if (Auth::user()->avatar == null)
+									<img src="/uploads/users/default.png" class="circular-border" width='30' height='30' draggable='false' alt="User"/>
+									@else
+									<img src="/uploads/users/user{{Auth::user()->id}}/{{Auth::user()->avatar}}" class="circular-border" width='30' height='30' draggable='false' alt="User"/>
+									@endif
+									@else
+									<img src="{{Auth::user()->avatar}}" class="circular-border" width='30' height='30' draggable='false' alt="User"/>
+									@endif
+									{{Auth::user()->first_name}} {{Auth::user()->last_name}}
 								</a>
 								
 								<div class="dropdown-menu dropdown-menu-right">
 									<a class="dropdown-item" href="{{ route('profile.index') }}">My Profile</a>
-									<a class="dropdown-item" href="{{ route('profile.edit', [\App\Http\Controllers\TmpController::getUser()->id]) }}">Edit Profile</a>
-									<a class="dropdown-item" href="{{ route('profile.materials.index') }}">Topics & Materials</a>
+									<a class="dropdown-item" href="{{ route('profile.edit', [Auth::user()->id]) }}">Edit Profile</a>
+									<a class="dropdown-item" href="{{ route('profile.topics.index') }}">Topics & Materials</a>
 									<a class="dropdown-item" href="{{ route('profile.research.index') }}">Research</a>
 									<a class="dropdown-item" href="{{ route('profile.innovations.index') }}">Innovations</a>
+									@if (Auth::user()->role == 1)
 									<div class="dropdown-divider"></div>
-									<a class="dropdown-item" href="">Sign out</a>
+									<a class="dropdown-item" href="{{ route('admin') }}">Admin Controls</a>
+									@endif
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" href="{{route('logout')}}">Sign out</a>
 								</div>
 							</div>
 						</label>
@@ -228,7 +249,7 @@
 
 				{{-- Branding --}}
 				<div class="col-12 col-lg-4 order-0 order-lg-4 text-center my-3">
-					<img src="/images/UI/Branding.png" style="max-height: 100%; max-width: 100%" height="auto" width="350" class="pb-0 mb-0" alt="Myriad Files"/><br>
+					<img src="/images/UI/Branding.png" style="max-height: 100%; max-width: 100%" height="auto" width="350" class="pb-0 mb-0" alt="{{env('APP_NAME')}}"/><br>
 					<small class="pt-0 mt-0 display-block">&copy; {{env('APP_NAME')}} 2021-2023</small>
 				</div>
 			</div>
@@ -238,6 +259,58 @@
 		@yield('script')
 
 		{{-- Local Script --}}
+		<script type="text/javascript">
+			@if (Session::has('flash_error'))
+			Swal.fire({
+				{!!Session::has('has_icon')  && Session::get('has_icon') ? "icon: `error`," : ""!!}
+				title: `{{Session::get('flash_error')}}`,
+				{!!Session::has('message') ? 'html: `' . Session::get('message') . '`,' : ''!!}
+				position: {!!Session::has('position') ? '`' . Session::get('position') . '`' : '`top`'!!},
+				showConfirmButton: false,
+				toast: {!!Session::has('is_toast') ? Session::get('is_toast') : true!!},
+				{!!Session::has('has_timer') ? (Session::get('has_timer') ? (Session::has('duration') ? ('timer: ' . Session::get('duration')) . ',' : `timer: 10000,`) : '') : `timer: 10000,`!!}
+				background: `#dc3545`,
+				customClass: {
+					title: `text-white`,
+					content: `text-white`,
+					popup: `px-3`
+				},
+			});
+			@elseif (Session::has('flash_message'))
+			Swal.fire({
+				{!!Session::has('has_icon') && Session::get('has_icon') ? "icon: `info`," : ""!!}
+				title: `{{Session::get('flash_message')}}`,
+				{!!Session::has('message') ? 'html: `' . Session::get('message') . '`,' : ''!!}
+				position: {!!Session::has('position') ? '`' . Session::get('position') . '`' : '`top`'!!},
+				showConfirmButton: false,
+				toast: {!!Session::has('is_toast') ? Session::get('is_toast') : true!!},
+				{!!Session::has('has_timer') ? (Session::get('has_timer') ? (Session::has('duration') ? ('timer: ' . Session::get('duration')) . ',' : `timer: 10000,`) : '') : `timer: 10000,`!!}
+				background: `#17a2b8`,
+				customClass: {
+					title: `text-white`,
+					content: `text-white`,
+					popup: `px-3`
+				},
+			});
+			@elseif (Session::has('flash_success'))
+			Swal.fire({
+				{!!Session::has('has_icon')  && Session::get('has_icon') ? "icon: `success`," : ""!!}
+				title: `{{Session::get('flash_success')}}`,
+				{!!Session::has('message') ? 'html: `' . Session::get('message') . '`,' : ''!!}
+				position: {!!Session::has('position') ? '`' . Session::get('position') . '`' : '`top`'!!},
+				showConfirmButton: false,
+				toast: {!!Session::has('is_toast') ? Session::get('is_toast') : true!!},
+				{!!Session::has('has_timer') ? (Session::get('has_timer') ? (Session::has('duration') ? ('timer: ' . Session::get('duration')) . ',' : `timer: 10000,`) : '') : `timer: 10000,`!!}
+				background: `#28a745`,
+				customClass: {
+					title: `text-white`,
+					content: `text-white`,
+					popup: `px-3`
+				},
+			});
+			@endif
+		</script>
+
 		<script type="text/javascript" src="/js/user.js"></script>
 	</body>
 </html>

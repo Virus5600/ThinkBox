@@ -25,6 +25,11 @@
 
 		{{-- jQuery 3.6.0 --}}
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+		<!-- <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script> -->
+
+		{{-- jQuery UI 1.12.1 --}}
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 		{{-- Removes the code that shows up when script is disabled/not allowed/blocked --}}
 		<script type="text/javascript" id="for-js-disabled-js">$('head').append('<style id="for-js-disabled">#js-disabled { display: none; }</style>');$(document).ready(function() {$('#js-disabled').remove();$('#for-js-disabled').remove();$('#for-js-disabled-js').remove();});</script>
@@ -109,11 +114,17 @@
 				{{-- Navbar contents --}}
 				<div class="collapse navbar-collapse" id="navbar">
 					<div class="ml-auto">
-						<img src="/images/TEMPORARY/home/user1.jpg" class="circular-border" width='30' height='30' draggable='false' alt="User"/>
+						@if (!Auth::user()->isAvatarLink)
+							@if (Auth::user()->avatar == null)
+							<img src="/uploads/users/default.png" class="circular-border" width='30' height='30' draggable='false' alt="User"/>
+							@else
+							<img src="/uploads/users/user{{Auth::user()->id}}/{{Auth::user()->avatar}}" class="circular-border" width='30' height='30' draggable='false' alt="User"/>
+							@endif
+						@endif
 						<label>
 							<div class="dropdown">
 								<a href='' role="button" class="nav-link dropdown-toggle text-dark dynamic-size-lg-h6" style="font-size: 1.25rem;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-									Angelique Lacasandile
+									{{Auth::user()->first_name}} {{Auth::user()->last_name}}
 								</a>
 								
 								<div class="dropdown-menu dropdown-menu-right">
@@ -122,7 +133,7 @@
 									<a class="dropdown-item" href="{{route('innovations')}}">View Innovations Page</a>
 									<a class="dropdown-item" href="{{route('faculty.index')}}">View Department Page</a>
 									<a class="dropdown-item" href="{{route('announcements.index')}}">View Announcements Page</a> -->
-									<hr class="hr-thick"/>
+									<div class="dropdown-divider"></div>
 									<a class="dropdown-item" href="">Sign out</a>
 								</div>
 							</div>
@@ -135,29 +146,37 @@
 				{{-- Navigation Bar (SIDE) --}}
 				<div class="sidebar dark-shadow custom-scroll d-flex flex-d-col py-3 px-0 collapse-horizontal overflow-y-auto" id="sidebar">
 					@if (\Request::is('admin/dashboard'))
-					<span class="bg-primary text-white"><i class="fas fa-tachometer-alt mr-2"></i>Dashboard</span>
+					<span class="bg-custom text-white"><i class="fas fa-tachometer-alt mr-2"></i>Dashboard</span>
 					@else
 					<a class="text-decoration-none text-dark" href="{{ route('dashboard') }}"><i class="fas fa-tachometer-alt mr-2"></i>Dashboard</a>
 					@endif
 
 					@if (\Request::is('admin/faculty-member'))
-					<span class="bg-primary text-white"><i class="fas fa-users mr-2"></i>Faculty Members</span>
+					<span class="bg-custom text-white"><i class="fas fa-chalkboard-teacher mr-2"></i>Faculty Members</span>
 					@elseif (\Request::is('admin/faculty-member/*'))
-					<a class="text-decoration-none bg-primary text-white" href="{{ route('admin.faculty-member.index') }}"><i class="fas fa-users mr-2"></i>Faculty Members</a>
+					<a class="text-decoration-none bg-custom text-white" href="{{ route('admin.faculty-member.index') }}"><i class="fas fa-chalkboard-teacher mr-2"></i>Faculty Members</a>
 					@else
-					<a class="text-decoration-none text-dark" href="{{ route('admin.faculty-member.index') }}"><i class="fas fa-users mr-2"></i>Faculty Members</a>
+					<a class="text-decoration-none text-dark" href="{{ route('admin.faculty-member.index') }}"><i class="fas fa-chalkboard-teacher mr-2"></i>Faculty Members</a>
+					@endif
+
+					@if (\Request::is('admin/users'))
+					<!-- <span class="bg-custom text-white"><i class="fas fa-users mr-2"></i>Users</span> -->
+					@elseif (\Request::is('admin/users/*'))
+					<!-- <a class="text-decoration-none bg-custom text-white" href="{{ route('admin.faculty-member.index') }}"><i class="fas fa-users mr-2"></i>Users</a> -->
+					@else
+					<!-- <a class="text-decoration-none text-dark" href="{{ route('admin.faculty-member.index') }}"><i class="fas fa-users mr-2"></i>Users</a> -->
 					@endif
 
 					@if (\Request::is('admin/announcements'))
-					<span class="bg-primary text-white"><i class="fas fa-bullhorn mr-2"></i>Announcements</span>
+					<span class="bg-custom text-white"><i class="fas fa-bullhorn mr-2"></i>Announcements</span>
 					@elseif (\Request::is('admin/announcements/*'))
-					<a class="text-decoration-none bg-primary text-white" href="{{ route('admin.announcements.index') }}"><i class="fas fa-bullhorn mr-2"></i>Announcements</a>
+					<a class="text-decoration-none bg-custom text-white" href="{{ route('admin.announcements.index') }}"><i class="fas fa-bullhorn mr-2"></i>Announcements</a>
 					@else
 					<a class="text-decoration-none text-dark" href="{{ route('admin.announcements.index') }}"><i class="fas fa-bullhorn mr-2"></i>Announcements</a>
 					@endif
 
 					@if (\Request::is('admin/skills'))
-					<span class="bg-primary text-white"><i class="fas fa-pencil-ruler mr-2"></i>Skills</span>
+					<span class="bg-custom text-white"><i class="fas fa-pencil-ruler mr-2"></i>Skills</span>
 					@else
 					<a class="text-decoration-none text-dark" href="{{ route('admin.skills.index') }}"><i class="fas fa-pencil-ruler mr-2"></i>Skills</a>
 					@endif
@@ -179,5 +198,56 @@
 
 		{{-- Local Script --}}
 		<script type="text/javascript" src="/js/admin.js"></script>
+		<script type="text/javascript">
+			@if (Session::has('flash_error'))
+			Swal.fire({
+				{!!Session::has('has_icon') ? "icon: `error`," : ""!!}
+				title: `{{Session::get('flash_error')}}`,
+				{!!Session::has('message') ? 'html: `' . Session::get('message') . '`,' : ''!!}
+				position: {!!Session::has('position') ? '`' . Session::get('position') . '`' : '`top`'!!},
+				showConfirmButton: false,
+				toast: {!!Session::has('is_toast') ? Session::get('is_toast') : true!!},
+				{!!Session::has('has_timer') ? (Session::get('has_timer') ? (Session::has('duration') ? ('timer: ' . Session::get('duration')) . ',' : `timer: 10000,`) : '') : `timer: 10000,`!!}
+				background: `#dc3545`,
+				customClass: {
+					title: `text-white`,
+					content: `text-white`,
+					popup: `px-3`
+				},
+			});
+			@elseif (Session::has('flash_message'))
+			Swal.fire({
+				{!!Session::has('has_icon') ? "icon: `info`," : ""!!}
+				title: `{{Session::get('flash_message')}}`,
+				{!!Session::has('message') ? 'html: `' . Session::get('message') . '`,' : ''!!}
+				position: {!!Session::has('position') ? '`' . Session::get('position') . '`' : '`top`'!!},
+				showConfirmButton: false,
+				toast: {!!Session::has('is_toast') ? Session::get('is_toast') : true!!},
+				{!!Session::has('has_timer') ? (Session::get('has_timer') ? (Session::has('duration') ? ('timer: ' . Session::get('duration')) . ',' : `timer: 10000,`) : '') : `timer: 10000,`!!}
+				background: `#17a2b8`,
+				customClass: {
+					title: `text-white`,
+					content: `text-white`,
+					popup: `px-3`
+				},
+			});
+			@elseif (Session::has('flash_success'))
+			Swal.fire({
+				{!!Session::has('has_icon') ? "icon: `success`," : ""!!}
+				title: `{{Session::get('flash_success')}}`,
+				{!!Session::has('message') ? 'html: `' . Session::get('message') . '`,' : ''!!}
+				position: {!!Session::has('position') ? '`' . Session::get('position') . '`' : '`top`'!!},
+				showConfirmButton: false,
+				toast: {!!Session::has('is_toast') ? Session::get('is_toast') : true!!},
+				{!!Session::has('has_timer') ? (Session::get('has_timer') ? (Session::has('duration') ? ('timer: ' . Session::get('duration')) . ',' : `timer: 10000,`) : '') : `timer: 10000,`!!}
+				background: `#28a745`,
+				customClass: {
+					title: `text-white`,
+					content: `text-white`,
+					popup: `px-3`
+				},
+			});
+			@endif
+		</script>
 	</body>
 </html>

@@ -10,7 +10,14 @@
 		</div>
 
 		<div class="col-12 col-md-6 col-lg my-2 text-center text-md-left text-lg-right">
-			<a href="{{ route('admin.faculty-member.create') }}" class="btn btn-success"><i class="fas fa-plus-circle mr-2"></i>Add Faculty Member</a>
+			<button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown" id="addFS" aria-haspopup="true" aria-expanded="false">
+				<i class="fas fa-plus-circle mr-2"></i>Add Faculty Staff
+			</button>
+
+			<div class="dropdown-menu dropdown-menu-right" aria-labelledby="addFS">
+				<a href="{{ route('admin.faculty-member.create') }}" class="dropdown-item">(Detailed)</a>
+				<a href="{{ route('admin.faculty-member.generate') }}" class="dropdown-item" id="addFSG">(Generated)</a>
+			</div>
 		</div>
 
 		<div class="col-12 col-md-6 col-lg my-2 text-center text-lg-right">
@@ -37,12 +44,22 @@
 			<tbody>
 				@foreach($staff as $s)
 				<tr>
-					<td class="hr-thick"><img src="/images/TEMPORARY/home/{{$s->avatar}}" class="img-fluid user-icon invisiborder circle-border" draggable="false"/></td>
-					<td class="hr-thick">{{$s->name}}</td>
-					<td class="hr-thick">{{$s->department}}</td>
+					<td class="hr-thick">
+						@if (!$s->user->isAvatarLink)
+						@if ($s->user->avatar == null)
+						<img src="/uploads/users/default.png" class="img-fluid user-icon invisiborder circle-border" draggable="false"/>
+						@else
+						<img src="/uploads/users/user{{$s->user->id}}/{{$s->user->avatar}}" class="img-fluid user-icon invisiborder circle-border" draggable="false"/>
+						@endif
+						@else
+						<img src="{{$s->user->avatar}}" class="img-fluid user-icon invisiborder circular-border" draggable='false' alt="User"/>
+						@endif
+					</td>
+					<td class="hr-thick">{{$s->getFullName()}}</td>
+					<td class="hr-thick">{{$s->getDepartment()->name}}</td>
 					<td class="hr-thick">
 						<div class="dropdown">
-							<button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" id="dropdown{{$s->id}}" aria-haspopup="true" aria-expanded="false">
+							<button class="btn btn-custom btn-sm dropdown-toggle" type="button" data-toggle="dropdown" id="dropdown{{$s->id}}" aria-haspopup="true" aria-expanded="false">
 								Action
 							</button>
 
@@ -51,7 +68,7 @@
 								<a href="{{ route('admin.faculty-member.edit', [$s->id]) }}" class="dropdown-item">Edit Details</a>
 								<a href="{{ route('admin.faculty-member.skills', [$s->id]) }}" class="dropdown-item">Set Skills</a>
 								<a href="{{ route('admin.faculty-member.manage-contents', [$s->id]) }}" class="dropdown-item">Manage Contents</a>
-								<a href="" class="dropdown-item">Delete</a>
+								<a href="{{ route('admin.faculty-member.delete', [$s->id]) }}" class="dropdown-item">Delete</a>
 							</div>
 						</div>
 					</td>

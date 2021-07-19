@@ -6,6 +6,7 @@ use Exception;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Session\TokenMismatchException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
@@ -45,6 +46,14 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
+        if ($e instanceof TokenMismatchException) {
+            return redirect()
+                ->back()
+                ->withInput($request->except('_token'))
+                ->with('flash_message', "Oops! Seems you couldn't submit the form for a long time. Please try again.")
+                ->with('has_icon', 'true');
+        }
+
         return parent::render($request, $e);
     }
 }

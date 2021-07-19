@@ -20,12 +20,12 @@
 				</div>
 				
 				<div class="col-12 col-sm-8 col-lg-3 text-center my-2">
-					<div class="input-group">
-						<input type="text" class="form-control" name="search" placeholder="Search..."/>
+					<form class="input-group" action="{{route('profile.innovations.index')}}" method="GET">
+						<input type="text" class="form-control" name="search" placeholder="Search..." value="{{$searchVal}}"/>
 						<div class="input-group-append">
-							<button type="button" class="btn btn-secondary"><i class="fas fa-search"></i></button>
+							<button type="button" class="btn btn-custom"><i class="fas fa-search"></i></button>
 						</div>
-					</div>
+					</form>
 				</div>
 			</div>
 
@@ -35,28 +35,38 @@
 						<tr>
 							<td scope="col" class="font-weight-bold">Innovations Title</td>
 							<td scope="col" class="font-weight-bold">Innovations URL/PDF File</td>
+							<td scope="col" class="font-weight-bold">Featured</td>
 							<td scope="col" class="font-weight-bold">Date Published</td>
 							<td scope="col" class="font-weight-bold">Date Added</td>
 							<td></td>
 						</tr>
 					</thead>
 
-					<tbody id="Innovations_table">
+					<tbody id="innovations_table">
 						@forelse ($innovations as $i)
 						<tr>
-							<td class="overflow-x-hidden text-overflow-ellipsis" style="max-width: 20vw;">{{$i->title}}</td>
-							<td class="overflow-x-hidden text-overflow-ellipsis" style="max-width: 20vw;">{{$i->url}}</td>
-							<td>{{$i->date_published->format('M d, Y')}}</td>
-							<td>{{$i->date_added->format('M d, Y')}}</td>
+							<td class="overflow-x-hidden text-overflow-ellipsis" style="max-width: 15vw;">{{$i->title}}</td>
+							<td class="overflow-x-hidden text-overflow-ellipsis" style="max-width: 15vw;">{{$i->url == null ? $i->getFileNames(1) : $i->url}}</td>
+							<td>
+								@if ($i->is_featured)
+								<i class="fas fa-circle fa-sm text-success mr-1"></i>Featured
+								@else
+								<i class="fas fa-circle fa-sm text-danger mr-1"></i>Not Featured
+								@endif
+							</td>
+							<td>{{\Carbon\Carbon::parse($i->date_published)->format('M d, Y')}}</td>
+							<td>{{\Carbon\Carbon::parse($i->created_at)->format('M d, Y')}}</td>
 							<td>
 								<div class="dropdown">
-									<a href='javascript:void(0)' role="button" class="dropdown-toggle btn btn-primary btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<a href='javascript:void(0)' role="button" class="dropdown-toggle btn btn-custom btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 										Action
 									</a>
 									
 									<div class="dropdown-menu dropdown-menu-right">
-										<a href="{{route('profile.innovations.edit', [$i->id])}}" class="dropdown-item">Edit</button>
-										<a class="dropdown-item" href="">Delete</a>
+										<a class="dropdown-item" href="{{route('innovations.show', [$i->id])}}">View</a>
+										<a href="{{route('profile.innovations.edit', [$i->id])}}" class="dropdown-item">Edit</a>
+										<a href="{{route('profile.innovations.toggle.is_featured', [$i->id])}}" class="dropdown-item">{{$i->is_featured ? 'Remove as featured' : 'Add as featured'}}</a>
+										<a href="javascript:void(0);" onclick="confirmDelete('{{ route('profile.innovations.delete', [$i->id]) }}', '{{$i->title}}')" class="dropdown-item">Delete</a>
 									</div>
 								</div>
 							</td>
@@ -79,49 +89,4 @@
 		</div>
 	</div>
 </div>
-@endsection
-
-@section('script')
-<script type="text/javascript">
-	$(document).ready(function() {
-		// Submitting new entry
-		$("#submitAddItem").click(function(e) {
-			{{-- ADD THE AJAX HERE THEN ADD A SUCCESS AND ERROR HANDLER --}}
-			{{-- This will be the success handler --}}
-			{
-				if ($("#Innovations_table").children().length == 5)
-					location.reload(true);
-
-				$("#Innovations_table").append(
-					`<tr>` +
-						`<td>` + $("[name=innovations_title]").val() + `</td>` +
-						`<td>https://www.sample.com/...</td>` +
-						`<td>{{ \Carbon\Carbon::now()->format('M d, Y') }}</td>` +
-						`<td>` +
-							`<div class="dropdown">` +
-								`<a href='javascript:void(0)' role="button" class="dropdown-toggle btn btn-primary btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">` +
-									`Action` +
-								`</a>` +
-								
-								`<div class="dropdown-menu dropdown-menu-right">` +
-									`<a class="dropdown-item" href="">Edit</a>` +
-									`<a class="dropdown-item" href="">Delete</a>` +
-								`</div>` +
-							`</div>` +
-						`</td>` +
-					`</tr>`
-				);
-
-				$("[name=topic_name]").val("");
-			}
-
-			{{-- This will be the error handler --}}
-			{
-				// codes here...
-			}
-
-			$("#addItem").modal("hide");
-		});
-	});
-</script>
 @endsection

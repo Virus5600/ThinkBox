@@ -9,19 +9,37 @@
 		<div class="col-12 col-md-8 order-0 order-md-0">
 			<div class="row">
 				<div class="col-12 col-md-4 text-center">
-					<img src='/images/TEMPORARY/home/{{$user->avatar}}' class='img-fluid invisiborder circle-border w-75'/>
+					@if ($user->user->avatar == null)
+					<img src='/uploads/users/default.png' class='img-fluid invisiborder circle-border w-75'/>
+					@else
+					<img src='/uploads/users/user{{$user->user->id}}/{{$user->user->avatar}}' class='img-fluid invisiborder circle-border w-75'/>
+					@endif
 				</div>
 
 				<div class="col-12 col-md-8">
-					<h1>{{$user->name}}</h1>
-					<h4>{{$user->position}}</h4>
-					<h4 class="font-weight-normal"><em>{{$user->department}}</em></h4>
+					<h1>{{$user->user->title == null ? '' : $user->user->title . ' '}}{{$user->user->first_name}} {{$user->user->middle_name == null ? '' : substr($user->user->middle_name, 0) . '. '}}{{$user->user->last_name}}{{$user->user->suffix == null ? '' : ', ' . $user->user->suffix}}</h1>
+					<h4>{{ucwords(preg_replace("/_/", " ", $user->positionAttr->type))}}, {{$user->location}}</h4>
+					<h4 class="font-weight-normal"><em>
+						@if ($user->position == 1)
+							{{ucwords(\App\College::find($user->department)->name)}}
+							@php
+								echo "(";
+								foreach (explode(" ", \App\College::find($user->department)->name) as $w) {
+									if (ctype_upper(substr($w, 0, 1)))
+										echo substr($w, 0, 1);
+								}
+								echo ")";
+							@endphp
+						@else
+							{{\App\Departments::find($user->department)->name}}
+						@endif
+					</em></h4>
 					<br>
 					<p class="text-muted">
-						<span class="mr-lg-3 mx-0 d-block d-lg-revert"><i class="fas fa-phone-alt mr-2 fa-sm text-primary"></i>{{$user->contact_no == '' ? '' : '+63 ' . $user->contact_no}}</span>
-						<span class="ml-lg-3 mx-0 d-block d-lg-revert"><i class="fas fa-envelope mr-2 fa-sm text-primary"></i><a class="text-muted" href="mailto:{{$user->email}}">{{$user->email}}</a></span>
+						<span class="mr-lg-3 mx-0 d-block d-lg-revert"><i class="fas fa-phone-alt mr-2 fa-sm text-custom"></i>{{$user->user->contact_no == '' ? 'Not Available' : '+63' . $user->user->contact_no}}</span>
+						<span class="ml-lg-3 mx-0 d-block d-lg-revert"><i class="fas fa-envelope mr-2 fa-sm text-custom"></i><a class="text-muted" href="mailto:{{$user->email}}">{{$user->user->email}}</a></span>
 					</p>
-					<a class="btn text-primary border-primary" href="{{ route('profile.edit', [$user->id]) }}">Edit Profile</a>
+					<a class="btn btn-custom-inverted" href="{{ route('profile.edit', [Auth::user()->id]) }}">Edit Profile</a>
 				</div>
 			</div>
 
@@ -31,7 +49,7 @@
 
 					<hr class="hr-thick my-2">
 
-					<div>{{$user->description}}</div>
+					<p>{{$user->description}}</p>
 				</div>
 				
 				<div class="col-12">
@@ -42,7 +60,7 @@
 					<div class="row my-2">
 						<div class="col">
 							@forelse ($user->focus as $f)
-							<span class="badge badge-pill badge-inverted-secondary mx-1">{{$f->name}}</span>
+							<span class="badge badge-pill badge-inverted-secondary mx-1">{{ucwords($f->focus->name)}}</span>
 							@empty
 							Nothing to show
 							@endforelse
@@ -58,7 +76,7 @@
 					<div class="row my-2">
 						<div class="col">
 							@forelse ($user->skills as $s)
-							<span class="badge badge-pill badge-inverted-secondary mx-1">{{$s->skill}}</span>
+							<span class="badge badge-pill badge-inverted-secondary mx-1">{{ucwords($s->skill->skill)}}</span>
 							@empty
 							Nothing to show
 							@endforelse
@@ -80,19 +98,20 @@
 
 				<div class="row my-2">
 					<div class="col text-left">Research Published</div>
-					<div class="col text-right font-weight-bold">5</div>
+					<div class="col text-right font-weight-bold">{{count($research)}}</div>
 				</div>
 
 				<div class="row my-2">
 					<div class="col text-left">Innovations</div>
-					<div class="col text-right font-weight-bold">3</div>
+					<div class="col text-right font-weight-bold">{{count($innovations)}}</div>
 				</div>
 
 				<div class="row my-2">
 					<div class="col text-left">Course Materials</div>
-					<div class="col text-right font-weight-bold">12</div>
+					<div class="col text-right font-weight-bold">12</div> {{-- TO ADD COURSE MATERIALS TABLE SOON --}}
 				</div>
 
+				{{-- TO ADD AFFILIATIONS TABLE SOON --}}
 				<div class="row my-2">
 					<div class="col">
 						<h4 class="text-custom-2 font-weight-bold">Affiliations</h4>
@@ -124,6 +143,7 @@
 
 				<hr class="hr-thick my-1">
 
+				{{-- TO ADD OTHER PROFILES TABLE SOON --}}
 				<div class="row my-2 mt-3">
 					<div class="col text-center a-fa-hover-zoom-2">
 						<a href="" class="mx-1"><i class="fab fa-facebook text-dark secondary-hover fa-2x"></i></a>
@@ -138,7 +158,7 @@
 	</div>
 
 	{{-- UPLOADS --}}
-	<div class="row my-5">
+	<div class="row mt-5 mb-0">
 		{{-- RESEARCH --}}
 		<div class="col-12 col-md-6 div-hover-zoom">
 			<h4 class="text-custom-2 font-weight-bold my-2">Latest Researches</h4>
@@ -149,14 +169,29 @@
 			<div class="row my-3 bg-custom-light mx-1 p-3">
 				<div class="col-12">
 					<div class="row">
-						<p class="font-weight-bold">
+						<p class="font-weight-bold col-11">
 							{{$r->title}}
 						</p>
+						<div class="col-1 text-right">
+							<a href="{{ route('profile.research.toggle.is_featured', [$r->id, true]) }}" data-toggle='tooltip' data-placement='top' title='{{$r->is_featured ? "Pin" : "Unpin"}}'>
+								<i class="{{$r->is_featured ? 'far' : 'fas'}} fa-star text-custom"></i>
+							</a>
+						</div>
 					</div>
 
 					<div class="row">
 						<p>
-							<small><em>{{$r->authors}} | {{$r->date_published}}</em></small>
+							<small><em>
+								@for ($i = 0; $i < count($r->researchAuthors); $i++)
+									@if ($i-1 == count($r->researchAuthors) || $r->authors != null)
+										{{ucwords($r->researchAuthors[$i]->user->getFullName())}},
+									@else
+										{{ucwords($r->researchAuthors[$i]->user->getFullName())}}
+									@endif
+								@endfor
+								
+								{{preg_replace('/,/', ', ', $r->authors)}} | {{\Carbon\Carbon::parse($r->date_published)->format('M d, Y')}}
+							</em></small>
 						</p>
 					</div>
 
@@ -181,8 +216,10 @@
 			<span class="w-100 text-center">Nothing to show</span>
 			@endforelse
 
-			@if(count($research) > 0)
-			<span class="text-center font-weight-bold border-custom border border-thick border-left-0 border-top-0 border-right-0 px-1"><a class="text-custom-2 text-decoration-none" href="{{ route('profile.research', [$user->id]) }}">View all research paper</a></span>
+			@if (count($research) > 0)
+			<div class="d-block d-md-none col-12 m-0 p-0">
+				<span class="text-center font-weight-bold border-custom border border-thick border-left-0 border-top-0 border-right-0 px-1"><a class="text-custom-2 text-decoration-none" href="{{ route('profile.research', [$user->id]) }}">View all research paper</a></span>
+			</div>
 			@endif
 		</div>
 
@@ -196,14 +233,19 @@
 			<div class="row my-3 bg-custom-light mx-1 p-3">
 				<div class="col-12">
 					<div class="row">
-						<p class="font-weight-bold">
+						<p class="font-weight-bold col-11">
 							{{$i->title}}
 						</p>
+						<div class="col-1 text-right">
+							<a href="{{ route('profile.innovations.toggle.is_featured', [$i->id, true]) }}" data-toggle='tooltip' data-placement='top' title='{{$i->is_featured ? "Pin" : "Unpin"}}'>
+								<i class="{{$i->is_featured ? 'far' : 'fas'}} fa-star text-custom"></i>
+							</a>
+						</div>
 					</div>
 
 					<div class="row">
 						<p>
-							<small><em>{{$i->authors}} | {{$i->date_published}}</em></small>
+							<small><em>{{preg_replace('/,/', ', ', $i->authors)}} | {{\Carbon\Carbon::parse($i->date_published)->format('M d, Y')}}</em></small>
 						</p>
 					</div>
 
@@ -229,6 +271,22 @@
 			@endforelse
 
 			@if (count($innovations) > 0)
+			<div class="d-block d-md-none col-12 m-0 p-0">
+				<span class="text-center font-weight-bold border-custom border border-thick border-left-0 border-top-0 border-right-0 px-1"><a class="text-custom-2 text-decoration-none" href="{{ route('profile.innovations', [$user->id]) }}">View all innovations</a></span>
+			</div>
+			@endif
+		</div>
+	</div>
+
+	<div class="row mt-0 mb-5">
+		<div class="hidden-overridable d-md-block col-md-6">
+			@if (count($research) > 0)
+			<span class="text-center font-weight-bold border-custom border border-thick border-left-0 border-top-0 border-right-0 px-1"><a class="text-custom-2 text-decoration-none" href="{{ route('profile.research', [$user->id]) }}">View all research paper</a></span>
+			@endif
+		</div>
+
+		<div class="hidden-overridable d-md-block col-md-6">
+			@if (count($innovations) > 0)
 			<span class="text-center font-weight-bold border-custom border border-thick border-left-0 border-top-0 border-right-0 px-1"><a class="text-custom-2 text-decoration-none" href="{{ route('profile.innovations', [$user->id]) }}">View all innovations</a></span>
 			@endif
 		</div>
@@ -237,7 +295,7 @@
 	{{-- COURSE MATERIALS --}}
 	<div class="row my-5">
 		<div class="col-12">
-			<h4 class="text-custom-2 font-weight-bold my-2">Latest Materials</h4>
+			<h4 class="text-custom-2 font-weight-bold my-2">Latest Uploaded Materials</h4>
 
 			<hr class="hr-thick my-3">
 

@@ -13,7 +13,20 @@ class User extends Authenticatable
 	 * @var array
 	 */
 	protected $fillable = [
-		'name', 'email', 'password',
+		'title',
+		'first_name',
+		'middle_name',
+		'last_name',
+		'suffix',
+		'avatar',
+		'isAvatarLink',
+		'email',
+		'username',
+		'contact_no',
+		'password',
+		'type',
+		'role',
+		'expiration_date'
 	];
 
 	/**
@@ -24,4 +37,20 @@ class User extends Authenticatable
 	protected $hidden = [
 		'password', 'remember_token',
 	];
+
+	protected function staff() {
+		return $this->hasOne('App\FacultyStaff');
+	}
+
+	protected function affiliations() {
+		return $this->hasMany('App\Affiliations');
+	}
+
+	protected function otherProfiles() {
+		return $this->hasMany('App\OtherProfile');
+	}
+
+	public function getFullName() {
+		return ($this->title == null ? '' : $this->title) . ' ' . $this->first_name . ' ' . ($this->middle_name == null ? '' : substr($this->middle_name, 0) . '. ') . $this->last_name . ($this->suffix == null ? '' : ', ' . $this->suffix);
+	}
 }

@@ -14,4 +14,8 @@ class Skills extends Model
 	protected $fillable = [
 		'skill'
 	];
+
+	protected function facultyStaff() {
+		$this->hasMany('App\FacultySkill');
+	}
 }

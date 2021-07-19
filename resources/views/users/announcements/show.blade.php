@@ -12,7 +12,7 @@
 			<h2 class="font-weight-bold mb-2 text-center"><a href="{{$announcements->source}}" class="text-dark text-decoration-none">{{$announcements->title}}</a></h2>
 
 			<div class="text-center my-4 mx-3">
-				<img src="/images/TEMPORARY/home/{{$announcements->image}}" alt='Announcement {{$announcements->id}}' class="img-fluid img-announcement cursor-pointer" data-toggle='modal' data-target='#modal' draggable='false'/>
+				<img src="/uploads/announcements/{{$announcements->image}}" alt='Announcement {{$announcements->id}}' class="img-fluid img-announcement cursor-pointer" data-toggle='modal' data-target='#modal' draggable='false'/>
 
 				<div class="modal fade" id="modal" data-backdrop='static' role='dialog' aria-labelledby='announcementLabel{{$announcements->id}}' aria-hidden='true'>
 					<div class="modal-dialog modal-xl modal-dialog-centered">
@@ -26,7 +26,7 @@
 							</div>
 
 							<div class="modal-body">
-								<img src="/images/TEMPORARY/home/{{$announcements->image}}" alt='Announcement {{$announcements->id}}' class="img-fluid" draggable='false'/>
+								<img src="/uploads/announcements/{{$announcements->image}}" alt='Announcement {{$announcements->id}}' class="img-fluid" draggable='false'/>
 							</div>
 						</div>
 					</div>
@@ -42,7 +42,7 @@
 
 				<div class="card-body d-flex flex-d-col flex-d-spacing-2">
 					@foreach ($otherAnnouncements as $o)
-					<div class="announcement-img d-flex flex-d-inv-col p-0" style="background: #fff url('/images/TEMPORARY/home/{{$o->image}}') no-repeat center;">
+					<div class="announcement-img d-flex flex-d-inv-col p-0" style="background: #fff url('/uploads/announcements/{{$o->image}}') no-repeat center;">
 						<a href="{{ route('announcements.show', [$o->id]) }}" class="text-white text-decoration-none other-announcement custom-hover"><h5 class="card-title text-truncate p-1 pb-2 m-0 text-center">{{$o->title}}</h5></a>
 					</div>
 					@endforeach

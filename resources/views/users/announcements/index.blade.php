@@ -15,11 +15,11 @@
 
 <div class="container-fluid my-5 mb-7">
 	<div class="row">
-		<div class="col-12 col-lg-3">
+		<form class="col-12 col-lg-3" action="{{route('announcements.index')}}" method="GET">
 			<div class="input-group">
-				<input type="text" class="form-control" name='search' placeholder="Search..." />
+				<input type="text" class="form-control" name='search' placeholder="Search..." value="{{$searchVal}}"/>
 				<div class="input-group-append">
-					<button type="submit" class="btn btn-secondary"><i class="fas fa-search"></i></button>
+					<button type="submit" class="btn btn-custom"><i class="fas fa-search"></i></button>
 				</div>
 			</div>
 
@@ -27,13 +27,14 @@
 
 			<span class="font-weight-bold">Sort By</span>
 			<div class="input-group">
-				<select name="sort" class="custom-select">
-					<option value="author">Author</option>
-					<option value="date" selected>Date</option>
-					<option value="Title">Title</option>
+				<select name="sortBy" class="custom-select" onchange="$('#announcementsParamSubmit').trigger('click');">
+					<option value="date" {{$sortBy == 'date' ? 'selected' : ''}}>Date</option>
+					<option value="title" {{$sortBy == 'title' ? 'selected' : ''}}>Title</option>
 				</select>
 			</div>
-		</div>
+
+			<input type="submit" class="hidden" id="announcementsParamSubmit">
+		</form>
 
 		<div class="col col-lg-9 my-3 mt-lg-0">
 			<div class="row">
@@ -46,7 +47,7 @@
 				@endif
 					<div class="card dark-shadow">
 						<div class="card-body">
-							<div class="announcement-img" style="background: #fff url('/images/TEMPORARY/home/{{$a->image}}') no-repeat center"></div>
+							<div class="announcement-img" style="background: #fff url('/uploads/announcements/{{$a->image}}') no-repeat center"></div>
 							<h5 class="card-title text-truncate-2">{{$a->title}}</h5>
 							<div class="card-text">
 								{!!$a->content!!}
