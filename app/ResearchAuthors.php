@@ -13,7 +13,7 @@ class ResearchAuthors extends Model
 
 	public $timestamps = false;
 	public $table = 'research_authors';
-	public $primary_key = null;
+	public $primary_key = 'research_id';
 
 	protected function staff() {
 		return $this->belongsTo('App\FacultyStaff');

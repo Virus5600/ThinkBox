@@ -13,5 +13,5 @@ class ResearchFocus extends Model
 
 	public $timestamps = false;
 	public $table = 'research_focus';
-	public $primary_key = null;
+	public $primary_key = 'research_id';
 }
