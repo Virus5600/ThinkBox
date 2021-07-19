@@ -13,19 +13,19 @@ class AffiliationTableSeeder extends Seeder
 	 */
 	public function run()
 	{  
-		A::create([
+		A::insert([
 			'user_id' => 1,
 			'position' => 'Co-Founder',
 			'organization' => 'Aguora IT Solutions and Technology Inc.'
 		]);
 
-		A::create([
+		A::insert([
 			'user_id' => 1,
 			'position' => 'Ambassador',
 			'organization' => 'Microsoft'
 		]);
 
-		A::create([
+		A::insert([
 			'user_id' => 1,
 			'position' => 'Technical Consultant',
 			'organization' => 'House of Representative & TNC Cafe'

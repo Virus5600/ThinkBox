@@ -13,25 +13,25 @@ class OtherProfileTableSeeder extends Seeder
 	 */
 	public function run()
 	{
-		OP::create([
+		OP::insert([
 			'user_id' => 1,
 			'website' => 'Facebook',
 			'url' => 'https://www.facebook.com/angelique.lacasandile.3'
 		]);
 
-		OP::create([
+		OP::insert([
 			'user_id' => 1,
 			'website' => 'Google Scholar',
 			'url' => 'https://scholar.google.com/citations?hl=en&user=ZsEoUCgAAAAJ'
 		]);
 
-		OP::create([
+		OP::insert([
 			'user_id' => 1,
 			'website' => 'LinkedIn',
 			'url' => 'https://www.linkedin.com/in/dr-angelique-lacasandile-034a3780/'
 		]);
 
-		OP::create([
+		OP::insert([
 			'user_id' => 3,
 			'website' => 'LinkedIn',
 			'url' => 'https://www.linkedin.com/in/joseph-marvin-imperial-9382b9a7/'
