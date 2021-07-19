@@ -173,8 +173,8 @@
 							{{$r->title}}
 						</p>
 						<div class="col-1 text-right">
-							<a href="{{ route('profile.research.toggle.is_featured', [$r->id, true]) }}" data-toggle='tooltip' data-placement='top' title='{{$r->is_featured ? "Pin" : "Unpin"}}'>
-								<i class="{{$r->is_featured ? 'far' : 'fas'}} fa-star text-custom"></i>
+							<a href="{{ route('profile.research.toggle.is_featured', [$r->id, true]) }}" data-toggle='tooltip' data-placement='top' title='{{$r->is_featured ? "Unpin" : "Pin"}}'>
+								<i class="{{$r->is_featured ? 'fas' : 'far'}} fa-star text-custom"></i>
 							</a>
 						</div>
 					</div>
@@ -237,8 +237,8 @@
 							{{$i->title}}
 						</p>
 						<div class="col-1 text-right">
-							<a href="{{ route('profile.innovations.toggle.is_featured', [$i->id, true]) }}" data-toggle='tooltip' data-placement='top' title='{{$i->is_featured ? "Pin" : "Unpin"}}'>
-								<i class="{{$i->is_featured ? 'far' : 'fas'}} fa-star text-custom"></i>
+							<a href="{{ route('profile.innovations.toggle.is_featured', [$i->id, true]) }}" data-toggle='tooltip' data-placement='top' title='{{$i->is_featured ? "Unpin" : "Pin"}}'>
+								<i class="{{$i->is_featured ? 'fas' : 'far'}} fa-star text-custom"></i>
 							</a>
 						</div>
 					</div>
