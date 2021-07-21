@@ -34,7 +34,7 @@ class AnnouncementsController extends Controller
 		}
 		
 		if (!is_a($announcements, 'Illuminate\Support\Collection')) {
-			$announcements = $announcements->get();
+			$announcements = $announcements->get(['announcements.*']);
 		}
 
 		return view('users.announcements.index', [
