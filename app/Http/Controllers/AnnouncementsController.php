@@ -28,9 +28,9 @@ class AnnouncementsController extends Controller
 		if (\Request::has('search')) {
 			$search = \Request::get('search');
 
-			$announcements->whereRaw('title LIKE CONCAT("%", ?, "%")', [$search])
-				->orWhereRaw('source LIKE CONCAT("%", ?, "%")', [$search])
-				->orWhereRaw('content LIKE CONCAT("%", ?, "%")', [$search]);
+			$announcements->where('title', 'LIKE', "%".$search."%")
+				->orWhere('source', 'LIKE', "%".$search."%")
+				->orWhere('content', 'LIKE', "%".$search."%");
 		}
 		
 		if (!is_a($announcements, 'Illuminate\Support\Collection')) {
