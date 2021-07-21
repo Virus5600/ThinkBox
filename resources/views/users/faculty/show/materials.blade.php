@@ -3,7 +3,7 @@
 @section('title', 'Faculty')
 
 @section('body')
-<h2 class="mx-5 my-4"><a href="{{route('faculty.show', [$id])}}" class="text-dark text-decoration-none font-weight-normal"><i class="fas fa-chevron-left fa-lg mr-3"></i>Profile</a></h2>
+<h2 class="mx-5 my-4"><a href="{{route('faculty.show', [$staff->id])}}" class="text-dark text-decoration-none font-weight-normal"><i class="fas fa-chevron-left fa-lg mr-3"></i>Profile</a></h2>
 <hr class="hr-thick" style="border-color: #707070;">
 
 <div class="container-fluid my-5 px-5">
@@ -44,11 +44,19 @@
 					</p>
 
 					<p class="a-fa-hover-zoom-2">
-						<a href="" class="mx-1"><i class="fab fa-facebook text-dark secondary-hover fa-2x"></i></a>
-						<a href="" class="mx-1"><i class="fas fa-atom text-light fa-2x bg-dark secondary-hover invisiborder circle-border p-1 custom-fa-2x"></i></a>
-						<a href="" class="mx-1"><i class="fab fa-twitter text-light fa-2x bg-dark secondary-hover invisiborder circle-border p-1 custom-fa-2x"></i></a>
-						<a href="" class="mx-1"><i class="fab fa-linkedin-in text-light fa-2x bg-dark secondary-hover invisiborder circle-border p-1 custom-fa-2x"></i></a>
-						<a href="" class="mx-1"><i class="fab fa-github text-dark secondary-hover fa-2x"></i></a>
+						@foreach($staff->user->otherProfiles as $o)
+						@if ($o->website == 'Facebook')
+						<a href="{{$o->url}}" class="mx-1"><i class="fab fa-facebook text-dark secondary-hover fa-2x"></i></a>
+						@elseif ($o->website == 'Google Scholar')
+						<a href="{{$o->url}}" class="mx-1"><i class="fas fa-atom text-light fa-2x bg-dark secondary-hover invisiborder circle-border p-1 custom-fa-2x"></i></a>
+						@elseif ($o->website == 'Twitter')
+						<a href="{{$o->url}}" class="mx-1"><i class="fab fa-twitter text-light fa-2x bg-dark secondary-hover invisiborder circle-border p-1 custom-fa-2x"></i></a>
+						@elseif ($o->website == 'LinkedIn')
+						<a href="{{$o->url}}" class="mx-1"><i class="fab fa-linkedin-in text-light fa-2x bg-dark secondary-hover invisiborder circle-border p-1 custom-fa-2x"></i></a>
+						@elseif ($o->website == 'Github')
+						<a href="{{$o->url}}" class="mx-1"><i class="fab fa-github text-dark secondary-hover fa-2x"></i></a>
+						@endif
+						@endforeach
 					</p>
 				</div>
 			</div>
@@ -60,9 +68,9 @@
 	<hr class="hr-thick my-3">
 
 	<div class="row my-3">
-		<div class="col-12 col-md-3 order-0">
+		<form class="col-12 col-lg-3 order-0" action="{{route('faculty.materials', [$staff->id])}}" method="GET">
 			<div class="input-group my-3">
-				<input type="text" class="form-control" name='search' placeholder="Search..." />
+				<input type="text" class="form-control" name='search' placeholder="Search..." value="{{$searchVal}}" />
 				<div class="input-group-append">
 					<button type="submit" class="btn btn-custom"><i class="fas fa-search"></i></button>
 				</div>
@@ -78,96 +86,43 @@
 					<option value="datePublished">Date Published</option>
 				</select>
 			</div>
-		</div>
+		</form>
 
 		<div class="col-12 col-md-9">
 			<div class="container-fluid">
-				<h4>Branding (1)</h4>
+				{{-- TOPIC BEGIN --}}
+				@forelse($topic_names as $t)
+				@php
+				$topic = App\Topic::where('topic_name', '=', $t)->first();
+				$material = App\Material::where('topic_id', '=', $topic->id)->where('faculty_staff_id', '=', App\FacultyStaff::where('user_id', '=', Auth::user()->id)->first()->id)->get();
+				@endphp
+				<h4>{{$t}} ({{count($material)}})</h4>
 				<div class="row flex-row flex-nowrap overflow-x-auto p-2 div-hover-zoom">
+					{{-- MATERIALS BEGIN --}}
+					@foreach ($material as $m)
 					<div class="col-12 col-md-4 m-3 bg-custom-light p-3">
-						<p><em>Branding</em></p>
+						<p><em>{{$t}}</em></p>
 
 						<p class="font-weight-bold">
-							<a href="" class="text-decoration-none text-dark">
-								Logo Documentation
+							<a href="{{$m->url}}" class="text-decoration-none text-dark">
+								{{$m->material_name}}
 							</a>
 						</p>
 
 						<p class="readmore" data-rm-show-lines='3'>
-							In this course material, I will be discussing on how to create a documentation for a logo or brand. This material would include the important information that should be in the documentation, formatting the document and detailed user instruction.
+							{{$m->description}}
 							<span class="readmore-link readmore-link-custom-bg text-custom-2"></span>
 						</p>
 					</div>
+					@endforeach
+					{{-- MATERIOALS END --}}
 				</div>
-
-				<h4>Microsoft (1)</h4>
-				<div class="row flex-row flex-nowrap overflow-x-auto p-2 div-hover-zoom">
-					<div class="col-12 col-md-4 m-3 bg-custom-light p-3">
-						<p><em>Microsoft</em></p>
-
-						<p class="font-weight-bold">
-							<a href="" class="text-decoration-none text-dark">
-								Basics of MS Powerpoint
-							</a>
-						</p>
-
-						<p class="readmore" data-rm-show-lines='3'>
-							PowerPoint presentations work like slide shows. To convey a message or a story, you break it down into slides. Think of each slide as a blank canvas for the pictures and words that help you tell your story. In this course material, I would be teaching you on how to
-							<span class="readmore-link readmore-link-custom-bg text-custom-2"></span>
-						</p>
-					</div>
+				@empty
+				<div class="row flex-row flex-nowrap overflow-x-auto p-2">
+					<h4>Nothing to show</h4>
 				</div>
-
-				<h4>Programming (2)</h4>
-				<div class="row flex-row flex-nowrap overflow-x-auto p-2 div-hover-zoom">
-					<div class="col-12 col-md-4 m-3 bg-custom-light p-3">
-						<p><em>Programming</em></p>
-
-						<p class="font-weight-bold">
-							<a href="" class="text-decoration-none text-dark">
-								Getting started with GitLab
-							</a>
-						</p>
-
-						<p class="readmore" data-rm-show-lines='3'>
-							In this course material, I will be discussing on how to get started with GitLab to practice version control on all programming related projects. This course materials includes introduction to GitLab, setting up, creating a repository, etc.
-							<span class="readmore-link readmore-link-custom-bg text-custom-2"></span>
-						</p>
-					</div>
-
-					<div class="col-12 col-md-4 m-3 bg-custom-light p-3">
-						<p><em>Programming</em></p>
-
-						<p class="font-weight-bold">
-							<a href="" class="text-decoration-none text-dark">
-								Object-Oriented Programming
-							</a>
-						</p>
-
-						<p class="readmore" data-rm-show-lines='3'>
-							In this course material, I would be teaching object-oriented programming. It is used to structure a software program into simple, reusable pieces of code blueprints (usually called classes), which are used to create individual instances of objects
-							<span class="readmore-link readmore-link-custom-bg text-custom-2"></span>
-						</p>
-					</div>
-				</div>
-
-				<h4>Project Management (1)</h4>
-				<div class="row flex-row flex-nowrap overflow-x-auto p-2 div-hover-zoom">
-					<div class="col-12 col-md-4 m-3 bg-custom-light p-3">
-						<p><em>Project Management</em></p>
-
-						<p class="font-weight-bold">
-							<a href="" class="text-decoration-none text-dark">
-								Developers Timeline
-							</a>
-						</p>
-
-						<p class="readmore" data-rm-show-lines='3'>
-							In this course material, I will be discussing on how to create a developer's timeline to track project timeline using Microsoft Excel. This material includes formatting of document and creating a Gantt chart. This material would ensure to increase productivity.
-							<span class="readmore-link readmore-link-custom-bg text-custom-2"></span>
-						</p>
-					</div>
-				</div>
+				@endforelse
+				{{-- TOPIC END --}}
 			</div>
 		</div>
 	</div>

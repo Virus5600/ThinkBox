@@ -767,7 +767,7 @@ class UserController extends Controller
 			else if ($sortBy == 'datePublished') {
 				$innovations = $innovations->orderBy('date_published', 'DESC');
 			}
-		}// Fix disscrepancies between faculty and profile
+		}
 
 		// SEARCH
 		if (\Request::has('search')) {
@@ -1157,19 +1157,19 @@ class UserController extends Controller
 	// COURSE MATERIAL RELATED VIEWS
 	protected function materialsProfileIndex($sortBy='date') {
 		// TEMPLATE START
-		$innovations = Innovation::where('posted_by', '=', Auth::user()->id);
+		$materials = Material::where('faculty_staff_id', '=', Auth::user()->staff->id);
 
 		// SORT
 		if (\Request::has('sortBy')) {
 			$sortBy = \Request::get('sortBy');
 			if ($sortBy == 'date') {
-				$innovations = $innovations->orderBy('innovations.date_published', 'DESC');
+				$materials = $materials->orderBy('materials.date_published', 'DESC');
 			}
 			else if ($sortBy == 'titleAsc') {
-				$innovations = $innovations->orderBy('innovations.title', 'ASC');
+				$materials = $materials->orderBy('materials.title', 'ASC');
 			}
 			else if ($sortBy == 'titleDesc') {
-				$innovations = $innovations->orderBy('innovations.title', 'DESC');
+				$materials = $materials->orderBy('materials.title', 'DESC');
 			}
 		}
 
@@ -1177,31 +1177,29 @@ class UserController extends Controller
 		if (\Request::has('search')) {
 			$search = \Request::get('search');
 			
-			// Joining the many-to-many tables innovations, innovation_focus, and focus
-			$innovations = $innovations->join('innovation_focus', 'innovations.id', '=', 'innovation_focus.innovation_id')
-				->join('focus', 'innovation_focus.focus_id', '=', 'focus.id');
+			// Joining the one-to-many tables topics to materials
+			$materials = $materials->join('topics', 'materials.topic_id', '=', 'topics.id');
 
 			// Proceed to do the filtering
-			$innovations = $innovations->whereRaw('innovations.title LIKE CONCAT("%", ?, "%")', [$search])
-				->orWhereRaw('innovations.description LIKE CONCAT("%", ?, "%")', [$search])
-				->orWhereRaw('innovations.url LIKE CONCAT("%", ?, "%")', [$search])
-				->orWhereRaw('focus.name LIKE CONCAT("%", ?, "%")', [$search]);
+			$materials = $materials->whereRaw('materials.material_name LIKE CONCAT("%", ?, "%")', [$search])
+				->orWhereRaw('materials.description LIKE CONCAT("%", ?, "%")', [$search])
+				->orWhereRaw('materials.url LIKE CONCAT("%", ?, "%")', [$search])
+				->orWhereRaw('topics.topic_name LIKE CONCAT("%", ?, "%")', [$search]);
 		}
 
-		if (!is_a($innovations, 'Illuminate\Support\Collection')) {
-			$innovations = $innovations->get(['innovations.*']);
+		if (!is_a($materials, 'Illuminate\Support\Collection')) {
+			$materials = $materials->get(['materials.*']);
 		}
 		// END OF TEMPLATE
 
-		$material = Material::where('faculty_staff_id', '=', FacultyStaff::where('user_id', Auth::user()->id)->first()->id)->get();
+		// $material = Material::where('faculty_staff_id', '=', FacultyStaff::where('user_id', Auth::user()->id)->first()->id)->get();
 		$topic_names = array();
 
-		foreach ($material as $m)
+		foreach ($materials as $m)
 			if (!in_array($m->topic->topic_name, $topic_names))
 				array_push($topic_names, $m->topic->topic_name);
 
 		return view('users.auth.profile.show.topics.materials.profile_index', [
-			'id' => Auth::user()->id,
 			'user' => FacultyStaff::where('user_id', Auth::user()->id)->first(),
 			'sortBy' => $sortBy,
 			'searchVal' => \Request::get('search'),

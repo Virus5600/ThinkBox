@@ -18,6 +18,7 @@ use App\Innovation;
 use App\Material;
 use App\Affiliation;
 use App\OtherProfile;
+use App\Topic;
 
 use Auth;
 
@@ -236,10 +237,56 @@ class FacultyController extends Controller
 		]);
 	}
 
-	protected function materials($id) {
+	protected function materials($id, $sortBy='date') {
+		// TEMPLATE START
+		$materials = Material::where('faculty_staff_id', '=', Auth::user()->staff->id);
+
+		// SORT
+		if (\Request::has('sortBy')) {
+			$sortBy = \Request::get('sortBy');
+			if ($sortBy == 'date') {
+				$materials = $materials->orderBy('materials.date_published', 'DESC');
+			}
+			else if ($sortBy == 'titleAsc') {
+				$materials = $materials->orderBy('materials.title', 'ASC');
+			}
+			else if ($sortBy == 'titleDesc') {
+				$materials = $materials->orderBy('materials.title', 'DESC');
+			}
+		}
+
+		// SEARCH
+		if (\Request::has('search')) {
+			$search = \Request::get('search');
+			
+			// Joining the one-to-many tables topics to materials
+			$materials = $materials->join('topics', 'materials.topic_id', '=', 'topics.id');
+
+			// Proceed to do the filtering
+			$materials = $materials->whereRaw('materials.material_name LIKE CONCAT("%", ?, "%")', [$search])
+				->orWhereRaw('materials.description LIKE CONCAT("%", ?, "%")', [$search])
+				->orWhereRaw('materials.url LIKE CONCAT("%", ?, "%")', [$search])
+				->orWhereRaw('topics.topic_name LIKE CONCAT("%", ?, "%")', [$search]);
+		}
+
+		if (!is_a($materials, 'Illuminate\Support\Collection')) {
+			$materials = $materials->get(['materials.*']);
+		}
+		// END OF TEMPLATE
+
+		// $material = Material::where('faculty_staff_id', '=', FacultyStaff::where('user_id', Auth::user()->id)->first()->id)->get();
+		$topic_names = array();
+
+		foreach ($materials as $m)
+			if (!in_array($m->topic->topic_name, $topic_names))
+				array_push($topic_names, $m->topic->topic_name);
+
 		return view('users.faculty.show.materials', [
 			'staff' => FacultyStaff::find($id),
-			'id' => $id
+			'sortBy' => $sortBy,
+			'searchVal' => \Request::get('search'),
+			'topic_names' => $topic_names,
+			'topics' => Topic::get()
 		]);
 	}
 }

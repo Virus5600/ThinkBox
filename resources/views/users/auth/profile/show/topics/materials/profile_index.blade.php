@@ -39,8 +39,8 @@
 					</em></h4>
 					<br>
 					<p class="text-muted">
-						<span class="mr-lg-3 mx-0 d-block d-lg-revert"><i class="fas fa-phone-alt mr-2 fa-sm text-primary"></i>{{$user->user->contact_no == '' ? 'Not Available' : '+63' . $user->user->contact_no}}</span>
-						<span class="ml-lg-3 mx-0 d-block d-lg-revert"><i class="fas fa-envelope mr-2 fa-sm text-primary"></i><a class="text-muted" href="mailto:{{$user->user->email}}">{{$user->user->email}}</a></span>
+						<span class="mr-lg-3 mx-0 d-block d-lg-revert"><i class="fas fa-phone-alt mr-2 fa-sm text-custom"></i>{{$user->user->contact_no == '' ? 'Not Available' : '+63' . $user->user->contact_no}}</span>
+						<span class="ml-lg-3 mx-0 d-block d-lg-revert"><i class="fas fa-envelope mr-2 fa-sm text-custom"></i><a class="text-muted" href="mailto:{{$user->user->email}}">{{$user->user->email}}</a></span>
 					</p>
 
 					<p class="a-fa-hover-zoom-2">
@@ -68,12 +68,11 @@
 	<hr class="hr-thick my-3">
 
 	<div class="row my-3">
-		{{-- FORM TO BE FIXED --}}
-		<div class="col-12 col-md-3 order-0">
+		<form class="col-12 col-lg-3 order-0" action="{{route('profile.materials')}}" method="GET">
 			<div class="input-group my-3">
-				<input type="text" class="form-control" name='search' placeholder="Search..." />
+				<input type="text" class="form-control" name='search' placeholder="Search..." value="{{$searchVal}}" />
 				<div class="input-group-append">
-					<button type="submit" class="btn btn-secondary"><i class="fas fa-search"></i></button>
+					<button type="submit" class="btn btn-custom"><i class="fas fa-search"></i></button>
 				</div>
 			</div>
 
@@ -87,8 +86,7 @@
 					<option value="datePublished">Date Published</option>
 				</select>
 			</div>
-		</div>
-		{{-- FORM END --}}
+		</form>
 
 		<div class="col-12 col-md-9">
 			<div class="container-fluid">
