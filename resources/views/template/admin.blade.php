@@ -103,7 +103,7 @@
 			<nav class="navbar navbar-expand-lg navbar-light bg-light position-sticky position-lg-relative dark-shadow py-0 px-3" style="z-index: 1000;">
 				{{-- Branding --}}
 				<a class="navbar-brand m-0 py-0" href="{{route('dashboard')}}" style="height: auto;">
-					<img src="/images/UI/Branding.png" style="max-height: 3.25rem;" class="m-0 p-0" alt="Myriad Files" />
+					<img src="/images/UI/Branding.jpg" style="max-height: 3.25rem;" class="m-0 p-0" alt="Myriad Files" />
 				</a>
 
 				{{-- Navbar Toggler --}}
