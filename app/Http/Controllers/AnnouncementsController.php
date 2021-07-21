@@ -17,10 +17,10 @@ class AnnouncementsController extends Controller
 		if (\Request::has('sortBy')) {
 			$sortBy = \Request::get('sortBy');
 			if	($sortBy == 'date') {
-				$announcements = $announcements->orderBy('announcements.created_at', 'DESC');
+				$announcements = $announcements->orderBy('created_at', 'DESC');
 			}
 			else if ($sortBy == 'title') {
-				$announcements = $announcements->orderBy('announcements.title', 'ASC');
+				$announcements = $announcements->orderBy('title', 'ASC');
 			}
 		}
 
@@ -28,13 +28,13 @@ class AnnouncementsController extends Controller
 		if (\Request::has('search')) {
 			$search = \Request::get('search');
 
-			$announcements->whereRaw('announcements.title LIKE CONCAT("%", ?, "%")', [$search])
-				->orWhereRaw('announcements.source LIKE CONCAT("%", ?, "%")', [$search])
-				->orWhereRaw('announcements.content LIKE CONCAT("%", ?, "%")', [$search]);
+			$announcements->whereRaw('title LIKE CONCAT("%", ?, "%")', [$search])
+				->orWhereRaw('source LIKE CONCAT("%", ?, "%")', [$search])
+				->orWhereRaw('content LIKE CONCAT("%", ?, "%")', [$search]);
 		}
 		
 		if (!is_a($announcements, 'Illuminate\Support\Collection')) {
-			$announcements = $announcements->get(['announcements.*']);
+			$announcements = $announcements->get();
 		}
 
 		return view('users.announcements.index', [
