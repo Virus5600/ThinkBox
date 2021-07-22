@@ -301,10 +301,10 @@ class UserController extends Controller
 				->join('focus', 'research_focus.focus_id', '=', 'focus.id');
 
 			// Proceed to do the filtering
-			$research = $research->whereRaw('research.title LIKE CONCAT("%", ?, "%")', [$search])
-				->orWhereRaw('research.description LIKE CONCAT("%", ?, "%")', [$search])
-				->orWhereRaw('research.url LIKE CONCAT("%", ?, "%")', [$search])
-				->orWhereRaw('focus.name LIKE CONCAT("%", ?, "%")', [$search]);
+			$research = $research->where('research.title', 'LIKE', "%".$search."%")
+				->orWhere('research.description', 'LIKE', "%".$search."%")
+				->orWhere('research.url', 'LIKE', "%".$search."%")
+				->orWhere('focus.name', 'LIKE', "%".$search."%");
 		}
 
 		if (!is_a($research, 'Illuminate\Support\Collection')) {
@@ -332,10 +332,10 @@ class UserController extends Controller
 				->join('focus', 'research_focus.focus_id', '=', 'focus.id');
 
 			// Proceed to do the filtering
-			$research = $research->whereRaw('research.title LIKE CONCAT("%", ?, "%")', [$search])
-				->orWhereRaw('research.description LIKE CONCAT("%", ?, "%")', [$search])
-				->orWhereRaw('research.url LIKE CONCAT("%", ?, "%")', [$search])
-				->orWhereRaw('focus.name LIKE CONCAT("%", ?, "%")', [$search]);
+			$research = $research->where('research.title', 'LIKE', "%".$search."%")
+				->orWhere('research.description', 'LIKE', "%".$search."%")
+				->orWhere('research.url', 'LIKE', "%".$search."%")
+				->orWhere('focus.name', 'LIKE', "%".$search."%");
 		}
 
 		if (!is_a($research, 'Illuminate\Support\Collection')) {
@@ -734,10 +734,10 @@ class UserController extends Controller
 				->join('focus', 'innovation_focus.focus_id', '=', 'focus.id');
 
 			// Proceed to do the filtering
-			$innovations = $innovations->whereRaw('innovations.title LIKE CONCAT("%", ?, "%")', [$search])
-				->orWhereRaw('innovations.description LIKE CONCAT("%", ?, "%")', [$search])
-				->orWhereRaw('innovations.url LIKE CONCAT("%", ?, "%")', [$search])
-				->orWhereRaw('focus.name LIKE CONCAT("%", ?, "%")', [$search]);
+			$innovations = $innovations->where('innovations.title', 'LIKE', "%".$search."%")
+				->orWhere('innovations.description', 'LIKE', "%".$search."%")
+				->orWhere('innovations.url', 'LIKE', "%".$search."%")
+				->orWhere('focus.name', 'LIKE', "%".$search."%");
 		}
 
 		if (!is_a($innovations, 'Illuminate\Support\Collection')) {
@@ -780,10 +780,10 @@ class UserController extends Controller
 				->join('focus', 'innovation_focus.focus_id', '=', 'focus.id');
 
 			// Proceed to do the filtering
-			$innovations = $innovations->whereRaw('innovations.title LIKE CONCAT("%", ?, "%")', [$search])
-				->orWhereRaw('innovations.description LIKE CONCAT("%", ?, "%")', [$search])
-				->orWhereRaw('innovations.url LIKE CONCAT("%", ?, "%")', [$search])
-				->orWhereRaw('focus.name LIKE CONCAT("%", ?, "%")', [$search]);
+			$innovations = $innovations->where('innovations.title', 'LIKE', "%".$search."%")
+				->orWhere('innovations.description', 'LIKE', "%".$search."%")
+				->orWhere('innovations.url', 'LIKE', "%".$search."%")
+				->orWhere('focus.name', 'LIKE', "%".$search."%");
 		}
 
 		if (!is_a($innovations, 'Illuminate\Support\Collection')) {
@@ -1183,10 +1183,10 @@ class UserController extends Controller
 			$materials = $materials->join('topics', 'materials.topic_id', '=', 'topics.id');
 
 			// Proceed to do the filtering
-			$materials = $materials->whereRaw('materials.material_name LIKE CONCAT("%", ?, "%")', [$search])
-				->orWhereRaw('materials.description LIKE CONCAT("%", ?, "%")', [$search])
-				->orWhereRaw('materials.url LIKE CONCAT("%", ?, "%")', [$search])
-				->orWhereRaw('topics.topic_name LIKE CONCAT("%", ?, "%")', [$search]);
+			$materials = $materials->where('materials.material_name', 'LIKE', "%".$search."%")
+				->orWhere('materials.description', 'LIKE', "%".$search."%")
+				->orWhere('materials.url', 'LIKE', "%".$search."%")
+				->orWhere('topics.topic_name', 'LIKE', "%".$search."%");
 		}
 
 		if (!is_a($materials, 'Illuminate\Support\Collection')) {
