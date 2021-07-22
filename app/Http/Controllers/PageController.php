@@ -133,15 +133,15 @@ class PageController extends Controller
 				->join('focus', 'research_focus.focus_id', '=', 'focus.id');
 
 			// Proceed to do the filtering
-			$research = $research->whereRaw('research.title LIKE CONCAT("%", ?, "%")', [$search])
-				->orWhereRaw('research.authors LIKE CONCAT("%", ?, "%")', [$search])
-				->orWhereRaw('research.description LIKE CONCAT("%", ?, "%")', [$search])
-				->orWhereRaw('research.url LIKE CONCAT("%", ?, "%")', [$search])
-				->orWhereRaw('users.first_name LIKE CONCAT("%", ?, "%")', [$search])
-				->orWhereRaw('users.middle_name LIKE CONCAT("%", ?, "%")', [$search])
-				->orWhereRaw('users.last_name LIKE CONCAT("%", ?, "%")', [$search])
-				->orWhereRaw('users.email LIKE CONCAT("%", ?, "%")', [$search])
-				->orWhereRaw('focus.name LIKE CONCAT("%", ?, "%")', [$search]);
+			$research = $research->where('research.title', 'LIKE', '%'.$search.'%')
+				->orWhere('research.authors', 'LIKE', '%'.$search.'%')
+				->orWhere('research.description', 'LIKE', '%'.$search.'%')
+				->orWhere('research.url', 'LIKE', '%'.$search.'%')
+				->orWhere('users.first_name', 'LIKE', '%'.$search.'%')
+				->orWhere('users.middle_name', 'LIKE', '%'.$search.'%')
+				->orWhere('users.last_name', 'LIKE', '%'.$search.'%')
+				->orWhere('users.email', 'LIKE', '%'.$search.'%')
+				->orWhere('focus.name', 'LIKE', '%'.$search.'%');
 		}
 		
 		if (!is_a($research, 'Illuminate\Support\Collection')) {
@@ -262,15 +262,15 @@ class PageController extends Controller
 				->join('focus', 'innovation_focus.focus_id', '=', 'focus.id');
 
 			// Proceed to do the filtering
-			$innovations = $innovations->whereRaw('innovations.title LIKE CONCAT("%", ?, "%")', [$search])
-				->orWhereRaw('innovations.authors LIKE CONCAT("%", ?, "%")', [$search])
-				->orWhereRaw('innovations.description LIKE CONCAT("%", ?, "%")', [$search])
-				->orWhereRaw('innovations.url LIKE CONCAT("%", ?, "%")', [$search])
-				->orWhereRaw('users.first_name LIKE CONCAT("%", ?, "%")', [$search])
-				->orWhereRaw('users.middle_name LIKE CONCAT("%", ?, "%")', [$search])
-				->orWhereRaw('users.last_name LIKE CONCAT("%", ?, "%")', [$search])
-				->orWhereRaw('users.email LIKE CONCAT("%", ?, "%")', [$search])
-				->orWhereRaw('focus.name LIKE CONCAT("%", ?, "%")', [$search]);
+			$innovations = $innovations->where('innovations.title', 'LIKE', '%'.$search.'%')
+				->orWhere('innovations.authors', 'LIKE', '%'.$search.'%')
+				->orWhere('innovations.description', 'LIKE', '%'.$search.'%')
+				->orWhere('innovations.url', 'LIKE', '%'.$search.'%')
+				->orWhere('users.first_name', 'LIKE', '%'.$search.'%')
+				->orWhere('users.middle_name', 'LIKE', '%'.$search.'%')
+				->orWhere('users.last_name', 'LIKE', '%'.$search.'%')
+				->orWhere('users.email', 'LIKE', '%'.$search.'%')
+				->orWhere('focus.name', 'LIKE', '%'.$search.'%');
 		}
 		
 		if (!is_a($innovations, 'Illuminate\Support\Collection')) {
