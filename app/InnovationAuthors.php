@@ -13,7 +13,6 @@ class InnovationAuthors extends Model
 
 	public $timestamps = false;
 	public $table = 'innovation_authors';
-	public $primary_key = 'innovation_id';
 
 	protected function staff() {
 		return $this->belongsTo('App\FacultyStaff');

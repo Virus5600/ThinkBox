@@ -3,7 +3,7 @@
 @section('title', 'My Profile')
 
 @section('body')
-<h2 class="h5 h2-lg text-center text-lg-left mx-0 mx-lg-5 my-4"><a href="javascript:void(0);" onclick="confirmLeave('{{ route('profile.topics.index') }}')" class="text-decoration-none text-dark"><i class="fas fa-chevron-left mr-2"></i>Topics</a></h2>
+<h2 class="h5 h2-lg text-center text-lg-left mx-0 mx-lg-5 my-4"><a href="javascript:void(0);" onclick="confirmLeave('{{ route('profile.topics.materials.index', [$selected_topic->id]) }}')" class="text-decoration-none text-dark"><i class="fas fa-chevron-left mr-2"></i>Topics</a></h2>
 <hr class="hr-thick" style="border-color: #707070;">
 
 <div class="container-fluid my-5 px-5">
@@ -11,12 +11,14 @@
 		<div class="col-12 my-3">
 			<form action="{{route('profile.topics.store')}}" method="POST" enctype="multipart/form-data">
 				{{csrf_field()}}
+				<input type="hidden" name="fromMats" value="true"/>
 
 				<div class="row">
 					<div class="col-12 col-md-6">
 						<div class="form-group">
 							<label for="topic_name" class="form-label font-weight-bold important">Topic Name</label>
-							<input type="text" name="topic_name" id="topic_name" class="form-control" value="{{old('topic_name')}}"/>
+							<input type="text" class="form-control" value="{{$selected_topic->topic_name}}" disabled/>
+							<input type="hidden" name="topic_name" id="topic_name" class="form-control" value="{{$selected_topic->topic_name}}"/>
 							<span style="color: #FC1838">{!!$errors->first('topic_name')!!}</span>
 						</div>
 					</div>

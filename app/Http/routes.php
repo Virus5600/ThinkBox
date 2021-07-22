@@ -69,6 +69,7 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::get('/profile/materials', 'UserController@materialsProfileIndex')->name('profile.materials');
 	Route::get('/profile/topics/{id}/materials', 'UserController@materialsIndex')->name('profile.topics.materials.index');
 	Route::get('/profile/topics/{id}/materials/create', 'UserController@materialsCreate')->name('profile.topics.materials.create');
+	Route::post('/profile/topics/{topic_id}/materials/move/{id}', 'UserController@materialsMove')->name('profile.topics.materials.move');
 	Route::get('/profile/topics/{topic_id}/materials/edit/{id}', 'UserController@materialsEdit')->name('profile.topics.materials.edit');
 
 	// Profile Materials Topic

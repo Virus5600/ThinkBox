@@ -10,9 +10,7 @@ class Material extends Model
 		'topic_id',
 		'material_name',
 		'faculty_staff_id',
-        'is_file',
-        'description',
-        'url',
+		'description',
 	];
 
 	protected function topic() {
@@ -21,6 +19,14 @@ class Material extends Model
 
 	protected function staff() {
 		return $this->belongsTo('App\FacultyStaff');
+	}
+
+	protected function files() {
+		return $this->hasMany('App\MaterialFiles', 'material_id', 'id');
+	}
+
+	protected function links() {
+		return $this->hasMany('App\MaterialLinks', 'material_id', 'id');
 	}
 
 	protected function user() {

@@ -17,9 +17,7 @@ class CreateMaterialsTable extends Migration
 			$table->integer('topic_id')->unsigned();
 			$table->integer('faculty_staff_id')->unsigned();
 			$table->string('material_name');
-			$table->tinyInteger('is_file')->unsigned()->default(0);
 			$table->mediumText('description');
-			$table->string('url');
 			$table->timestamps();
 
 			$table->foreign('topic_id')->references('id')->on('topics')->onDelete('cascade');

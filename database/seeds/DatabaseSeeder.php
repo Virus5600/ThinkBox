@@ -54,8 +54,9 @@ class DatabaseSeeder extends Seeder
 		$this->call(AffiliationTableSeeder::class);
 		$this->call(OtherProfileTableSeeder::class);
 
-		// TOPICS AND MATERIALS
+		// TOPICS, MATERIALS AND MATERIAL FILES/LINKS
 		$this->call(TopicsTableSeeder::class);
 		$this->call(MaterialsTableSeeder::class);
+		$this->call(MaterialLinksTableSeeder::class);
 	}
 }

@@ -109,8 +109,13 @@ body {
 }
 /* SWITCH SIZE END */
 
-.important:after {
+.important:after, .important-right:after {
 	content: " *";
+	color: red;
+}
+
+.important-left:before {
+	content: "* ";
 	color: red;
 }
 

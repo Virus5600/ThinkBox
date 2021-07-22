@@ -17,6 +17,7 @@
 						<div class="form-group">
 							<label for="topic_name" class="form-label font-weight-bold important">Topic Name</label>
 							<input type="text" name="topic_name" id="topic_name" class="form-control" value="{{$selected_topic->topic_name}}"/>
+							<p><span class="font-weight-bold">NOTE:</span> Editing the name will <span class="font-weight-bold">move</span> all the materials under this topic to the given topic.</p>
 							<span style="color: #FC1838">{!!$errors->first('topic_name')!!}</span>
 						</div>
 					</div>

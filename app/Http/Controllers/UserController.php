@@ -22,6 +22,8 @@ use App\Focus;
 use App\Affiliation;
 use App\OtherProfile;
 use App\Material;
+use App\MaterialFiles;
+use App\MaterialLinks;
 use App\Topic;
 
 use Validator;
@@ -1211,6 +1213,7 @@ class UserController extends Controller
 	protected function materialsIndex($id) {
 		return view('users.auth.profile.show.topics.materials.index', [
 			'topic' => Topic::find($id),
+			'topics' => Topic::get(),
 			'materials' => Material::where('topic_id', $id)->where('faculty_staff_id', Auth::user()->staff->id)->get()
 		]);
 	}
@@ -1223,7 +1226,53 @@ class UserController extends Controller
 	}
 
 	protected function materialsEdit($id) {
-		return null;
+		$material = Material::find($id);
+
+		return view('users.auth.profile.show.topics.materials.edit', [
+			'material' => $material,
+			'selected_topic' => Topic::find($id),
+			'topics' => Topic::get()
+		]);
+	}
+
+	protected function materialsUpdate(Request $req, $id) {
+		return redirect()
+			->route('profile.topics.materials.index')
+			->with('flash_success'. 'Successfully updated material "' . $req->material_name . '".');
+	}
+
+	protected function materialsMove(Request $req, $topicId, $id) {
+
+		$validator = Validator::make([
+			'topic' => 'required|min:2|max:256',
+		], [
+			'topic.required' => 'Topic name is required.',
+			'topic.min' => 'Topic name is too short.',
+			'topic.max' => 'Topic name is too long. If it exceeds 256 character, please covert it as an abbreviation instead.',
+		]);
+
+		if ($validator->fails()) {
+			return redirect()
+				->back()
+				->withErrors($validator)
+				->with('toggle_modal', $id)
+				->withInput();
+		}
+
+		$target_topic = Topic::where('topic_name', $req->topic)->first();
+		if ($target_topic == null)
+			$target_topic = Topic::create([
+				'topic_name' => ucwords($req->topic_name)
+			]);
+		
+		$mats = Material::find($id);
+
+		$mats->topic_id = $target_topic->id;
+		$mats->save();
+
+		return redirect()
+			->route('profile.topics.index')
+			->with('flash_success'. 'Successfully moved materials from ' . Topic::find($topicId)->topic_name . ' to ' . $target_topic->topic_name . '.');
 	}
 
 	// TOPICS RELATED VIEWS
@@ -1248,23 +1297,15 @@ class UserController extends Controller
 	}
 
 	protected function topicStore(Request $req) {
-		if (!$req->has('is_file'))
-			$req->request->set('is_file', '0');
-		else
-			$req->request->set('is_file', '1');
-
 		$fromMats = $req->has('fromMats') ? $req->fromMats : false;
+		$isValidated = true;
 
-		//////////////////////////////////////////////////////////////////////////////////////////////////////
-		// {{-- FIX PPTX NOT BEING UPLOADED AS PPTX -> WAS IDENTIFIED AS OCTET-STREAM RATHER THAN PPTX --}} //
-		//////////////////////////////////////////////////////////////////////////////////////////////////////
-		// Log::info($req);
-		// Log::info($req->file('url')->getMimeType());
 		$validator = Validator::make($req->all(), [
 			// VALIDATION RULES
 			'topic_name' => 'required|min:2|max:256',
 			'material_name' => 'required|min:2|max:256',
-			'url' => 'required',
+			'url' => 'array',
+			'file' => 'array',
 			'description' => 'required|min:2|max:16777215',
 		], [
 			// VALIDATION ERROR MESSAGES
@@ -1274,44 +1315,59 @@ class UserController extends Controller
 			'material_name.required' => 'Material name/Title is required.',
 			'material_name.min' => 'Material name/Title is too short.',
 			'material_name.max' => 'Material name/Title is too long. If it exceeds 256 character, please covert it as an abbreviation instead.',
-			'url.required' => 'The ' . ($req->is_file ? 'file' : 'link') . ' for the material is required.',
 			'description.required' => 'A description or abstract for this research is required.',
 			'description.min' => 'Please provide a proper description or abstract.',
 			'description.max' => 'The description/abstract provided exceeds the 16 million character limit. Please omit some words or sentences.',
 		]);
 
-		if ($req->is_file) {
-			$urlValidator = Validator::make($req->all(), [
-				'url' => 'mimes:pdf,pptx,docx|max:5124'
-			], [
-				'url.mimes' => 'File type should either be a PDF, PPTX or DOCX.',
-				'url.max' => 'File exceeded the 5MB limit.'
-			]);
+		if ($validator->fails())
+			$isValidated = false;
 
-			if ($urlValidator->fails()) {
-				return redirect()
-					->back()
-					->withErrors($validator->messages()->merge($urlValidator->messages()))
-					->withInput();
+		for ($i = 0; $i < count($req->url); $i++) {
+			if ($req->url[$i] != null || strlen($req->url[$i]) > 0) {
+				$urlValidator = Validator::make($req->all(), [
+					'url.'.$i => 'url'
+				], [
+					'url.'.$i.'.url' => 'Value provided is not a valid URL.',
+				]);
+
+				if ($urlValidator->fails()) {
+					$isValidated = false;
+					$validator
+						->messages()
+						->merge($urlValidator->messages());
+				}
 			}
 		}
 
-		if ($validator->fails()) {
+		//////////////////////////////////////////////////////////////////////////////////////////////////////
+		// {{-- FIX PPTX NOT BEING UPLOADED AS PPTX -> WAS IDENTIFIED AS OCTET-STREAM RATHER THAN PPTX --}} //
+		//////////////////////////////////////////////////////////////////////////////////////////////////////
+		for ($i = 0; $i < count($req->file); $i++) {
+			if ($req->file('file.'.$i) != null) {
+				$fileValidator = Validator::make($req->all(), [
+					'file.'.$i => 'mimes:pdf,pptx,docx|max:10248'
+				], [
+					'file.'.$i.'.mimes' => 'File type should either be a PDF, PPTX or DOCX.',
+					'url.'.$i.'.max' => 'File exceeded the 10MB limit.'
+				]);
+
+				if ($urlValidator->fails()) {
+					$isValidated = false;
+					$validator
+						->messages()
+						->merge($fileValidator->messages());
+				}
+			}
+		}
+
+		if (!$isValidated) {
 			return redirect()
 				->back()
 				->withErrors($validator)
+				->with('flash_message', 'Please re-select all the files you picked earlier.')
+				->with('message', 'For security reasons, browsers does not allow us to retain the files selected. Thank you!')
 				->withInput();
-		}
-
-		// Handles the file first
-		$fileName = $req->url;
-		if ($req->is_file) {
-			// Generate file name
-			$file = $req->file('url');
-			$fileName = 'materials-'.uniqid().'.'.$file->getClientOriginalExtension();
-			// Move file
-			$filepath = 'uploads/materials/'.Auth::user()->id.'/';
-			$file->move($filepath, $fileName);
 		}
 
 		$topic = Topic::where('topic_name', $req->topic_name)->first();
@@ -1320,14 +1376,39 @@ class UserController extends Controller
 				'topic_name' => ucwords($req->topic_name)
 			]);
 
-		Material::create([
+		$material = Material::create([
 			'topic_id' => $topic->id,
 			'material_name' => $req->material_name,
 			'faculty_staff_id' => User::find(Auth::user()->id)->staff->id,
-			'is_file' => $req->is_file,
 			'description' => $req->description,
-			'url' => $fileName
 		]);
+
+		for ($i = 0; $i < count($req->file); $i++) {
+			if ($req->file('file.'.$i) == null)
+				continue;
+
+			// Generate file name
+			$file = $req->file('file.'.$i);
+			$fileName = 'materials-'.uniqid().'.'.$file->getClientOriginalExtension();
+			// Move file
+			$filepath = 'uploads/materials/'.Auth::user()->id.'/';
+			$file->move($filepath, $fileName);
+
+			MaterialFiles::insert([
+				'material_id' => $material->id,
+				'file_name' => $fileName
+			]);
+		}
+
+		for ($i = 0; $i < count($req->url); $i++) {
+			if ($req->url[$i] == null)
+				continue;
+
+			MaterialLinks::insert([
+				'material_id' => $material->id,
+				'url' => $req->url[$i]
+			]);
+		}
 
 		return redirect()
 			->route(($fromMats ? 'profile.topics.materials.index' : 'profile.topics.index'), [$topic->id])
