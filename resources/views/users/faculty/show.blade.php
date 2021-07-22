@@ -292,20 +292,24 @@
 
 			<div class="my-3 mx-1 container-fluid">
 				<div class="row flex-row flex-nowrap overflow-x-scroll p-2 border border-rounded custom-scrollbar div-hover-zoom" id="matContainer">
-					@forelse ($materials as $m)
-					<div class="mx-3 bg-custom-light text-dark w-50 p-3 col-12 col-md-3">
-						<a href="{{$m->url}}" class="text-decoration-none text-dark">
-							<p><em>{{$m->topic->topic_name}}</em></p>
+					@if (Auth::check())
+						@forelse ($materials as $m)
+						<div class="mx-3 bg-custom-light text-dark w-50 p-3 col-12 col-md-3">
+							<a href="{{$m->url}}" class="text-decoration-none text-dark">
+								<p><em>{{$m->topic->topic_name}}</em></p>
 
-							<p class="font-weight-bold">{{$m->material_name}}</p>
+								<p class="font-weight-bold">{{$m->material_name}}</p>
 
-							<p>{{$m->description}}</p>
-						</a>
-					</div>
-					@empty
-					<h2 class="text-center w-100">Nothing to show</h2>
-					<script id="remove">$("#matContainer").addClass("bg-custom-light"); $("#remove").remove();</script>
-					@endforelse
+								<p>{{$m->description}}</p>
+							</a>
+						</div>
+						@empty
+						<h2 class="text-center w-100">Nothing to show</h2>
+						<script id="remove">$("#matContainer").addClass("bg-custom-light"); $("#remove").remove();</script>
+						@endforelse
+					@else
+						@include('include.redirect_login', ['route' => route('redirect-login'), 'target_route' => "faculty.show", 'param' => '<input type="hidden" name="param[]" value="'.$staff->id.'">'])
+					@endif
 				</div>
 			</div>
 
