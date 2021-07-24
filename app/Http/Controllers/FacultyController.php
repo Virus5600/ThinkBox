@@ -129,7 +129,7 @@ class FacultyController extends Controller
 		
 		if (!is_a($staff, 'Illuminate\Support\Collection')) {
 			try {
-				$staff = $staff->distinct()->get(['faculty_staffs.*']);
+				$staff = $staff->distinct()->get();
 			} catch (\Exception $e) {
 				dd($staff->toSql());
 				dd($e);
