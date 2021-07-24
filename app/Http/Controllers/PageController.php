@@ -145,7 +145,7 @@ class PageController extends Controller
 		}
 		
 		if (!is_a($research, 'Illuminate\Support\Collection')) {
-			$research = Auth::check() ? $research->distinct()->get(['research.*']) : $research->where('is_featured', 1)->distinct()->get(['research.*']);
+			$research = Auth::check() ? $research->distinct()->get(['research.*']) : $research->where('research.is_featured', 1)->distinct()->get(['research.*']);
 		}
 
 
@@ -274,7 +274,7 @@ class PageController extends Controller
 		}
 		
 		if (!is_a($innovations, 'Illuminate\Support\Collection')) {
-			$innovations = Auth::check() ? $innovations->distinct()->get(['innovations.*']) : $innovations->where('is_featured', 1)->distinct()->get(['innovations.*']);
+			$innovations = Auth::check() ? $innovations->distinct()->get(['innovations.*']) : $innovations->where('innovations.is_featured', 1)->distinct()->get(['innovations.*']);
 		}
 
 		return view('users.innovations.index', [
