@@ -606,7 +606,7 @@ class UserController extends Controller
 			$filepath = 'uploads/research/'.Auth::user()->id.'/';
 			$file->move($filepath, $fileName);
 
-			ResearchFile::create([
+			ResearchFile::insert([
 				'research_id' => $research->id,
 				'original_name' => $file->getClientOriginalName(),
 				'file' => $fileName
@@ -627,7 +627,7 @@ class UserController extends Controller
 		// Iterates through the already registered authors...
 		foreach ($req->registeredAuthors as $ra) {
 			//  ...and then store them respectively
-			ResearchAuthors::create([
+			ResearchAuthors::insert([
 				'research_id' => $research->id,
 				'staff_id' => $ra
 			]);
@@ -650,7 +650,7 @@ class UserController extends Controller
 		if ($req->focus != null) {
 			foreach ($req->focus as $f) {
 				// ...and then store them respectively
-				ResearchFocus::create([
+				ResearchFocus::insert([
 					'research_id' => $research->id,
 					'focus_id' => $f
 				]);
@@ -1055,7 +1055,7 @@ class UserController extends Controller
 			$filepath = 'uploads/innovations/'.Auth::user()->id.'/';
 			$file->move($filepath, $fileName);
 
-			InnovationFile::create([
+			InnovationFile::insert([
 				'innovation_id' => $innovation->id,
 				'original_name' => $file->getClientOriginalName(),
 				'file' => $fileName
@@ -1076,7 +1076,7 @@ class UserController extends Controller
 		// Iterates through the already registered authors...
 		foreach ($req->registeredAuthors as $ra) {
 			//  ...and then store them respectively
-			InnovationAuthors::create([
+			InnovationAuthors::insert([
 				'innovation_id' => $innovation->id,
 				'staff_id' => $ra
 			]);
@@ -1099,7 +1099,7 @@ class UserController extends Controller
 		if ($req->focus != null) {
 			foreach ($req->focus as $f) {
 				// ...and then store them respectively
-				innovationFocus::create([
+				innovationFocus::insert([
 					'innovation_id' => $innovation->id,
 					'focus_id' => $f
 				]);
