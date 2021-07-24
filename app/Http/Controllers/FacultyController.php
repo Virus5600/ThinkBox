@@ -131,7 +131,7 @@ class FacultyController extends Controller
 			try {
 				$staff = $staff->distinct()->get(['faculty_staffs.*']);
 			} catch (\Exception $e) {
-				var_dump($staff->get(['faculty_staffs.*']));
+				dd($staff);
 				dd($e);
 			}
 		}
