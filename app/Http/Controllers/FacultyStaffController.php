@@ -191,6 +191,8 @@ class FacultyStaffController extends Controller
 			'description' => null
 		]);
 
+		// CREATE CODE TO SEND EMAIL TO THE ADMIN WHO GENERATED AND TO ALL THE RECIPIENTS
+
 		return redirect()
 			->route('admin.faculty-member.index')
 			->with('flash_success', 'Faculty Staff Added!')
