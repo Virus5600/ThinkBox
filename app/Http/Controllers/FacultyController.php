@@ -128,7 +128,11 @@ class FacultyController extends Controller
 		}
 		
 		if (!is_a($staff, 'Illuminate\Support\Collection')) {
-			$staff = $staff->distinct()->get(['faculty_staffs.*']);
+			try {
+				$staff = $staff->distinct()->get(['faculty_staffs.*']);
+			} catch (\Exception $e) {
+				dd($e);
+			}
 		}
 		
 		// RETURN
