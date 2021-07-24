@@ -131,8 +131,7 @@ class FacultyController extends Controller
 			try {
 				$staff = $staff->distinct()->get(['faculty_staffs.*']);
 			} catch (\Exception $e) {
-				\DB::enableQueryLog();
-				dd(\DB::getQueryLog());
+				dd($staff->toSql());
 				dd($e);
 			}
 		}
