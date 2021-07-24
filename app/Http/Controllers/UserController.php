@@ -1185,7 +1185,6 @@ class UserController extends Controller
 			// Proceed to do the filtering
 			$materials = $materials->where('materials.material_name', 'LIKE', "%".$search."%")
 				->orWhere('materials.description', 'LIKE', "%".$search."%")
-				->orWhere('materials.url', 'LIKE', "%".$search."%")
 				->orWhere('topics.topic_name', 'LIKE', "%".$search."%");
 		}
 

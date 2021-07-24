@@ -80,52 +80,35 @@
 
 			<span class="font-weight-bold">Sort By</span>
 			<div class="input-group">
-				<select name="sortBy" class="custom-select" onchange="$('#researchParamSubmit').trigger('click');">
-					<option value="titleAsc" {{$sortBy == 'none' ? 'selected' : ''}}>Title (A-Z)</option>
+				<select name="sortBy" class="custom-select" onchange="$('#innovationsParamSubmit').trigger('click');">
+					<option value="titleAsc" {{$sortBy == 'none' || $sortBy == 'titleAsc' ? 'selected' : ''}}>Title (A-Z)</option>
 					<option value="titleDesc" {{$sortBy == 'titleDesc' ? 'selected' : ''}}>Title (Z-A)</option>
 					<option value="date" {{$sortBy == 'date' ? 'selected' : ''}}>Date Published</option>
 				</select>
 			</div>
 
-			<input type="submit" class="hidden" id="researchParamSubmit">
+			<input type="submit" class="hidden" id="innovationsParamSubmit">
 		</form>
 
 		<div class="col-12 col-md-9 div-hover-zoom">
 			@foreach ($innovations as $i)
 			<div class="row my-3 bg-custom-light mx-1 p-3">
 				<div class="col-12">
-					<div class="row">
-						<p class="font-weight-bold col-11">
-							{{$i->title}}
-						</p>
-						<div class="col-1 text-right">
-							<a href="{{ route('profile.innovations.toggle.is_featured', [$i->id, true]) }}" data-toggle='tooltip' data-placement='top' title='{{$i->is_featured ? "Unpin" : "Pin"}}'>
-								<i class="{{$i->is_featured ? 'fas' : 'far'}} fa-star text-custom"></i>
-							</a>
-						</div>
-					</div>
+					<p class="font-weight-bold">
+						{{$i->title}}
+					</p>
 
-					<div class="row">
-						<p>
-							<small><em>{{preg_replace('/,/', ', ', $i->authors)}} | {{\Carbon\Carbon::parse($i->date_published)->format('M d, Y')}}</em></small>
-						</p>
-					</div>
+					<p>
+						<small><em>{{preg_replace('/,/', ', ', $i->authors)}} | {{\Carbon\Carbon::parse($i->date_published)->format('M d, Y')}}</em></small>
+					</p>
 
-					<div class="row">
-						<p class="text-truncate-3">
-							{{$i->description}}
-						</p>
-					</div>
+					<p class="text-truncate-3">
+						{{$i->description}}
+					</p>
 
-					<div class="row">
-						<p class="w-100">
-							@if ($i->is_file)
-							<a class="float-right text-decoration-none read-more underline-at-hover" href="{{route('research.show', [$i->id])}}">View Details <i class="fas fa-chevron-right"></i></a>
-							@else
-							<a class="float-right text-decoration-none read-more underline-at-hover" target="_blank" href='{{$i->url}}'>View Details <i class="fas fa-chevron-right"></i></a>
-							@endif
-						</p>
-					</div>
+					<p>
+						<a class="float-right text-decoration-none read-more" href="{{route('innovations.show', [$i->id])}}">View Details <i class="fas fa-chevron-right"></i></a>
+					</p>
 				</div>
 			</div>
 			@endforeach

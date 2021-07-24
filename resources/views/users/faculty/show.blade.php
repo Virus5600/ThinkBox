@@ -213,7 +213,7 @@
 
 			@if (count($research) > 0)
 			<div class="d-block d-md-none col-12 m-0 p-0">
-				<span class="text-center font-weight-bold border-custom border border-thick border-left-0 border-top-0 border-right-0 px-1"><a class="text-custom-2 text-decoration-none" href="{{ route('profile.research') }}">View all research paper</a></span>
+				<span class="text-center font-weight-bold border-custom border border-thick border-left-0 border-top-0 border-right-0 px-1"><a class="text-custom-2 text-decoration-none" href="{{ route('faculty.research', [$staff->id]) }}">View all research paper</a></span>
 			</div>
 			@else
 			@endif
@@ -263,7 +263,7 @@
 
 			@if (count($innovations) > 0)
 			<div class="d-block d-md-none col-12 m-0 p-0">
-				<span class="text-center font-weight-bold border-custom border border-thick border-left-0 border-top-0 border-right-0 px-1"><a class="text-custom-2 text-decoration-none" href="{{ route('profile.innovations') }}">View all innovations</a></span>
+				<span class="text-center font-weight-bold border-custom border border-thick border-left-0 border-top-0 border-right-0 px-1"><a class="text-custom-2 text-decoration-none" href="{{ route('faculty.innovations', [$staff->id]) }}">View all innovations</a></span>
 			</div>
 			@endif
 		</div>
@@ -272,13 +272,13 @@
 	<div class="row mt-0 mb-5">
 		<div class="hidden-overridable d-md-block col-md-6">
 			@if (count($research) > 0)
-			<span class="text-center font-weight-bold border-custom border border-thick border-left-0 border-top-0 border-right-0 px-1"><a class="text-custom-2 text-decoration-none" href="{{ route('profile.research') }}">View all research paper</a></span>
+			<span class="text-center font-weight-bold border-custom border border-thick border-left-0 border-top-0 border-right-0 px-1"><a class="text-custom-2 text-decoration-none" href="{{ route('faculty.research', [$staff->id]) }}">View all research paper</a></span>
 			@endif
 		</div>
 
 		<div class="hidden-overridable d-md-block col-md-6">
 			@if (count($innovations) > 0)
-			<span class="text-center font-weight-bold border-custom border border-thick border-left-0 border-top-0 border-right-0 px-1"><a class="text-custom-2 text-decoration-none" href="{{ route('profile.innovations') }}">View all innovations</a></span>
+			<span class="text-center font-weight-bold border-custom border border-thick border-left-0 border-top-0 border-right-0 px-1"><a class="text-custom-2 text-decoration-none" href="{{ route('faculty.innovations', [$staff->id]) }}">View all innovations</a></span>
 			@endif
 		</div>
 	</div>

@@ -128,12 +128,7 @@ class FacultyController extends Controller
 		}
 		
 		if (!is_a($staff, 'Illuminate\Support\Collection')) {
-			try {
-				$staff = $staff->distinct()->get();
-			} catch (\Exception $e) {
-				dd($staff->toSql());
-				dd($e);
-			}
+			$staff = $staff->distinct()->get();
 		}
 		
 		// RETURN
@@ -160,77 +155,85 @@ class FacultyController extends Controller
 		]);
 	}
 
-	protected function research($id) {
-		$sortBy = 'none';
+	protected function research($id, $sortBy='date') {
 		$research = Research::where('posted_by', $id);
 
 		// SORT
 		if (\Request::has('sortBy')) {
 			$sortBy = \Request::get('sortBy');
-			if ($sortBy == 'titleAsc') {
-				$research = $research->orderBy('title', 'ASC');
+			if ($sortBy == 'date') {
+				$research = $research->orderBy('research.date_published', 'DESC');
 			}
-			else if	($sortBy == 'titleDesc') {
-				$research = $research->orderBy('title', 'DESC');
+			else if ($sortBy == 'titleAsc') {
+				$research = $research->orderBy('research.title', 'ASC');
 			}
-			else if ($sortBy == 'datePublished') {
-				$research = $research->orderBy('date_published', 'DESC');
+			else if ($sortBy == 'titleDesc') {
+				$research = $research->orderBy('research.title', 'DESC');
 			}
 		}
 
 		// SEARCH
 		if (\Request::has('search')) {
 			$search = \Request::get('search');
+			
+			// Joining the many-to-many tables research, research_focus, and focus
+			$research = $research->join('research_focus', 'research.id', '=', 'research_focus.research_id')
+				->join('focus', 'research_focus.focus_id', '=', 'focus.id');
 
-			$research->whereRaw('title LIKE CONCAT("%", ?, "%")', [preg_replace("/ /", "_", $search)])
-				->orWhereRaw('authors LIKE CONCAT("%", ?, "%")', [$search])
-				->orWhereRaw('description LIKE CONCAT("%", ?, "%")', [$search])
-				->orWhereRaw('url LIKE CONCAT("%", ?, "%")', [$search]);
+			// Proceed to do the filtering
+			$research = $research->where('research.title', 'LIKE', "%".$search."%")
+				->orWhere('research.description', 'LIKE', "%".$search."%")
+				->orWhere('research.url', 'LIKE', "%".$search."%")
+				->orWhere('focus.name', 'LIKE', "%".$search."%");
 		}
-		
+
 		if (!is_a($research, 'Illuminate\Support\Collection')) {
-			$research = $research->get();
+			$research = $research->get(['research.*']);
 		}
 
 		return view('users.faculty.show.research', [
+			'id' => $id,
 			'staff' => FacultyStaff::find($id),
-			'research' => $research,
 			'sortBy' => $sortBy,
 			'searchVal' => \Request::get('search'),
-			'id' => $id
+			'research' => $research->sortByDesc('is_featured'),
 		]);
 	}
 
-	protected function innovations($id) {
-		$sortBy = 'none';
-		$innovations = Innovation::where('posted_by', $id);
+	protected function innovations($id, $sortBy='date') {
+		$innovations = Innovation::where('posted_by', '=', $id);
 
 		// SORT
 		if (\Request::has('sortBy')) {
 			$sortBy = \Request::get('sortBy');
-			if ($sortBy == 'titleAsc') {
-				$innovations = $innovations->orderBy('title', 'ASC');
+			if ($sortBy == 'date') {
+				$innovations = $innovations->orderBy('innovations.date_published', 'DESC');
 			}
-			else if	($sortBy == 'titleDesc') {
-				$innovations = $innovations->orderBy('title', 'DESC');
+			else if ($sortBy == 'titleAsc') {
+				$innovations = $innovations->orderBy('innovations.title', 'ASC');
 			}
-			else if ($sortBy == 'datePublished') {
-				$innovations = $innovations->orderBy('date_published', 'DESC');
+			else if ($sortBy == 'titleDesc') {
+				$innovations = $innovations->orderBy('innovations.title', 'DESC');
 			}
 		}
 
 		// SEARCH
 		if (\Request::has('search')) {
 			$search = \Request::get('search');
+			
+			// Joining the many-to-many tables innovations, innovation_focus, and focus
+			$innovations = $innovations->join('innovation_focus', 'innovations.id', '=', 'innovation_focus.innovation_id')
+				->join('focus', 'innovation_focus.focus_id', '=', 'focus.id');
 
-			$innovations->whereRaw('title LIKE CONCAT("%", ?, "%")', [preg_replace("/ /", "_", $search)])
-				->orWhereRaw('authors LIKE CONCAT("%", ?, "%")', [$search])
-				->orWhereRaw('description LIKE CONCAT("%", ?, "%")', [$search])
-				->orWhereRaw('url LIKE CONCAT("%", ?, "%")', [$search]);
+			// Proceed to do the filtering
+			$innovations = $innovations->where('innovations.title', 'LIKE', "%".$search."%")
+				->orWhere('innovations.description', 'LIKE', "%".$search."%")
+				->orWhere('innovations.url', 'LIKE', "%".$search."%")
+				->orWhere('focus.name', 'LIKE', "%".$search."%");
 		}
-		
+
 		if (!is_a($innovations, 'Illuminate\Support\Collection')) {
-			$innovations = $innovations->get();
+			$innovations = $innovations->get(['innovations.*']);
 		}
 
 		return view('users.faculty.show.innovations', [
@@ -238,7 +241,7 @@ class FacultyController extends Controller
 			'staff' => FacultyStaff::find($id),
 			'sortBy' => $sortBy,
 			'searchVal' => \Request::get('search'),
-			'innovations' => $innovations,
+			'innovations' => $innovations->sortByDesc('is_featured'),
 		]);
 	}
 
@@ -268,10 +271,9 @@ class FacultyController extends Controller
 			$materials = $materials->join('topics', 'materials.topic_id', '=', 'topics.id');
 
 			// Proceed to do the filtering
-			$materials = $materials->whereRaw('materials.material_name LIKE CONCAT("%", ?, "%")', [$search])
-				->orWhereRaw('materials.description LIKE CONCAT("%", ?, "%")', [$search])
-				->orWhereRaw('materials.url LIKE CONCAT("%", ?, "%")', [$search])
-				->orWhereRaw('topics.topic_name LIKE CONCAT("%", ?, "%")', [$search]);
+			$materials = $materials->where('materials.material_name', 'LIKE', "%".$search."%")
+				->orWhere('materials.description', 'LIKE', "%".$search."%")
+				->orWhere('topics.topic_name', 'LIKE', "%".$search."%");
 		}
 
 		if (!is_a($materials, 'Illuminate\Support\Collection')) {

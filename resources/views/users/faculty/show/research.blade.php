@@ -44,11 +44,19 @@
 					</p>
 
 					<p class="a-fa-hover-zoom-2">
-						<a href="" class="mx-1"><i class="fab fa-facebook text-dark secondary-hover fa-2x"></i></a>
-						<a href="" class="mx-1"><i class="fas fa-atom text-light fa-2x bg-dark secondary-hover invisiborder circle-border p-1 custom-fa-2x"></i></a>
-						<a href="" class="mx-1"><i class="fab fa-twitter text-light fa-2x bg-dark secondary-hover invisiborder circle-border p-1 custom-fa-2x"></i></a>
-						<a href="" class="mx-1"><i class="fab fa-linkedin-in text-light fa-2x bg-dark secondary-hover invisiborder circle-border p-1 custom-fa-2x"></i></a>
-						<a href="" class="mx-1"><i class="fab fa-github text-dark secondary-hover fa-2x"></i></a>
+						@foreach($staff->user->otherProfiles as $o)
+						@if ($o->website == 'Facebook')
+						<a href="{{$o->url}}" class="mx-1"><i class="fab fa-facebook text-dark secondary-hover fa-2x"></i></a>
+						@elseif ($o->website == 'Google Scholar')
+						<a href="{{$o->url}}" class="mx-1"><i class="fas fa-atom text-light fa-2x bg-dark secondary-hover invisiborder circle-border p-1 custom-fa-2x"></i></a>
+						@elseif ($o->website == 'Twitter')
+						<a href="{{$o->url}}" class="mx-1"><i class="fab fa-twitter text-light fa-2x bg-dark secondary-hover invisiborder circle-border p-1 custom-fa-2x"></i></a>
+						@elseif ($o->website == 'LinkedIn')
+						<a href="{{$o->url}}" class="mx-1"><i class="fab fa-linkedin-in text-light fa-2x bg-dark secondary-hover invisiborder circle-border p-1 custom-fa-2x"></i></a>
+						@elseif ($o->website == 'Github')
+						<a href="{{$o->url}}" class="mx-1"><i class="fab fa-github text-dark secondary-hover fa-2x"></i></a>
+						@endif
+						@endforeach
 					</p>
 				</div>
 			</div>
@@ -75,7 +83,7 @@
 				<select name="sortBy" class="custom-select" onchange="$('#researchParamSubmit').trigger('click');">
 					<option value="titleAsc" {{$sortBy == 'none' || $sortBy == 'titleAsc' ? 'selected' : ''}}>Title (A-Z)</option>
 					<option value="titleDesc" {{$sortBy == 'titleDesc' ? 'selected' : ''}}>Title (Z-A)</option>
-					<option value="datePublished" {{$sortBy == 'datePublished' ? 'selected' : ''}}>Date Published</option>
+					<option value="date" {{$sortBy == 'date' ? 'selected' : ''}}>Date Published</option>
 				</select>
 			</div>
 
@@ -84,8 +92,8 @@
 
 		<div class="col-12 col-md-9 div-hover-zoom">
 			@foreach ($research as $r)
-			<div class="row">
-				<div class="col my-3 mx-5 bg-custom-light p-3">
+			<div class="row my-3 bg-custom-light mx-1 p-3">
+				<div class="col-12">
 					<p class="font-weight-bold">
 						{{$r->title}}
 					</p>
@@ -99,11 +107,7 @@
 					</p>
 
 					<p>
-						@if ($r->is_file)
 						<a class="float-right text-decoration-none read-more" href="{{route('research.show', [$r->id])}}">View Details <i class="fas fa-chevron-right"></i></a>
-						@else
-						<a class="float-right text-decoration-none read-more" target="_blank" href='{{$r->url}}'>View Details <i class="fas fa-chevron-right"></i></a>
-						@endif
 					</p>
 				</div>
 			</div>

@@ -44,7 +44,7 @@
 					</p>
 
 					<p class="a-fa-hover-zoom-2">
-						@foreach($user->user->otherProfiles as $o)
+						@foreach($staff->user->otherProfiles as $o)
 						@if ($o->website == 'Facebook')
 						<a href="{{$o->url}}" class="mx-1"><i class="fab fa-facebook text-dark secondary-hover fa-2x"></i></a>
 						@elseif ($o->website == 'Google Scholar')
@@ -83,7 +83,7 @@
 				<select name="sortBy" class="custom-select" onchange="$('#innovationsParamSubmit').trigger('click');">
 					<option value="titleAsc" {{$sortBy == 'none' || $sortBy == 'titleAsc' ? 'selected' : ''}}>Title (A-Z)</option>
 					<option value="titleDesc" {{$sortBy == 'titleDesc' ? 'selected' : ''}}>Title (Z-A)</option>
-					<option value="datePublished" {{$sortBy == 'datePublished' ? 'selected' : ''}}>Date Published</option>
+					<option value="date" {{$sortBy == 'date' ? 'selected' : ''}}>Date Published</option>
 				</select>
 			</div>
 
@@ -92,8 +92,8 @@
 
 		<div class="col-12 col-md-9 div-hover-zoom">
 			@foreach ($innovations as $i)
-			<div class="row">
-				<div class="col my-3 mx-5 bg-custom-light p-3">
+			<div class="row my-3 bg-custom-light mx-1 p-3">
+				<div class="col-12">
 					<p class="font-weight-bold">
 						{{$i->title}}
 					</p>
@@ -107,11 +107,7 @@
 					</p>
 
 					<p>
-						@if ($i->is_file)
 						<a class="float-right text-decoration-none read-more" href="{{route('innovations.show', [$i->id])}}">View Details <i class="fas fa-chevron-right"></i></a>
-						@else
-						<a class="float-right text-decoration-none read-more" target="_blank" href='{{$i->url}}'>View Details <i class="fas fa-chevron-right"></i></a>
-						@endif
 					</p>
 				</div>
 			</div>

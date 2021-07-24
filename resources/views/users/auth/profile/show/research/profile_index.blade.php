@@ -81,9 +81,9 @@
 			<span class="font-weight-bold">Sort By</span>
 			<div class="input-group">
 				<select name="sortBy" class="custom-select" onchange="$('#researchParamSubmit').trigger('click');">
-					<option value="titleAsc" {{$sortBy == 'titleAsc' ? 'selected' : ''}}>Title (A-Z)</option>
+					<option value="titleAsc" {{$sortBy == 'none' || $sortBy == 'titleAsc' ? 'selected' : ''}}>Title (A-Z)</option>
 					<option value="titleDesc" {{$sortBy == 'titleDesc' ? 'selected' : ''}}>Title (Z-A)</option>
-					<option value="date" {{$sortBy == 'date' ? 'selected' : ''}}>Date Published</option>
+					<option value="datePublished" {{$sortBy == 'date' ? 'selected' : ''}}>Date Published</option>
 				</select>
 			</div>
 
@@ -94,38 +94,21 @@
 			@foreach ($research as $r)
 			<div class="row my-3 bg-custom-light mx-1 p-3">
 				<div class="col-12">
-					<div class="row">
-						<p class="font-weight-bold col-11">
-							{{$r->title}}
-						</p>
-						<div class="col-1 text-right">
-							<a href="{{ route('profile.research.toggle.is_featured', [$r->id, true]) }}" data-toggle='tooltip' data-placement='top' title='{{$r->is_featured ? "Unpin" : "Pin"}}'>
-								<i class="{{$r->is_featured ? 'fas' : 'far'}} fa-star text-custom"></i>
-							</a>
-						</div>
-					</div>
+					<p class="font-weight-bold">
+						{{$r->title}}
+					</p>
 
-					<div class="row">
-						<p>
-							<small><em>{{preg_replace('/,/', ', ', $r->authors)}} | {{\Carbon\Carbon::parse($r->date_published)->format('M d, Y')}}</em></small>
-						</p>
-					</div>
+					<p>
+						<small><em>{{preg_replace('/,/', ', ', $r->authors)}} | {{\Carbon\Carbon::parse($r->date_published)->format('M d, Y')}}</em></small>
+					</p>
 
-					<div class="row">
-						<p class="text-truncate-3">
-							{{$r->description}}
-						</p>
-					</div>
+					<p class="text-truncate-3">
+						{{$r->description}}
+					</p>
 
-					<div class="row">
-						<p class="w-100">
-							@if ($r->is_file)
-							<a class="float-right text-decoration-none read-more underline-at-hover" href="{{route('research.show', [$r->id])}}">View Details <i class="fas fa-chevron-right"></i></a>
-							@else
-							<a class="float-right text-decoration-none read-more underline-at-hover" target="_blank" href='{{$r->url}}'>View Details <i class="fas fa-chevron-right"></i></a>
-							@endif
-						</p>
-					</div>
+					<p>
+						<a class="float-right text-decoration-none read-more" href="{{route('innovations.show', [$r->id])}}">View Details <i class="fas fa-chevron-right"></i></a>
+					</p>
 				</div>
 			</div>
 			@endforeach
