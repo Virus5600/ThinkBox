@@ -88,10 +88,14 @@
 									<div class="col-12 align-items-center">
 										<div class="row vertical-lg-card">
 											<div class="col-12 col-md-3 text-center px-0">
-												@if ($r->user->avatar == null)
-												<img src="/uploads/users/default.png" class="circle-border img-fluid" style="align-self: flex-start;" style="max-width: 75%;" draggable='false' alt="User"/>
+												@if ($r->user->isAvatarLink)
+													<img src='{{$r->user->avatar}}' class='img-fluid invisiborder circle-border w-75'/>
 												@else
-												<img src="/uploads/users/user{{$r->user->id}}/{{$r->user->avatar}}" class="circle-border img-fluid" style="align-self: flex-start;" style="max-width: 75%;" draggable='false' alt="User"/>
+													@if ($r->user->avatar == null)
+													<img src='/uploads/users/default.png' class='img-fluid invisiborder circle-border w-75'/>
+													@else
+													<img src='/uploads/users/user{{$r->user->id}}/{{$r->user->avatar}}' class='img-fluid invisiborder circle-border w-75'/>
+													@endif
 												@endif
 											</div>
 

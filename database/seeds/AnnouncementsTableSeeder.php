@@ -21,7 +21,7 @@ class AnnouncementsTableSeeder extends Seeder
 				<p>Good news, Nationalians!</p>
 				<p>Now you can pay your tuition, miscellaneous, and other school fees via our nominated payment channels and centers nationwide.</p>
 				<p>You may process your payment via credit card, online banking, 7-Eleven, Cebuana, SM Bills payment and many more.</p>',
-			'author_id' => null,
+			'author_id' => 4,
 			'created_at' => \Carbon\Carbon::parse('2021-03-18')
 		]);
 
@@ -31,7 +31,7 @@ class AnnouncementsTableSeeder extends Seeder
 			'title' => 'BDO EasyPay Cash Tuition Program',
 			'source' => 'https://www.national-u.edu.ph/payment-options',
 			'content' => '<p>EASYPAY-CASH-TUITION-PROMO-MECHANICS-v121620</p>',
-			'author_id' => null,
+			'author_id' => 4,
 			'created_at' => \Carbon\Carbon::parse('2021-02-15')
 		]);
 
@@ -46,7 +46,7 @@ class AnnouncementsTableSeeder extends Seeder
 				<p>Reputable plenary speakers, forum discussants and presenters were present to share their knowledge and experience in the significance of wise environmental decision-making in a well-functioning ecosystem.</p>
 				<p>To top off the event, National-U’s Electronics and Communications Engineering alumnus, Jayvee Boy H. Agustin, was awarded the Best Paper Presenter for the topic: “Development of Subsystems for a Web-based Survey Tool Using Automatic Speech and Optical Character Recognition with Geotagging Features.”</p>
 				<p>With the mission to combat emerging natural and environmental conflicts, REFOREST 2020 will indeed help us attain a sustainable environment.</p>',
-			'author_id' => null,
+			'author_id' => 4,
 			'created_at' => \Carbon\Carbon::parse('2021-01-31')
 		]);
 
@@ -79,7 +79,7 @@ class AnnouncementsTableSeeder extends Seeder
 					Keep safe and we hope to see all of you here at NU!<br>
 					#EducationThatWorks
 				</p>',
-			'author_id' => null,
+			'author_id' => 4,
 			'created_at' => \Carbon\Carbon::parse('2021-04-28')
 		]);
 	}

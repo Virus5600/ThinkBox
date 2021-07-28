@@ -12,10 +12,14 @@
 		<div class="col-12 col-md-8">
 			<div class="row">
 				<div class="col-12 col-md-4 text-center">
-					@if ($staff->user->avatar == null)
-					<img src='/uploads/users/default.png' class='img-fluid invisiborder circle-border w-75'/>
+					@if ($staff->user->isAvatarLink)
+						<img src='{{$staff->user->avatar}}' class='img-fluid invisiborder circle-border w-75'/>
 					@else
-					<img src='/uploads/users/user{{$staff->user->id}}/{{$staff->user->avatar}}' class='img-fluid invisiborder circle-border w-75'/>
+						@if ($staff->user->avatar == null)
+						<img src='/uploads/users/default.png' class='img-fluid invisiborder circle-border w-75'/>
+						@else
+						<img src='/uploads/users/user{{$staff->user->id}}/{{$staff->user->avatar}}' class='img-fluid invisiborder circle-border w-75'/>
+						@endif
 					@endif
 				</div>
 

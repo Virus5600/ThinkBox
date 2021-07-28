@@ -17,5 +17,10 @@ class DepartmentsTableSeeder extends Seeder
 			'name' => 'Computer Science',
 			'college' => 1
 		]);
+
+		D::create([
+			'name' => 'Information Technology',
+			'college' => 1
+		]);
 	}
 }

@@ -35,6 +35,9 @@
 								<div class="card-body">
 									<div class="announcement-img" style="background: #fff url('/uploads/announcements/{{$a->image}}') no-repeat center"></div>
 									<h5 class="card-title text-truncate-2">{{$a->title}}</h5>
+									<p class="text-truncate-2">
+										<small><em>{{preg_replace('/,/', ', ', $a->author->getFullName())}} | {{\Carbon\Carbon::parse($a->created_at)->format('M d, Y')}}</em></small>
+									</p>
 									<div class="card-text">{!!$a->content!!}</div>
 								</div>
 								
@@ -86,10 +89,14 @@
 									<div class="card-title">
 										<div class="row">
 											<div class="col-12 d-flex align-items-center" style="overflow-x: hidden; text-overflow: ellipsis;" data-toggle='tooltip' data-placement='top' title="{{$r->user->title == null ? '' : $r->user->title . ' '}}{{$r->user->first_name}} {{$r->user->middle_name == null ? '' : substr($r->user->middle_name, 0) . '. '}}{{$r->user->last_name}}{{$r->user->suffix == null ? '' : ', ' . $r->user->suffix}}">
-												@if ($r->user->avatar == null)
-												<img src="/uploads/users/default.png" class="circular-border" style="align-self: flex-start;" width='50' height='50' draggable='false' alt="User"/>
+												@if ($r->user->isAvatarLink)
+													<img src="{{$r->user->avatar}}" class="circular-border" style="align-self: flex-start;" width='50' height='50' draggable='false' alt="User"/>
 												@else
-												<img src="/uploads/users/user{{$r->user->id}}/{{$r->user->avatar}}" class="circular-border" style="align-self: flex-start;" width='50' height='50' draggable='false' alt="User"/>
+													@if ($r->user->avatar == null)
+													<img src="/uploads/users/default.png" class="circular-border" style="align-self: flex-start;" width='50' height='50' draggable='false' alt="User"/>
+													@else
+													<img src="/uploads/users/user{{$r->user->id}}/{{$r->user->avatar}}" class="circular-border" style="align-self: flex-start;" width='50' height='50' draggable='false' alt="User"/>
+													@endif
 												@endif
 												<div class="d-flex flex-d-col" style="overflow-x: hidden; text-overflow: ellipsis;" >
 													<h3 class="h4 mx-2 my-0" style="overflow: hidden; text-overflow: ellipsis;" >
@@ -165,10 +172,14 @@
 									<div class="card-title">
 										<div class="row">
 											<div class="col-12 d-flex align-items-center">
-												@if ($i->user->avatar == null)
-												<img src="/uploads/users/default.png" class="circular-border" style="align-self: flex-start;" width='50' height='50' draggable='false' alt="User"/>
+												@if ($i->user->isAvatarLink)
+													<img src="{{$i->user->avatar}}" class="circular-border" style="align-self: flex-start;" width='50' height='50' draggable='false' alt="User"/>
 												@else
-												<img src="/uploads/users/user{{$i->user->id}}/{{$i->user->avatar}}" class="circular-border" style="align-self: flex-start;" width='50' height='50' draggable='false' alt="User"/>
+													@if ($i->user->avatar == null)
+													<img src="/uploads/users/default.png" class="circular-border" style="align-self: flex-start;" width='50' height='50' draggable='false' alt="User"/>
+													@else
+													<img src="/uploads/users/user{{$i->user->id}}/{{$i->user->avatar}}" class="circular-border" style="align-self: flex-start;" width='50' height='50' draggable='false' alt="User"/>
+													@endif
 												@endif
 												<div class="d-flex flex-d-col">
 													<h3 class="h4 mx-2 my-0">
@@ -234,11 +245,14 @@
 		<div class="col text-center">
 			<span class="h4 h3-md font-weight-bold text-custom border-custom border border-thick border-left-0 border-top-0 border-right-0 px-3">Meet Our Faculty</span>
 
-			{{-- MAX: 4 FACULTY --}}
+			{{-- MAX: 8 FACULTY --}}
 			<div class="row mt-5">
 				<div class="col-10 col-sm-12 col-md-10 offset-1 offset-sm-0 offset-md-1">
-					<div class="row">
-						@foreach($staff as $s)
+					@php ($i = 0)
+					@foreach($staff as $s)
+					@if ($i%4 == 0)
+					<div class="row mb-4">
+					@endif
 						<div class="col-12 col-md-3 mr-auto">
 							<div class="card dark-shadow h-100">
 								@if ($s->user->avatar == null)
@@ -267,8 +281,11 @@
 								</div>
 							</div>
 						</div>
-						@endforeach
+					@if ($i%4 == 3)
 					</div>
+					@endif
+					@php ($i++)
+					@endforeach
 				</div>
 			</div>
 

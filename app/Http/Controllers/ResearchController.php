@@ -25,14 +25,14 @@ class ResearchController extends Controller
 				array_push($recipientNames, $ra->user->getFullName());
 			}
 		}
-
+		Log::info($recipientNames);
 		Mail::send(
 			'template.email.request_copy',
 			[
 				'email' => $email,
 				'document' => $research
 			],
-			function ($m) use ($email, $research, $recipients) {
+			function ($m) use ($email, $research, $recipients, $recipientNames) {
 				$m->to($recipients, $recipientNames)
 					->from($email)
 					->cc($research->postedBy->user->email)

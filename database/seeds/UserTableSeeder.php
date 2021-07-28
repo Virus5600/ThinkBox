@@ -118,14 +118,14 @@ class UserTableSeeder extends Seeder
 		U::create([
 			'id' => 7,
 			'title' => null,
-			'first_name' => 'Mark Emmanuel',
-			'middle_name' => null,
-			'last_name' => 'Malimban',
+			'first_name' => 'Jayson Raymund',
+			'middle_name' => 'D',
+			'last_name' => 'Bermudez',
 			'suffix' => null,
 			'avatar' => 'user7.jpg',
 			'isAvatarLink' => 0,
-			'email' => null,
-			'username' => 'malimbanme',
+			'email' => 'jrdbermudez@national-u.edu.ph',
+			'username' => 'bermudezjrd',
 			'contact_no' => null,
 			'password' => Hash::make('pass123'),
 			'role' => 3,
@@ -148,5 +148,23 @@ class UserTableSeeder extends Seeder
 			'role' => 3,
 			'expiration_date' => null
 		]);
+		if (env('APP_ENV') == 'local') {
+			U::create([
+				'id' => 9,
+				'title' => null,
+				'first_name' => 'カール・サッチ',
+				'middle_name' => 'エスゲラ',
+				'last_name' => 'ナビダ',
+				'suffix' => null,
+				'avatar' => 'https://avatars.githubusercontent.com/u/19548426?v=4',
+				'isAvatarLink' => 1,
+				'email' => 'satchi5600@gmail.com',
+				'username' => 'navidakse',
+				'contact_no' => '933 819 3519',
+				'password' => Hash::make('pass123'),
+				'role' => 1,
+				'expiration_date' => null
+			]);
+		}
 	}
 }

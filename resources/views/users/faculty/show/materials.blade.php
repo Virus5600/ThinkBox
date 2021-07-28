@@ -94,7 +94,7 @@
 				@forelse($topic_names as $t)
 				@php
 				$topic = App\Topic::where('topic_name', '=', $t)->first();
-				$material = App\Material::where('topic_id', '=', $topic->id)->where('faculty_staff_id', '=', App\FacultyStaff::where('user_id', '=', Auth::user()->id)->first()->id)->get();
+				$material = App\Material::where('topic_id', '=', $topic->id)->where('faculty_staff_id', '=', $staff->id)->get();
 				@endphp
 				<h4>{{$t}} ({{count($material)}})</h4>
 				<div class="row flex-row flex-nowrap overflow-x-auto p-2 div-hover-zoom">

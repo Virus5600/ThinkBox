@@ -9,10 +9,14 @@
 		<div class="col-12 col-md-8 order-0 order-md-0">
 			<div class="row">
 				<div class="col-12 col-md-4 text-center">
-					@if ($user->user->avatar == null)
-					<img src='/uploads/users/default.png' class='img-fluid invisiborder circle-border w-75'/>
+					@if ($user->user->isAvatarLink)
+						<img src='{{$user->user->avatar}}' class='img-fluid invisiborder circle-border w-75'/>
 					@else
-					<img src='/uploads/users/user{{$user->user->id}}/{{$user->user->avatar}}' class='img-fluid invisiborder circle-border w-75'/>
+						@if ($user->user->avatar == null)
+						<img src='/uploads/users/default.png' class='img-fluid invisiborder circle-border w-75'/>
+						@else
+						<img src='/uploads/users/user{{$user->user->id}}/{{$user->user->avatar}}' class='img-fluid invisiborder circle-border w-75'/>
+						@endif
 					@endif
 				</div>
 

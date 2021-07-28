@@ -36,5 +36,17 @@ class OtherProfileTableSeeder extends Seeder
 			'website' => 'LinkedIn',
 			'url' => 'https://www.linkedin.com/in/joseph-marvin-imperial-9382b9a7/'
 		]);
+
+		OP::insert([
+			'user_id' => 7,
+			'website' => 'Facebook',
+			'url' => 'https://www.facebook.com/JayBermudezPH'
+		]);
+
+		OP::insert([
+			'user_id' => 7,
+			'website' => "Google Scholar",
+			'url' => 'https://scholar.google.com/citations?user=Tb8Zzk0AAAAJ&hl=en&oi=ao'
+		]);
 	}
 }

@@ -19,7 +19,7 @@ class Announcements extends Model
 		'author_id'
 	];
 
-	protected function authorID() {
-		return $this->belongsTo('App\User');
+	protected function author() {
+		return $this->belongsTo('App\User', 'author_id', 'id');
 	}
 }

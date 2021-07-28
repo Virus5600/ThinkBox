@@ -32,7 +32,7 @@ class InnovationController extends Controller
 				'email' => $email,
 				'document' => $innovation
 			],
-			function ($m) use ($email, $innovation, $recipients) {
+			function ($m) use ($email, $innovation, $recipients, $recipientNames) {
 				$m->to($recipients, $recipientNames)
 					->from($email)
 					->cc($innovation->postedBy->user->email)

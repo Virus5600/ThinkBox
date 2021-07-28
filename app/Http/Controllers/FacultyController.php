@@ -24,11 +24,6 @@ use Auth;
 
 class FacultyController extends Controller
 {
-	// TEMPORARY SUBSTITUTE... TO BE REMOVE ONCE BACKEND IS ATTACHED
-	private function getStaff() {
-		return TmpController::getStaff();
-	}
-
 	protected function index($dept='All',$sortBy='none',$rf='all') {
 		$staff = new FacultyStaff;
 		$college = College::get();
@@ -247,7 +242,7 @@ class FacultyController extends Controller
 
 	protected function materials($id, $sortBy='date') {
 		// TEMPLATE START
-		$materials = Material::where('faculty_staff_id', '=', Auth::user()->staff->id);
+		$materials = Material::where('faculty_staff_id', '=', $id);
 
 		// SORT
 		if (\Request::has('sortBy')) {
@@ -283,7 +278,6 @@ class FacultyController extends Controller
 
 		// $material = Material::where('faculty_staff_id', '=', FacultyStaff::where('user_id', Auth::user()->id)->first()->id)->get();
 		$topic_names = array();
-
 		foreach ($materials as $m)
 			if (!in_array($m->topic->topic_name, $topic_names))
 				array_push($topic_names, $m->topic->topic_name);

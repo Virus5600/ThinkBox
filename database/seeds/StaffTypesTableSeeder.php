@@ -24,5 +24,9 @@ class StaffTypesTableSeeder extends Seeder
 		ST::create([
 			'type' => 'professor'
 		]);
+
+		ST::create([
+			'type' => 'other'
+		]);
 	}
 }

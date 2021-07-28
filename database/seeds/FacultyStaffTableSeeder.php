@@ -61,7 +61,7 @@ class FacultyStaffTableSeeder extends Seeder
 		FS::create([
 			'id' => 6,
 			'user_id' => 6,
-			'department' => 1,
+			'department' => 2,
 			'position' => 3,
 			'location' => 'National University',
 			'description' => 'With a decade of strong years of experience in the academe, I had the opportunity to excel in teaching, research and extension which paved the way for my three Faculty Excellence Awards (2015, 2017, 2018) and six Faculty Research Awards from 2015 to 2020 all obtained from National University-Manila.',
@@ -73,10 +73,11 @@ class FacultyStaffTableSeeder extends Seeder
 		FS::create([
 			'id' => 7,
 			'user_id' => 7,
-			'department' => 1,
-			'position' => 3,
+			'department' => 2,
+			'position' => 2,
 			'location' => 'National University',
-			'description' => 'Driven with passion and concrete objectives to meet a high quality and technologically in-lined actions for short and long term goals.',
+			'description' => null
+			// 'description' => 'Driven with passion and concrete objectives to meet a high quality and technologically in-lined actions for short and long term goals.',
 		]);
 
 		FS::create([
@@ -87,5 +88,16 @@ class FacultyStaffTableSeeder extends Seeder
 			'location' => 'National University',
 			'description' => null
 		]);
+
+		if (env('APP_ENV') == 'local') {
+			FS::create([
+				'id' => 9,
+				'user_id' => 9,
+				'department' => 1,
+				'position' => 4,
+				'location' => 'National University',
+				'description' => 'ADMIN ACCOUNT'
+			]);
+		}
 	}
 }
