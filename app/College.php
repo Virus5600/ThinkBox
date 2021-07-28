@@ -13,6 +13,6 @@ class College extends Model
 	public $timestamps = false;
 
 	public function departments() {
-		return $this->hasMany('App\Departments', 'id');
+		return $this->hasMany('App\Departments', 'college');
 	}
 }

@@ -148,6 +148,7 @@ class UserTableSeeder extends Seeder
 			'role' => 3,
 			'expiration_date' => null
 		]);
+		
 		if (env('APP_ENV') == 'local') {
 			U::create([
 				'id' => 9,

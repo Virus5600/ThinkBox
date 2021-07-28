@@ -30,7 +30,7 @@
 				<select name="dept" class="custom-select" onchange="$('#facultyParamSubmit').trigger('click');">
 					<option value="All" {{$dept == 'All' ? 'selected' : ''}}>All</option>
 					@foreach($college as $c)
-					<option></option>
+					<option disabled></option>
 					<option value="{{$c->name}}" class="font-weight-bold" {{$dept == $c->name ? 'selected' : ''}}>
 						{{ucwords($c->name)}}
 						@php
