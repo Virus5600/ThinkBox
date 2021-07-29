@@ -48,5 +48,23 @@ class OtherProfileTableSeeder extends Seeder
 			'website' => "Google Scholar",
 			'url' => 'https://scholar.google.com/citations?user=Tb8Zzk0AAAAJ&hl=en&oi=ao'
 		]);
+
+		OP::insert([
+			'user_id' => 9,
+			'website' => "Facebook",
+			'url' => 'https://www.facebook.com/rializa.centeno'
+		]);
+
+		OP::insert([
+			'user_id' => 9,
+			'website' => "Google Scholar",
+			'url' => 'https://scholar.google.com/citations?user=tCCqlbkAAAAJ&hl=en'
+		]);
+
+		OP::insert([
+			'user_id' => 9,
+			'website' => "LinkedIn",
+			'url' => 'https://www.linkedin.com/in/ria-canlas-0b788b4a/'
+		]);
 	}
 }

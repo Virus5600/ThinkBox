@@ -85,10 +85,6 @@ class UserController extends Controller
 
 	protected function edit($id) {
 		$user = FacultyStaff::where('user_id', Auth::user()->id)->first();
-
-		// Other profile related
-		$website = array('facebook', 'google_scholar', 'twitter', 'linkedin', 'github');
-		$url = array('https://www.facebook.com/angelique.lacasandile.3', 'https://scholar.google.com/citations?hl=en&user=ZsEoUCgAAAAJ', 'https://www.linkedin.com/in/joseph-marvin-imperial-9382b9a7/', 'https://www.linkedin.com/in/dr-angelique-lacasandile-034a3780/', 'https://github.com/');
 		return view('users.auth.profile.edit', [
 			'user' => $user,
 		]);

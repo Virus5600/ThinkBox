@@ -14,6 +14,11 @@ class StaffTypesTableSeeder extends Seeder
 	public function run()
 	{
 		ST::create([
+			'id' => 0,
+			'type' => 'other'
+		]);
+
+		ST::create([
 			'type' => 'dean'
 		]);
 
@@ -26,7 +31,7 @@ class StaffTypesTableSeeder extends Seeder
 		]);
 
 		ST::create([
-			'type' => 'other'
+			'type' => 'director'
 		]);
 	}
 }

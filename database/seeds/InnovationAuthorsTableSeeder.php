@@ -24,6 +24,8 @@ class InnovationAuthorsTableSeeder extends Seeder
 
 		// RESEARCH 4
 		// $this->addAuthors(4, array());
+
+		$this->addAuthors(5, array(9));
 	}
 
 	/**

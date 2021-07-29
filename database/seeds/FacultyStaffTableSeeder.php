@@ -89,10 +89,28 @@ class FacultyStaffTableSeeder extends Seeder
 			'description' => null
 		]);
 
+		FS::create([
+			'id' => 9,
+			'user_id' => 9,
+			'department' => 3,
+			'position' => 4,
+			'location' => 'National University',
+			'description' => 'Dr. Ria Liza C. Canlas is an engineer, technologist and Intellectual Property expert. She obtained her degrees in Bachelor of Science in Civil Engineering at the Mapua Institute of Technology, Master of Engineering Management major in Construction Management at the Pamantasan ng Lungsod ng Maynila, and Doctor of Technology at the Technological University of the Philippines. She had researches published and several completed studies, as project leader, including Grant-in-aid studies funded by the Commission on Higher Education (CHED), Department of Science and Technology (DOST), and various institutional research projects. Her expertise is in research, project management, engineering and technology, and intellectual property. Presently, she is one of the Consultants at Strategic Research and Development, Inc (STRAND, Inc) and the Principal at Po-lite Technology Incorporated, RPM Business Solutions and CACTech Construction. Futhermore, she is into innovations through engagement in various experimental researches, mentoring and Intellectual Property concept trainings. She is a licensed Civil Engineer, Certified Materials Engineer 1 and Registered Patent Agent. She is presently the Assistant Research Director at National University. Also connected as independent Patent Consultant and Technical Expert of Intellectual Property Office of the University of the Philippines, Diliman. She has ongoing inventions under different stages (for development, for patent drafting, and filed).'
+		]);
+
+		FS::create([
+			'id' => 10,
+			'user_id' => 10,
+			'department' => 3,
+			'position' => 3,
+			'location' => 'National University',
+			'description' => 'Experienced Technical Consultant with a demonstrated history of working in the education management industry. Skilled in Management, Training, Instrumentation, Leadership, and Programmable Logic Controller (PLC). Strong sales professional with a Masters of Engineering focused in Electrical and Electronics Engineering from Technological University of the Philippines.'
+		]);
+
+		// DEV ACCOUNT FOR LOCAL TESTING
 		if (env('APP_ENV') == 'local') {
 			FS::create([
-				'id' => 9,
-				'user_id' => 9,
+				'user_id' => 0,
 				'department' => 1,
 				'position' => 4,
 				'location' => 'National University',

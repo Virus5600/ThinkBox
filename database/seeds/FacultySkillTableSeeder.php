@@ -36,6 +36,8 @@ class FacultySkillTableSeeder extends Seeder
 
 		// USER 8
 		$this->addSkills(8, array(8, 18, 21));
+
+		$this->addSkills(9, array(22, 23, 24, 25, 19));
 	}
 
 	/**

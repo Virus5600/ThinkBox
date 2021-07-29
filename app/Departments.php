@@ -8,7 +8,8 @@ class Departments extends Model
 {
 	protected $fillable = [
 		'name',
-		'college'
+		'college',
+		'abbr'
 	];
 
 	public $timestamps = false;

@@ -6,7 +6,12 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
+use App\Affiliation;
+use App\OtherProfile;
 use App\FacultyStaff;
+use App\Research;
+use App\Innovation;
+use App\Material;
 use App\Skills;
 use App\User;
 
@@ -16,14 +21,6 @@ use Log;
 
 class FacultyStaffController extends Controller
 {
-	// TEMPORARY SUBSTITUTE... TO BE REMOVE ONCE BACKEND IS ATTACHED
-	private function getStaff() {
-		return TmpController::getStaff();
-	}
-	private function getSkillList() {
-		return TmpController::getSkillList();
-	}
-
 	protected function index() {
 		return view('users.auth.admin.faculty-member.index', [
 			'staff' => FacultyStaff::get()
@@ -204,51 +201,214 @@ class FacultyStaffController extends Controller
 	}
 
 	protected function show($id) {
+		$staff = FacultyStaff::find($id);
+		if ($staff == null) {
+			return redirect()
+				->back()
+				->with('flash_error', 'Failed to delete faculty member.')
+				->with('error', 'Faculty member does not exists anymore.');
+		}
 
 		return view('users.auth.admin.faculty-member.show', [
-			'skills' => Skills::get(),
-			'staff' => FacultyStaff::get()
+			'staff' => $staff,
+			'research' => Research::where('posted_by', $id)->take(3)->get(),
+			'innovations' => Innovation::where('posted_by', $id)->take(3)->get(),
+			'materials' => Material::where('faculty_staff_id', $id)->take(5)->get(),
+			'matCount' => count(Material::where('faculty_staff_id', $id)->get()),
+			'affiliations' => Affiliation::where('user_id', FacultyStaff::find($id)->user_id)->get(),
+			'other_profiles' => OtherProfile::where('user_id', FacultyStaff::find($id)->user_id)->get()
 		]);
 	}
 
 	protected function edit($id) {
-		$skills = array(
-			'Consultancy',
-			'Business Management',
-			'Software Quality Assurance',
-			'Higher Education',
-			'Programming',
-			'Hosting Events',
-			'MySQL',
-			'Project Management',
-			'Curriculum Development',
-			'Event Management',
-			'IT Consulting',
-			'Teaching'
-		);
-
-		// Affiliation related
-		$positions = array('Co-Founder', 'Ambassador', 'Technical Consultant');
-		$organizations = array('Aguora IT Solutions and Technology Inc.', 'Microsoft', 'House of Representative & TNC Cafe');
-
-		// Other profile related
-		$website = array('facebook', 'google_scholar', 'twitter', 'linkedin', 'github');
-		$url = array('https://www.facebook.com/angelique.lacasandile.3', 'https://scholar.google.com/citations?hl=en&user=ZsEoUCgAAAAJ', 'https://www.linkedin.com/in/joseph-marvin-imperial-9382b9a7/', 'https://www.linkedin.com/in/dr-angelique-lacasandile-034a3780/', 'https://github.com/');
+		$staff = FacultyStaff::find($id);
+		if ($staff == null) {
+			return redirect()
+				->back()
+				->with('flash_error', 'Failed to delete faculty member.')
+				->with('error', 'Faculty member does not exists anymore.');
+		}
 		
 		return view('users.auth.admin.faculty-member.edit', [
-			'skills' => $skills,
-			'staff' => $this->getStaff()[$id-1],
-			'positions' => $positions,
-			'organizations' => $organizations,
-			'website' => $website,
-			'url' => $url
+			'staff' => $staff,
+			'research' => Research::where('posted_by', $id)->take(3)->get(),
+			'innovations' => Innovation::where('posted_by', $id)->take(3)->get(),
+			'materials' => Material::where('faculty_staff_id', $id)->take(5)->get(),
+			'matCount' => count(Material::where('faculty_staff_id', $id)->get()),
+			'affiliations' => Affiliation::where('user_id', FacultyStaff::find($id)->user_id)->get(),
+			'other_profiles' => OtherProfile::where('user_id', FacultyStaff::find($id)->user_id)->get()
 		]);
 	}
 
+	protected function update(Request $req, $id) {
+		// If the contact number isn't starting with "+63", prepend it on the contact number.
+		$con = null;
+		if ($req->contact_no != null && !preg_match('/^[\+63]/', $req->contact_no)) {
+			$con = $req->contact_no;
+			$req->request->set('contact_no', '+63'.$req->contact_no);
+		}
+		// If the isAvatarLink is not checked, set it to 0 since php returns nothing if a boolean is god damn false...
+		if (!$req->has('isAvatarLink'))
+			$req->request->set('isAvatarLink', '0');
+
+		$validator = Validator::make($req->all(), [
+			// VALIDATION RULES
+			'avatar' => 'max:5120',
+			'first_name' => 'required|min:2|max:50',
+			'middle_name' => 'max:50',
+			'last_name' => 'required|min:2|max:50',
+			'email' => 'email',
+			'contact_no' => array('numeric','regex:/(\+63[0-9]{10})||(null)/'),	// \+63[0-9]{10}means "+" followed by any 12 numbers,
+		], [
+			// VALIDATION ERROR MESSAGES
+			'avatar.max' => 'Avatar should be below 5MB.',
+			'first_name.required' => 'First name is required.',
+			'first_name.min' => 'First name is too short.',
+			'first_name.max' => 'First name is too long. If it exceeds 50 character, please just use the initials of the succeeding names.',
+			'middle_name.max' => 'Middle name is too long. If it exceeds 50 character, please just use the initials of the succeeding names.',
+			'last_name.required' => 'Last name is required',
+			'last_name.min' => 'Last Name is too short.',
+			'last_name.max' => 'Last name is too long. If it exceeds 50 character, please just use the initials of the succeeding names.',
+			// 'email.required' => 'E-mail address is required.',
+			'email.email' => 'Invalid e-mail address format.',
+			'contact_no.numeric' => 'Invalid contact number',
+			'contact_no.regex' => 'Contact number must either start with +63 or 09, and must be 12 digits. Provided: '.$req->contact_no,
+		]);
+
+		$hasValidationProblem = $validator->fails();
+		if ($req->position != null) {
+			for ($i = 0 ; $i < count($req->position); $i++) {
+				$affiliationValidator = Validator::make($req->all(), [
+					'position.'.$i => 'required_with:organization.'.$i,
+					'organization.'.$i => 'required_with:position.'.$i,
+				], [
+					'position.'.$i.'.required_with' => 'Position is required.',
+					'organization.'.$i.'.required_with' => 'Organization is required.',
+				]);
+
+				if ($affiliationValidator->fails()) {
+					$hasValidationProblem = true;
+					$validator->messages()->merge($affiliationValidator->messages());
+				}
+			}
+		}
+
+		if ($req->website != null) {
+			for ($i = 0; $i < count($req->website); $i++) {
+				$otherProfileValidator = Validator::make($req->all(), [
+					'url.'.$i => 'required_with:website.'.$i,
+				], [
+					'url.'.$i.'.required_with' => 'URL is required.',
+				]);
+
+				if ($otherProfileValidator->fails()) {
+					$hasValidationProblem = true;
+					$validator->messages()->merge($otherProfileValidator->messages());
+				}
+			}
+		}
+		// If the toggle "isAvatarLink" wasn't enabled (meaning, it is a file), detect if it matches the allowed formats.
+		if (!$req->isAvatarLink) {
+			$imgValidator = Validator::make($req->all(), [
+				'avatar' => 'mimes:jpeg,png,jpg'
+			], [
+				'avatar.mimes' => 'Selected file doesn\'t match the allowed image formats.',
+			]);
+
+			// Now, if it does not match any of the formats, return with the merged error messages from $validator and $imgValidator.
+			if ($imgValidator->fails() || $hasValidationProblem) {
+				$req->request->set('contact_no', $con);
+				return redirect()
+					->back()
+					->withErrors($validator->messages()->merge($imgValidator->messages()))
+					->withInput();
+			}
+		}
+
+		// If there's a validation error, immediately return to the edit page with the error messages
+		if ($hasValidationProblem) {
+			$req->request->set('contact_no', $con);
+			return redirect()
+				->back()
+				->withErrors($validator)
+				->withInput();
+		}
+
+		// Fetch the row of this user from the users table and faculty_staffs table
+		$staff = FacultyStaff::find($id);
+		$user = $staff->user;
+
+		// If there's a new avatar
+		if ($req->hasFile('avatar') && !$req->isAvatarLink) {
+			// If an old avatar was present previously, delete the file.
+			if ($user->avatar != null)
+				File::delete(public_path() . '/uploads/users/user' . $id . '/' . $user->avatar);
+
+			// Set the avatar variable, the move the file to the user's folder.
+			$avatar = 'user'.$id.'.'.$req->file('avatar')->getClientOriginalExtension();
+			$req->file('avatar')->move('uploads/users/user'.$id.'/', $avatar);
+
+			// Set the new avatar in the database.
+			$user->avatar = $avatar;
+		}
+		else if ($req->isAvatarLink) {
+			if ($user->avatar != null)
+				File::delete(public_path() . '/uploads/users/user' . $id . '/' . $user->avatar);
+			$user->avatar = $req->avatar;
+		}
+
+		$user->first_name = $req->first_name;
+		$user->isAvatarLink = $req->isAvatarLink ? 1 : 0;
+		$user->middle_name = $req->middle_name;
+		$user->last_name = $req->last_name;
+		$user->title = $req->title;
+		$user->suffix = $req->suffix;
+		$user->email = $req->email;
+		$user->contact_no = $con;
+		$user->save();
+
+		$staff->description = $req->description;
+		$staff->save();
+
+		// AFFILIATIONS
+		Affiliation::where('user_id', '=', $user->id)->delete();
+		if ($req->position != null) {
+			for ($i = 0; $i < count($req->position); $i++) {
+				if (strlen(trim($req->position[$i])) == 0 && strlen(trim($req->organization[$i])) == 0)
+					continue;
+				Affiliation::insert([
+					'user_id' => $user->id,
+					'position' => $req->position[$i],
+					'organization' => $req->organization[$i]
+				]);
+			}
+		}
+
+		// OTHER PROFILES
+		OtherProfile::where('user_id', '=', $user->id)->delete();
+		if ($req->website != null) {
+			for ($i = 0; $i < count($req->website); $i++) {
+				if (strlen(trim($req->url[$i])) == 0)
+					continue;
+				OtherProfile::insert([
+					'user_id' => $user->id,
+					'website' => $req->website[$i],
+					'url' => $req->url[$i]
+				]);
+			}
+		}
+
+		return redirect()
+			->back()
+			->with('flash_success', 'Successfully Updated Profile')
+			->with('has_icon', true);
+	}
+
 	protected function skills($id) {
+		$staff = FacultyStaff::find($id);
 		return view('users.auth.admin.faculty-member.skills', [
-			'skills' => $this->getSkillList(),
-			'staff' => $this->getStaff()[$id-1]
+			'staff' => $staff,
+			'skills' => Skills::get(),
 		]);
 	}
 

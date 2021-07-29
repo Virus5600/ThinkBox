@@ -13,13 +13,22 @@ class DepartmentsTableSeeder extends Seeder
 	 */
 	public function run()
 	{
+
 		D::create([
 			'name' => 'Computer Science',
-			'college' => 1
+			'abbr' => 'CS',
+			'college' => 2
 		]);
 
 		D::create([
 			'name' => 'Information Technology',
+			'abbr' => 'IT',
+			'college' => 2
+		]);
+
+		D::create([
+			'name' => 'Center for Innovation and Entrepreneurship',
+			'abbr' => 'CentIE',
 			'college' => 1
 		]);
 	}

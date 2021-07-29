@@ -119,5 +119,24 @@ class SkillsTableSeeder extends Seeder
 			'skill' => 'Teaching'
 		]);
 
+		S::create([
+			'id' => 22,
+			'skill' => 'Patent Drafting'
+		]);
+
+		S::create([
+			'id' => 23,
+			'skill' => 'Materials Drafting'
+		]);
+
+		S::create([
+			'id' => 24,
+			'skill' => 'Technology Management'
+		]);
+
+		S::create([
+			'id' => 25,
+			'skill' => 'Intellectual Property Management'
+		]);
 	}
 }

@@ -15,7 +15,7 @@ class UserTableSeeder extends Seeder
 	{
 		U::create([
 			'id' => 1,
-			'title' => 'Dr.',
+			'title' => null,
 			'first_name' => 'Angelique',
 			'middle_name' => 'D',
 			'last_name' => 'Lacasandile',
@@ -66,7 +66,7 @@ class UserTableSeeder extends Seeder
 
 		U::create([
 			'id' => 4,
-			'title' => 'Dr.',
+			'title' => null,
 			'first_name' => 'Arlene',
 			'middle_name' => 'O',
 			'last_name' => 'Trillanes',
@@ -148,10 +148,44 @@ class UserTableSeeder extends Seeder
 			'role' => 3,
 			'expiration_date' => null
 		]);
-		
+
+		U::create([
+			'id' => 9,
+			'title' => null,
+			'first_name' => 'Ria Liza',
+			'middle_name' => 'C',
+			'last_name' => 'Canlas',
+			'suffix' => null,
+			'avatar' => 'user9.jpg',
+			'isAvatarLink' => 0,
+			'email' => 'rlccanlas@national-u.edu.ph',
+			'username' => 'canlasrl',
+			'contact_no' => null,
+			'password' => Hash::make('pass123'),
+			'role' => 3,
+			'expiration_date' => null
+		]);
+
+		U::create([
+			'id' => 10,
+			'title' => null,
+			'first_name' => 'Rafael',
+			'middle_name' => 'A',
+			'last_name' => 'Dimaculangan',
+			'suffix' => null,
+			'avatar' => 'user10.jpg',
+			'isAvatarLink' => 0,
+			'email' => null,
+			'username' => 'dimaculanganra',
+			'contact_no' => null,
+			'password' => Hash::make('pass123'),
+			'role' => 3,
+			'expiration_date' => null
+		]);
+
+		// DEV ACCOUNT FOR LOCAL TESTING
 		if (env('APP_ENV') == 'local') {
 			U::create([
-				'id' => 9,
 				'title' => null,
 				'first_name' => 'カール・サッチ',
 				'middle_name' => 'エスゲラ',

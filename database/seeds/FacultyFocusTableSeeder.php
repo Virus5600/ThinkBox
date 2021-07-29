@@ -35,6 +35,8 @@ class FacultyFocusTableSeeder extends Seeder
 
     	// USER 8
     	// $this->addFocus(8, null);
+
+    	$this->addFocus(9, array(19, 20, 21));
     }
 
  	/**

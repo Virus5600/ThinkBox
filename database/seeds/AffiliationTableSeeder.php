@@ -30,5 +30,29 @@ class AffiliationTableSeeder extends Seeder
 			'position' => 'Technical Consultant',
 			'organization' => 'House of Representative & TNC Cafe'
 		]);
+
+		A::insert([
+			'user_id' => 9,
+			'position' => 'Managing Director',
+			'organization' => 'Po-Lite Technology Inc.'
+		]);
+
+		A::insert([
+			'user_id' => 9,
+			'position' => 'General Manager',
+			'organization' => 'RPM Business Solutions'
+		]);
+
+		A::insert([
+			'user_id' => 9,
+			'position' => 'Civil Contractor',
+			'organization' => 'CACTech Construction'
+		]);
+
+		A::insert([
+			'user_id' => 9,
+			'position' => 'Graduate School Professor',
+			'organization' => 'Technological Institute of the Philippines.'
+		]);
 	}
 }

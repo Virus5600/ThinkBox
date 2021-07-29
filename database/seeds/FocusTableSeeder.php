@@ -105,5 +105,19 @@ class FocusTableSeeder extends Seeder
 			'name' => 'is success theories'
 		]);
 
+		F::create([
+			'id' => 19,
+			'name' => 'Green Technology'
+		]);
+
+		F::create([
+			'id' => 20,
+			'name' => 'Innovations'
+		]);
+
+		F::create([
+			'id' => 21,
+			'name' => 'Construction Management'
+		]);
 	}
 }

@@ -55,6 +55,18 @@ class InnovationTableSeeder extends Seeder
 			1,
 			1
 		);
+
+		$this->addInnovation(
+			'SYSTEM AND METHODS FOR INTEGRATED TRACKING OF PUBLIC TRANSIT VEHICLES AND REAL-TIME TRAFFIC CONGESTION',
+			'Leonila B. Valdez',
+			'The object of the present invention is to provide consolidated mobile/web applications for train passengers in order to aid them in finding the best route to their destinations and their connectivity like alternative mode of transportation per stations for train administrators to manage passenger congestion. Furthermore, the present invention enables the train passengers to view the following integrated information from trains: (a) fare matrix, (b) time matrix, (c) data analytics of passenger congestion, (d) video streaming per stations, (e) incident alerts, and (f) PWD assistance and other services and announcements from commuters and train management.',
+			9,
+			'http://121.58.254.45/PatGazette/IPASJournal/V24N4_Inv_1st.pdf',
+			\Carbon\Carbon::parse('2019-3-6'),
+			1,
+		);
+
+		// $this->addInnovation();
 	}
 
 	/**

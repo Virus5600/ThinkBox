@@ -14,7 +14,13 @@ class CollegeTableSeeder extends Seeder
 	public function run()
 	{
 		C::create([
-			'name' => 'College of Computing and Information Technology'
+			'id' => 1,
+			'name' => 'Others',
+		]);
+
+		C::create([
+			'name' => 'College of Computing and Information Technology',
+			'abbr' => 'CCIT'
 		]);
 	}
 }

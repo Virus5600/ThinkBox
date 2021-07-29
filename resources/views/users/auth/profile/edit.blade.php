@@ -156,6 +156,7 @@
 						<span class="float-right" style="color: #FC1838">{{$e}}</span>
 						@endif
 						@endforeach
+						
 						<div class="row">
 							<div class="col-4">
 								<input type="button" class="btn btn-custom add-row" value="Add Row" for="affiliations">

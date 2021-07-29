@@ -24,6 +24,11 @@ class ResearchAuthorsTableSeeder extends Seeder
 
 		// RESEARCH 4
 		// $this->addAuthors(4, array());
+
+		$this->addAuthors(6, array(9));
+		$this->addAuthors(7, array(9));
+
+		$this->addAuthors(5, array(10));
 	}
 
 	/**

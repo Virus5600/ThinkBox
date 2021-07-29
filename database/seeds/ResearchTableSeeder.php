@@ -55,6 +55,39 @@ class ResearchTableSeeder extends Seeder
 			1,
 			1
 		);
+
+		$this->addResearch(
+			'Development of Load Moment Control and Monitoring System for Mobile Heavy Load Cranes',
+			null,
+			'This study was conducted to develop a fully functional controlling and monitoring device to be used during the actual industrial operation of mobile heavy load cranes. The project aimed to provide a cost effective and user-friendly load moment indicator that meets the requirements of industry safety standards. The control system of the device measures and monitors the main parameters such as boom length, working radius, tip height, maximum load capacity based on crane load chart, actual load, efficiency and (actual load/maximum load) ratio. It was developed using the advanced application of Programmable Logic Controller (PLC) and latest technology of Human Machine Interface (HMI). The interface of Delta PLC and Delta HMI was able to replace the traditional controlling panels which need extensive wiring and the monitoring screen allows the user to complete settings through touchable keys on a user-friendly window. The performance of the implemented load moment control and monitoring system was evaluated and compared to the standard manufacturer rated lifting load chart. A series of tests was conducted and the results attest that the developed device successfully attained its functionality with an average of 99% accuracy on all the readings.',
+			10,
+			null,
+			\Carbon\Carbon::now(),
+			10,
+			0
+		);
+
+		$this->addResearch(
+			'“How do people view the estuary and the technology management practices to rehabilitate it?”: The case of Estero de Paco in Manila',
+			array('Rex P Bringula', 'Jovy M Afable', 'Roque Gajo', 'Ma Carmelita Santos', 'Arlen A Ancheta'),
+			'This descriptive study determined the profile of the people living near Estero de Paco in Manila. It also determined their attitudes and perceptions towards the use and purpose of the estuary and the technology management practices employed to rehabilitate it. It was revealed that most of the respondents were male, young, high school graduate, born in CALABARZON and NCR, had no permanent occupation, belonged to lower income class family with five or six members, living in family owned houses made of wood and cement for at least 20 years and living near the estero. Proximity to work was the main purpose of living near the estero. It was also revealed that they participated in various ways to clean up the estero. They perceived that there were efforts to rehabilitate the estero and technology management practices were visible and important. However, they also perceived that these practices were temporary …',
+			9,
+			'https://ieeexplore.ieee.org/abstract/document/7011605/',
+			\Carbon\Carbon::parse('2014-8-19'),
+			1,
+			0
+		);
+
+		$this->addResearch(
+			'Determinants of the best practices on practicum programs in engineering courses of selected higher education institutes in the Philippines',
+			array('Miriam R Borja', 'Laarnie D Macapagal', 'Emerita Hinojales'),
+			'In the attempt to identify the determinants of the best practices on practicum programs, this study looked at what is prevalent within the Philippine educational system and to surface information to evolve a more feasible concept of best practices on one of the popular courses which as engineering. The study employed descriptive - causal, explanatory and exploratory research. Data were gathered using Delphi-technique from representatives coming from institutions and industries and in-depth interview from students. The research instrument was validated by four experts. Reliability test was done by pre-testing the instrument on four Higher Education Institutions (HEI) in Luzon. Factor analysis was employed to determine the indicators of best practices while multiple regression was employed to identify the determinants of best practices and to test mediational relationships of variables. Seven indicators of best …',
+			9,
+			'https://ieeexplore.ieee.org/abstract/document/6654513',
+			\Carbon\Carbon::parse('2013-8-26'),
+			1,
+			0
+		);
 	}
 
 	/**

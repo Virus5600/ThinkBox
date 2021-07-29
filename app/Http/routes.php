@@ -99,6 +99,7 @@ Route::group(['middleware' => ['auth']], function() {
 		Route::post('/faculty-member/generate/store', 'FacultyStaffController@storeGenerated')->name('admin.faculty-member.generate.store');
 		Route::get('/faculty-member/{id}/delete', 'FacultyStaffController@delete')->name('admin.faculty-member.delete');
 		Route::resource('faculty-member', 'FacultyStaffController');
+		Route::post('faculty-member/{id}/update', 'FacultyStaffController@update')->name('admin.faculty-member.update');
 
 		// Announcements
 		Route::resource('announcements', 'AdminAnnouncementsController');
