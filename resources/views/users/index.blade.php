@@ -7,8 +7,8 @@
 	<div class="row h-100 darken-backdrop m-0" style="width: 100%;">
 		<div class="col-6 ml-5 banner-text-adjust">
 			<h1 class="text-light h3 h1-md">
-				Countless number of IDEAS<br>
-				that is INNOVATIVE, in a form of file
+				When we work together and<br>
+				collaborate, the possibilities are LIMITLESS.
 			</h1>
 
 			<hr class="hr-thick" style="border-color: white;" />

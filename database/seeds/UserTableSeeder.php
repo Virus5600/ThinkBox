@@ -139,7 +139,7 @@ class UserTableSeeder extends Seeder
 			'middle_name' => 'M',
 			'last_name' => 'Labanan',
 			'suffix' => null,
-			'avatar' => null,
+			'avatar' => 'user8.jpg',
 			'isAvatarLink' => 0,
 			'email' => null,
 			'username' => 'labananrm',
