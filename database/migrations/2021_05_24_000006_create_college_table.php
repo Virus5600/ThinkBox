@@ -15,7 +15,7 @@ class CreateCollegeTable extends Migration
 		Schema::create('colleges', function (Blueprint $table) {
 			$table->increments('id');
 			$table->string('name');
-			$table->string('abbr');
+			$table->string('abbr')->nullable();
 		});
 	}
 
