@@ -15,7 +15,7 @@ class CreateInnovationTable extends Migration
 		Schema::create('innovations', function (Blueprint $table) {
 			$table->increments('id');
 			$table->string('title');
-			$table->mediumtext('authors');
+			$table->mediumtext('authors')->nullable();
 			$table->mediumtext('description');
 			$table->integer('posted_by')->unsigned();
 			$table->string('url')->nullable();
