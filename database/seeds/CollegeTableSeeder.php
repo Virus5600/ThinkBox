@@ -14,7 +14,6 @@ class CollegeTableSeeder extends Seeder
 	public function run()
 	{
 		C::create([
-			'id' => 1,
 			'name' => 'Others'
 		]);
 
