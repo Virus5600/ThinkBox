@@ -6,7 +6,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 		{{-- SITE META --}}
-		<meta name="url" content="">
+		<meta name="url" content="{{ route('home') }}">
 		<meta name="type" content="website">
 		<meta name="title" content="{{ env('APP_NAME') }}">
 		<meta name="description" content="{{ env('APP_DESC') }}">
@@ -21,7 +21,7 @@
 		<meta name="twitter:image" content="{{Request::url()}}/images/UI/banners/meta.jpg">
 
 		{{-- OG META FOR FACEBOOK AND MESSENGER --}}
-		<meta name="og:url" content="">
+		<meta name="og:url" content="{{ route('home') }}">
 		<meta name="og:type" content="website">
 		<meta name="og:title" content="{{ env('APP_NAME') }}">
 		<meta name="og:description" content="{{ env('APP_DESC') }}">
