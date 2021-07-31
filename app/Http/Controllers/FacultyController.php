@@ -123,7 +123,7 @@ class FacultyController extends Controller
 		}
 		
 		if (!is_a($staff, 'Illuminate\Support\Collection')) {
-			$staff = $staff->distinct()->get();
+			$staff = $staff->distinct()->get(['faculty_staffs.*']);
 		}
 		
 		// RETURN
