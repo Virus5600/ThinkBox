@@ -112,7 +112,7 @@ class FacultyController extends Controller
 				->join('faculty_focus', 'faculty_staffs.id', '=', 'faculty_focus.faculty_staff_id')
 				->join('focus', 'faculty_focus.focus_id', '=', 'focus.id')
 				// Proceed to do the filtering
-				->where('staff_types.type', 'LIKE', '%'.preg_replace("/ /", "_", $search.'%')
+				->where('staff_types.type', 'LIKE', '%'.preg_replace("/ /", "_", $search).'%')
 				->orWhere('faculty_staffs.location', 'LIKE', '%'.$search.'%')
 				->orWhere('faculty_staffs.description', 'LIKE', '%'.$search.'%')
 				->orWhere('users.first_name', 'LIKE', '%'.$search.'%')
