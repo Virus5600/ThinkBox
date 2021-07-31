@@ -119,7 +119,7 @@ class FacultyController extends Controller
 				->orWhere('users.middle_name', 'LIKE', '%'.$search.'%')
 				->orWhere('users.last_name', 'LIKE', '%'.$search.'%')
 				->orWhere('users.email', 'LIKE', '%'.$search.'%')
-				->orWhere('focus.name', 'LIKE', '%'.$search.'%')
+				->orWhere('focus.name', 'LIKE', '%'.$search.'%');
 		}
 		
 		if (!is_a($staff, 'Illuminate\Support\Collection')) {
