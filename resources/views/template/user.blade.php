@@ -11,24 +11,21 @@
 		<meta name="title" content="{{ env('APP_NAME') }}">
 		<meta name="description" content="{{ env('APP_DESC') }}">
 		<meta name="image" content="/images/UI/banners/meta.jpg">
-		<meta name="image:alt" content="/images/UI/banners/meta.jpg">
-		<meta name="keywords" content="">
-		<meta name="application-name" content="Defensive Measures Add-on Guide">
+		<meta name="keywords" content="Repository">
+		<meta name="application-name" content="{{ env('APP_NAME') }}">
+
+		{{-- TWITTER META --}}
+		<meta name="twitter:card" content="summary_large_image">
+		<meta name="twitter:title" content="{{ env('APP_NAME') }}">
+		<meta name="twitter:description" content="{{ env('APP_DESC') }}">
+		<meta name="twitter:image" content="{{Request::url()}}/images/UI/banners/meta.jpg">
 
 		{{-- OG META FOR FACEBOOK AND MESSENGER --}}
 		<meta name="og:url" content="">
 		<meta name="og:type" content="website">
 		<meta name="og:title" content="{{ env('APP_NAME') }}">
 		<meta name="og:description" content="{{ env('APP_DESC') }}">
-		<meta name="og:image" content="images/UI/banners/meta.jpg">
-		<meta name="og:image:alt" content="images/UI/banners/meta.jpg">
-
-		{{-- TWITTER META --}}
-		<meta name="twitter:card" content="summary">
-		<meta name="twitter:title" content="{{ env('APP_NAME') }}">
-		<meta name="twitter:description" content="{{ env('APP_DESC') }}">
-		<meta name="twitter:image" content="images/UI/banners/meta.jpg">
-		<meta name="twitter:image:alt" content="images/UI/banners/meta.jpg">
+		<meta name="og:image" content="/images/UI/banners/meta.jpg">
 
 		{{-- jQuery 3.6.0 --}}
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
