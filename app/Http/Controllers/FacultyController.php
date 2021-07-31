@@ -112,14 +112,14 @@ class FacultyController extends Controller
 				->join('faculty_focus', 'faculty_staffs.id', '=', 'faculty_focus.faculty_staff_id')
 				->join('focus', 'faculty_focus.focus_id', '=', 'focus.id')
 				// Proceed to do the filtering
-				->whereRaw('staff_types.type LIKE CONCAT("%", ?, "%")', [preg_replace("/ /", "_", $search)])
-				->orWhereRaw('faculty_staffs.location LIKE CONCAT("%", ?, "%")', [$search])
-				->orWhereRaw('faculty_staffs.description LIKE CONCAT("%", ?, "%")', [$search])
-				->orWhereRaw('users.first_name LIKE CONCAT("%", ?, "%")', [$search])
-				->orWhereRaw('users.middle_name LIKE CONCAT("%", ?, "%")', [$search])
-				->orWhereRaw('users.last_name LIKE CONCAT("%", ?, "%")', [$search])
-				->orWhereRaw('users.email LIKE CONCAT("%", ?, "%")', [$search])
-				->orWhereRaw('focus.name LIKE CONCAT("%", ?, "%")', [$search]);
+				->where('staff_types.type', 'LIKE', '%'.preg_replace("/ /", "_", $search.'%')
+				->orWhere('faculty_staffs.location', 'LIKE', '%'.$search.'%')
+				->orWhere('faculty_staffs.description', 'LIKE', '%'.$search.'%')
+				->orWhere('users.first_name', 'LIKE', '%'.$search.'%')
+				->orWhere('users.middle_name', 'LIKE', '%'.$search.'%')
+				->orWhere('users.last_name', 'LIKE', '%'.$search.'%')
+				->orWhere('users.email', 'LIKE', '%'.$search.'%')
+				->orWhere('focus.name', 'LIKE', '%'.$search.'%')
 		}
 		
 		if (!is_a($staff, 'Illuminate\Support\Collection')) {

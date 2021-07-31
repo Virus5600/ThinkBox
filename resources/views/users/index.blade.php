@@ -251,9 +251,9 @@
 					@php ($i = 0)
 					@foreach($staff as $s)
 					@if ($i%4 == 0)
-					<div class="row mb-4">
+					<div class="row mb-4-lg">
 					@endif
-						<div class="col-12 col-md-3 mr-auto">
+						<div class="col-12 col-md-3 my-3 my-0-lg mx-auto">
 							<div class="card dark-shadow h-100">
 								@if ($s->user->avatar == null)
 								<div class="card-header p-0" style="background: #fff url('/uploads/users/default.png') no-repeat center; background-size: cover;">
