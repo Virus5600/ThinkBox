@@ -10,8 +10,8 @@
 		<meta name="type" content="website">
 		<meta name="title" content="{{ env('APP_NAME') }}">
 		<meta name="description" content="{{ env('APP_DESC') }}">
-		<meta name="image" content="/images/UI/banners/faculty.jpg">
-		<meta name="image:alt" content="/images/UI/banners/faculty.jpg">
+		<meta name="image" content="/images/UI/banners/meta.jpg">
+		<meta name="image:alt" content="/images/UI/banners/meta.jpg">
 		<meta name="keywords" content="">
 		<meta name="application-name" content="Defensive Measures Add-on Guide">
 
@@ -20,8 +20,8 @@
 		<meta name="og:type" content="website">
 		<meta name="og:title" content="{{ env('APP_NAME') }}">
 		<meta name="og:description" content="{{ env('APP_DESC') }}">
-		<meta name="og:image" content="images/UI/banners/faculty.jpg">
-		<meta name="og:image:alt" content="images/UI/banners/faculty.jpg">
+		<meta name="og:image" content="images/UI/banners/meta.jpg">
+		<meta name="og:image:alt" content="images/UI/banners/meta.jpg">
 
 		{{-- jQuery 3.6.0 --}}
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
