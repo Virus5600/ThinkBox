@@ -6,9 +6,9 @@
 <div class="px-0 mx-0" style="max-width: 100vw!important; width: auto!important; height: 100vh!important; background: #fff url('/images/UI/banners/index.jpg') no-repeat center; background-size: cover;">
 	<div class="row h-100 darken-backdrop m-0" style="width: 100%;">
 		<div class="col-6 ml-5 banner-text-adjust">
-			<h1 class="text-light h3 h1-md">
+			<h1 class="text-light h3 h1-md" style="font-family: Arial Narrow;">
 				When we work together and<br>
-				collaborate, the possibilities are LIMITLESS.
+				collaborate, the possibilities are <span style="color: #f80562;">LI</span><span style="color: #fac617;">MIT</span><span style="color: #0bbdd5;">LESS</span>.
 			</h1>
 
 			<hr class="hr-thick" style="border-color: white;" />
