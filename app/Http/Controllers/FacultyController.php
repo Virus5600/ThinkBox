@@ -125,6 +125,10 @@ class FacultyController extends Controller
 		if (!is_a($staff, 'Illuminate\Support\Collection')) {
 			$staff = $staff->distinct()->get(['faculty_staffs.*']);
 		}
+
+		if (!\Request::has('sortBy') || \Request::get('sortBy') == 'none') {
+			$staff = $staff->sortByDesc('department');
+		}
 		
 		// RETURN
 		return view('users.faculty.index', [
@@ -134,7 +138,7 @@ class FacultyController extends Controller
 			'researchFocus' => $rf,
 			'searchVal' => \Request::get('search'),
 			'research_focus' => Focus::get(),
-			'staff' => $staff->sortByDesc('department')
+			'staff' => $staff
 		]);
 	}
 
