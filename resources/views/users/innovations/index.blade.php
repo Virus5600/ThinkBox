@@ -32,15 +32,7 @@
 					@foreach($college as $c)
 					<option></option>
 					<option value="{{$c->name}}" class="font-weight-bold" {{$dept == $c->name ? 'selected' : ''}}>
-						{{ucwords($c->name)}}
-						@php
-						echo "(";
-						foreach (explode(" ", $c->name) as $w) {
-							if (ctype_upper(substr($w, 0, 1)))
-								echo substr($w, 0, 1);
-						}
-						echo ")";
-						@endphp
+						{{ucwords($c->name)}}{{$c->abbr != null ? ' (' . $c->abbr . ')' : ''}}
 					</option>
 					@foreach($c->departments as $d)
 					<option value="{{$d->name}}" {{$dept == $d->name ? 'selected' : ''}}>{{ucwords($d->name)}}</option>

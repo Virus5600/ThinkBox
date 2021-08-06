@@ -25,13 +25,13 @@ class PageController extends Controller
 {
 	// USER SIDE (AUTH AND UNAUTH)
 	protected function index() {
-		$staff = FacultyStaff::join('users', 'users.id', '=', 'faculty_staffs.user_id')->orderBy('users.last_name')->get(['faculty_staffs.*'])->take(8);
+		$staff = FacultyStaff::leftJoin('users', 'users.id', '=', 'faculty_staffs.user_id')->orderBy('users.last_name')->get(['faculty_staffs.*'])->take(8);
 		$announcements = Announcements::latest()->get()->take(3);
 		$research = Auth::check() ? Research::orderBy('date_published', 'DESC')->get()->take(3) : Research::where('is_featured', 1)->orderBy('date_published', 'DESC')->get()->take(3);
 		$innovations = Auth::check() ? Innovation::orderBy('date_published', 'DESC')->get()->take(3) : Innovation::where('is_featured', 1)->orderBy('date_published', 'DESC')->get()->take(3);
 
 		return view('users.index', [
-			'staff' => $staff,
+			'staff' => $staff->sortByDesc('department'),
 			'announcements' => $announcements,
 			'research' => $research,
 			'innovations' => $innovations
@@ -80,13 +80,13 @@ class PageController extends Controller
 
 			if ($rf != 'all') {
 				if (Auth::check()) {
-					$focus = ResearchFocus::join('research', 'research.id', '=', 'research_focus.research_id')
+					$focus = ResearchFocus::leftJoin('research', 'research.id', '=', 'research_focus.research_id')
 						->where('research_focus.focus_id', '=', Focus::where('name', '=', $rf)->first()->id)
 						->distinct()
 						->get(['research.*']);
 				}
 				else {
-					$focus = ResearchFocus::join('research', 'research.id', '=', 'research_focus.research_id')
+					$focus = ResearchFocus::leftJoin('research', 'research.id', '=', 'research_focus.research_id')
 						->where('research_focus.focus_id', '=', Focus::where('name', '=', $rf)->first()->id)
 						->where('is_featured', 1)
 						->distinct()
@@ -105,11 +105,11 @@ class PageController extends Controller
 		if (\Request::has('sortBy')) {
 			$sortBy = \Request::get('sortBy');
 			if ($sortBy == 'authorFirstName') {
-				$research = $research->join('users', 'users.id', '=', 'research.posted_by')
+				$research = $research->leftJoin('users', 'users.id', '=', 'research.posted_by')
 					->orderBy('users.first_name', 'ASC');
 			}
 			else if	($sortBy == 'authorLastName') {
-				$research = $research->join('users', 'users.id', '=', 'research.posted_by')
+				$research = $research->leftJoin('users', 'users.id', '=', 'research.posted_by')
 					->orderBy('users.last_name', 'ASC');
 			}
 			else if ($sortBy == 'date') {
@@ -125,12 +125,12 @@ class PageController extends Controller
 			$search = \Request::get('search');
 			
 			if ($sortBy == 'date' || $sortBy == 'title') {
-				$research = $research->join('users', 'users.id', '=', 'research.posted_by');
+				$research = $research->leftJoin('users', 'users.id', '=', 'research.posted_by');
 			}
 			
-			// Joining the many-to-many tables research, research_focus, and focus
-			$research = $research->join('research_focus', 'research.id', '=', 'research_focus.research_id')
-				->join('focus', 'research_focus.focus_id', '=', 'focus.id');
+			// leftJoining the many-to-many tables research, research_focus, and focus
+			$research = $research->leftJoin('research_focus', 'research.id', '=', 'research_focus.research_id')
+				->leftJoin('focus', 'research_focus.focus_id', '=', 'focus.id');
 
 			// Proceed to do the filtering
 			$research = $research->where('research.title', 'LIKE', '%'.$search.'%')
@@ -209,13 +209,13 @@ class PageController extends Controller
 
 			if ($rf != 'all') {
 				if (Auth::check()) {
-					$focus = InnovationFocus::join('innovations', 'innovations.id', '=', 'innovation_focus.innovation_id')
+					$focus = InnovationFocus::leftJoin('innovations', 'innovations.id', '=', 'innovation_focus.innovation_id')
 						->where('innovation_focus.focus_id', '=', Focus::where('name', '=', $rf)->first()->id)
 						->distinct()
 						->get(['innovations.*']);
 				}
 				else {
-					$focus = InnovationFocus::join('innovations', 'innovations.id', '=', 'innovation_focus.innovation_id')
+					$focus = InnovationFocus::leftJoin('innovations', 'innovations.id', '=', 'innovation_focus.innovation_id')
 						->where('innovation_focus.focus_id', '=', Focus::where('name', '=', $rf)->first()->id)
 						->where('is_featured', 1)
 						->distinct()
@@ -234,11 +234,11 @@ class PageController extends Controller
 		if (\Request::has('sortBy')) {
 			$sortBy = \Request::get('sortBy');
 			if ($sortBy == 'authorFirstName') {
-				$innovations = $innovations->join('users', 'users.id', '=', 'innovations.posted_by')
+				$innovations = $innovations->leftJoin('users', 'users.id', '=', 'innovations.posted_by')
 					->orderBy('users.first_name', 'ASC');
 			}
 			else if	($sortBy == 'authorLastName') {
-				$innovations = $innovations->join('users', 'users.id', '=', 'innovations.posted_by')
+				$innovations = $innovations->leftJoin('users', 'users.id', '=', 'innovations.posted_by')
 					->orderBy('users.last_name', 'ASC');
 			}
 			else if ($sortBy == 'date') {
@@ -254,12 +254,12 @@ class PageController extends Controller
 			$search = \Request::get('search');
 			
 			if ($sortBy == 'date' || $sortBy == 'title') {
-				$innovations = $innovations->join('users', 'users.id', '=', 'innovations.posted_by');
+				$innovations = $innovations->leftJoin('users', 'users.id', '=', 'innovations.posted_by');
 			}
 			
-			// Joining the many-to-many tables innovations, innovation_focus, and focus
-			$innovations = $innovations->join('innovation_focus', 'innovations.id', '=', 'innovation_focus.innovation_id')
-				->join('focus', 'innovation_focus.focus_id', '=', 'focus.id');
+			// leftJoining the many-to-many tables innovations, innovation_focus, and focus
+			$innovations = $innovations->leftJoin('innovation_focus', 'innovations.id', '=', 'innovation_focus.innovation_id')
+				->leftJoin('focus', 'innovation_focus.focus_id', '=', 'focus.id');
 
 			// Proceed to do the filtering
 			$innovations = $innovations->where('innovations.title', 'LIKE', '%'.$search.'%')

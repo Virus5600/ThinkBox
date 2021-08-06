@@ -292,9 +292,9 @@ class UserController extends Controller
 		if (\Request::has('search')) {
 			$search = \Request::get('search');
 			
-			// Joining the many-to-many tables research, research_focus, and focus
-			$research = $research->join('research_focus', 'research.id', '=', 'research_focus.research_id')
-				->join('focus', 'research_focus.focus_id', '=', 'focus.id');
+			// leftJoining the many-to-many tables research, research_focus, and focus
+			$research = $research->leftJoin('research_focus', 'research.id', '=', 'research_focus.research_id')
+				->leftJoin('focus', 'research_focus.focus_id', '=', 'focus.id');
 
 			// Proceed to do the filtering
 			$research = $research->where('research.title', 'LIKE', "%".$search."%")
@@ -323,9 +323,9 @@ class UserController extends Controller
 		if (\Request::has('search')) {
 			$search = \Request::get('search');
 			
-			// Joining the many-to-many tables research, research_focus, and focus
-			$research = $research->join('research_focus', 'research.id', '=', 'research_focus.research_id')
-				->join('focus', 'research_focus.focus_id', '=', 'focus.id');
+			// leftJoining the many-to-many tables research, research_focus, and focus
+			$research = $research->leftJoin('research_focus', 'research.id', '=', 'research_focus.research_id')
+				->leftJoin('focus', 'research_focus.focus_id', '=', 'focus.id');
 
 			// Proceed to do the filtering
 			$research = $research->where('research.title', 'LIKE', "%".$search."%")
@@ -348,7 +348,7 @@ class UserController extends Controller
 	protected function researchCreate() {
 		return view('users.auth.profile.show.research.create', [
 			'focus' => Focus::get(),
-			'staff' => FacultyStaff::join('users', 'users.id', '=', 'faculty_staffs.user_id')->orderBy('users.first_name', 'ASC')->get(['faculty_staffs.*']),
+			'staff' => FacultyStaff::leftJoin('users', 'users.id', '=', 'faculty_staffs.user_id')->orderBy('users.first_name', 'ASC')->get(['faculty_staffs.*']),
 		]);
 	}
 
@@ -477,7 +477,7 @@ class UserController extends Controller
 		return view('users.auth.profile.show.research.edit', [
 			'research' => Research::find($id),
 			'focus' => Focus::get(),
-			'staff' => FacultyStaff::join('users', 'users.id', '=', 'faculty_staffs.user_id')->orderBy('users.first_name', 'ASC')->get(['faculty_staffs.*']),
+			'staff' => FacultyStaff::leftJoin('users', 'users.id', '=', 'faculty_staffs.user_id')->orderBy('users.first_name', 'ASC')->get(['faculty_staffs.*']),
 		]);
 	}
 
@@ -725,9 +725,9 @@ class UserController extends Controller
 		if (\Request::has('search')) {
 			$search = \Request::get('search');
 			
-			// Joining the many-to-many tables innovations, innovation_focus, and focus
-			$innovations = $innovations->join('innovation_focus', 'innovations.id', '=', 'innovation_focus.innovation_id')
-				->join('focus', 'innovation_focus.focus_id', '=', 'focus.id');
+			// leftJoining the many-to-many tables innovations, innovation_focus, and focus
+			$innovations = $innovations->leftJoin('innovation_focus', 'innovations.id', '=', 'innovation_focus.innovation_id')
+				->leftJoin('focus', 'innovation_focus.focus_id', '=', 'focus.id');
 
 			// Proceed to do the filtering
 			$innovations = $innovations->where('innovations.title', 'LIKE', "%".$search."%")
@@ -771,9 +771,9 @@ class UserController extends Controller
 		if (\Request::has('search')) {
 			$search = \Request::get('search');
 			
-			// Joining the many-to-many tables innovation, innovation_focus, and focus
-			$innovations = $innovations->join('innovation_focus', 'innovations.id', '=', 'innovation_focus.innovation_id')
-				->join('focus', 'innovation_focus.focus_id', '=', 'focus.id');
+			// leftJoining the many-to-many tables innovation, innovation_focus, and focus
+			$innovations = $innovations->leftJoin('innovation_focus', 'innovations.id', '=', 'innovation_focus.innovation_id')
+				->leftJoin('focus', 'innovation_focus.focus_id', '=', 'focus.id');
 
 			// Proceed to do the filtering
 			$innovations = $innovations->where('innovations.title', 'LIKE', "%".$search."%")
@@ -796,7 +796,7 @@ class UserController extends Controller
 	protected function innovationsCreate() {
 		return view('users.auth.profile.show.innovations.create', [
 			'focus' => Focus::get(),
-			'staff' => FacultyStaff::join('users', 'users.id', '=', 'faculty_staffs.user_id')->orderBy('users.first_name', 'ASC')->get(['faculty_staffs.*']),
+			'staff' => FacultyStaff::leftJoin('users', 'users.id', '=', 'faculty_staffs.user_id')->orderBy('users.first_name', 'ASC')->get(['faculty_staffs.*']),
 		]);
 	}
 
@@ -926,7 +926,7 @@ class UserController extends Controller
 		return view('users.auth.profile.show.innovations.edit', [
 			'innovation' => Innovation::find($id),
 			'focus' => Focus::get(),
-			'staff' => FacultyStaff::join('users', 'users.id', '=', 'faculty_staffs.user_id')->orderBy('users.first_name', 'ASC')->get(['faculty_staffs.*']),
+			'staff' => FacultyStaff::leftJoin('users', 'users.id', '=', 'faculty_staffs.user_id')->orderBy('users.first_name', 'ASC')->get(['faculty_staffs.*']),
 		]);
 	}
 
@@ -1175,8 +1175,8 @@ class UserController extends Controller
 		if (\Request::has('search')) {
 			$search = \Request::get('search');
 			
-			// Joining the one-to-many tables topics to materials
-			$materials = $materials->join('topics', 'materials.topic_id', '=', 'topics.id');
+			// leftJoining the one-to-many tables topics to materials
+			$materials = $materials->leftJoin('topics', 'materials.topic_id', '=', 'topics.id');
 
 			// Proceed to do the filtering
 			$materials = $materials->where('materials.material_name', 'LIKE', "%".$search."%")
