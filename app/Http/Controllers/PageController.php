@@ -55,7 +55,7 @@ class PageController extends Controller
 				$deptArr = array();
 				$staffArr = array();
 				
-				if (substr($dept, 0, 7) == 'College') {
+				if (substr($dept, 0, 7) == 'College' || substr($dept, 0, 6) == 'Others') {
 					foreach (Departments::where('college', '=', College::where('name', '=', $dept)->first()->id)->get() as $d) {
 						array_push($deptArr, $d->id);
 					}
@@ -184,7 +184,7 @@ class PageController extends Controller
 				$deptArr = array();
 				$staffArr = array();
 				
-				if (substr($dept, 0, 7) == 'College') {
+				if (substr($dept, 0, 7) == 'College' || substr($dept, 0, 6) == 'Others') {
 					foreach (Departments::where('college', '=', College::where('name', '=', $dept)->first()->id)->get() as $d) {
 						array_push($deptArr, $d->id);
 					}

@@ -57,7 +57,7 @@ class FacultyController extends Controller
 				$deptArr = array();
 				
 				// If the first 7 letters of the deptartment filter is "College" (given that all colleges starts with "College of ...")
-				if (substr($dept, 0, 7) == 'College') {
+				if (substr($dept, 0, 7) == 'College' || substr($dept, 0, 6) == 'Others') {
 					// ...get all the departments under that college then add them to the $deptArr array.
 					foreach (Departments::where('college', '=', College::where('name', '=', $dept)->first()->id)->get() as $d) {
 						array_push($deptArr, $d->id);
