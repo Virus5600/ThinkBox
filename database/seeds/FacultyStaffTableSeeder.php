@@ -107,12 +107,21 @@ class FacultyStaffTableSeeder extends Seeder
 			'description' => 'Experienced Technical Consultant with a demonstrated history of working in the education management industry. Skilled in Management, Training, Instrumentation, Leadership, and Programmable Logic Controller (PLC). Strong sales professional with a Masters of Engineering focused in Electrical and Electronics Engineering from Technological University of the Philippines.'
 		]);
 
+		FS::create([
+			'id' => 11,
+			'user_id' => 11,
+			'department' => 1,
+			'position' => 5,
+			'location' => 'National University',
+			'description' => null
+		]);
+
 		// DEV ACCOUNT FOR LOCAL TESTING
 		if (env('APP_ENV') == 'local') {
 			FS::create([
 				'user_id' => 0,
 				'department' => 1,
-				'position' => 4,
+				'position' => 5,
 				'location' => 'National University',
 				'description' => 'ADMIN ACCOUNT'
 			]);

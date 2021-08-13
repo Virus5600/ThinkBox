@@ -183,6 +183,19 @@ class UserTableSeeder extends Seeder
 			'expiration_date' => null
 		]);
 
+		U::create([
+			'id' => 11
+			'first_name' => 'Gabrielle Avelino',
+			'last_name' => 'Sampedro',
+			'avatar' => null,
+			'isAvatarLink' => 0,
+			'email' => null,
+			'username' => 'sampedroga',
+			'password' => Hash::make('pass123');
+			'role' => 3,
+			'expiration_date' => null
+		])
+
 		// DEV ACCOUNT FOR LOCAL TESTING
 		if (env('APP_ENV') == 'local') {
 			U::create([
