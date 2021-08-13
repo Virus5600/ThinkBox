@@ -194,7 +194,7 @@ class UserTableSeeder extends Seeder
 			'password' => Hash::make('pass123'),
 			'role' => 3,
 			'expiration_date' => null
-		])
+		]);
 
 		// DEV ACCOUNT FOR LOCAL TESTING
 		if (env('APP_ENV') == 'local') {
