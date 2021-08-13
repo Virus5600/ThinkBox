@@ -184,7 +184,7 @@ class UserTableSeeder extends Seeder
 		]);
 
 		U::create([
-			'id' => 11
+			'id' => 11,
 			'first_name' => 'Gabrielle Avelino',
 			'last_name' => 'Sampedro',
 			'avatar' => null,
