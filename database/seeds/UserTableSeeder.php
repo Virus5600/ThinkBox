@@ -191,7 +191,7 @@ class UserTableSeeder extends Seeder
 			'isAvatarLink' => 0,
 			'email' => null,
 			'username' => 'sampedroga',
-			'password' => Hash::make('pass123');
+			'password' => Hash::make('pass123'),
 			'role' => 3,
 			'expiration_date' => null
 		])
