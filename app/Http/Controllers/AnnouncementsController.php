@@ -33,8 +33,8 @@ class AnnouncementsController extends Controller
 				->orWhere('content', 'LIKE', "%".$search."%");
 		}
 		
-		if (!is_a($announcements, 'Illuminate\Support\Collection')) {
-			$announcements = $announcements->get(['announcements.*']);
+		if (!is_a($announcements, 'Illuminate\Pagination\LengthAwarePaginator')) {
+			$announcements = $announcements->paginate(9, ['announcements.*']);
 		}
 
 		return view('users.announcements.index', [

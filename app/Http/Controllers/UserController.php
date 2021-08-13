@@ -1272,16 +1272,28 @@ class UserController extends Controller
 
 	// TOPICS RELATED VIEWS
 	protected function topicIndex() {
-		$material = Material::where('faculty_staff_id', '=', FacultyStaff::where('user_id', Auth::user()->id)->first()->id)->get();
+		$material = Material::where('faculty_staff_id', '=', Auth::user()->staff->id);
 		$topic_names = array();
 
-		foreach ($material as $m)
-			if (!in_array($m->topic->topic_name, $topic_names))
+		// SEARCH
+		if (\Request::has('search')) {
+			$search = \Request::get('search');
+
+			$material = $material->leftJoin('topics', 'materials.topic_id', '=', 'topics.id')
+				->where('topic_name', 'LIKE', '%' . $search . '%');
+		}
+
+		foreach ($material->get() as $m) {
+			Log::info($m);
+			if (!in_array($m->topic->topic_name, $topic_names)) {
 				array_push($topic_names, $m->topic->topic_name);
+			}
+		}
 
 		return view('users.auth.profile.show.topics.index', [
 			'topic_names' => $topic_names,
-			'topics' => Topic::get()
+			'topics' => Topic::get(),
+			'searchVal' => \Request::get('search')
 		]);
 	}
 

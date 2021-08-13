@@ -67,6 +67,7 @@
 
 			<input type="submit" class="hidden" id="facultyParamSubmit">
 		</form>
+
 		{{-- DEFINES THE COLUMN --}}
 		<div class="col col-lg-9 mb-md-4">
 			<div class="row">
@@ -124,6 +125,9 @@
 					</div>
 				</div>
 				@endforelse
+
+
+				<nav class="mx-auto">{{ $staff->links() }}</nav>
 			</div>
 		</div>
 	</div>

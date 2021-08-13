@@ -21,6 +21,7 @@ use App\OtherProfile;
 use App\Topic;
 
 use Auth;
+use Log;
 
 class FacultyController extends Controller
 {
@@ -121,13 +122,13 @@ class FacultyController extends Controller
 				->orWhere('users.email', 'LIKE', '%'.$search.'%')
 				->orWhere('focus.name', 'LIKE', '%'.$search.'%');
 		}
-		
-		if (!is_a($staff, 'Illuminate\Support\Collection')) {
-			$staff = $staff->distinct()->get(['faculty_staffs.*']);
-		}
 
 		if (!\Request::has('sortBy') || \Request::get('sortBy') == 'none') {
-			$staff = $staff->sortByDesc('department');
+			$staff = $staff->orderBy('department', 'DESC');
+		}
+		
+		if (!is_a($staff, 'Illuminate\Pagination\LengthAwarePaginator')) {
+			$staff = $staff->distinct()->paginate(10, ['faculty_staffs.*']);
 		}
 		
 		// RETURN

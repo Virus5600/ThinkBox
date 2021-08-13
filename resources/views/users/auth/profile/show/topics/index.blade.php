@@ -19,14 +19,14 @@
 					<a class="btn btn-success px-2 py-1" href="{{ route('profile.topics.create') }}">Add Item</a>
 				</div>
 				
-				<div class="col-12 col-sm-8 col-lg-3 text-center my-2">
+				<form action="{{ route('profile.topics.index') }}" method="GET" class="col-12 col-sm-8 col-lg-3 text-center my-2">
 					<div class="input-group">
-						<input type="text" class="form-control" name="search" placeholder="Search..."/>
+						<input type="text" class="form-control" name="search" placeholder="Search..." value="{{$searchVal}}"/>
 						<div class="input-group-append">
-							<button type="button" class="btn btn-custom"><i class="fas fa-search"></i></button>
+							<button type="submit" class="btn btn-custom"><i class="fas fa-search"></i></button>
 						</div>
 					</div>
-				</div>
+				</form>
 			</div>
 
 			<div class="row overflow-x-auto" style="white-space: nowrap; display: block;">

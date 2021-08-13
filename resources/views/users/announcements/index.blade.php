@@ -75,6 +75,10 @@
 				@php ($announcementCount++)
 				@endforeach
 			</div>
+			
+			<div class="row">
+				<nav class="mx-auto">{{ $announcements->links() }}</nav>
+			</div>
 		</div>
 	</div>
 </div>

@@ -154,6 +154,8 @@
 					Nothing to show
 				</div>
 				@endforelse
+
+				<nav class="mx-auto">{{ $research->links() }}</nav>
 			</div>
 		</div>
 	</div>

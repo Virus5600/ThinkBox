@@ -313,6 +313,14 @@
 				},
 			});
 			@endif
+
+			$(document).ready(() => {
+				let paginator = $('nav > ul.pagination');
+				paginator.find('li').addClass('page-item');
+				paginator.find('li > *').addClass('page-link');
+				paginator.find('li:nth-child(1) > *').text('Previous');
+				paginator.find('li:nth-last-child(1) > *').text('Next');
+			});
 		</script>
 
 		<script type="text/javascript" src="/js/user.js"></script>

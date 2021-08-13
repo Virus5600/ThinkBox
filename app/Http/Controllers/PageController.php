@@ -81,16 +81,12 @@ class PageController extends Controller
 			if ($rf != 'all') {
 				if (Auth::check()) {
 					$focus = ResearchFocus::leftJoin('research', 'research.id', '=', 'research_focus.research_id')
-						->where('research_focus.focus_id', '=', Focus::where('name', '=', $rf)->first()->id)
-						->distinct()
-						->get(['research.*']);
+						->where('research_focus.focus_id', '=', Focus::where('name', '=', $rf)->first()->id);
 				}
 				else {
 					$focus = ResearchFocus::leftJoin('research', 'research.id', '=', 'research_focus.research_id')
 						->where('research_focus.focus_id', '=', Focus::where('name', '=', $rf)->first()->id)
-						->where('is_featured', 1)
-						->distinct()
-						->get(['research.*']);
+						->where('is_featured', 1);
 				}
 
 				foreach ($focus as $f) {
@@ -144,8 +140,8 @@ class PageController extends Controller
 				->orWhere('focus.name', 'LIKE', '%'.$search.'%');
 		}
 		
-		if (!is_a($research, 'Illuminate\Support\Collection')) {
-			$research = Auth::check() ? $research->distinct()->get(['research.*']) : $research->where('research.is_featured', 1)->distinct()->get(['research.*']);
+		if (!is_a($research, 'Illuminate\Pagination\LengthAwarePaginator')) {
+			$research = Auth::check() ? $research->distinct()->paginate(9, ['research.*']) : $research->where('research.is_featured', 1)->distinct()->paginate(9, ['research.*']);
 		}
 
 
@@ -210,16 +206,12 @@ class PageController extends Controller
 			if ($rf != 'all') {
 				if (Auth::check()) {
 					$focus = InnovationFocus::leftJoin('innovations', 'innovations.id', '=', 'innovation_focus.innovation_id')
-						->where('innovation_focus.focus_id', '=', Focus::where('name', '=', $rf)->first()->id)
-						->distinct()
-						->get(['innovations.*']);
+						->where('innovation_focus.focus_id', '=', Focus::where('name', '=', $rf)->first()->id);
 				}
 				else {
 					$focus = InnovationFocus::leftJoin('innovations', 'innovations.id', '=', 'innovation_focus.innovation_id')
 						->where('innovation_focus.focus_id', '=', Focus::where('name', '=', $rf)->first()->id)
-						->where('is_featured', 1)
-						->distinct()
-						->get(['innovations.*']);
+						->where('is_featured', 1);
 				}
 
 				foreach ($focus as $f) {
@@ -273,8 +265,8 @@ class PageController extends Controller
 				->orWhere('focus.name', 'LIKE', '%'.$search.'%');
 		}
 		
-		if (!is_a($innovations, 'Illuminate\Support\Collection')) {
-			$innovations = Auth::check() ? $innovations->distinct()->get(['innovations.*']) : $innovations->where('innovations.is_featured', 1)->distinct()->get(['innovations.*']);
+		if (!is_a($innovations, 'Illuminate\Pagination\LengthAwarePaginator')) {
+			$innovations = Auth::check() ? $innovations->distinct()->paginate(9, ['innovations.*']) : $innovations->where('innovations.is_featured', 1)->distinct()->paginate(9, ['innovations.*']);
 		}
 
 		return view('users.innovations.index', [

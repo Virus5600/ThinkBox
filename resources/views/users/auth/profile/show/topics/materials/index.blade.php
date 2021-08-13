@@ -12,7 +12,7 @@
 		</div>
 
 		<div class="col-12 col-lg-9 px-5">
-			<div class="row">
+			<form action="{{ route('profile.topics.materials.index') }}" action="GET" class="row">
 				<div class="col-12 col-lg-7 text-center text-lg-left overflow-x-hidden text-overflow-ellipsis"><h1 class="overflow-hidden text-overflow-ellipsis"><a href="{{ route('profile.topics.index') }}" class="text-decoration-none text-dark text-overflow-ellipsis"><i class="fas fa-chevron-left mr-2"></i>Course Materials - {{$topic->topic_name}}</a></h1></div>
 
 				<div class="col-12 col-sm-4 col-lg-2 text-center text-md-left my-2">
@@ -27,7 +27,7 @@
 						</div>
 					</div>
 				</div>
-			</div>
+			</form>
 
 			<div class="row overflow-x-auto" style="white-space: nowrap; display: block;">
 				<table class="table">
@@ -62,20 +62,20 @@
 
 								{{-- MODAL FOR MOVING SINGLE MATERIAL --}}
 								<div class="modal fade ui-front" id="moveDetail{{$m->id}}" tabindex="-1" role="dialog" aria-hidden="true">
-									<div class="modal-dialog" role="document">
+									<div class="modal-dialog modal-dialog-centered" role="document">
 										<form class="modal-content" action="{{route('profile.topics.materials.move', [$topic->id, $m->id])}}" method="POST" enctype="multipart/form-data">
 											<div class="modal-header">
-												<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+												<h5 class="modal-title" id="exampleModalLabel">Move Material</h5>
 												<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 													<span aria-hidden="true">&times;</span>
 												</button>
 											</div>
-											<div class="modal-body">
+											<div class="modal-body" style="white-space: normal;">
 												{{csrf_field()}}
 												<div class="form-group">
 													<label class="form-label font-weight-bold important-left">Move to this topic:</label>
 													<input class="form-control autocomplete" type="text" name="topic" value="{{$m->topic->topic_name}}">
-													<p style="word-wrap: break-word;">
+													<p>
 														<span class="font-weight-bold">NOTE:</span> Editing the name will <span class="font-weight-bold">move</span> all the materials under this topic to the given topic.
 													</p>
 													<span style="color: #FC1838">{!!$errors->first('topic')!!}</span>

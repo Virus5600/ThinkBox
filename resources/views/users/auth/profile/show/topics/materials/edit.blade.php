@@ -26,7 +26,7 @@
 					<div class="col-12 col-md-6">
 						<div class="form-group">
 							<label for="material_name" class="form-label font-weight-bold important">Material Name/Title</label>
-							<input type="text" name="material_name" id="material_name" class="form-control" value="{{old('material_name')}}"/>
+							<input type="text" name="material_name" id="material_name" class="form-control" value="{{$material->material_name}}"/>
 							<span style="color: #FC1838">{!!$errors->first('material_name')!!}</span>
 						</div>
 					</div>
@@ -35,7 +35,7 @@
 				<div class="row">
 					<div class="col-12">
 						<label for="description" class="form-label font-weight-bold important">Description</label>
-						<textarea class="form-control" name="description" id="description" placeholder="Description goes here..." rows="5">{{old('description')}}</textarea>
+						<textarea class="form-control" name="description" id="description" placeholder="Description goes here..." rows="5">{{$material->description}}</textarea>
 						<span style="color: #FC1838">{!!$errors->first('description')!!}</span>
 					</div>
 				</div>
@@ -45,6 +45,14 @@
 						<label class="form-label font-weight-bold">File(s)</label>
 
 						<div class="form-group col-12 d-flex flex-d-col mb-1" id="files">
+							@foreach ($material->files as $f)
+							<div class="custom-file my-2">
+								<input type="hidden" name="keptFiles[]" value="{{$f->id}}">
+								<input type="file" class="custom-file-input cursor-pointer" name="file[]" onchange="swapLbl(this); $(this).parent().append(`<input type='hidden' name='modifiedFiles[]' value='{{$f->id}}'>`)" accept=".pdf">
+		  						<label class="custom-file-label font-weight-bold cursor-pointer" style="overflow: hidden; white-space: nowrap">{{$f->original_name}}</label>
+		  						<span style="position: absolute; top: -0.75rem; right: -0.5rem; z-index: 1; cursor: pointer; font-size: medium;" class="text-custom close-btn" tabindex="1"><i class="fas fa-times-circle fa-lg"></i></span>
+		  					</div>
+		  					@endforeach
 							<div class="custom-file my-2">
 								<input type="file" class="custom-file-input cursor-pointer" name="file[]" onchange="swapLbl(this);" data-target="#files" accept=".pdf">
 		  						<label class="custom-file-label font-weight-bold cursor-pointer" style="overflow: hidden; white-space: nowrap">Choose File</label>
@@ -66,21 +74,22 @@
 						<label class="form-label font-weight-bold">Link(s)</label>
 
 						<div class="form-group col-12 d-flex flex-d-col mb-1" id="links">
-							@if (!is_null(old('url')))
-							@for ($i = 0; $i < count(old('url')); $i++)
+							@foreach ($material->links as $l)
 							<div class="my-2" style="display: inline-block; position: relative;">
-								<input type="text" class="form-control" name="url[]" placeholder="URL" value="{{old('url.'.$i)}}">
+								<input type="text" class="form-control" name="url[]" placeholder="URL" value="{{$l->url}}">
 		  						<span style="position: absolute; top: -0.75rem; right: -0.625rem; z-index: 1; cursor: pointer; font-size: medium;" class="text-custom close-btn" tabindex="1"><i class="fas fa-times-circle fa-lg"></i></span>
-		  						<span style="color: #FC1838">{!!$errors->first('url.'.$i)!!}</span>
 		  					</div>
-		  					@endfor
-							@else
+		  					@endforeach
 							<div class="my-2" style="display: inline-block; position: relative;">
 								<input type="text" class="form-control" name="url[]" placeholder="URL">
 		  						<span style="position: absolute; top: -0.75rem; right: -0.625rem; z-index: 1; cursor: pointer; font-size: medium;" class="text-custom close-btn" tabindex="1"><i class="fas fa-times-circle fa-lg"></i></span>
 		  					</div>
-							@endif
 						</div>
+						@if ($errors->has('url.*'))
+							@foreach ($errors->get('url.*') as $e)
+		  					<span style="color: #FC1838">{!!$e->first('url.'.$i)!!}</span>
+		  					@endforeach
+		  				@endif
 
 						<div class="form-group col-12 d-flex flex-d-col mt-1">
 							<button type="button" class="btn btn-custom-inverted w-100" id="addLinkField" style="border-style: dashed; border-width: 0.125rem;"><i class="fas fa-plus-circle mr-1"></i>Add Link Field</button>
