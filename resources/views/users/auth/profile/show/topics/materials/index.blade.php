@@ -12,7 +12,7 @@
 		</div>
 
 		<div class="col-12 col-lg-9 px-5">
-			<form action="{{ route('profile.topics.materials.index') }}" action="GET" class="row">
+			<form action="{{ route('profile.topics.materials.index', [$topic->id]) }}" action="GET" class="row">
 				<div class="col-12 col-lg-7 text-center text-lg-left overflow-x-hidden text-overflow-ellipsis"><h1 class="overflow-hidden text-overflow-ellipsis"><a href="{{ route('profile.topics.index') }}" class="text-decoration-none text-dark text-overflow-ellipsis"><i class="fas fa-chevron-left mr-2"></i>Course Materials - {{$topic->topic_name}}</a></h1></div>
 
 				<div class="col-12 col-sm-4 col-lg-2 text-center text-md-left my-2">
@@ -93,14 +93,11 @@
 						@php ($i++)
 						@endforeach
 					</tbody>
-
-					<tfoot>
-						<div class="row">
-							<div class="col justify-content-center">
-							</div>
-						</div>
-					</tfoot>
 				</table>
+			</div>
+
+			<div class="d-flex flex-d-row">
+				<nav class="mx-auto">{{ $materials->links() }}</nav>
 			</div>
 		</div>
 	</div>

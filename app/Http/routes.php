@@ -11,6 +11,10 @@
 |
 */
 
+// AJAX -----
+Route::post('/get-college-departments', 'AjaxController@getCollegeDepartments')->name('get-college-departments');
+// AJAX END -----
+
 // GENERAL -----
 // Home
 Route::get('/', 'PageController@index')->name('home');

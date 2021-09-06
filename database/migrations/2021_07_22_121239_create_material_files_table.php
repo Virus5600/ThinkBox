@@ -27,6 +27,6 @@ class CreateMaterialFilesTable extends Migration
 	 */
 	public function down()
 	{
-		Schema::down('material_files');
+		Schema::drop('material_files');
 	}
 }

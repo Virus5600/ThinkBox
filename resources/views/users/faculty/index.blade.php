@@ -127,6 +127,9 @@
 				@endforelse
 
 
+			</div>
+
+			<div class="d-flex flex-row">
 				<nav class="mx-auto">{{ $staff->links() }}</nav>
 			</div>
 		</div>

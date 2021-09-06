@@ -399,8 +399,7 @@ class UserController extends Controller
 
 				if ($fileValidator->fails()) {
 					$isValidated = false;
-					$validator
-						->messages()
+					$validator->messages()
 						->merge($fileValidator->messages());
 				}
 			}
@@ -1206,10 +1205,25 @@ class UserController extends Controller
 	}
 
 	protected function materialsIndex($id) {
+		$materials = Material::where('topic_id', $id)->where('faculty_staff_id', Auth::user()->staff->id);
+		$topic_names = array();
+
+		// SEARCH
+		if (\Request::has('search')) {
+			$search = \Request::get('search');
+
+			$materials = $materials->where('material_name', 'LIKE', '%' . $search . '%');
+		}
+
+		if (!is_a($materials, 'Illuminate\Pagination\LengthAwarePaginator')) {
+			$materials = $materials->distinct()->paginate(10);
+		}
+
 		return view('users.auth.profile.show.topics.materials.index', [
 			'topic' => Topic::find($id),
 			'topics' => Topic::get(),
-			'materials' => Material::where('topic_id', $id)->where('faculty_staff_id', Auth::user()->staff->id)->get()
+			'materials' => $materials,
+			'searchVal' => \Request::get('search')
 		]);
 	}
 
@@ -1284,7 +1298,6 @@ class UserController extends Controller
 		}
 
 		foreach ($material->get() as $m) {
-			Log::info($m);
 			if (!in_array($m->topic->topic_name, $topic_names)) {
 				array_push($topic_names, $m->topic->topic_name);
 			}

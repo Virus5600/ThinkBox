@@ -28,6 +28,6 @@ class CreateInnovationAuthorsTable extends Migration
 	 */
 	public function down()
 	{
-		Schema::down('innovation_authors');
+		Schema::drop('innovation_authors');
 	}
 }

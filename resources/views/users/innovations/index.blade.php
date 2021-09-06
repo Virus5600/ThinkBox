@@ -155,6 +155,9 @@
 				</div>
 				@endforelse
 
+			</div>
+
+			<div class="d-flex flex-row">
 				<nav class="mx-auto">{{ $innovations->links() }}</nav>
 			</div>
 		</div>

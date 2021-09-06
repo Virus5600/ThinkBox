@@ -12,6 +12,44 @@
 			<form action="{{ route('admin.faculty-member.generate.store') }}" method="POST" enctype="multipart/form-data">
 				{{csrf_field()}}
 
+				{{-- COLLEGE, DEPARTMENT AND POSITION --}}
+				<h3>Position</h3>
+				<div class="row">
+					<div class="col-12 col-md-4 form-group">
+						<label for='staff_position' class="form-label font-weight-bold">Position</label><br>
+						<select class="custom-select" name="staff_position">
+							@foreach ($positions as $p)
+							<option value="{{$p->id}}" {{ old('staff_position') == $p->id ? 'selected' : '' }}>{{ucwords(preg_replace('/_/', ' ',$p->type))}}</option>
+							@endforeach
+						</select>
+					</div>
+
+					<div class="col-12 col-md-4 form-group">
+						<label for='college' class="form-label font-weight-bold">College</label><br>
+						<select class="custom-select" name="college">
+							@foreach ($colleges as $c)
+							<option value="{{$c->id}}" {{ old('college') == $c->id ? 'selected' : '' }}>{{$c->name}}{{$c->abbr == '' || $c->abbr == null ? '' : ' (' . $c->abbr . ')'}}</option>
+							@endforeach
+						</select>
+					</div>
+
+					<div class="col-12 col-md-4 form-group">
+						<label for='department' class="form-label font-weight-bold">Department</label><br>
+						<select class="custom-select" name="department" {{(old('staff_position') == $dean->id) ? 'disabled' : ((old('staff_position') == null && $positions[0]->id == $dean->id) ? 'disabled' : '')}}>
+							@if (old('college') == null)
+								@foreach ($departments as $d)
+								<option value="{{$d->id}}" {{ old('department') == $d->id ? 'selected' : '' }}>{{$d->name}}{{$d->abbr == '' || $d->abbr == null ? '' : ' (' . $d->abbr . ')'}}</option>
+								@endforeach
+							@else
+								@foreach (\App\Departments::where('college', '=', old('college'))->get() as $d)
+								<option value="{{$d->id}}" {{ old('department') == $d->id ? 'selected' : '' }}>{{$d->name}}{{$d->abbr == '' || $d->abbr == null ? '' : ' (' . $d->abbr . ')'}}</option>
+								@endforeach
+							@endif
+						</select>
+					</div>
+				</div>
+
+				<hr class="hr-thick-50 border-gray my-3">
 				<div class="row">
 					<div class="col-12 col-md-6 form-group">
 						<label for='username' class="form-label font-weight-bold">Generated Username</label>
@@ -81,6 +119,30 @@
 					`</div>` +
 				`</div>`
 			);
+		});
+
+		// Change Department Based on Position and College
+		$('[name=staff_position], [name=college]').on('change', (e) => {
+			let obj = $(e.currentTarget);
+
+			if (obj.attr('name') == 'staff_position') {
+				if (obj.val() == '{{$dean->id}}')
+					$('[name=department]').prop('disabled', true);
+				else
+					$('[name=department]').prop('disabled', false);
+			}
+			else if (obj.attr('name') == 'college') {
+				$.post('{{ route('get-college-departments') }}', {
+					_token: '{{csrf_token()}}',
+					collegeID: obj.val()
+				}).done((data) => {
+					$('[name=department]').html('');
+
+					$.each(data, (k, v) => {
+						$('[name=department]').append('<option value="' + v['id'] + '">' + v['name'] + ((v['abbr'] == '' || v['abbr'] == null) ? '' : (' (' + v['abbr'] + ')')) + '</option>')
+					});
+				});
+			}
 		});
 
 		@if (old('email') != null)

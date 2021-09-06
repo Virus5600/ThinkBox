@@ -51,6 +51,13 @@ class User extends Authenticatable
 	}
 
 	public function getFullName() {
-		return ($this->title == null ? '' : $this->title) . ' ' . $this->first_name . ' ' . ($this->middle_name == null ? '' : substr($this->middle_name, 0) . '. ') . $this->last_name . ($this->suffix == null ? '' : ', ' . $this->suffix);
+		$middleName = '';
+		if ($this->middle_name != null) {
+			$words = preg_split("/\s+/", $this->middle_name);
+			foreach ($words as $w)
+				$middleName .= $w[0] . '. ';
+		}
+
+		return ($this->title == null ? '' : $this->title) . ' ' . $this->first_name . ' ' . ($this->middle_name == null ? '' : $middleName) . $this->last_name . ($this->suffix == null ? '' : ', ' . $this->suffix);
 	}
 }

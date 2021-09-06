@@ -14,7 +14,11 @@ use App\Innovation;
 use App\Material;
 use App\Skills;
 use App\User;
+use App\College;
+use App\Departments;
+use App\StaffTypes;
 
+use DB;
 use Hash;
 use Validator;
 use Log;
@@ -28,7 +32,12 @@ class FacultyStaffController extends Controller
 	}
 
 	protected function create() {
-		return view('users.auth.admin.faculty-member.create');
+		return view('users.auth.admin.faculty-member.create', [
+			'dean' => StaffTypes::where('type', '=', 'dean')->first(),
+			'positions' => StaffTypes::orderBy('type')->get(),
+			'colleges' => College::orderBy('name')->get(),
+			'departments' => College::orderBy('name')->first()->departments
+		]);
 	}
 
 	protected function store(Request $req) {
@@ -125,29 +134,42 @@ class FacultyStaffController extends Controller
 				->withErrors($validator)
 				->withInput();
 		}
+		try {
+			DB::beginTransaction();
 
-		$user = User::create([
-			'title' => $req->title,
-			'first_name' => $req->first_name,
-			'middle_name' => $req->middle_name,
-			'last_name' => $req->last_name,
-			'suffix' => $req->suffix,
-			'avatar' => $req->avatar,
-			'isAvatarLink' => $req->isAvatarLink,
-			'email' => $req->email,
-			'username' => $req->username,
-			'contact_no' => $con,
-			'password' => Hash::make($req->password),
-			'role' => null
-		]);
+			$user = User::create([
+				'title' => $req->title,
+				'first_name' => $req->first_name,
+				'middle_name' => $req->middle_name,
+				'last_name' => $req->last_name,
+				'suffix' => $req->suffix,
+				'avatar' => $req->avatar,
+				'isAvatarLink' => $req->isAvatarLink,
+				'email' => $req->email,
+				'username' => $req->username,
+				'contact_no' => $con,
+				'password' => Hash::make($req->password),
+				'role' => null
+			]);
 
-		FacultyStaff::create([
-			'user_id' => $user->id,
-			'department' => 1,
-			'position' => 3,
-			'location' => 'National University',
-			'description' => $req->description
-		]);
+			FacultyStaff::create([
+				'user_id' => $user->id,
+				'department' => ($req->staff_position == StaffTypes::where('type', '=', 'dean')->first()->id ? $req->college : $req->department),
+				'position' => $req->staff_position,
+				'location' => 'National University',
+				'description' => $req->description
+			]);
+
+			DB::commit();
+		} catch (\Exception $e) {
+			DB::rollback();
+			Log::error($e);
+
+			return redirect()
+				->back()
+				->withInput()
+				->with('flash_error', 'Something went wrong, please try again later.');
+		}
 
 		return redirect()
 			->route('admin.faculty-member.index')
@@ -160,7 +182,12 @@ class FacultyStaffController extends Controller
 	}
 
 	protected function generate() {
-		return view('users.auth.admin.faculty-member.generate');
+		return view('users.auth.admin.faculty-member.generate', [
+			'dean' => StaffTypes::where('type', '=', 'dean')->first(),
+			'positions' => StaffTypes::orderBy('type')->get(),
+			'colleges' => College::orderBy('name')->get(),
+			'departments' => College::orderBy('name')->first()->departments
+		]);
 	}
 
 	protected function storeGenerated(Request $req) {

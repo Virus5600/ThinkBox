@@ -27,6 +27,6 @@ class CreateMaterialLinksTable extends Migration
 	 */
 	public function down()
 	{
-		Schema::down('material_links');
+		Schema::drop('material_links');
 	}
 }

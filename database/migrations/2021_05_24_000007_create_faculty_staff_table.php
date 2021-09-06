@@ -17,7 +17,7 @@ class CreateFacultyStaffTable extends Migration
 			$table->integer('user_id')->unsigned();
 			$table->integer('department')->unsigned();
 			$table->integer('position')->unsigned();
-			$table->string('location');
+			$table->string('location')->nullable();
 			$table->mediumText('description')->nullable();
 			$table->timestamps();
 

@@ -154,7 +154,9 @@
 					Nothing to show
 				</div>
 				@endforelse
+			</div>
 
+			<div class="d-flex flex-row">
 				<nav class="mx-auto">{{ $research->links() }}</nav>
 			</div>
 		</div>

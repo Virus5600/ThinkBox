@@ -119,7 +119,7 @@ class FacultyStaffTableSeeder extends Seeder
 		// DEV ACCOUNT FOR LOCAL TESTING
 		if (env('APP_ENV') == 'local') {
 			FS::create([
-				'user_id' => 0,
+				'user_id' => 12,
 				'department' => 1,
 				'position' => 5,
 				'location' => 'National University',

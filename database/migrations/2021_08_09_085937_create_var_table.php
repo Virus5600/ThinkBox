@@ -27,6 +27,6 @@ class CreateVarTable extends Migration
 	 */
 	public function down()
 	{
-		Schema::down('var');
+		Schema::drop('var');
 	}
 }

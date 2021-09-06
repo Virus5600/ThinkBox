@@ -134,7 +134,7 @@
 									<a class="dropdown-item" href="{{route('faculty.index')}}">View Department Page</a>
 									<a class="dropdown-item" href="{{route('announcements.index')}}">View Announcements Page</a> -->
 									<div class="dropdown-divider"></div>
-									<a class="dropdown-item" href="">Sign out</a>
+									<a class="dropdown-item" href="{{route('logout')}}">Sign out</a>
 								</div>
 							</div>
 						</label>
