@@ -16,25 +16,12 @@
 	</div>
 </div>
 
-<div class="w-100">
-	<nav class="custom-pagenav">
-		<a href="#announcements">Latest Announcements</a>
-		<a href="#researches">Latest Research</a>
-		<a href="#innovations">Latest Innovations</a>
-		<a href="#faculties">Meet Our Faculty</a>
-	</nav>
-</div>
-
-<div class="w-100" style="position: relative;">
-	<div class="left-triangle"></div>
-	<div class="right-triangle"></div>
-</div>
-
 <div class="container-fluid my-5 striped">
+
 	{{-- ANNOUNCEMENT --}}
 	<div class="row my-5">
 		<div class="col">
-			<p class="m-0 text-center" id="announcements">
+			<p class="m-0 text-center">
 				<span class="h4 h3-md font-weight-bold text-custom border-custom border border-thick border-left-0 border-top-0 border-right-0 px-3">Latest Announcements</span>
 			</p>
 
@@ -56,11 +43,11 @@
 								
 								<div class="card-footer">
 									<div class="dropdown display-inline-block float-left">
-										<a class='dropdown-toggle text-decoration-none share-dropdown' href="" role='button' id='ann_share{{$a->id}}' data-toggle='dropdown' aria-haspopup="true" aria-expanded="false">
+										<a class='dropdown-toggle text-decoration-none share-dropdown' href="" role='button' id='share' data-toggle='dropdown' aria-haspopup="true" aria-expanded="false">
 											<i class="fas fa-share-alt mr-1"></i> Share
 										</a>
 
-										<div class="dropdown-menu dropdown-menu-left" aria-labelledby='ann_share{{$a->id}}'>
+										<div class="dropdown-menu dropdown-menu-left" aria-labelledby='share'>
 											<a class="dropdown-item share-link" href="javascript:void(0)" data-link='http://www.facebook.com/sharer.php?u={{ route("announcements.show", [$a->id]) }}'><i class="fab fa-facebook-f mr-2"></i>Facebook</a>
 											{{-- <a class="dropdown-item share-link" href="javascript:void(0)" data-link='fb-messenger://share?link={{ route("announcements.show", [$a->id]) }}'><i class="fab fa-facebook-messenger mr-2"></i>Messenger</a> --}}
 											<a class="dropdown-item share-link" href="javascript:void(0)" data-link='http://twitter.com/share?text={{preg_replace("/\s/", "%20",$a->title)}}&url={{ route("announcements.show", [$a->id]) }}'><i class="fab fa-twitter mr-2"></i>Twitter</a>
@@ -86,7 +73,7 @@
 	{{-- LATEST RESEARCH --}}
 	<div class="row my-5">
 		<div class="col">
-			<p class="m-0 text-center" id="researches">
+			<p class="m-0 text-center">
 				<span class="h4 h3-md font-weight-bold text-custom border-custom border border-thick border-left-0 border-top-0 border-right-0 px-3">Latest Research</span>
 			</p>
 
@@ -138,11 +125,11 @@
 								
 								<div class="card-footer">
 									<div class="dropdown display-inline-block float-left">
-										<a class='dropdown-toggle text-decoration-none share-dropdown underline-at-hover' href="javascript:void(0)" role='button' id='res_share{{$r->id}}' data-toggle='dropdown' aria-haspopup="true" aria-expanded="false">
+										<a class='dropdown-toggle text-decoration-none share-dropdown underline-at-hover' href="javascript:void(0)" role='button' id='share' data-toggle='dropdown' aria-haspopup="true" aria-expanded="false">
 											<i class="fas fa-share-alt mr-1"></i> Share
 										</a>
 
-										<div class="dropdown-menu dropdown-menu-left" aria-labelledby='res_share{{$r->id}}'>
+										<div class="dropdown-menu dropdown-menu-left" aria-labelledby='share'>
 											<a class="dropdown-item share-link" href="javascript:void(0)" data-link="http://www.facebook.com/sharer.php?u={{route('research.show', [$r->id])}}"><i class="fab fa-facebook-f mr-2"></i>Facebook</a>
 											{{-- <a class="dropdown-item share-link" href="javascript:void(0)" data-link="fb-messenger://share?link={{route('research.show', [$r->id])}}"><i class="fab fa-facebook-messenger mr-2"></i>Messenger</a> --}}
 											<a class="dropdown-item share-link" href="javascript:void(0)" data-link="http://twitter.com/share?url={{route('research.show', [$r->id])}}"><i class="fab fa-twitter mr-2"></i>Twitter</a>
@@ -170,7 +157,7 @@
 	@if (count($innovations) > 0)
 	<div class="row my-5">
 		<div class="col">
-			<p class="m-0 text-center" id="innovations">
+			<p class="m-0 text-center">
 				<span class="h4 h3-md font-weight-bold text-custom border-custom border border-thick border-left-0 border-top-0 border-right-0 px-3">Latest Innovations</span>
 			</p>
 
@@ -221,11 +208,11 @@
 								
 								<div class="card-footer">
 									<div class="dropdown display-inline-block float-left">
-										<a class='dropdown-toggle text-decoration-none share-dropdown underline-at-hover' href="javascript:void(0)" role='button' id='ino_share{{$i->id}}' data-toggle='dropdown' aria-haspopup="true" aria-expanded="false">
+										<a class='dropdown-toggle text-decoration-none share-dropdown underline-at-hover' href="javascript:void(0)" role='button' id='share' data-toggle='dropdown' aria-haspopup="true" aria-expanded="false">
 											<i class="fas fa-share-alt mr-1"></i> Share
 										</a>
 
-										<div class="dropdown-menu dropdown-menu-left" aria-labelledby='ino_share{{$i->id}}'>
+										<div class="dropdown-menu dropdown-menu-left" aria-labelledby='share'>
 											<a class="dropdown-item share-link" href="javascript:void(0)" data-link="http://www.facebook.com/sharer.php?u={{route('innovations.show', [$i->id])}}"><i class="fab fa-facebook-f mr-2"></i>Facebook</a>
 											{{-- <a class="dropdown-item share-link" href="javascript:void(0)" data-link="fb-messenger://share?link={{route('innovations.show', [$i->id])}}"><i class="fab fa-facebook-messenger mr-2"></i>Messenger</a> --}}
 											<a class="dropdown-item share-link" href="javascript:void(0)" data-link="http://twitter.com/share?url={{route('innovations.show', [$i->id])}}"><i class="fab fa-twitter mr-2"></i>Twitter</a>
@@ -256,7 +243,7 @@
 	{{-- FACULTY --}}
 	<div class="row my-5">
 		<div class="col text-center">
-			<span class="h4 h3-md font-weight-bold text-custom border-custom border border-thick border-left-0 border-top-0 border-right-0 px-3" id="faculties">Meet Our Faculty</span>
+			<span class="h4 h3-md font-weight-bold text-custom border-custom border border-thick border-left-0 border-top-0 border-right-0 px-3">Meet Our Faculty</span>
 
 			{{-- MAX: 8 FACULTY --}}
 			<div class="row mt-5">

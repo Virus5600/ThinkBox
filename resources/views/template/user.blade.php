@@ -105,19 +105,39 @@
 
 		<div class="d-flex flex-column min-vh-100 js-only">
 			{{-- Navigation Bar --}}
-			<nav class="navbar navbar-expand-lg navbar-light shadow py-0 px-3" style="z-index: 1000;">
-				{{-- Branding --}}
-				<a class="navbar-brand m-0 py-0" href="{{route('home')}}" style="height: auto;">
-					<img src="/images/UI/Branding.jpg" style="max-height: 3.25rem;" class="m-0 p-0" alt="Myriad Files" />
-				</a>
+			<nav class="navbar navbar-expand-lg navbar-dark bg-custom-3 shadow py-0 px-3" style="z-index: 1000;" id="mainNavbar">
+				<div class="small-container">
+					{{-- Branding --}}
+					<a class="navbar-brand m-0 py-0 ml-md-5" href="{{route('home')}}" style="height: auto;">
+						<img src="/images/UI/Branding.jpg" style="max-height: 3.25rem;" class="m-0 p-0" alt="Myriad Files" />
+					</a>
 
-				{{-- Navbar toggler (on small screens) --}}
-				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-				</button>
+					{{-- Navbar toggler (on small screens) --}}
+					<button class="navbar-toggler ml-sm-auto" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+					</button>
+
+					{{-- Navbar toggler for Profile Links (on small screens) --}}
+					@if (Auth::check())
+					<div class="d-block d-lg-none mr-md-5 text-truncate" id="authCollapser">
+						<a href="#authCollapse" class="nav-link custom-auth-link dynamic-size-lg-h6 text-truncate" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="authCollapse" style="font-size: 1.25rem;">
+							@if (!Auth::user()->isAvatarLink)
+							@if (Auth::user()->avatar == null)
+							<img src="/uploads/users/default.png" class="circular-border" width='30' height='30' draggable='false' alt="User"/>
+							@else
+							<img src="/uploads/users/user{{Auth::user()->id}}/{{Auth::user()->avatar}}" class="circular-border" width='30' height='30' draggable='false' alt="User"/>
+							@endif
+							@else
+							<img src="{{Auth::user()->avatar}}" class="circular-border" width='30' height='30' draggable='false' alt="User"/>
+							@endif
+							{{Auth::user()->first_name}} {{Auth::user()->last_name}}
+						</a>
+					</div>
+					@endif
+				</div>
 
 				{{-- Navbar contents --}}
-				<div class="collapse navbar-collapse" id="navbar">
+				<div class="collapse navbar-collapse mr-5" id="navbar">
 					<ul class="navbar-nav mr-auto">
 						<li class="nav-item">
 							@if (\Request::is('/'))
@@ -171,8 +191,22 @@
 					@if (Auth::check())
 					<div>
 						<label class="py-0 my-0">
-							<div class="dropdown">
-								<a href='' role="button" class="nav-link dropdown-toggle text-dark dynamic-size-lg-h6" style="font-size: 1.25rem;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<div class="d-none d-lg-block" id="primaryAuthCollapser">
+								<a href="#authCollapse" class="nav-link custom-auth-link dynamic-size-lg-h6 text-truncate" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="authCollapse" style="font-size: 1.25rem;">
+									@if (!Auth::user()->isAvatarLink)
+									@if (Auth::user()->avatar == null)
+									<img src="/uploads/users/default.png" class="circular-border" width='30' height='30' draggable='false' alt="User"/>
+									@else
+									<img src="/uploads/users/user{{Auth::user()->id}}/{{Auth::user()->avatar}}" class="circular-border" width='30' height='30' draggable='false' alt="User"/>
+									@endif
+									@else
+									<img src="{{Auth::user()->avatar}}" class="circular-border" width='30' height='30' draggable='false' alt="User"/>
+									@endif
+									{{Auth::user()->first_name}} {{Auth::user()->last_name}}
+								</a>
+							</div>
+							<!-- <div class="dropdown d-none d-lg-block">
+								<a href='javascript:void(0);' role="button" class="nav-link dropdown-toggle custom-auth-link dynamic-size-lg-h6" style="font-size: 1.25rem;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 									@if (!Auth::user()->isAvatarLink)
 									@if (Auth::user()->avatar == null)
 									<img src="/uploads/users/default.png" class="circular-border" width='30' height='30' draggable='false' alt="User"/>
@@ -185,7 +219,7 @@
 									{{Auth::user()->first_name}} {{Auth::user()->last_name}}
 								</a>
 								
-								<div class="dropdown-menu dropdown-menu-right">
+								<div class="dropdown-menu dropdown-menu-right bg-custom-3">
 									<a class="dropdown-item" href="{{ route('profile.index') }}">My Profile</a>
 									<a class="dropdown-item" href="{{ route('profile.edit', [Auth::user()->id]) }}">Edit Profile</a>
 									<a class="dropdown-item" href="{{ route('profile.topics.index') }}">Topics & Materials</a>
@@ -198,7 +232,7 @@
 									<div class="dropdown-divider"></div>
 									<a class="dropdown-item" href="{{route('logout')}}">Sign out</a>
 								</div>
-							</div>
+							</div> -->
 						</label>
 					</div>
 					@else
@@ -221,13 +255,27 @@
 				</div>
 			</nav>
 
+			<div class="collapse" id="authCollapse">
+				<a class="custom-link d-block" href="{{ route('profile.index') }}">My Profile</a>
+				<a class="custom-link d-block" href="{{ route('profile.edit', [Auth::user()->id]) }}">Edit Profile</a>
+				<a class="custom-link d-block" href="{{ route('profile.topics.index') }}">Topics & Materials</a>
+				<a class="custom-link d-block" href="{{ route('profile.research.index') }}">Research</a>
+				<a class="custom-link d-block" href="{{ route('profile.innovations.index') }}">Innovations</a>
+				@if (Auth::user()->role == 1)
+				<div class="dropdown-divider"></div>
+				<a class="custom-link d-block" href="{{ route('admin') }}">Admin Controls</a>
+				@endif
+				<div class="dropdown-divider"></div>
+				<a class="custom-link d-block" href="{{route('logout')}}">Sign out</a>
+			</div>
+
 			{{-- Page Contents --}}
 			<div class="flex-fill" style="max-width: 100vw!important;">
 				@yield('body')
 			</div>
 
 			{{-- Footer --}}
-			<div class="row justify-content-center p-3 footer mx-0" style="background-color: #444; max-width: 100vw;">
+			<div class="row justify-content-center p-3 footer mx-0 bg-custom-3" style="max-width: 100vw;">
 				<div class="col-12 col-lg-2 order-1 order-lg-0 text-center text-lg-left my-3">
 					<a href="{{ route('home') }}">Home</a><br>
 					<a href="{{ route('research') }}">Research</a><br>
@@ -320,6 +368,40 @@
 				paginator.find('li > *').addClass('page-link');
 				paginator.find('li:nth-child(1) > *').text('Previous');
 				paginator.find('li:nth-last-child(1) > *').text('Next');
+
+				@if (Auth::check())
+				let authSidebar = $('#authCollapse');
+				let navbar = $('#mainNavbar');
+				let navbarDrop = $('#navbar');
+				let collapser = $('#authCollapser');
+				let primaryCollapser = $('#primaryAuthCollapser');
+
+				authSidebar.css('top', navbar.outerHeight());
+				if (primaryCollapser.outerWidth() == 0)
+					authSidebar.css('width', collapser.outerWidth());
+				else
+					authSidebar.css('width', primaryCollapser.outerWidth()).css('width', '+=3rem');
+
+				$(window).resize((e) => {
+					authSidebar.css('top', navbar.outerHeight());
+					if (primaryCollapser.outerWidth() == 0)
+						authSidebar.css('width', collapser.outerWidth());
+					else
+						authSidebar.css('width', primaryCollapser.outerWidth()).css('width', '+=3rem');
+				});
+
+				$('*').on('click', '*:not(#authCollapse)', () => {
+					if (authSidebar.hasClass('show'))
+						authSidebar.collapse('hide');
+				});
+
+				collapser.on('click', (e) => {
+					let obj = $(e.currentTarget);
+
+					if (navbarDrop.hasClass('show'))
+						navbarDrop.collapse('hide');
+				});
+				@endif
 			});
 		</script>
 
