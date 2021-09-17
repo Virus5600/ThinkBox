@@ -179,3 +179,14 @@ $(document).ready(function() {
 		});
 	});
 });
+
+var cssUtil = {
+	remToPx: function(rem, includeUnit=false) {
+		return (rem * 16) + (includeUnit ? 'px' : '');
+	},
+	pxToRem: function (px, includeUnit=false) {
+		return (px / 16) + (includeUnit ? 'rem' : '');
+	}
+}
+
+const _ = cssUtil;

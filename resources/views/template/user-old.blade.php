@@ -10,7 +10,7 @@
 		<meta name="type" content="website">
 		<meta name="title" content="{{ env('APP_NAME') }}">
 		<meta name="description" content="{{ env('APP_DESC') }}">
-		<meta name="image" content="{{Request::url()}}/images/UI/banners/meta.jpg">
+		<meta name="image" content="/images/UI/banners/meta.jpg">
 		<meta name="keywords" content="Repository">
 		<meta name="application-name" content="{{ env('APP_NAME') }}">
 
@@ -25,10 +25,11 @@
 		<meta name="og:type" content="website">
 		<meta name="og:title" content="{{ env('APP_NAME') }}">
 		<meta name="og:description" content="{{ env('APP_DESC') }}">
-		<meta name="og:image" content="{{Request::url()}}/images/UI/banners/meta.jpg">
+		<meta name="og:image" content="/images/UI/banners/meta.jpg">
 
 		{{-- jQuery 3.6.0 --}}
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+		<!-- <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script> -->
 
 		{{-- jQuery UI 1.12.1 --}}
 		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -70,7 +71,6 @@
 		<script type="text/javascript" src="/js/readmore.js"></script>
 
 		{{-- Local CSS --}}
-		<link rel="stylesheet" href="/css/main.css" type="text/css">
 		<link rel="stylesheet" href="/css/style.css" type="text/css">
 
 		{{-- Favicon --}}
@@ -104,33 +104,17 @@
 		</div>
 
 		<div class="d-flex flex-column min-vh-100 js-only">
-			{{-- HEADER --}}
-			<hr id="blue-line" class="w-100 m-0">
+			{{-- Navigation Bar --}}
+			<nav class="navbar navbar-expand-lg navbar-dark bg-custom-3 shadow py-0 px-3" style="z-index: 1000;" id="mainNavbar">
+				<div class="small-container">
+					{{-- Branding --}}
+					<a class="navbar-brand m-0 py-0 ml-md-5" href="{{route('home')}}" style="height: auto;">
+						<img src="/images/UI/Branding.jpg" style="max-height: 3.25rem;" class="m-0 p-0" alt="Myriad Files" />
+					</a>
 
-			<div class="header" id="header">
-				<div class="container">
-					<div class="row py-3 align-items-center">
-						<a href="{{ route('home') }}" class="col-6 col-lg-2 border-right">
-							<img src="/images/UI/Branding.png" alt="NU Logo" id="header-logo">
-						</a>
-
-						<a href="{{ route('home') }}" class="col-6 col-lg-5 text-decoration-none">
-							<h2 id="header-brand">OOTB HUB</h2>
-						</a>
-
-						<div class="col-lg-5 d-none d-lg-block text-right" id="header-links">
-							<a href="#">ABOUT US</a> / <a href="#">CONTACT US</a>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			{{-- NAVBAR --}}
-			<nav class="navbar navbar-expand-lg navbar-dark bg-custom shadow sticky-top" style="z-index: 1000;" id="mainNavbar">
-				<div class="container">
 					{{-- Navbar toggler (on small screens) --}}
-					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText">
-						<i class="fas fa-bars"></i>
+					<button class="navbar-toggler ml-sm-auto" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
 					</button>
 
 					{{-- Navbar toggler for Profile Links (on small screens) --}}
@@ -150,101 +134,128 @@
 						</a>
 					</div>
 					@endif
+				</div>
+
+				{{-- Navbar contents --}}
+				<div class="collapse navbar-collapse mr-5" id="navbar">
+					<ul class="navbar-nav mr-auto">
+						<li class="nav-item">
+							@if (\Request::is('/'))
+							<span class="nav-link active custom-link">Home</span>
+							@else
+							<a class="nav-link custom-link" href="{{route('home')}}">Home</a>
+							@endif
+						</li>
+
+						<li class="nav-item">
+							@if(\Request::is('faculty'))
+							<span class="nav-link active custom-link">Department</span>
+							@elseif(\Request::is('faculty/*'))
+							<a class="nav-link active custom-link" href="{{route('faculty.index')}}">Department</a>
+							@else
+							<a class="nav-link custom-link" href="{{route('faculty.index')}}">Department</a>
+							@endif
+						</li>
+
+						<li class="nav-item">
+							@if(\Request::is('researches'))
+							<span class="nav-link active custom-link">Research</span>
+							@elseif(\Request::is('researches/*'))
+							<a class="nav-link active custom-link" href="{{route('research')}}">Research</a>
+							@else
+							<a class="nav-link custom-link" href="{{route('research')}}">Research</a>
+							@endif
+						</li>
+
+						<li class="nav-item">
+							@if(\Request::is('innovations'))
+							<span class="nav-link active custom-link">Innovations</span>
+							@elseif(\Request::is('innovations/*'))
+							<a class="nav-link active custom-link" href="{{route('innovations')}}">Innovations</a>
+							@else
+							<a class="nav-link custom-link" href="{{route('innovations')}}">Innovations</a>
+							@endif
+						</li>
+
+						<li class="nav-item">
+							@if(\Request::is('announcements'))
+							<span class="nav-link active custom-link">Announcements</span>
+							@elseif(\Request::is('announcements/*'))
+							<a class="nav-link active custom-link" href="{{route('announcements.index')}}">Announcements</a>
+							@else
+							<a class="nav-link custom-link" href="{{route('announcements.index')}}">Announcements</a>
+							@endif
+						</li>
+					</ul>
 					
-
-					<div class="collapse navbar-collapse" id="navbarText">
-						<ul class="navbar-nav mr-auto">
-							<li class="nav-item lr py-0">
-								@if (\Request::is('/'))
-								<span class="nav-link active custom-link my-0">HOME</span>
-								@else
-								<a class="nav-link custom-link my-0" href="{{route('home')}}">HOME</a>
-								@endif
-							</li>
-
-							<li class="nav-item lr py-0">
-								@if(\Request::is('faculty'))
-								<span class="nav-link active custom-link my-0">DEPARTMENT</span>
-								@elseif(\Request::is('faculty/*'))
-								<a class="nav-link active custom-link my-0" href="{{route('faculty.index')}}">DEPARTMENT</a>
-								@else
-								<a class="nav-link custom-link my-0" href="{{route('faculty.index')}}">DEPARTMENT</a>
-								@endif
-							</li>
-
-							<li class="nav-item lr py-0">
-								@if(\Request::is('researches'))
-								<span class="nav-link active custom-link my-0">RESEARCH</span>
-								@elseif(\Request::is('researches/*'))
-								<a class="nav-link active custom-link my-0" href="{{route('research')}}">RESEARCH</a>
-								@else
-								<a class="nav-link custom-link my-0" href="{{route('research')}}">RESEARCH</a>
-								@endif
-							</li>
-
-							<li class="nav-item lr py-0">
-								@if(\Request::is('innovations'))
-								<span class="nav-link active custom-link my-0">INNOVATION</span>
-								@elseif(\Request::is('innovations/*'))
-								<a class="nav-link active custom-link my-0" href="{{route('innovations')}}">INNOVATION</a>
-								@else
-								<a class="nav-link custom-link my-0" href="{{route('innovations')}}">INNOVATION</a>
-								@endif
-							</li>
-
-							<li class="nav-item py-0">
-								@if(\Request::is('announcements'))
-								<span class="nav-link active custom-link my-0">ANNOUNCEMENTS</span>
-								@elseif(\Request::is('announcements/*'))
-								<a class="nav-link active custom-link my-0" href="{{route('announcements.index')}}">ANNOUNCEMENTS</a>
-								@else
-								<a class="nav-link custom-link my-0" href="{{route('announcements.index')}}">ANNOUNCEMENTS</a>
-								@endif
-							</li>
-						</ul>
+					@if (Auth::check())
+					<div>
+						<label class="py-0 my-0">
+							<div class="d-none d-lg-block" id="primaryAuthCollapser">
+								<a href="#authCollapse" class="nav-link custom-auth-link dynamic-size-lg-h6 text-truncate" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="authCollapse" style="font-size: 1.25rem;">
+									@if (!Auth::user()->isAvatarLink)
+									@if (Auth::user()->avatar == null)
+									<img src="/uploads/users/default.png" class="circular-border" width='30' height='30' draggable='false' alt="User"/>
+									@else
+									<img src="/uploads/users/user{{Auth::user()->id}}/{{Auth::user()->avatar}}" class="circular-border" width='30' height='30' draggable='false' alt="User"/>
+									@endif
+									@else
+									<img src="{{Auth::user()->avatar}}" class="circular-border" width='30' height='30' draggable='false' alt="User"/>
+									@endif
+									{{Auth::user()->first_name}} {{Auth::user()->last_name}}
+								</a>
+							</div>
+							<!-- <div class="dropdown d-none d-lg-block">
+								<a href='javascript:void(0);' role="button" class="nav-link dropdown-toggle custom-auth-link dynamic-size-lg-h6" style="font-size: 1.25rem;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									@if (!Auth::user()->isAvatarLink)
+									@if (Auth::user()->avatar == null)
+									<img src="/uploads/users/default.png" class="circular-border" width='30' height='30' draggable='false' alt="User"/>
+									@else
+									<img src="/uploads/users/user{{Auth::user()->id}}/{{Auth::user()->avatar}}" class="circular-border" width='30' height='30' draggable='false' alt="User"/>
+									@endif
+									@else
+									<img src="{{Auth::user()->avatar}}" class="circular-border" width='30' height='30' draggable='false' alt="User"/>
+									@endif
+									{{Auth::user()->first_name}} {{Auth::user()->last_name}}
+								</a>
+								
+								<div class="dropdown-menu dropdown-menu-right bg-custom-3">
+									<a class="dropdown-item" href="{{ route('profile.index') }}">My Profile</a>
+									<a class="dropdown-item" href="{{ route('profile.edit', [Auth::user()->id]) }}">Edit Profile</a>
+									<a class="dropdown-item" href="{{ route('profile.topics.index') }}">Topics & Materials</a>
+									<a class="dropdown-item" href="{{ route('profile.research.index') }}">Research</a>
+									<a class="dropdown-item" href="{{ route('profile.innovations.index') }}">Innovations</a>
+									@if (Auth::user()->role == 1)
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" href="{{ route('admin') }}">Admin Controls</a>
+									@endif
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" href="{{route('logout')}}">Sign out</a>
+								</div>
+							</div> -->
+						</label>
 					</div>
-				</div>
+					@else
+					<div class="row">
+						<div class="col d-flex fle-d-row">
+							@if (\Request::is('login'))
+							<span class="nav-link active custom-link">Login</span>
+							@else
+							<a href="{{route('login')}}" class="nav-link custom-link text-dark">Login</a>
+							@endif
 
-				@if (Auth::check())
-				<div>
-					<label class="py-0 my-0">
-						<div class="d-none d-lg-block" id="primaryAuthCollapser">
-							<a href="#authCollapse" class="nav-link custom-auth-link dynamic-size-lg-h6 text-truncate" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="authCollapse" style="font-size: 1.25rem;">
-								@if (!Auth::user()->isAvatarLink)
-								@if (Auth::user()->avatar == null)
-								<img src="/uploads/users/default.png" class="circular-border" width='30' height='30' draggable='false' alt="User"/>
-								@else
-								<img src="/uploads/users/user{{Auth::user()->id}}/{{Auth::user()->avatar}}" class="circular-border" width='30' height='30' draggable='false' alt="User"/>
-								@endif
-								@else
-								<img src="{{Auth::user()->avatar}}" class="circular-border" width='30' height='30' draggable='false' alt="User"/>
-								@endif
-								{{Auth::user()->first_name}} {{Auth::user()->last_name}}
-							</a>
+							{{-- @if (\Request::is('register')) --}}
+							{{-- <span class="nav-link active custom-link">Register</span> --}}
+							{{-- @else --}}
+							{{-- <a href="{{route('register')}}" class="nav-link custom-link text-dark">Register</a> --}}
+							{{-- @endif --}}
 						</div>
-					</label>
-				</div>
-				@else
-				<div class="row">
-					<div class="col d-flex fle-d-row">
-						@if (\Request::is('login'))
-						<span class="nav-link active custom-link">LOGIN</span>
-						@else
-						<a href="{{route('login')}}" class="nav-link custom-link text-dark">LOGIN</a>
-						@endif
-
-						{{-- @if (\Request::is('register')) --}}
-						{{-- <span class="nav-link active custom-link">Register</span> --}}
-						{{-- @else --}}
-						{{-- <a href="{{route('register')}}" class="nav-link custom-link text-dark">Register</a> --}}
-						{{-- @endif --}}
 					</div>
+					@endif
 				</div>
-				@endif
 			</nav>
 
-			@if (Auth::check())
-			<div class="collapse border border-top-0 border-right-0" id="authCollapse">
+			<div class="collapse" id="authCollapse">
 				<a class="custom-link d-block" href="{{ route('profile.index') }}">My Profile</a>
 				<a class="custom-link d-block" href="{{ route('profile.edit', [Auth::user()->id]) }}">Edit Profile</a>
 				<a class="custom-link d-block" href="{{ route('profile.topics.index') }}">Topics & Materials</a>
@@ -257,7 +268,6 @@
 				<div class="dropdown-divider"></div>
 				<a class="custom-link d-block" href="{{route('logout')}}">Sign out</a>
 			</div>
-			@endif
 
 			{{-- Page Contents --}}
 			<div class="flex-fill" style="max-width: 100vw!important;">
@@ -291,7 +301,7 @@
 
 				{{-- Branding --}}
 				<div class="col-12 col-lg-4 order-0 order-lg-4 text-center my-3">
-					<img src="/images/UI/Branding.png" style="max-height: 100%; max-width: 100%" height="auto" width="350" class="pb-0 mb-0" alt="{{env('APP_NAME')}}"/><br>
+					<img src="/images/UI/Branding.jpg" style="max-height: 100%; max-width: 100%" height="auto" width="350" class="pb-0 mb-0" alt="{{env('APP_NAME')}}"/><br>
 					<small class="pt-0 mt-0 display-block">&copy; {{env('APP_NAME')}} 2021-2023</small>
 				</div>
 			</div>
@@ -302,8 +312,6 @@
 
 		{{-- Local Script --}}
 		<script type="text/javascript">
-			var authSidebar, facultyImage;
-
 			@if (Session::has('flash_error'))
 			Swal.fire({
 				{!!Session::has('has_icon')  && Session::get('has_icon') ? "icon: `error`," : ""!!}
@@ -355,175 +363,45 @@
 			@endif
 
 			$(document).ready(() => {
-				{{-- PAGINATORS --}}
-				{
-					let paginator = $('nav > ul.pagination');
-					paginator.find('li').addClass('page-item');
-					paginator.find('li > *').addClass('page-link');
-					paginator.find('li:nth-child(1) > *').text('Previous');
-					paginator.find('li:nth-last-child(1) > *').text('Next');
-				}
+				let paginator = $('nav > ul.pagination');
+				paginator.find('li').addClass('page-item');
+				paginator.find('li > *').addClass('page-link');
+				paginator.find('li:nth-child(1) > *').text('Previous');
+				paginator.find('li:nth-last-child(1) > *').text('Next');
 
-				{{-- AUTH SIDEBAR COLLAPSE --}}
 				@if (Auth::check())
-				{
-					authSidebar = {
-						components: {
-							authSidebar: $('#authCollapse'),
-							blueLine: $('#blue-line'),
-							header: $('#header'),
-							navbar: $('#mainNavbar'),
-							navbarDrop: $('#navbar'),
-							collapser: $('#authCollapser'),
-							primaryCollapser: $('#primaryAuthCollapser')
-						},
-						target: $('#authCollapse'),
-						actions: {
-							setTop: (top, isFloating=false) => {
-								authSidebar.target.css('top', top);
-								
-								if (isFloating) {
-									authSidebar.target.css('top', '-=1.2')
+				let authSidebar = $('#authCollapse');
+				let navbar = $('#mainNavbar');
+				let navbarDrop = $('#navbar');
+				let collapser = $('#authCollapser');
+				let primaryCollapser = $('#primaryAuthCollapser');
 
-									if ($(window).width() <= 992) {
-										authSidebar.target.css('top', '+=8');
-									}
-									else {
-										authSidebar.target.css('top', '+=13');
-									}
-								}
+				authSidebar.css('top', navbar.outerHeight());
+				if (primaryCollapser.outerWidth() == 0)
+					authSidebar.css('width', collapser.outerWidth());
+				else
+					authSidebar.css('width', primaryCollapser.outerWidth()).css('width', '+=3rem');
 
-								return authSidebar.actions;
-							},
-							setWidth: (width) => {
-								authSidebar.target.css('width', width)
-								return authSidebar.actions;
-							},
-							updateTop: () => {
-								let d = $(document);
+				$(window).resize((e) => {
+					authSidebar.css('top', navbar.outerHeight());
+					if (primaryCollapser.outerWidth() == 0)
+						authSidebar.css('width', collapser.outerWidth());
+					else
+						authSidebar.css('width', primaryCollapser.outerWidth()).css('width', '+=3rem');
+				});
 
-								if (d.scrollTop() >= 105) {
-									topDistance = authSidebar.components.collapser.outerHeight() + authSidebar.components.primaryCollapser.outerHeight() + parseFloat(authSidebar.components.navbar.css('padding-bottom')) + d.scrollTop();
-									authSidebar.actions.setTop(topDistance, true);
-								}
-								else {
-									topDistance = authSidebar.components.blueLine.outerHeight() + authSidebar.components.header.outerHeight() + authSidebar.components.navbar.outerHeight();
-									authSidebar.actions.setTop(topDistance);
-								}
+				$('*').on('click', '*:not(#authCollapse)', () => {
+					if (authSidebar.hasClass('show'))
+						authSidebar.collapse('hide');
+				});
 
-								return authSidebar.actions;
-							},
-							updateWidth: () => {
-								if (authSidebar.components.primaryCollapser.outerWidth() == 0) {
-									authSidebar.actions.setWidth(authSidebar.components.collapser.outerWidth());
-								}
-								else {
-									authSidebar.actions.setWidth(authSidebar.components.primaryCollapser.parent().parent().parent().parent().css('margin-right'))
-										.setWidth('+=' + authSidebar.components.primaryCollapser.parent().parent().parent().parent().css('padding-right'))
-										.setWidth('+=' + authSidebar.components.primaryCollapser.outerWidth());
-								}
+				collapser.on('click', (e) => {
+					let obj = $(e.currentTarget);
 
-								return authSidebar.actions;
-							}
-						}
-					};
-
-					// INITIALIZING THE DROPDOWN
-					authSidebar.actions.updateTop();
-					authSidebar.actions.updateWidth();
-
-					/// POSITIONING RELATED CODES ///
-					$(this).scroll((e) => {
-						authSidebar.actions.updateTop();
-					});
-
-					/// WIDTH RELATED CODES ///
-					$(window).resize((e) => {
-						authSidebar.actions.updateTop();
-						authSidebar.actions.updateWidth();
-					});
-
-					/// SHOWING AND HIDING THE MENU ///
-					$('*').on('click', '*:not(#authCollapse)', () => {
-						if (authSidebar.target.hasClass('show'))
-							authSidebar.target.collapse('hide');
-					});
-
-					$(window).on('keydown', (e) => {
-						if (e.keyCode == 27) {
-							authSidebar.target.collapse('hide');
-						}
-					})
-
-					authSidebar.components.collapser.on('click', (e) => {
-						let obj = $(e.currentTarget);
-
-						if (authSidebar.components.navbarDrop.hasClass('show'))
-							authSidebar.components.navbarDrop.collapse('hide');
-					});
-				}
+					if (navbarDrop.hasClass('show'))
+						navbarDrop.collapse('hide');
+				});
 				@endif
-
-				{{-- FACULTY IMAGE RESIZING --}}
-				{
-					facultyImage = {
-						target: $('.faculty-img'),
-						style: $('#facultyImage'),
-						actions: {
-							getMedian: () => {
-								{{-- OLD COMPUTATION --}}
-								{
-									// let median = 0, width = 0, height = 0, count = 0;
-
-									// facultyImage.target.each((k, v) => {
-									// 	let $v = $(v);
-									// 	count++;
-
-									// 	width += parseInt($v.css('width'));
-									// 	height += parseInt($v.css('height'));
-									// });
-
-									// width /= count;
-									// height /= count;
-
-									// median += width + height;
-									// median /= 2;
-								}
-								let median = facultyImage.target.parent().parent().parent().outerWidth();
-
-								return median;
-							},
-							getStyle: (isHTML=false) => {
-								if (isHTML)
-									return facultyImage.style.get()[0];
-								return $(facultyImage.style.get()[0]);
-							},
-							resize: () => {
-								if (typeof facultyImage.actions.getStyle(true) == 'undefined') {
-									$('body').prepend('<style id="facultyImage"></style>');
-									facultyImage.style = $('#facultyImage');
-								}
-
-								facultyImage.style.html(
-									'.faculty-img {' +
-									'	max-width: ' + _.pxToRem(facultyImage.actions.getMedian(), true) + ';\n' +
-									'	min-width: ' + _.pxToRem(facultyImage.actions.getMedian(), true) + ';\n' +
-									'	min-height: ' + _.pxToRem(facultyImage.actions.getMedian(), true) + ';\n' +
-									'	max-height: ' + _.pxToRem(facultyImage.actions.getMedian(), true) + ';\n' +
-									'}'
-								);
-
-								return facultyImage.target;
-							}
-						}
-					};
-
-					facultyImage.actions.resize();
-
-					$(window).resize((e) => {
-						facultyImage.actions.resize();
-					});
-				}
 			});
 		</script>
 

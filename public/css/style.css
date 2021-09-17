@@ -3,8 +3,6 @@ html, html * {
 }
 
 body {
-	font-family: 'Segoe UI';
-	font-size: 14px;
 	background-color: #fff;
 	overflow-x: hidden;
 }
@@ -126,11 +124,15 @@ body {
 /* CUSTOM MODULE DESIGNS  */
 
 .custom-link {
-	color: #EEC05E !important;
-	margin-bottom: 0;
-	margin-top: 0;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: stretch;
+	color: /*#EEC05E*/ white!important;
+	margin-bottom: 1rem;
+	margin-top: 1rem;
 	font-size: 14px;
-	padding: 1rem 0.75rem !important;
+	padding: 0rem 0.75rem !important;
 	transition: 0.125s;
 }
 
@@ -145,7 +147,7 @@ body {
 	color: #FFF !important;
 }
 
-.custom-link:not(.active):hover::after, .custom-link.active::after {
+.custom-link:hover::after, .custom-link.active::after {
 	content: " ";
 	border-bottom: white 1px solid;
 }
@@ -157,7 +159,7 @@ body {
 
 #authCollapse {
 	position: absolute;
-	background-color: #0F2A8C;
+	background-color: /*#0F2A8C*/#33408E;
 	z-index: 1001;
 	right: 0;
 	border-bottom-left-radius: 10px;
@@ -226,7 +228,7 @@ body {
 /* CUSTOM MODULE DESIGNS END  */
 
 .custom-auth-link {
-	color: #EEC05E;
+	color: /*#EEC05E*/white;
 	transition: 0.125s;
 }
 
@@ -393,7 +395,7 @@ body {
 
 .dropdown-item {
 	transition: 0.0625s;
-	color: #EEC05E;
+	/*color: #EEC05E;*/
 }
 
 .dropdown-item:hover, .dropdown-item:focus {
@@ -410,7 +412,20 @@ body {
 }
 
 .border-custom {
-	border-color: #35408F!important;
+	border-color: #33408E!important;
+}
+
+.hr-line-border {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.hr-line-border::after {
+	content: " ";
+	border-bottom: 5px solid #FFCB05!important;
+	width: 150px;
 }
 
 .border-transparent {
@@ -523,7 +538,7 @@ body {
 }
 
 .btn-custom {
-	background-color: #35408F;
+	background-color: #33408E;
 	color: white;
 }
 
@@ -544,7 +559,7 @@ body {
 
 /* CUSTOM TEXT COLOR  */
 .text-custom {
-	color: #35408F;
+	color: #33408E;
 }
 
 .text-custom-2 {
@@ -557,7 +572,7 @@ body {
 
 /* CUSTOM BG COLOR  */
 .bg-custom {
-	background-color: #35408F;
+	background-color: #33408E;
 }
 
 .bg-custom-2 {
@@ -565,7 +580,7 @@ body {
 }
 
 .bg-custom-3 {
-	background-color: #0F2A8C;
+	background-color: #33408E;
 }
 
 .bg-custom-light {

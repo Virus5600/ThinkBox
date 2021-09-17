@@ -30,7 +30,14 @@ class PageController extends Controller
 		$research = Auth::check() ? Research::orderBy('date_published', 'DESC')->get()->take(3) : Research::where('is_featured', 1)->orderBy('date_published', 'DESC')->get()->take(3);
 		$innovations = Auth::check() ? Innovation::orderBy('date_published', 'DESC')->get()->take(3) : Innovation::where('is_featured', 1)->orderBy('date_published', 'DESC')->get()->take(3);
 
+		$counts = [
+			'members' => FacultyStaff::get()->count(),
+			'researches' => Research::get()->count(),
+			'innovations' => Innovation::get()->count()
+		];
+
 		return view('users.index', [
+			'counts' => $counts,
 			'staff' => $staff->sortByDesc('department'),
 			'announcements' => $announcements,
 			'research' => $research,
@@ -89,7 +96,7 @@ class PageController extends Controller
 						->where('is_featured', 1);
 				}
 
-				foreach ($focus as $f) {
+				foreach ($focus->get() as $f) {
 					array_push($rfArr, $f->id);
 				}
 
@@ -214,7 +221,7 @@ class PageController extends Controller
 						->where('is_featured', 1);
 				}
 
-				foreach ($focus as $f) {
+				foreach ($focus->get() as $f) {
 					array_push($rfArr, $f->id);
 				}
 

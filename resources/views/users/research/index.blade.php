@@ -74,40 +74,61 @@
 				@forelse ($research as $r)
 				<div class="col-12 col-lg-4 p-0 my-3">
 					<div class="mx-2 my-1 invisiborder rounded dark-shadow d-flex flex-d-col h-100">
+						<div class="card-header">
+							<div class="row mb-2">
+								<div class="col-12 text-truncate">
+									@php ($focusIndex = 0)
+									@forelse ($r->researchFocus as $f)
+									<a href="{{ route('research') }}?researchFocus={{ preg_replace('/ /', '+', $f->name) }}" class="text-decoration-none text-dark">
+										<small>
+											{{ ucwords($f->name) }}
+											@if ($focusIndex < $r->researchFocus->count()-1)
+											/
+											@endif
+										</small>
+									</a>
+									@php($focusIndex++)
+									@empty
+									<small>None</small>
+									@endforelse
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-12 align-items-center">
+									<div class="row vertical-lg-card">
+										<div class="col-12 col-md-3 text-center px-0">
+											@if ($r->user->isAvatarLink)
+												<img src='{{$r->user->avatar}}' class='img-fluid invisiborder circle-border w-75'/>
+											@else
+												@if ($r->user->avatar == null)
+												<img src='/uploads/users/default.png' class='img-fluid invisiborder circle-border w-75'/>
+												@else
+												<img src='/uploads/users/user{{$r->user->id}}/{{$r->user->avatar}}' class='img-fluid invisiborder circle-border w-75'/>
+												@endif
+											@endif
+										</div>
+
+										<div class="col-12 col-md-9 ml-0 pl-1 text-center text-sm-left">
+											<a class="text-dark text-decoration-none" href="{{route('faculty.show', [$r->posted_by])}}">
+												<h5 class="h2 h5-lg m-0 text-truncate-2">
+													{{$r->user->title == null ? '' : $r->user->title . ' '}}{{$r->user->first_name}} {{$r->user->middle_name == null ? '' : substr($r->user->middle_name, 0) . '. '}}{{$r->user->last_name}}{{$r->user->suffix == null ? '' : ', ' . $r->user->suffix}}
+												</h5>
+												<p class="h4 h6-lg m-0 text-truncate-2">
+													{{ucwords(preg_replace("/_/", " ", $r->facultyStaff->positionAttr->type))}}, {{$r->facultyStaff->location}}
+												</p>
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
 						<div class="card-body">
 							<div class="card-title">
 								<div class="row">
-									<div class="col-12 align-items-center">
-										<div class="row vertical-lg-card">
-											<div class="col-12 col-md-3 text-center px-0">
-												@if ($r->user->isAvatarLink)
-													<img src='{{$r->user->avatar}}' class='img-fluid invisiborder circle-border w-75'/>
-												@else
-													@if ($r->user->avatar == null)
-													<img src='/uploads/users/default.png' class='img-fluid invisiborder circle-border w-75'/>
-													@else
-													<img src='/uploads/users/user{{$r->user->id}}/{{$r->user->avatar}}' class='img-fluid invisiborder circle-border w-75'/>
-													@endif
-												@endif
-											</div>
-
-											<div class="col-12 col-md-9 ml-0 pl-1 text-center text-sm-left">
-												<a class="text-dark text-decoration-none" href="{{route('faculty.show', [$r->id])}}">
-													<h5 class="h2 h5-lg m-0 text-truncate-2">
-														{{$r->user->title == null ? '' : $r->user->title . ' '}}{{$r->user->first_name}} {{$r->user->middle_name == null ? '' : substr($r->user->middle_name, 0) . '. '}}{{$r->user->last_name}}{{$r->user->suffix == null ? '' : ', ' . $r->user->suffix}}
-													</h5>
-													<p class="h4 h6-lg m-0 text-truncate-2">
-														{{ucwords(preg_replace("/_/", " ", $r->facultyStaff->positionAttr->type))}}, {{$r->facultyStaff->location}}
-													</p>
-												</a>
-											</div>
-										</div>
-									</div>
-
 									<div class="col-12">
-										<h4 class="text-truncate-2 mt-3 mb-0 tooltip-html" data-toggle="tooltip" data-placement="bottom" title="{{$r->title}}">
-											{{$r->title}}
-										</h4>
+										<h4 class="text-truncate-2 text-custom mt-3 mb-0 tooltip-html" data-toggle="tooltip" data-placement="bottom" title="{{$r->title}}">{{$r->title}}</h4>
 										
 										<p class="text-truncate-2">
 											<small><em>
