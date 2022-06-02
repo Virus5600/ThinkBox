@@ -441,7 +441,7 @@ class FacultyStaffController extends Controller
 
 	protected function manageContents($id) {
 		return view('users.auth.admin.faculty-member.manage-content', [
-			'staff' => $this->getStaff()[$id-1]
+			'staff' => User::find($id)
 		]);
 	}
 

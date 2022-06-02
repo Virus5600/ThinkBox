@@ -173,6 +173,7 @@ class UserController extends Controller
 				}
 			}
 		}
+		
 		// If the toggle "isAvatarLink" wasn't enabled (meaning, it is a file), detect if it matches the allowed formats.
 		if (!$req->isAvatarLink) {
 			$imgValidator = Validator::make($req->all(), [
