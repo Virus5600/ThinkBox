@@ -15,6 +15,12 @@
 Route::post('/get-college-departments', 'AjaxController@getCollegeDepartments')->name('get-college-departments');
 // AJAX END -----
 
+// COOKIES -----
+Route::post('/cookie/set', 'CookieController@setCookie')->name('set-cookie');
+Route::post('/cookie/get', 'CookieController@getCookie')->name('get-cookie');
+Route::post('/cookie/delete', 'CookieController@deleteCookie')->name('del-cookie');
+// COOKIES END -----
+
 // GENERAL -----
 // Home
 Route::get('/', 'PageController@index')->name('home');
