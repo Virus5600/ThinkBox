@@ -1516,7 +1516,7 @@ nav.position-sticky {
 
 	.sidebar {
 		max-width: 15rem;
-		width: 100%;
+		width: 100%!important;
 		overflow-y: auto;
 	}
 

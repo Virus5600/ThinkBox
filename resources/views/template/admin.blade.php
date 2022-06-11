@@ -107,39 +107,41 @@
 						<img src="{{ asset('images/UI/Branding.png') }}" style="max-height: 3.25rem;" class="m-0 p-0" alt="ThinkBox" />
 					</a>
 
-					{{-- Navbar Toggler --}}
-					<button class="sidebar-toggler" type="button" data-toggle="sidebar-collapse" data-target="#sidebar" aria-controls="sidebar" aria-label="Toggle Sidebar">
-						<span class="navbar-toggler-icon"></span>
-					</button>
-
-					{{-- Navbar contents --}}
-					<div class="collapse navbar-collapse" id="navbar">
-						<div class="ml-auto">
-							@if (!Auth::user()->isAvatarLink)
-								@if (Auth::user()->avatar == null)
-								<img src="/uploads/users/default.png" class="circular-border" width='30' height='30' draggable='false' alt="User"/>
-								@else
-								<img src="/uploads/users/user{{Auth::user()->id}}/{{Auth::user()->avatar}}" class="circular-border" width='30' height='30' draggable='false' alt="User"/>
+					<div class="d-flex flex-row">
+						{{-- Navbar contents --}}
+						<div class="navbar-collapse" id="navbar">
+							<div class="ml-auto">
+								@if (!Auth::user()->isAvatarLink)
+									@if (Auth::user()->avatar == null)
+									<img src="/uploads/users/default.png" class="circular-border" width='30' height='30' draggable='false' alt="User"/>
+									@else
+									<img src="/uploads/users/user{{Auth::user()->id}}/{{Auth::user()->avatar}}" class="circular-border" width='30' height='30' draggable='false' alt="User"/>
+									@endif
 								@endif
-							@endif
-							<label>
-								<div class="dropdown">
-									<a href='' role="button" class="nav-link dropdown-toggle text-dark dynamic-size-lg-h6" style="font-size: 1.25rem;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-										{{Auth::user()->first_name}} {{Auth::user()->last_name}}
-									</a>
-									
-									<div class="dropdown-menu dropdown-menu-right">
-										<a class="dropdown-item" href="{{route('home')}}">View Home Page</a>
-										<!-- <a class="dropdown-item" href="{{route('research')}}">View Research Page</a>
-										<a class="dropdown-item" href="{{route('innovations')}}">View Innovations Page</a>
-										<a class="dropdown-item" href="{{route('faculty.index')}}">View Department Page</a>
-										<a class="dropdown-item" href="{{route('announcements.index')}}">View Announcements Page</a> -->
-										<div class="dropdown-divider"></div>
-										<a class="dropdown-item" href="{{route('logout')}}">Sign out</a>
+								<label>
+									<div class="dropdown">
+										<a href='' role="button" class="nav-link dropdown-toggle text-dark dynamic-size-lg-h6" style="font-size: 1.25rem;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											{{Auth::user()->first_name}} {{Auth::user()->last_name}}
+										</a>
+										
+										<div class="dropdown-menu dropdown-menu-right">
+											<a class="dropdown-item" href="{{route('home')}}">View Home Page</a>
+											<!-- <a class="dropdown-item" href="{{route('research')}}">View Research Page</a>
+											<a class="dropdown-item" href="{{route('innovations')}}">View Innovations Page</a>
+											<a class="dropdown-item" href="{{route('faculty.index')}}">View Department Page</a>
+											<a class="dropdown-item" href="{{route('announcements.index')}}">View Announcements Page</a> -->
+											<div class="dropdown-divider"></div>
+											<a class="dropdown-item" href="{{route('logout')}}">Sign out</a>
+										</div>
 									</div>
-								</div>
-							</label>
+								</label>
+							</div>
 						</div>
+
+						{{-- Navbar Toggler --}}
+						<button class="sidebar-toggler" type="button" data-toggle="sidebar-collapse" data-target="#sidebar" aria-controls="sidebar" aria-label="Toggle Sidebar">
+							<span class="navbar-toggler-icon"></span>
+						</button>
 					</div>
 				</div>
 			</nav>
