@@ -13,6 +13,7 @@
 
 // AJAX -----
 Route::post('/get-college-departments', 'AjaxController@getCollegeDepartments')->name('get-college-departments');
+Route::post('/get-activities', 'AjaxController@getActivities')->name('get-activities');
 // AJAX END -----
 
 // COOKIES -----

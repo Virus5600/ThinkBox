@@ -207,7 +207,7 @@ class UserTableSeeder extends Seeder
 				'avatar' => 'https://avatars.githubusercontent.com/u/19548426?v=4',
 				'isAvatarLink' => 1,
 				'email' => 'satchi5600@gmail.com',
-				'username' => 'navidakse',
+				'username' => 'navidake',
 				'contact_no' => '933 819 3519',
 				'password' => Hash::make('pass123'),
 				'role' => 1,

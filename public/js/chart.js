@@ -9,7 +9,7 @@
  * @param fontWeight The font weight of the title of the chart. Default is 'normal'. See https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight for more details
  */
 function createLineChart(target, labels, dataset, displayTitle=false, title='', fontSize=25, fontWeight='normal') {
-	let chart = new Chart(target, {
+	return new Chart(target, {
 		type: 'line',
 		data: {
 			labels: labels,

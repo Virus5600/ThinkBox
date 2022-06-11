@@ -305,28 +305,15 @@ class PageController extends Controller
 	}
 
 	protected function dashboard() {
-		$research = array();
-		$innovations = array();
-		$materials = array();
-		$dates = array();
+		$min;
 
-		for ($i = 1; $i <= \Carbon\Carbon::now()->format('d'); $i++) {
-			$date = Carbon::parse(Carbon::now()->format('Y') . '-' . Carbon::now()->format('m') . '-' . ($i))->format('Y-m-d');
-			$r = Research::whereDate('created_at', '=', $date)->get();
-			$in = Innovation::whereDate('created_at', '=', $date)->get();
-			$m = Material::whereDate('created_at', '=', $date)->get();
-			$d = Carbon::now()->format('M') . ' ' . ($i);
+		$fr = Carbon::parse(Research::oldest()->first()->created_at);
+		$fin = Carbon::parse(Innovation::oldest()->first()->created_at);
+		$fm = Carbon::parse(Material::oldest()->first()->created_at);
+		$min = ($fr->lte($fin) ? $fr : ($fin->lte($fm) ? $fin : $fm))->format("Y-m-d");
 
-			array_push($research, $r);
-			array_push($innovations, $in);
-			array_push($materials, $m);
-			array_push($dates, $d);
-		}
 		return view('users.auth.admin.dashboard', [
-			'research' => $research,
-			'innovations' => $innovations,
-			'materials' => $materials,
-			'dates' => $dates
+			'min' => $min
 		]);
 	}
 }

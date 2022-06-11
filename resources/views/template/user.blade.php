@@ -66,15 +66,15 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.5/jquery.inputmask.min.js"></script>
 
 		{{-- Read More --}}
-		<link rel="stylesheet" type="text/css" href="/css/readmore.css">
-		<script type="text/javascript" src="/js/readmore.js"></script>
+		<link rel="stylesheet" type="text/css" href="{{ asset('/css/readmore.css') }}">
+		<script type="text/javascript" src="{{ asset('js/readmore.js') }}"></script>
 
 		{{-- Local CSS --}}
-		<link rel="stylesheet" href="/css/main.css" type="text/css">
-		<link rel="stylesheet" href="/css/style.css" type="text/css">
+		<link rel="stylesheet" href="{{ asset('/css/main.css') }}" type="text/css">
+		<link rel="stylesheet" href="{{ asset('/css/style.css') }}" type="text/css">
 
 		{{-- Favicon --}}
-		<link rel='icon' type='image/png' href='/images/UI/favicon.png'>
+		<link rel='icon' type='image/png' href='{{ asset("images/UI/favicon.png") }}'>
 		
 		{{-- Title --}}
 		<title>{{ env('APP_NAME') }} | @yield('title')</title>
@@ -110,12 +110,12 @@
 			<div class="header" id="header">
 				<div class="container">
 					<div class="row py-3 align-items-center">
-						<a href="{{ route('home') }}" class="col-6 col-lg-2 border-right">
-							<img src="/images/UI/Branding.png" alt="NU Logo" id="header-logo">
+						<a href="{{ route('home') }}" class="col-6 col-lg-2 border-right text-right">
+							<img src="{{ asset('images/UI/Branding.png') }}" alt="NU Logo" id="header-logo">
 						</a>
 
 						<a href="{{ route('home') }}" class="col-6 col-lg-5 text-decoration-none">
-							<h2 id="header-brand">OOTB HUB</h2>
+							<h2 id="header-brand">ThinkBox</h2>
 						</a>
 
 						<div class="col-lg-5 d-none d-lg-block text-right" id="header-links">
@@ -291,7 +291,7 @@
 
 				{{-- Branding --}}
 				<div class="col-12 col-lg-4 order-0 order-lg-4 text-center my-3">
-					<img src="/images/UI/Branding.png" style="max-height: 100%; max-width: 100%" height="auto" width="350" class="pb-0 mb-0" alt="{{env('APP_NAME')}}"/><br>
+					<img src="{{ asset('images/UI/Branding.png') }}" style="max-height: 100%; max-width: 100%" height="auto" width="350" class="pb-0 mb-0" alt="{{env('APP_NAME')}}"/><br>
 					<small class="pt-0 mt-0 display-block">&copy; {{env('APP_NAME')}} 2021-2023</small>
 				</div>
 			</div>

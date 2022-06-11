@@ -62,14 +62,14 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.5/jquery.inputmask.min.js"></script>
 
 		{{-- Read More --}}
-		<link rel="stylesheet" type="text/css" href="/css/readmore.css">
-		<script type="text/javascript" src="/js/readmore.js"></script>
+		<link rel="stylesheet" type="text/css" href="{{ asset('css/readmore.css') }}">
+		<script type="text/javascript" src="{{ asset('js/readmore.js') }}"></script>
 
 		{{-- Local CSS --}}
-		<link rel="stylesheet" href="/css/style.css" type="text/css">
+		<link rel="stylesheet" href="{{ asset('css/style.css') }}" type="text/css">
 
 		{{-- Favicon --}}
-		<link rel='icon' type='image/png' href='/images/UI/favicon.png'>
+		<link rel='icon' type='image/png' href='{{ asset("images/UI/favicon.png") }}'>
 		
 		{{-- Title --}}
 		<title>{{ env('APP_NAME') }} | @yield('title')</title>
@@ -104,7 +104,7 @@
 				<div class="container">
 					{{-- Branding --}}
 					<a class="navbar-brand m-0 py-0" href="{{route('dashboard')}}" style="height: auto;">
-						<img src="/images/UI/Branding.jpg" style="max-height: 3.25rem;" class="m-0 p-0" alt="Myriad Files" />
+						<img src="{{ asset('images/UI/Branding.png') }}" style="max-height: 3.25rem;" class="m-0 p-0" alt="ThinkBox" />
 					</a>
 
 					{{-- Navbar Toggler --}}
