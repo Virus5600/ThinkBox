@@ -228,15 +228,15 @@
 				<div class="row">
 					<div class="col d-flex fle-d-row">
 						@if (\Request::is('login'))
-						<span class="nav-link active custom-link">LOGIN</span>
+						<span class="nav-link active text-white py-1">LOGIN</span>
 						@else
-						<a href="{{route('login')}}" class="nav-link custom-link text-dark">LOGIN</a>
+						<a href="{{route('login')}}" class="nav-link text-white py-1">LOGIN</a>
 						@endif
 
 						{{-- @if (\Request::is('register')) --}}
-						{{-- <span class="nav-link active custom-link">Register</span> --}}
+						{{-- <span class="nav-link active text-white py-1">Register</span> --}}
 						{{-- @else --}}
-						{{-- <a href="{{route('register')}}" class="nav-link custom-link text-dark">Register</a> --}}
+						{{-- <a href="{{route('register')}}" class="nav-link text-white py-1">Register</a> --}}
 						{{-- @endif --}}
 					</div>
 				</div>
