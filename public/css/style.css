@@ -66,6 +66,9 @@ body {
 .sidebar.collapse-horizontal.show {
 	width: 100%;
 }
+.sidebar.collapse-horizontal {
+	width: 0;
+}
 
 .sidebar.collapse-vertical.show {
 	height: 100%;
@@ -73,6 +76,9 @@ body {
 
 .sidebar.collapse-horizontal.show~ .content {
 	width: 0;
+}
+.sidebar.collapse-horizontal~ .content {
+	width: 100vw;
 }
 
 .sidebar > span, .sidebar > a {

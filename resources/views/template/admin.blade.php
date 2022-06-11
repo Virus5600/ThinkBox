@@ -199,7 +199,7 @@
 		@yield('script')
 
 		{{-- Local Script --}}
-		<script type="text/javascript" src="/js/admin.js"></script>
+		<script type="text/javascript" src="{{ asset('js/admin.js') }}"></script>
 		<script type="text/javascript">
 			@if (Session::has('flash_error'))
 			Swal.fire({
