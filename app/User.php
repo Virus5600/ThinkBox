@@ -5,6 +5,9 @@ namespace App;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use \Http\Controllers\TmpController;
 
+use App\RolePrivileges;
+use App\Privileges;
+
 class User extends Authenticatable
 {
 	/**
@@ -25,7 +28,7 @@ class User extends Authenticatable
 		'contact_no',
 		'password',
 		'type',
-		'role',
+		'role_id',
 		'expiration_date'
 	];
 
@@ -50,6 +53,14 @@ class User extends Authenticatable
 		return $this->hasMany('App\OtherProfile');
 	}
 
+	protected function role() {
+		return $this->belongsTo('App\Roles', 'role_id');
+	}
+
+	protected function privileges() {
+		return $this->role->privileges;
+	}
+
 	public function getFullName() {
 		$middleName = '';
 		if ($this->middle_name != null) {
@@ -59,5 +70,13 @@ class User extends Authenticatable
 		}
 
 		return ($this->title == null ? '' : $this->title) . ' ' . $this->first_name . ' ' . ($this->middle_name == null ? '' : $middleName) . $this->last_name . ($this->suffix == null ? '' : ', ' . $this->suffix);
+	}
+
+	public function hasPrivilege($privilege) {
+		$userRole = $this->role_id;
+		$targetPrivilege = Privileges::where('name', '=', $privilege)->first()->id;
+		$matches = RolePrivileges::where('role_id', '=', $userRole)->where('privilege_id', '=', $targetPrivilege)->get();
+
+		return count($matches) > 0 ? true : false;
 	}
 }

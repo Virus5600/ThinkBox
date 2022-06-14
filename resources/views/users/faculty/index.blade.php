@@ -27,7 +27,7 @@
 
 			<span class="font-weight-bold">Select College/Department</span>
 			<div class="input-group">
-				<select name="dept" class="custom-select" onchange="$('#facultyParamSubmit').trigger('click');">
+				<select name="dept" class="custom-select" onchange="$('#departmentParamSubmit').trigger('click');">
 					<option value="All" {{$dept == 'All' ? 'selected' : ''}}>All</option>
 					@foreach($college as $c)
 					<option disabled></option>
@@ -45,7 +45,7 @@
 
 			<span class="font-weight-bold">Sort By</span>
 			<div class="input-group">
-				<select name="sortBy" class="custom-select" onchange="$('#facultyParamSubmit').trigger('click');">
+				<select name="sortBy" class="custom-select" onchange="$('#departmentParamSubmit').trigger('click');">
 					<option value="none" {{$sortBy == 'none' ? 'selected' : ''}}></option>
 					<option value="firstName" {{$sortBy == 'firstName' ? 'selected' : ''}}>First Name</option>
 					<option value="lastName" {{$sortBy == 'lastName' ? 'selected' : ''}}>Last Name</option>
@@ -57,7 +57,7 @@
 
 			<span class="font-weight-bold">Research Focus</span>
 			<div class="input-group">
-				<select name="researchFocus" class="custom-select" onchange="$('#facultyParamSubmit').trigger('click');">
+				<select name="researchFocus" class="custom-select" onchange="$('#departmentParamSubmit').trigger('click');">
 					<option value="all">All</option>
 					@foreach($research_focus as $rf)
 					<option value="{{$rf->name}}" {{$researchFocus == $rf->name ? 'selected' : ''}}>{{ucwords($rf->name)}}</option>
@@ -65,7 +65,7 @@
 				</select>
 			</div>
 
-			<input type="submit" class="hidden" id="facultyParamSubmit">
+			<input type="submit" class="hidden" id="departmentParamSubmit">
 		</form>
 
 		{{-- DEFINES THE COLUMN --}}

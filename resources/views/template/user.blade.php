@@ -139,12 +139,12 @@
 						<a href="#authCollapse" class="nav-link custom-auth-link dynamic-size-lg-h6 text-truncate" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="authCollapse" style="font-size: 1.25rem;">
 							@if (!Auth::user()->isAvatarLink)
 							@if (Auth::user()->avatar == null)
-							<img src="/uploads/users/default.png" class="circular-border" width='30' height='30' draggable='false' alt="User"/>
+							<img src="{{ asset('uploads/users/default.png') }}" class="circular-border" width='30' height='30' draggable='false' alt="User"/>
 							@else
-							<img src="/uploads/users/user{{Auth::user()->id}}/{{Auth::user()->avatar}}" class="circular-border" width='30' height='30' draggable='false' alt="User"/>
+							<img src="{{ asset('uploads/users/user' . Auth::user()->id . '/' . Auth::user()->avatar) }}" class="circular-border" width='30' height='30' draggable='false' alt="User"/>
 							@endif
 							@else
-							<img src="{{Auth::user()->avatar}}" class="circular-border" width='30' height='30' draggable='false' alt="User"/>
+							<img src="{{ Auth::user()->avatar }}" class="circular-border" width='30' height='30' draggable='false' alt="User"/>
 							@endif
 							{{Auth::user()->first_name}} {{Auth::user()->last_name}}
 						</a>
@@ -164,11 +164,11 @@
 
 							<li class="nav-item lr py-0">
 								@if(\Request::is('faculty'))
-								<span class="nav-link active custom-link my-0">DEPARTMENT</span>
+								<span class="nav-link active custom-link my-0">FACULTY</span>
 								@elseif(\Request::is('faculty/*'))
-								<a class="nav-link active custom-link my-0" href="{{route('faculty.index')}}">DEPARTMENT</a>
+								<a class="nav-link active custom-link my-0" href="{{route('faculty.index')}}">FACULTY</a>
 								@else
-								<a class="nav-link custom-link my-0" href="{{route('faculty.index')}}">DEPARTMENT</a>
+								<a class="nav-link custom-link my-0" href="{{route('faculty.index')}}">FACULTY</a>
 								@endif
 							</li>
 
@@ -274,19 +274,24 @@
 				</div>
 
 				<div class="col-12 col-lg-2 order-2 order-lg-1 text-center text-lg-left my-3">
-					<span class="font-weight-bold">Departments</span><br>
-					<a href="{{ route('faculty.index') }}?dept=CompSci">Computer Science</a><br>
+					@foreach (App\College::orderBy('name')->get() as $college)
+						<a href="{{ route('faculty.index') }}?dept={{ $college->name }}" class="font-weight-bold">{{ strlen($college->abbr) > 0 ? $college->abbr : $college->name }}</a><br>
+						@foreach ($college->departments as $department)
+							<a href="{{ route('faculty.index') }}?dept={{ $department->name }}">{{ $department->name }}</a><br>
+						@endforeach
+						<br>
+					@endforeach
 				</div>
 
 				<div class="col-12 col-lg-2 order-3 order-lg-2 text-center text-lg-left my-3">
-					<a href="">About Us</a><br>
-					<a href="">Our Partners</a><br>
-					<a href="">Contact Us</a><br>
+					<a href="#">About Us</a><br>
+					<a href="#">Our Partners</a><br>
+					<a href="#">Contact Us</a><br>
 				</div>
 					
 				<div class="col-12 col-lg-2 order-4 order-lg-3 text-center text-lg-left my-3">
-					<a href="">Privacy Policy</a><br>
-					<a href="">Terms of Use</a><br>
+					<a href="#">Privacy Policy</a><br>
+					<a href="#">Terms of Use</a><br>
 				</div>
 
 				{{-- Branding --}}

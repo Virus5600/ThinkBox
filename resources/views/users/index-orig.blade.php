@@ -243,7 +243,7 @@
 	{{-- FACULTY --}}
 	<div class="row my-5">
 		<div class="col text-center">
-			<span class="h4 h3-md font-weight-bold text-custom border-custom border border-thick border-left-0 border-top-0 border-right-0 px-3">Meet Our Faculty</span>
+			<span class="h4 h3-md font-weight-bold text-custom border-custom border border-thick border-left-0 border-top-0 border-right-0 px-3">Meet Our Faculty Members</span>
 
 			{{-- MAX: 8 FACULTY --}}
 			<div class="row mt-5">

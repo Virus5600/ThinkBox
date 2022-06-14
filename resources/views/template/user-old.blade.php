@@ -149,11 +149,11 @@
 
 						<li class="nav-item">
 							@if(\Request::is('faculty'))
-							<span class="nav-link active custom-link">Department</span>
+							<span class="nav-link active custom-link">Faculty</span>
 							@elseif(\Request::is('faculty/*'))
-							<a class="nav-link active custom-link" href="{{route('faculty.index')}}">Department</a>
+							<a class="nav-link active custom-link" href="{{route('faculty.index')}}">Faculty</a>
 							@else
-							<a class="nav-link custom-link" href="{{route('faculty.index')}}">Department</a>
+							<a class="nav-link custom-link" href="{{route('faculty.index')}}">Faculty</a>
 							@endif
 						</li>
 
@@ -284,8 +284,13 @@
 				</div>
 
 				<div class="col-12 col-lg-2 order-2 order-lg-1 text-center text-lg-left my-3">
-					<span class="font-weight-bold">Departments</span><br>
-					<a href="{{ route('faculty.index') }}?dept=CompSci">Computer Science</a><br>
+					@foreach (App\College::orderBy('name')->get() as $college)
+						<a href="{{ route('faculty.index') }}?dept={{ $college->name }}" class="font-weight-bold">{{ strlen($college->abbr) > 0 ? $college->abbr : $college->name }}</a><br>
+						@foreach ($college->departments as $department)
+							<a href="{{ route('faculty.index') }}?dept={{ $department->name }}">{{ $department->name }}</a><br>
+						@endforeach
+						<br>
+					@endforeach
 				</div>
 
 				<div class="col-12 col-lg-2 order-3 order-lg-2 text-center text-lg-left my-3">

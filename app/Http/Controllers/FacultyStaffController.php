@@ -134,6 +134,7 @@ class FacultyStaffController extends Controller
 				->withErrors($validator)
 				->withInput();
 		}
+
 		try {
 			DB::beginTransaction();
 
@@ -384,13 +385,20 @@ class FacultyStaffController extends Controller
 			$user->avatar = $req->avatar;
 		}
 
+		$words = explode(" ", $req->first_name . ' ' . $req->middle_name);
+		$username = "";
+		foreach ($words as $w) $username .= $w[0];
+		$username .= $req->lastname;
+		$old_username = $user->username;
+
 		$user->first_name = $req->first_name;
-		$user->isAvatarLink = $req->isAvatarLink ? 1 : 0;
 		$user->middle_name = $req->middle_name;
 		$user->last_name = $req->last_name;
 		$user->title = $req->title;
 		$user->suffix = $req->suffix;
+		$user->isAvatarLink = $req->isAvatarLink ? 1 : 0;
 		$user->email = $req->email;
+		$user->username = strtolower($username);
 		$user->contact_no = $con;
 		$user->save();
 
@@ -427,7 +435,8 @@ class FacultyStaffController extends Controller
 
 		return redirect()
 			->back()
-			->with('flash_success', 'Successfully Updated Profile')
+			->with('flash_success', 'Successfully Updated Profile.')
+			->with('message', $username != $old_username ? '<span>Updated username from ' . $old_username . ' to ' . $username . '</span>' : '')
 			->with('has_icon', true);
 	}
 

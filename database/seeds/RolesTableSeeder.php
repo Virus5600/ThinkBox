@@ -14,6 +14,10 @@ class RolesTableSeeder extends Seeder
 	public function run()
 	{
 		R::create([
+			'name' => 'master_admin'
+		]);
+
+		R::create([
 			'name' => 'admin'
 		]);
 
@@ -22,7 +26,11 @@ class RolesTableSeeder extends Seeder
 		]);
 
 		R::create([
-			'name' => 'faculty'
+			'name' => 'supervisor'
+		]);
+
+		R::create([
+			'name' => 'user'
 		]);
 	}
 }

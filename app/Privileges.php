@@ -11,4 +11,8 @@ class Privileges extends Model
 	];
 
 	public $timestamps = false;
+
+	protected function users() {
+		return $this->hasMany('App\Privilege', 'App\Roles');
+	}
 }

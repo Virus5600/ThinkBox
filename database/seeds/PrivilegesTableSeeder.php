@@ -20,70 +20,138 @@ class PrivilegesTableSeeder extends Seeder
 
 		P::create([
 			'id' => 2,
-			'name' => 'faculty_members_create'
+			'name' => 'faculty_members_view'
 		]);
 
 		P::create([
 			'id' => 3,
-			'name' => 'faculty_members_details'
+			'name' => 'faculty_members_create'
 		]);
 
 		P::create([
 			'id' => 4,
-			'name' => 'faculty_members_skills'
+			'name' => 'faculty_members_edit'
 		]);
 
 		P::create([
 			'id' => 5,
-			'name' => 'faculty_members_contents'
+			'name' => 'faculty_members_delete'
 		]);
 
 		P::create([
 			'id' => 6,
-			'name' => 'faculty_members_delete'
+			'name' => 'faculty_members_mark'
 		]);
-		// FACULTY MEMBERS END
 
-		// ANNOUNCEMENTS
+		// FACULTY MEMBER CONTENT
 		P::create([
 			'id' => 7,
-			'name' => 'announcements'
+			'name' => 'faculty_members_contents'
 		]);
 
 		P::create([
 			'id' => 8,
-			'name' => 'announcements_create'
+			'name' => 'faculty_members_contents_view'
 		]);
 
 		P::create([
 			'id' => 9,
-			'name' => 'announcements_details'
+			'name' => 'faculty_members_contents_create'
 		]);
 
 		P::create([
 			'id' => 10,
+			'name' => 'faculty_members_contents_edit'
+		]);
+
+		P::create([
+			'id' => 11,
+			'name' => 'faculty_members_contents_delete'
+		]);
+
+		P::create([
+			'id' => 12,
+			'name' => 'faculty_members_contents_mark'
+		]);
+		// FACULTY MEMBERS CONTENT END
+
+		// FACULTY MEMBERS SKILLS
+		P::create([
+			'id' => 13,
+			'name' => 'faculty_members_skills'
+		]);
+
+		P::create([
+			'id' => 14,
+			'name' => 'faculty_members_skills_view'
+		]);
+
+		P::create([
+			'id' => 15,
+			'name' => 'faculty_members_skills_create'
+		]);
+
+		P::create([
+			'id' => 16,
+			'name' => 'faculty_members_skills_edit'
+		]);
+
+		P::create([
+			'id' => 17,
+			'name' => 'faculty_members_skills_delete'
+		]);
+
+		P::create([
+			'id' => 18,
+			'name' => 'faculty_members_skills_mark'
+		]);
+		// FACULTY MEMBERS SKILLS END
+
+		// ANNOUNCEMENTS
+		P::create([
+			'id' => 19,
+			'name' => 'announcements'
+		]);
+
+		P::create([
+			'id' => 20,
+			'name' => 'announcements_view'
+		]);
+
+		P::create([
+			'id' => 21,
+			'name' => 'announcements_create'
+		]);
+
+		P::create([
+			'id' => 22,
+			'name' => 'announcements_edit'
+		]);
+
+		P::create([
+			'id' => 23,
 			'name' => 'announcements_delete'
 		]);
 		// ANNOUNCEMENTS END
 
 		// SKILLS
 		P::create([
-			'id' => 11,
+			'id' => 24,
 			'name' => 'skills'
 		]);
 
 		P::create([
-			'id' => 12,
+			'id' => 25,
 			'name' => 'skills_create'
 		]);
 
 		P::create([
-			'id' => 13,
+			'id' => 26,
 			'name' => 'skills_edit'
 		]);
 
 		P::create([
-			'id' => 14,
+			'id' => 27,
 			'name' => 'skills_delete'
 		]);
 		// SKILLS END

@@ -13,8 +13,25 @@ class UserTableSeeder extends Seeder
 	 */
 	public function run()
 	{
+		// MASTER ADMIN
 		U::create([
-			'id' => 1,
+			'title' => null,
+			'first_name' => 'Master',
+			'middle_name' => null,
+			'last_name' => 'Admin',
+			'suffix' => null,
+			'avatar' => null,
+			'isAvatarLink' => 0,
+			'email' => "ma@admin.admin",
+			'username' => 'ma_admin',
+			'contact_no' => null,
+			'password' => Hash::make('ma_admin'),
+			'role' => 1,
+			'expiration_date' => null
+		]);
+
+		// DESIGNATED USERS
+		U::create([
 			'title' => null,
 			'first_name' => 'Angelique',
 			'middle_name' => 'D',
@@ -23,15 +40,14 @@ class UserTableSeeder extends Seeder
 			'avatar' => 'user1.jpg',
 			'isAvatarLink' => 0,
 			'email' => 'angelique.lacasandile@gmail.com',
-			'username' => 'lacasandillea',
+			'username' => 'adlacasandile',
 			'contact_no' => '966 712 5676',
 			'password' => Hash::make('pass123'),
-			'role' => 1,
+			'role' => 4,
 			'expiration_date' => null
 		]);
 
 		U::create([
-			'id' => 2,
 			'title' => null,
 			'first_name' => 'Mideth',
 			'middle_name' => 'B',
@@ -40,15 +56,14 @@ class UserTableSeeder extends Seeder
 			'avatar' => 'user2.jpg',
 			'isAvatarLink' => 0,
 			'email' => 'mbabisado@national-u.edu.ph',
-			'username' => 'abisadomb',
+			'username' => 'mbabisado',
 			'contact_no' => null,
 			'password' => Hash::make('pass123'),
-			'role' => 3,
+			'role' => 5,
 			'expiration_date' => null
 		]);
 
 		U::create([
-			'id' => 3,
 			'title' => null,
 			'first_name' => 'Joseph Marvin',
 			'middle_name' => null,
@@ -57,15 +72,14 @@ class UserTableSeeder extends Seeder
 			'avatar' => 'user3.jpg',
 			'isAvatarLink' => 0,
 			'email' => 'jrimperial@national-u.edu.ph',
-			'username' => 'imperialjm',
+			'username' => 'jrimperial',
 			'contact_no' => null,
 			'password' => Hash::make('pass123'),
-			'role' => 3,
+			'role' => 5,
 			'expiration_date' => null
 		]);
 
 		U::create([
-			'id' => 4,
 			'title' => null,
 			'first_name' => 'Arlene',
 			'middle_name' => 'O',
@@ -74,15 +88,14 @@ class UserTableSeeder extends Seeder
 			'avatar' => 'user4.jpg',
 			'isAvatarLink' => 0,
 			'email' => 'aotrillanes@national-u.edu.ph',
-			'username' => 'trillanesao',
+			'username' => 'aotrillanes',
 			'contact_no' => null,
 			'password' => Hash::make('pass123'),
-			'role' => 1,
+			'role' => 3,
 			'expiration_date' => null
 		]);
 
 		U::create([
-			'id' => 5,
 			'title' => null,
 			'first_name' => 'Susan',
 			'middle_name' => 'S',
@@ -91,15 +104,14 @@ class UserTableSeeder extends Seeder
 			'avatar' => 'user5.jpg',
 			'isAvatarLink' => 0,
 			'email' => 'sscaluya@national-u.edu.ph',
-			'username' => 'caluyass',
+			'username' => 'sscaluya',
 			'contact_no' => null,
 			'password' => Hash::make('pass123'),
-			'role' => 3,
+			'role' => 5,
 			'expiration_date' => null
 		]);
 
 		U::create([
-			'id' => 6,
 			'title' => null,
 			'first_name' => 'Bernie',
 			'middle_name' => 'S',
@@ -108,15 +120,14 @@ class UserTableSeeder extends Seeder
 			'avatar' => 'user6.jpg',
 			'isAvatarLink' => 0,
 			'email' => 'bsfabito@national-u.edu.ph',
-			'username' => 'fabitobs',
+			'username' => 'bsfabito',
 			'contact_no' => null,
 			'password' => Hash::make('pass123'),
-			'role' => 3,
+			'role' => 5,
 			'expiration_date' => null
 		]);
 
 		U::create([
-			'id' => 7,
 			'title' => null,
 			'first_name' => 'Jayson Raymund',
 			'middle_name' => 'D',
@@ -125,7 +136,7 @@ class UserTableSeeder extends Seeder
 			'avatar' => 'user7.jpg',
 			'isAvatarLink' => 0,
 			'email' => 'jrdbermudez@national-u.edu.ph',
-			'username' => 'bermudezjrd',
+			'username' => 'jrdbermudez',
 			'contact_no' => null,
 			'password' => Hash::make('pass123'),
 			'role' => 3,
@@ -133,7 +144,6 @@ class UserTableSeeder extends Seeder
 		]);
 
 		U::create([
-			'id' => 8,
 			'title' => null,
 			'first_name' => 'Rogel',
 			'middle_name' => 'M',
@@ -141,16 +151,15 @@ class UserTableSeeder extends Seeder
 			'suffix' => null,
 			'avatar' => 'user8.jpg',
 			'isAvatarLink' => 0,
-			'email' => null,
-			'username' => 'labananrm',
+			'email' => 'rmlabanan@national-u.edu.ph',
+			'username' => 'rmlabanan',
 			'contact_no' => null,
 			'password' => Hash::make('pass123'),
-			'role' => 3,
+			'role' => 5,
 			'expiration_date' => null
 		]);
 
 		U::create([
-			'id' => 9,
 			'title' => null,
 			'first_name' => 'Ria Liza',
 			'middle_name' => 'C',
@@ -159,7 +168,7 @@ class UserTableSeeder extends Seeder
 			'avatar' => 'user9.jpg',
 			'isAvatarLink' => 0,
 			'email' => 'rlccanlas@national-u.edu.ph',
-			'username' => 'canlasrl',
+			'username' => 'rlccanlas',
 			'contact_no' => null,
 			'password' => Hash::make('pass123'),
 			'role' => 3,
@@ -167,7 +176,6 @@ class UserTableSeeder extends Seeder
 		]);
 
 		U::create([
-			'id' => 10,
 			'title' => null,
 			'first_name' => 'Rafael',
 			'middle_name' => 'A',
@@ -175,29 +183,16 @@ class UserTableSeeder extends Seeder
 			'suffix' => null,
 			'avatar' => 'user10.jpg',
 			'isAvatarLink' => 0,
-			'email' => null,
-			'username' => 'dimaculanganra',
+			'email' => 'rdimaculangan@national-u.edu.ph',
+			'username' => 'rdimaculangan',
 			'contact_no' => null,
 			'password' => Hash::make('pass123'),
-			'role' => 3,
-			'expiration_date' => null
-		]);
-
-		U::create([
-			'id' => 11,
-			'first_name' => 'Gabrielle Avelino',
-			'last_name' => 'Sampedro',
-			'avatar' => null,
-			'isAvatarLink' => 0,
-			'email' => null,
-			'username' => 'sampedroga',
-			'password' => Hash::make('pass123'),
-			'role' => 3,
+			'role' => 4,
 			'expiration_date' => null
 		]);
 
 		// DEV ACCOUNT FOR LOCAL TESTING
-		if (env('APP_ENV') == 'local') {
+		if (app()->isLocal()) {
 			U::create([
 				'title' => null,
 				'first_name' => 'カール・サッチ',
