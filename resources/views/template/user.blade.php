@@ -111,7 +111,7 @@
 				<div class="container">
 					<div class="row py-3 align-items-center">
 						<a href="{{ route('home') }}" class="col-6 col-lg-2 border-right text-right">
-							<img src="{{ asset('images/UI/Branding.png') }}" alt="NU Logo" id="header-logo">
+							<img src="{{ asset('images/UI/Branding.png') }}" alt="NU Logo" style="max-height: 3.25rem;" id="header-logo">
 						</a>
 
 						<a href="{{ route('home') }}" class="col-6 col-lg-5 text-decoration-none">
