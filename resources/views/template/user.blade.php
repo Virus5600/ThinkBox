@@ -149,43 +149,7 @@
 							{{Auth::user()->first_name}} {{Auth::user()->last_name}}
 						</a>
 					</div>
-
-					<div>
-						<label class="py-0 my-0">
-							<div class="d-none d-lg-block" id="primaryAuthCollapser">
-								<a href="#authCollapse" class="nav-link custom-auth-link dynamic-size-lg-h6 text-truncate" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="authCollapse" style="font-size: 1.25rem;">
-									@if (!Auth::user()->isAvatarLink)
-									@if (Auth::user()->avatar == null)
-									<img src="/uploads/users/default.png" class="circular-border" width='30' height='30' draggable='false' alt="User"/>
-									@else
-									<img src="/uploads/users/user{{Auth::user()->id}}/{{Auth::user()->avatar}}" class="circular-border" width='30' height='30' draggable='false' alt="User"/>
-									@endif
-									@else
-									<img src="{{Auth::user()->avatar}}" class="circular-border" width='30' height='30' draggable='false' alt="User"/>
-									@endif
-									{{Auth::user()->first_name}} {{Auth::user()->last_name}}
-								</a>
-							</div>
-						</label>
-					</div>
-					@else
-					<div>
-						<div class="col d-flex flex-d-row">
-							@if (\Request::is('login'))
-							<span class="nav-link active text-white py-1">LOGIN</span>
-							@else
-							<a href="{{route('login')}}" class="nav-link text-white py-1">LOGIN</a>
-							@endif
-
-							{{-- @if (\Request::is('register')) --}}
-							{{-- <span class="nav-link active text-white py-1">Register</span> --}}
-							{{-- @else --}}
-							{{-- <a href="{{route('register')}}" class="nav-link text-white py-1">Register</a> --}}
-							{{-- @endif --}}
-						</div>
-					</div>
 					@endif
-					
 
 					<div class="collapse navbar-collapse" id="navbarText">
 						<ul class="navbar-nav mr-auto">
@@ -238,6 +202,43 @@
 							</li>
 						</ul>
 					</div>
+
+					@if (Auth::check())
+					<div>
+						<label class="py-0 my-0">
+							<div class="d-none d-lg-block" id="primaryAuthCollapser">
+								<a href="#authCollapse" class="nav-link custom-auth-link dynamic-size-lg-h6 text-truncate" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="authCollapse" style="font-size: 1.25rem;">
+									@if (!Auth::user()->isAvatarLink)
+									@if (Auth::user()->avatar == null)
+									<img src="/uploads/users/default.png" class="circular-border" width='30' height='30' draggable='false' alt="User"/>
+									@else
+									<img src="/uploads/users/user{{Auth::user()->id}}/{{Auth::user()->avatar}}" class="circular-border" width='30' height='30' draggable='false' alt="User"/>
+									@endif
+									@else
+									<img src="{{Auth::user()->avatar}}" class="circular-border" width='30' height='30' draggable='false' alt="User"/>
+									@endif
+									{{Auth::user()->first_name}} {{Auth::user()->last_name}}
+								</a>
+							</div>
+						</label>
+					</div>
+					@else
+					<div>
+						<div class="col d-flex flex-d-row">
+							@if (\Request::is('login'))
+							<span class="nav-link active text-white py-1">LOGIN</span>
+							@else
+							<a href="{{route('login')}}" class="nav-link text-white py-1">LOGIN</a>
+							@endif
+
+							{{-- @if (\Request::is('register')) --}}
+							{{-- <span class="nav-link active text-white py-1">Register</span> --}}
+							{{-- @else --}}
+							{{-- <a href="{{route('register')}}" class="nav-link text-white py-1">Register</a> --}}
+							{{-- @endif --}}
+						</div>
+					</div>
+					@endif
 				</div>
 			</nav>
 
