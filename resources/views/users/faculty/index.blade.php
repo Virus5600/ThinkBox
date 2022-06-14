@@ -3,12 +3,12 @@
 @section('title', 'Faculty')
 
 @section('body')
-<div class="px-0 mx-0" style="max-width: 100vw!important; width: auto!important; height: 50vh!important; background: #fff url('/images/UI/banners/meta.jpg') no-repeat center; background-size: cover;">
+<div class="px-0 mx-0" style="max-width: 100vw!important; width: auto!important; height: 50vh!important; background: #fff url('{{ asset('images/UI/banners/department.new.jpg') }}') no-repeat top; background-size: cover;">
 	<div class="row h-100 darken-backdrop m-0" style="width: 100vw;">
 		<div class="col-6 ml-5" style="position: relative; top: 25%;">
-			<h1 class="text-light h3 h1-md">Department</h1>
+			<h1 class="text-light h3 h1-md">Organization</h1>
 			<hr class="hr-thick" style="border-color: white;" />
-			<p class="text-light h4">Meet our faculty members and learn about their expertise.</p>
+			<p class="text-light h4">Meet our organization's members and learn about their expertise.</p>
 		</div>
 	</div>
 </div>
