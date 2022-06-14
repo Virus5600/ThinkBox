@@ -78,8 +78,9 @@
 								</button>
 
 								<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown1">
+									<a href="#" class="dropdown-item">View</a>
 									<button class="dropdown-item" data-toggle="modal" data-target="#editMaterials{{$i+1}}">Edit</button>
-									<a href="" class="dropdown-item">Delete</a>
+									<a href="#" class="dropdown-item">Delete</a>
 								</div>
 							</div>
 

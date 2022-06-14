@@ -222,8 +222,9 @@ if(\Request::has('tab')) {
 											</button>
 
 											<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown1">
+												<a href="#" class="dropdown-item">View</a>
 												<button class="dropdown-item" data-toggle="modal" data-target="#editResearch1">Edit</button>
-												<a href="" class="dropdown-item">Delete</a>
+												<a href="#" class="dropdown-item">Delete</a>
 											</div>
 
 											<div class="modal fade" id="editResearch1" role="dialog" aria-hidden="true">
@@ -351,8 +352,9 @@ if(\Request::has('tab')) {
 											</button>
 
 											<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown1">
+												<a href="#" class="dropdown-item">View</a>
 												<button class="dropdown-item" data-toggle="modal" data-target="#editInnovation1">Edit</button>
-												<a href="" class="dropdown-item">Delete</a>
+												<a href="#" class="dropdown-item">Delete</a>
 											</div>
 										</div>
 

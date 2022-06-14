@@ -19,6 +19,8 @@ class CreateFacultyStaffTable extends Migration
 			$table->integer('position')->unsigned();
 			$table->string('location')->nullable();
 			$table->mediumText('description')->nullable();
+			$table->tinyInteger('is_marked')->default(0);
+			$table->mediumText('reason')->nullable();
 			$table->timestamps();
 
 			$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

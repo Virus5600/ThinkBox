@@ -103,14 +103,84 @@ Route::group(['middleware' => ['auth']], function() {
 		Route::get('/dashboard', 'PageController@dashboard')->name('dashboard');
 
 		// Faculty Member
-		Route::get('/faculty-member/{id}/skills', 'FacultyStaffController@skills')->name('admin.faculty-member.skills');
-		Route::get('/faculty-member/{id}/manage-content', 'FacultyStaffController@manageContents')->name('admin.faculty-member.manage-contents');
-		Route::get('/faculty-member/{id}/manage-content/{topicId}', 'FacultyStaffController@manageContentsShowTopic')->name('admin.faculty-member.manage-contents.topic');
-		Route::get('/faculty-member/generate/', 'FacultyStaffController@generate')->name('admin.faculty-member.generate');
-		Route::post('/faculty-member/generate/store', 'FacultyStaffController@storeGenerated')->name('admin.faculty-member.generate.store');
-		Route::get('/faculty-member/{id}/delete', 'FacultyStaffController@delete')->name('admin.faculty-member.delete');
-		Route::resource('faculty-member', 'FacultyStaffController');
-		Route::post('faculty-member/{id}/update', 'FacultyStaffController@update')->name('admin.faculty-member.update');
+		Route::group(['middleware' => 'permission:faculty_members'], function() {
+			Route::get('/faculty-member', 'FacultyStaffController@index')->name('admin.faculty-member.index');
+
+			Route::group(['middleware' => 'permission:faculty_members_view'], function() {
+				Route::get('/faculty-member/{$id}', 'FacultyStaffController@show')->name('admin.faculty-member.show');
+			}
+
+			Route::group(['middleware' => 'permission:faculty_members_create'], function() {
+				Route::get('/faculty-member/create', 'FacultyStaffController@create')->name('admin.faculty-member.create');
+				Route::get('/faculty-member/generate/', 'FacultyStaffController@generate')->name('admin.faculty-member.generate');
+
+				Route::post('/faculty-member/store', 'FacultyStaffController@store')->name('admin.faculty-member.store');
+				Route::post('/faculty-member/generate/store', 'FacultyStaffController@storeGenerated')->name('admin.faculty-member.generate.store');
+			}
+
+			Route::group(['middleware' => 'permission:faculty_members_edit'], function() {
+				Route::get('/faculty-member/{$id}/edit', 'FacultyStaffController@edit')->name('admin.faculty-member.edit');
+				Route::post('faculty-member/{id}/update', 'FacultyStaffController@update')->name('admin.faculty-member.update');
+			}
+
+			Route::group(['middleware' => 'permission:faculty_members_delete'], function() {
+				Route::get('/faculty-member/{id}/delete', 'FacultyStaffController@delete')->name('admin.faculty-member.delete');
+			}
+
+			Route::group(['middleware' => 'permission:faculty_members_mark'], function() {
+				Route::post('/faculty-member/{$id}/mark', 'FacultyStaffController@mark')->name('admin.faculty-member.mark');
+				Route::post('/faculty-member/{$id}/unmark', 'FacultyStaffController@unmark')->name('admin.faculty-member.unmark');
+			}
+
+			Route::group(['middleware' => 'permission:faculty_members_contents'], function() {
+				Route::get('/faculty-member/{id}/manage-content', 'FacultyStaffController@manageContents')->name('admin.faculty-member.manage-contents');
+				Route::get('/faculty-member/{id}/manage-content/{topicId}', 'FacultyStaffController@manageContentsShowTopic')->name('admin.faculty-member.manage-contents.topic');
+
+				Route::group(['middleware' => 'permission:faculty_members_contents_view'], function() {
+					// TBA
+				});
+
+				Route::group(['middleware' => 'permission:faculty_members_contents_create'], function() {
+					// TBA
+				});
+
+				Route::group(['middleware' => 'permission:faculty_members_contents_edit'], function() {
+					// TBA
+				});
+
+				Route::group(['middleware' => 'permission:faculty_members_contents_delete'], function() {
+					// TBA
+				});
+
+				Route::group(['middleware' => 'permission:faculty_members_contents_mark'], function() {
+					// TBA
+				});
+			});
+
+			Route::group(['middleware' => 'permission:faculty_members_skills'], function() {
+				Route::get('/faculty-member/{id}/skills', 'FacultyStaffController@skills')->name('admin.faculty-member.skills');
+
+				Route::group(['middleware' => 'permission:faculty_members_skills_view'], function() {
+					// TBA
+				});
+
+				Route::group(['middleware' => 'permission:faculty_members_skills_create'], function() {
+					// TBA
+				});
+
+				Route::group(['middleware' => 'permission:faculty_members_skills_edit'], function() {
+					// TBA
+				});
+
+				Route::group(['middleware' => 'permission:faculty_members_skills_delete'], function() {
+					// TBA
+				});
+
+				Route::group(['middleware' => 'permission:faculty_members_skills_mark'], function() {
+					// TBA
+				});
+			});
+		});
 
 		// Announcements
 		Route::resource('announcements', 'AdminAnnouncementsController');

@@ -465,4 +465,24 @@ class FacultyStaffController extends Controller
 		User::find($fs->user_id)->delete();
 		return redirect()->back()->with('flash_success', 'Successfully removed staff.');
 	}
+
+	protected function mark(Request $req, $id) {
+		// $table->tinyInteger('is_marked')->default(0);
+		// $table->mediumText('reason')->nullable();
+
+		$staff = FacultyStaff::find($id);
+
+		$staff->is_marked = 1;
+		$staff->reason = $req->reason;
+		$staff->save();
+	}
+
+	protected function unmark($id) {
+		$staff = FacultyStaff::find($id);
+
+		$staff->is_marked = 0;
+		$staff->reason = null;
+		$staff->save();
+	}
+
 }
