@@ -9,7 +9,8 @@ use App\ActivityLog;
 use App\Announcements;
 
 use Auth;
-Use DB;
+use DB;
+use File;
 use Log;
 use Validator;
 
