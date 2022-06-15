@@ -146,11 +146,10 @@ class PageController extends Controller
 				->orWhere('users.email', 'LIKE', '%'.$search.'%')
 				->orWhere('focus.name', 'LIKE', '%'.$search.'%');
 		}
-		
+
 		if (!is_a($research, 'Illuminate\Pagination\LengthAwarePaginator')) {
 			$research = Auth::check() ? $research->distinct()->paginate(9, ['research.*']) : $research->where('research.is_featured', 1)->distinct()->paginate(9, ['research.*']);
 		}
-
 
 		return view('users.research.index', [
 			'college' => $college,

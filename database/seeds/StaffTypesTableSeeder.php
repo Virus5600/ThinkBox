@@ -14,6 +14,10 @@ class StaffTypesTableSeeder extends Seeder
 	public function run()
 	{
 		ST::create([
+			'type' => 'admin'
+		]);
+
+		ST::create([
 			'type' => 'other'
 		]);
 

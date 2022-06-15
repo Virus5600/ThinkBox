@@ -39,7 +39,9 @@ class FacultyController extends Controller
 			if ($rf != 'all') {
 				// ...leftJoin tables faculty_staff and faculty_focus, then get all the distinct entries that will match with the selected focus. Lastly, get the columns from faculty_staff tables only,
 				$focus = FacultyFocus::leftJoin('faculty_staffs', 'faculty_staffs.id', '=', 'faculty_focus.faculty_staff_id')
-					->where('faculty_focus.focus_id', '=', Focus::where('name', '=', $rf)->first()->id)->distinct()->get(['faculty_staffs.*']);
+					->where('faculty_focus.focus_id', '=', Focus::where('name', '=', $rf)->first()->id)
+					->distinct()
+					->get(['faculty_staffs.*']);
 			
 				// After the last step, proceed to push the faculty_staff.id to the $focus array variable... 
 				foreach ($focus as $f) {
@@ -123,6 +125,9 @@ class FacultyController extends Controller
 				->orWhere('focus.name', 'LIKE', '%'.$search.'%');
 		}
 
+		// REMOVE ADMINS
+		$staff = $staff->where('position', '>', '1');
+
 		if (!\Request::has('sortBy') || \Request::get('sortBy') == 'none') {
 			$staff = $staff->orderBy('department', 'DESC');
 		}
@@ -144,6 +149,9 @@ class FacultyController extends Controller
 	}
 
 	protected function show($id) {
+		if (FacultyStaff::find($id)->position == 1)
+			return abort('404');
+
 		return view('users.faculty.show', [
 			'staff' => FacultyStaff::find($id),
 			'research' => Auth::check() ? Research::where('posted_by', $id)->take(3)->get() : Research::where('posted_by', $id)->where('is_featured', 1)->take(3)->get(),
@@ -156,6 +164,9 @@ class FacultyController extends Controller
 	}
 
 	protected function research($id, $sortBy='date') {
+		if (FacultyStaff::find($id)->position == 1)
+			return abort('404');
+
 		$research = Research::where('posted_by', $id);
 
 		// SORT
@@ -201,6 +212,9 @@ class FacultyController extends Controller
 	}
 
 	protected function innovations($id, $sortBy='date') {
+		if (FacultyStaff::find($id)->position == 1)
+			return abort('404');
+
 		$innovations = Innovation::where('posted_by', '=', $id);
 
 		// SORT
@@ -246,6 +260,9 @@ class FacultyController extends Controller
 	}
 
 	protected function materials($id, $sortBy='date') {
+		if (FacultyStaff::find($id)->position == 1)
+			return abort('404');
+		
 		// TEMPLATE START
 		$materials = Material::where('faculty_staff_id', '=', $id);
 
