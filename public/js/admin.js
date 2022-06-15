@@ -81,7 +81,6 @@ $(document).ready(function() {
 
 		$(e.currentTarget).addClass(`disabled cursor-default`);
 		$(e.currentTarget).attr('data-clicked', 'true');
-		$(e.currentTarget).prop('disabled', true);
 	});
 
 	// Asks for confirmation before deleting an item
@@ -107,7 +106,6 @@ $(document).ready(function() {
 			else {
 				obj.removeClass('disabled');
 				obj.attr('data-clicked', 'false');
-				obj.prop('disabled', false);
 			}
 		});
 	});
