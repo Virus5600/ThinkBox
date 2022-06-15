@@ -12,7 +12,7 @@
 			<h2 class="font-weight-bold mb-2 text-center"><a href="{{$announcement->source}}" class="text-dark text-decoration-none text-wrap">{{$announcement->title}}</a></h2>
 
 			<div class="text-center my-4 mx-3">
-				<img src="/images/TEMPORARY/home/{{$announcement->image}}" alt='Announcement {{$announcement->id}}' class="img-fluid img-announcement cursor-pointer" data-toggle='modal' data-target='#modal' draggable='false'/>
+				<img src="{{ asset('uploads/announcements/' . $announcement->image) }}" alt='Announcement {{$announcement->id}}' class="img-fluid img-announcement cursor-pointer" data-toggle='modal' data-target='#modal' draggable='false'/>
 
 				<div class="modal fade" id="modal" data-backdrop='static' role='dialog' aria-labelledby='announcementLabel{{$announcement->id}}' aria-hidden='true'>
 					<div class="modal-dialog modal-xl modal-dialog-centered">
@@ -26,7 +26,7 @@
 							</div>
 
 							<div class="modal-body">
-								<img src="/images/TEMPORARY/home/{{$announcement->image}}" alt='Announcement {{$announcement->id}}' class="img-fluid" draggable='false'/>
+								<img src="{{ asset('uploads/announcements/' . $announcement->image) }}" alt='Announcement {{$announcement->id}}' class="img-fluid" draggable='false'/>
 							</div>
 						</div>
 					</div>

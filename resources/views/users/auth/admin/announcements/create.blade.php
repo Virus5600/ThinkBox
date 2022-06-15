@@ -9,13 +9,15 @@
 <div class="container-fluid my-5 px-0 px-lg-5">
 	<div class="row">
 		<div class="col-12 my-3">
-			<form action="" method="{{-- POST --}}" enctype="multipart/form-data">
+			<form action="{{ route('admin.announcements.store') }}" method="POST" enctype="multipart/form-data">
+				{{ csrf_field() }}
+				
 				<div class="row">
 					<div class="col-12 col-lg-6">
 						{{-- ANNOUNCEMENT IMAGE --}}
 						<div class="form-group text-center text-lg-left w-100" style="max-height: 20rem;">
 							<label class="h5" for="image">Announcement Image</label><br>
-							<img src="/images/UI/placeholder.jpg" class="img-fluid cursor-pointer border" style="border-width: 0.25rem!important; max-height: 16.25rem;" id="image" alt="Announcement Image">
+							<img src="{{ asset('images/UI/placeholder.jpg') }}" class="img-fluid cursor-pointer border" style="border-width: 0.25rem!important; max-height: 16.25rem;" id="image" alt="Announcement Image">
 							<input type="file" name="image" class="hidden" accept=".jpg,.jpeg,.png"><br>
 							<small class="text-muted"><b>FORMATS ALLOWED:</b> JPEG, JPG, PNG</small>
 						</div>
@@ -37,7 +39,7 @@
 				<div class="row">
 					<div class="col">
 						<label class="h5" for="content">Content<span class="text-danger">*</span></label>
-						<textarea class="form-control" name="content" rows="5" style="resize: none;">{{old('content')}}</textarea>
+						<textarea class="form-control summernote" name="content" rows="5" style="resize: none;">{!!old('content')!!}</textarea>
 					</div>
 				</div>
 

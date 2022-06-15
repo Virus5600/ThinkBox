@@ -52,6 +52,10 @@
 		{{-- Chart.js 3.1.1 --}}
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.1.1/chart.min.js" integrity="sha512-BqNYFBAzGfZDnIWSAEGZSD/QFKeVxms2dIBPfw11gZubWwKUjEgmFUtUls8vZ6xTRZN/jaXGHD/ZaxD9+fDo0A==" crossorigin="anonymous"></script>
 
+		{{-- Summernote 0.8.18 --}}
+		<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+		<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js" defer></script>
+
 		{{-- Custom CSS --}}
 		@yield('css')
 
@@ -113,9 +117,9 @@
 							<div class="ml-auto">
 								@if (!Auth::user()->isAvatarLink)
 									@if (Auth::user()->avatar == null)
-									<img src="/uploads/users/default.png" class="circular-border" width='30' height='30' draggable='false' alt="User"/>
+									<img src="{{ asset('uploads/users/default.png') }}" class="circular-border" width='30' height='30' draggable='false' alt="User"/>
 									@else
-									<img src="/uploads/users/user{{Auth::user()->id}}/{{Auth::user()->avatar}}" class="circular-border" width='30' height='30' draggable='false' alt="User"/>
+									<img src="{{ asset('uploads/users/user' . Auth::user()->id . '/' . Auth::user()->avatar) }}" class="circular-border" width='30' height='30' draggable='false' alt="User"/>
 									@endif
 								@endif
 								<label>
@@ -123,13 +127,13 @@
 										<a href='' role="button" class="nav-link dropdown-toggle text-dark dynamic-size-lg-h6" style="font-size: 1.25rem;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 											{{Auth::user()->first_name}} {{Auth::user()->last_name}}
 										</a>
-										
+
 										<div class="dropdown-menu dropdown-menu-right">
 											<a class="dropdown-item" href="{{route('home')}}">View Home Page</a>
-											<!-- <a class="dropdown-item" href="{{route('research')}}">View Research Page</a>
+											<a class="dropdown-item" href="{{route('research')}}">View Research Page</a>
 											<a class="dropdown-item" href="{{route('innovations')}}">View Innovations Page</a>
 											<a class="dropdown-item" href="{{route('faculty.index')}}">View Department Page</a>
-											<a class="dropdown-item" href="{{route('announcements.index')}}">View Announcements Page</a> -->
+											<a class="dropdown-item" href="{{route('announcements.index')}}">View Announcements Page</a>
 											<div class="dropdown-divider"></div>
 											<a class="dropdown-item" href="{{route('logout')}}">Sign out</a>
 										</div>
@@ -252,6 +256,36 @@
 				},
 			});
 			@endif
+
+			$(document).ready(function() {
+				// Summernote
+				$('.summernote').summernote({
+					minHeight: 128,
+					maxHeight: 384,
+					height: 256,
+					placeholder: 'Content goes here...',
+					toolbar: [
+						['style', ['style']],
+						['font', ['bold', 'underline', 'clear']],
+						['fontname', ['fontname', 'fontsize']],
+						['color', ['color']],
+						['para', ['ul', 'ol', 'paragraph']],
+						['table', ['table']],
+						['insert', ['link', 'hr']],
+						['view', ['fullscreen', 'codeview', 'help']],
+						['history', ['undo', 'redo']]
+					],
+					popover: {
+						link: [
+							['link', ['linkDialogShow', 'unlink']]
+						],
+						table: [
+							['add', ['addRowDown', 'addRowUp', 'addColLeft', 'addColRight']],
+							['delete', ['deleteRow', 'deleteCol', 'deleteTable']],
+						]
+					}
+				});
+			});
 		</script>
 	</body>
 </html>

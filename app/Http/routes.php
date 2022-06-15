@@ -106,16 +106,16 @@ Route::group(['middleware' => ['auth']], function() {
 		Route::group(['middleware' => 'permission:faculty_members'], function() {
 			Route::get('/faculty-member', 'FacultyStaffController@index')->name('admin.faculty-member.index');
 
-			Route::group(['middleware' => 'permission:faculty_members_view'], function() {
-				Route::get('/faculty-member/{$id}', 'FacultyStaffController@show')->name('admin.faculty-member.show');
-			});
-
 			Route::group(['middleware' => 'permission:faculty_members_create'], function() {
 				Route::get('/faculty-member/create', 'FacultyStaffController@create')->name('admin.faculty-member.create');
 				Route::get('/faculty-member/generate/', 'FacultyStaffController@generate')->name('admin.faculty-member.generate');
 
 				Route::post('/faculty-member/store', 'FacultyStaffController@store')->name('admin.faculty-member.store');
 				Route::post('/faculty-member/generate/store', 'FacultyStaffController@storeGenerated')->name('admin.faculty-member.generate.store');
+			});
+
+			Route::group(['middleware' => 'permission:faculty_members_view'], function() {
+				Route::get('/faculty-member/{$id}', 'FacultyStaffController@show')->name('admin.faculty-member.show');
 			});
 
 			Route::group(['middleware' => 'permission:faculty_members_edit'], function() {
@@ -188,13 +188,13 @@ Route::group(['middleware' => ['auth']], function() {
 		Route::group(['middleware' => 'permission:announcements'], function() {
 			Route::get('/announcements', 'AdminAnnouncementsController@index')->name('admin.announcements.index');
 
-			Route::group(['middleware' => 'permission:announcements_view'], function() {
-				Route::get('/announcements/{id}', 'AdminAnnouncementsController@show')->name('admin.announcements.show');
-			});
-
 			Route::group(['middleware' => 'permission:announcements_create'], function() {
 				Route::get('/announcements/create', 'AdminAnnouncementsController@create')->name('admin.announcements.create');
 				Route::post('/announcements/store', 'AdminAnnouncementsController@store')->name('admin.announcements.store');
+			});
+
+			Route::group(['middleware' => 'permission:announcements_view'], function() {
+				Route::get('/announcements/{id}', 'AdminAnnouncementsController@show')->name('admin.announcements.show');
 			});
 
 			Route::group(['middleware' => 'permission:announcements_edit'], function() {
@@ -203,7 +203,7 @@ Route::group(['middleware' => ['auth']], function() {
 			});
 
 			Route::group(['middleware' => 'permission:announcements_delete'], function() {
-				Route::get('/announcements/{id}/delete', 'AdminAnnouncementsController@delete')->name('admin.announcements.delete');
+				Route::delete('/announcements/{id}/delete', 'AdminAnnouncementsController@delete')->name('admin.announcements.delete');
 			});
 
 			Route::group(['middleware' => 'permission:announcements_mark'], function() {
@@ -217,13 +217,13 @@ Route::group(['middleware' => ['auth']], function() {
 		Route::group(['middleware' => 'permission:skills'], function() {
 			Route::get('/skills', 'SkillsController@index')->name('admin.skills.index');
 
-			Route::group(['middleware' => 'permission:skills_view'], function() {
-				Route::get('/skills/{id}', 'SkillsController@show')->name('admin.skills.show');
-			});
-
 			Route::group(['middleware' => 'permission:skills_create'], function() {
 				Route::get('/skills/create', 'SkillsController@create')->name('admin.skills.create');
 				Route::post('/skills/store', 'SkillsController@store')->name('admin.skills.store');
+			});
+
+			Route::group(['middleware' => 'permission:skills_view'], function() {
+				Route::get('/skills/{id}', 'SkillsController@show')->name('admin.skills.show');
 			});
 
 			Route::group(['middleware' => 'permission:skills_edit'], function() {
@@ -245,12 +245,12 @@ Route::group(['middleware' => ['auth']], function() {
 		Route::group(['middleware' => 'permission:activity_log'], function() {
 			Route::get('/activity-log', 'ActivityLogController@index')->name('admin.activity-log.index');
 
-			Route::group(['middleware' => 'permission:activity_log_view'], function() {
-				Route::get('/activity-log/{id}', 'ActivityLogController@show')->name('admin.activity-log.show');
-			});
-
 			Route::group(['middleware' => 'permission:activity_log_reset'], function() {
 				Route::post('/activity-log/reset', 'ActivityLogController@reset')->name('admin.activity-log.reset');
+			});
+
+			Route::group(['middleware' => 'permission:activity_log_view'], function() {
+				Route::get('/activity-log/{id}', 'ActivityLogController@show')->name('admin.activity-log.show');
 			});
 
 			Route::group(['middleware' => 'permission:activity_log_mark'], function() {

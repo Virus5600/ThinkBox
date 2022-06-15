@@ -16,26 +16,6 @@ function confirmLeave(urlTo) {
 	});
 }
 
-/**
- * Warns the user that they're leaving without saving their changes.
- * @param urlTo String value. The page they'r attempting to open.
- * @param item String value. The item you're trying to delete.
- * @param isItem boolean value. An optional item that determines if you're deleting a container or an item. This will change the warning message.
- */
-function confirmDelete(urlTo, item, isItem = false) {
-	Swal.fire({
-		icon: 'warning',
-		html: '<h4>Proceed to delete?</h4>' + (isItem ? '<p>You want to delete the container ' + item + ', along with all the items inside it?</p>' : '<p>You wanted to delete this item: ' + item +'</p>'),
-		showDenyButton: true,
-		confirmButtonText: 'Yes',
-		denyButtonText: 'No'
-	}).then((result) => {
-		if (result.isConfirmed) {
-			window.location.href = urlTo;
-		}
-	});
-}
-
 function copyToClipboard(element) {
 	let temp = $("<input>");
 	$("body").append(temp);
@@ -100,6 +80,36 @@ $(document).ready(function() {
 		}
 
 		$(e.currentTarget).addClass(`disabled cursor-default`);
+		$(e.currentTarget).attr('data-clicked', 'true');
+		$(e.currentTarget).prop('disabled', true);
+	});
+
+	// Asks for confirmation before deleting an item
+	$('.delete-btn').on('click', (e) => {
+		e.preventDefault();
+		
+		let obj = $(e.target);
+
+		let isContainer = obj.attr('data-is-container');
+		let item = obj.attr('data-item');
+
+		console.log(isContainer);
+
+		Swal.fire({
+			icon: 'warning',
+			html: '<h4>Proceed to delete?</h4>' + (isContainer ? '<p>You want to delete the container ' + item + ', along with all the items inside it?</p>' : '<p>You wanted to delete this item: ' + item +'</p>'),
+			showDenyButton: true,
+			confirmButtonText: 'Yes',
+			denyButtonText: 'No'
+		}).then((result) => {
+			if (result.isConfirmed)
+				obj.closest('form').submit();
+			else {
+				obj.removeClass('disabled');
+				obj.attr('data-clicked', 'false');
+				obj.prop('disabled', false);
+			}
+		});
 	});
 
 	// Disables an input while animation is in progress

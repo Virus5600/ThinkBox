@@ -39,7 +39,7 @@
 				<tr>
 					<td class="hr-thick">{{$a->title}}</td>
 					<td class="hr-thick">{{$a->source}}</td>
-					<td class="hr-thick">March 1, 2021</td>
+					<td class="hr-thick">{{Carbon\Carbon::parse($a->created_at)->setTimezone('Asia/Manila')->format('M d, Y')}}</td>
 					<td class="hr-thick">
 						<div class="dropdown">
 							<button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" id="dropdown{{$a->id}}" aria-haspopup="true" aria-expanded="false">
@@ -49,7 +49,7 @@
 							<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown{{$a->id}}">
 								<a href="{{ route('admin.announcements.show', [$a->id]) }}" class="dropdown-item">View</a>
 								<a href="{{ route('admin.announcements.edit', [$a->id]) }}" class="dropdown-item">Edit Details</a>
-								<a href="" class="dropdown-item">Delete</a>
+								@include('include.delete_btn', ['item' => $a->title, 'route' => route('admin.announcements.delete', [$a->id]), 'class' => 'dropdown-item delete-btn'])
 							</div>
 						</div>
 					</td>

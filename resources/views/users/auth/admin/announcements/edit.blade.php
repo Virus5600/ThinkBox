@@ -9,13 +9,15 @@
 <div class="container-fluid my-5 px-0 px-lg-5">
 	<div class="row">
 		<div class="col-12 my-3">
-			<form action="" method="{{-- POST --}}" enctype="multipart/form-data">
+			<form action="{{ route('admin.announcements.update', [$announcement->id]) }}" method="POST" enctype="multipart/form-data">
+				{{ csrf_field() }}
+
 				<div class="row">
 					<div class="col-12 col-lg-6">
 						{{-- ANNOUNCEMENT IMAGE --}}
 						<div class="form-group text-center text-lg-left w-100" style="max-height: 20rem;">
 							<label class="h5" for="image">Announcement Image</label><br>
-							<img src="/images/TEMPORARY/home/{{$announcement->image}}" class="img-fluid cursor-pointer border" style="border-width: 0.25rem!important; max-height: 16.25rem;" id="image" alt="Announcement Image">
+							<img src="{{ asset('uploads/announcements/' . $announcement->image) }}" class="img-fluid cursor-pointer border" style="border-width: 0.25rem!important; max-height: 16.25rem;" id="image" alt="Announcement Image">
 							<input type="file" name="image" class="hidden" accept=".jpg,.jpeg,.png"><br>
 							<small class="text-muted"><b>FORMATS ALLOWED:</b> JPEG, JPG, PNG</small>
 						</div>
@@ -23,7 +25,7 @@
 
 					<div class="col-12 col-lg-6">
 						<div class="form-group">
-							<label class="h5" for="title">Title<span class="text-danger">*</span></label>
+							<label class="h5 important" for="title">Title</label>
 							<input class="form-control" type="text" name="title" value="{{$announcement->title}}"/>
 						</div>
 
@@ -36,8 +38,8 @@
 
 				<div class="row">
 					<div class="col">
-						<label class="h5" for="content">Content<span class="text-danger">*</span></label>
-						<textarea class="form-control" name="content" rows="5" style="resize: none;">{!!$announcement->content!!}</textarea>
+						<label class="h5 important" for="content">Content</label>
+						<textarea class="form-control summernote" name="content" rows="5" style="resize: none;">{!!$announcement->content!!}</textarea>
 					</div>
 				</div>
 
@@ -70,7 +72,7 @@
 			reader.readAsDataURL(obj.files[0])
 		}
 		else {
-			$("#image").attr("src", "/images/TEMPORARY/home/{{$announcement->image}}");
+			$("#image").attr("src", "{{ asset('uploads/announcements/' . $announcement->image) }}");
 		}
 	}
 

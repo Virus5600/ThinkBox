@@ -45,7 +45,7 @@
 				@else
 				<div class="col-12 col-md-4 my-3">
 				@endif
-					<div class="card dark-shadow">
+					<div class="card dark-shadow h-100">
 						<div class="card-body">
 							<div class="announcement-img" style="background: #fff url('/uploads/announcements/{{$a->image}}') no-repeat center"></div>
 							<h5 class="card-title text-truncate-2">{{$a->title}}</h5>

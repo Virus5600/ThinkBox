@@ -926,6 +926,11 @@ nav.position-sticky {
 	top: 0;
 }
 
+.important:after {
+	content: ' *';
+	color: #dc3545!important;
+}
+
 /* BREAKPOINT RELATED CSS */
 @media (min-width: 388px) {
 	.banner-text-adjust {
