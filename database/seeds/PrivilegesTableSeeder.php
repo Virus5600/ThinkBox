@@ -132,28 +132,60 @@ class PrivilegesTableSeeder extends Seeder
 			'id' => 23,
 			'name' => 'announcements_delete'
 		]);
+
+		P::create([
+			'id' => 24,
+			'name' => 'announcements_mark'
+		]);
 		// ANNOUNCEMENTS END
 
 		// SKILLS
 		P::create([
-			'id' => 24,
+			'id' => 25,
 			'name' => 'skills'
 		]);
 
 		P::create([
-			'id' => 25,
+			'id' => 26,
 			'name' => 'skills_create'
 		]);
 
 		P::create([
-			'id' => 26,
+			'id' => 27,
 			'name' => 'skills_edit'
 		]);
 
 		P::create([
-			'id' => 27,
+			'id' => 28,
 			'name' => 'skills_delete'
 		]);
+
+		P::create([
+			'id' => 29,
+			'name' => 'skills_mark'
+		]);
 		// SKILLS END
+
+		// ACTIVITY LOG
+		P::create([
+			'id' => 30,
+			'name' => 'activity_log'
+		]);
+
+		P::create([
+			'id' => 31,
+			'name' => 'activity_log_view'
+		]);
+
+		P::create([
+			'id' => 32,
+			'name' => 'activity_log_reset'
+		]);
+
+		P::create([
+			'id' => 33,
+			'name' => 'activity_log_mark'
+		]);
+		// ACTIVITY LOG END
 	}
 }

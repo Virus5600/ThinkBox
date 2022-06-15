@@ -15,7 +15,9 @@ class FacultyStaff extends Model
 		'user_id',
 		'department',
 		'position',
-		'location'
+		'location',
+		'is_marked',
+		'reason',
 	];
 
 	protected function user() {

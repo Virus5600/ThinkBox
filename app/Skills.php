@@ -12,7 +12,9 @@ class Skills extends Model
 	 * @var array
 	 */
 	protected $fillable = [
-		'skill'
+		'skill',
+		'is_marked',
+		'reason',
 	];
 
 	protected function facultyStaff() {

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jun 11, 2022 at 11:21 AM
+-- Generation Time: Jun 15, 2022 at 07:37 AM
 -- Server version: 5.7.36
 -- PHP Version: 7.4.26
 
@@ -18,8 +18,28 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `cs-dept`
+-- Database: `thinkbox`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `activity_logs`
+--
+
+DROP TABLE IF EXISTS `activity_logs`;
+CREATE TABLE IF NOT EXISTS `activity_logs` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `address` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `action` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `is_marked` tinyint(4) NOT NULL DEFAULT '0',
+  `reason` mediumtext COLLATE utf8mb4_unicode_ci,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
 -- --------------------------------------------------------
 
@@ -62,6 +82,8 @@ CREATE TABLE IF NOT EXISTS `announcements` (
   `source` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `content` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `author_id` int(10) UNSIGNED DEFAULT NULL,
+  `is_marked` tinyint(4) NOT NULL DEFAULT '0',
+  `reason` mediumtext COLLATE utf8mb4_unicode_ci,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -72,11 +94,11 @@ CREATE TABLE IF NOT EXISTS `announcements` (
 -- Dumping data for table `announcements`
 --
 
-INSERT INTO `announcements` (`id`, `image`, `title`, `source`, `content`, `author_id`, `created_at`, `updated_at`) VALUES
-(1, 'announcement1.jpg', 'Payment Options', 'https://www.national-u.edu.ph/payment-options/', '\r\n				<p>Good news, Nationalians!</p>\r\n				<p>Now you can pay your tuition, miscellaneous, and other school fees via our nominated payment channels and centers nationwide.</p>\r\n				<p>You may process your payment via credit card, online banking, 7-Eleven, Cebuana, SM Bills payment and many more.</p>', 4, '2021-03-17 16:00:00', '2022-06-11 07:41:25'),
-(2, 'announcement2.jpg', 'BDO EasyPay Cash Tuition Program', 'https://www.national-u.edu.ph/payment-options', '<p>EASYPAY-CASH-TUITION-PROMO-MECHANICS-v121620</p>', 4, '2021-02-14 16:00:00', '2022-06-11 07:41:25'),
-(3, 'announcement3.jpg', 'NU Manila’s COE hosts REFOREST 2020: For Vivid Solutions', 'https://www.national-u.edu.ph/payment-options/', '\r\n				<p>The National University Manila’s College of Engineering along with PICE and PSSE student chapters of NU successfully hosted the virtual REFOREST 2020: For Vivid Solutions, last January 29 with 1500 global crowd in attendance.</p>\r\n				<p>Research Forum and Exhibition on Environmental Sustainability and Technologies (REFOREST) aims to produce solutions that will address relevant environmental crises both for present and in the future.</p>\r\n				<p>Reputable plenary speakers, forum discussants and presenters were present to share their knowledge and experience in the significance of wise environmental decision-making in a well-functioning ecosystem.</p>\r\n				<p>To top off the event, National-U’s Electronics and Communications Engineering alumnus, Jayvee Boy H. Agustin, was awarded the Best Paper Presenter for the topic: “Development of Subsystems for a Web-based Survey Tool Using Automatic Speech and Optical Character Recognition with Geotagging Features.”</p>\r\n				<p>With the mission to combat emerging natural and environmental conflicts, REFOREST 2020 will indeed help us attain a sustainable environment.</p>', 4, '2021-01-30 16:00:00', '2022-06-11 07:41:25'),
-(4, 'announcement4.jpg', 'Enrollment for 1st Term AY 2021-2022 is ongoing.', 'https://www.facebook.com/nuadmissionsmnl/posts/282474563481754', '\r\n				<p>\r\n					The NU Manila ENROLLMENT for 1st Term AY 2021-2022 is ONGOING.<br>\r\n					Applicants may register online via <a href=\"bit.ly/NUManilaOnlineApplication\">bit.ly/NUManilaOnlineApplication</a>.\r\n				</p>\r\n				\r\n				<p>To all ENROLLEES of 1st Term AY 2021-2022 (Freshmen, Transferee, 2nd Degree, Graduate Studies, and Cross Enrollee) kindly upload your requirements here:</p>\r\n				\r\n				<p>For FRESHMEN Online Enrollment: <a href=\"http://bit.ly/NUMNLFreshmenEnrollment\">http://bit.ly/NUMNLFreshmenEnrollment</a></p>\r\n				\r\n				<p>For Transferee, 2nd Degree, Graduate Studies and Cross Enrollees:<br><a href=\"http://bit.ly/NUMNLOnlineEnrollment\">http://bit.ly/NUMNLOnlineEnrollment</a></p>\r\n				\r\n				<p>Should you have any questions, please don\'t hesitate to reach us at: </p>\r\n				\r\n				<p>\r\n					📧 : <a href=\"mailto:admissions@national-u.edu.ph\">admissions@national-u.edu.ph</a><br>\r\n					📞 : 09479961932 and 09479961933 (Smart) / 09223016192 (Sun)<br>\r\n					☎️ : 8712-1900 local 1201 | 8743-7951\r\n				</p>\r\n				<p>Or send us a personal message here at NU Admissions Office-Manila\'s official Facebook Page account.</p>\r\n				<p>\r\n					Keep safe and we hope to see all of you here at NU!<br>\r\n					#EducationThatWorks\r\n				</p>', 4, '2021-04-27 16:00:00', '2022-06-11 07:41:25');
+INSERT INTO `announcements` (`id`, `image`, `title`, `source`, `content`, `author_id`, `is_marked`, `reason`, `created_at`, `updated_at`) VALUES
+(1, 'announcement1.jpg', 'Payment Options', 'https://www.national-u.edu.ph/payment-options/', '\r\n				<p>Good news, Nationalians!</p>\r\n				<p>Now you can pay your tuition, miscellaneous, and other school fees via our nominated payment channels and centers nationwide.</p>\r\n				<p>You may process your payment via credit card, online banking, 7-Eleven, Cebuana, SM Bills payment and many more.</p>', 4, 0, NULL, '2021-03-17 16:00:00', '2022-06-15 07:37:34'),
+(2, 'announcement2.jpg', 'BDO EasyPay Cash Tuition Program', 'https://www.national-u.edu.ph/payment-options', '<p>EASYPAY-CASH-TUITION-PROMO-MECHANICS-v121620</p>', 4, 0, NULL, '2021-02-14 16:00:00', '2022-06-15 07:37:34'),
+(3, 'announcement3.jpg', 'NU Manila’s COE hosts REFOREST 2020: For Vivid Solutions', 'https://www.national-u.edu.ph/payment-options/', '\r\n				<p>The National University Manila’s College of Engineering along with PICE and PSSE student chapters of NU successfully hosted the virtual REFOREST 2020: For Vivid Solutions, last January 29 with 1500 global crowd in attendance.</p>\r\n				<p>Research Forum and Exhibition on Environmental Sustainability and Technologies (REFOREST) aims to produce solutions that will address relevant environmental crises both for present and in the future.</p>\r\n				<p>Reputable plenary speakers, forum discussants and presenters were present to share their knowledge and experience in the significance of wise environmental decision-making in a well-functioning ecosystem.</p>\r\n				<p>To top off the event, National-U’s Electronics and Communications Engineering alumnus, Jayvee Boy H. Agustin, was awarded the Best Paper Presenter for the topic: “Development of Subsystems for a Web-based Survey Tool Using Automatic Speech and Optical Character Recognition with Geotagging Features.”</p>\r\n				<p>With the mission to combat emerging natural and environmental conflicts, REFOREST 2020 will indeed help us attain a sustainable environment.</p>', 4, 0, NULL, '2021-01-30 16:00:00', '2022-06-15 07:37:34'),
+(4, 'announcement4.jpg', 'Enrollment for 1st Term AY 2021-2022 is ongoing.', 'https://www.facebook.com/nuadmissionsmnl/posts/282474563481754', '\r\n				<p>\r\n					The NU Manila ENROLLMENT for 1st Term AY 2021-2022 is ONGOING.<br>\r\n					Applicants may register online via <a href=\"bit.ly/NUManilaOnlineApplication\">bit.ly/NUManilaOnlineApplication</a>.\r\n				</p>\r\n				\r\n				<p>To all ENROLLEES of 1st Term AY 2021-2022 (Freshmen, Transferee, 2nd Degree, Graduate Studies, and Cross Enrollee) kindly upload your requirements here:</p>\r\n				\r\n				<p>For FRESHMEN Online Enrollment: <a href=\"http://bit.ly/NUMNLFreshmenEnrollment\">http://bit.ly/NUMNLFreshmenEnrollment</a></p>\r\n				\r\n				<p>For Transferee, 2nd Degree, Graduate Studies and Cross Enrollees:<br><a href=\"http://bit.ly/NUMNLOnlineEnrollment\">http://bit.ly/NUMNLOnlineEnrollment</a></p>\r\n				\r\n				<p>Should you have any questions, please don\'t hesitate to reach us at: </p>\r\n				\r\n				<p>\r\n					📧 : <a href=\"mailto:admissions@national-u.edu.ph\">admissions@national-u.edu.ph</a><br>\r\n					📞 : 09479961932 and 09479961933 (Smart) / 09223016192 (Sun)<br>\r\n					☎️ : 8712-1900 local 1201 | 8743-7951\r\n				</p>\r\n				<p>Or send us a personal message here at NU Admissions Office-Manila\'s official Facebook Page account.</p>\r\n				<p>\r\n					Keep safe and we hope to see all of you here at NU!<br>\r\n					#EducationThatWorks\r\n				</p>', 4, 0, NULL, '2021-04-27 16:00:00', '2022-06-15 07:37:34');
 
 -- --------------------------------------------------------
 
@@ -176,6 +198,8 @@ DROP TABLE IF EXISTS `faculty_skills`;
 CREATE TABLE IF NOT EXISTS `faculty_skills` (
   `faculty_staff_id` int(10) UNSIGNED NOT NULL,
   `skill_id` int(10) UNSIGNED NOT NULL,
+  `is_marked` tinyint(4) NOT NULL DEFAULT '0',
+  `reason` mediumtext COLLATE utf8mb4_unicode_ci,
   KEY `faculty_skills_faculty_staff_id_foreign` (`faculty_staff_id`),
   KEY `faculty_skills_skill_id_foreign` (`skill_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
@@ -184,79 +208,79 @@ CREATE TABLE IF NOT EXISTS `faculty_skills` (
 -- Dumping data for table `faculty_skills`
 --
 
-INSERT INTO `faculty_skills` (`faculty_staff_id`, `skill_id`) VALUES
-(1, 3),
-(1, 1),
-(1, 20),
-(1, 8),
-(1, 18),
-(1, 9),
-(1, 17),
-(1, 19),
-(1, 4),
-(1, 5),
-(1, 14),
-(1, 21),
-(2, 10),
-(2, 16),
-(2, 7),
-(2, 15),
-(2, 11),
-(2, 12),
-(2, 13),
-(2, 2),
-(2, 6),
-(2, 21),
-(2, 8),
-(2, 18),
-(3, 8),
-(3, 18),
-(3, 9),
-(3, 17),
-(3, 19),
-(3, 4),
-(3, 5),
-(3, 14),
-(3, 21),
-(4, 1),
-(4, 3),
-(4, 4),
-(4, 5),
-(4, 8),
-(4, 9),
-(4, 14),
-(4, 17),
-(4, 18),
-(4, 19),
-(4, 20),
-(4, 21),
-(5, 8),
-(5, 18),
-(5, 9),
-(5, 19),
-(5, 4),
-(5, 5),
-(5, 14),
-(5, 21),
-(6, 8),
-(6, 18),
-(6, 9),
-(6, 19),
-(6, 4),
-(6, 5),
-(6, 14),
-(6, 21),
-(7, 8),
-(7, 18),
-(7, 21),
-(8, 8),
-(8, 18),
-(8, 21),
-(9, 22),
-(9, 23),
-(9, 24),
-(9, 25),
-(9, 19);
+INSERT INTO `faculty_skills` (`faculty_staff_id`, `skill_id`, `is_marked`, `reason`) VALUES
+(1, 3, 0, NULL),
+(1, 1, 0, NULL),
+(1, 20, 0, NULL),
+(1, 8, 0, NULL),
+(1, 18, 0, NULL),
+(1, 9, 0, NULL),
+(1, 17, 0, NULL),
+(1, 19, 0, NULL),
+(1, 4, 0, NULL),
+(1, 5, 0, NULL),
+(1, 14, 0, NULL),
+(1, 21, 0, NULL),
+(2, 10, 0, NULL),
+(2, 16, 0, NULL),
+(2, 7, 0, NULL),
+(2, 15, 0, NULL),
+(2, 11, 0, NULL),
+(2, 12, 0, NULL),
+(2, 13, 0, NULL),
+(2, 2, 0, NULL),
+(2, 6, 0, NULL),
+(2, 21, 0, NULL),
+(2, 8, 0, NULL),
+(2, 18, 0, NULL),
+(3, 8, 0, NULL),
+(3, 18, 0, NULL),
+(3, 9, 0, NULL),
+(3, 17, 0, NULL),
+(3, 19, 0, NULL),
+(3, 4, 0, NULL),
+(3, 5, 0, NULL),
+(3, 14, 0, NULL),
+(3, 21, 0, NULL),
+(4, 1, 0, NULL),
+(4, 3, 0, NULL),
+(4, 4, 0, NULL),
+(4, 5, 0, NULL),
+(4, 8, 0, NULL),
+(4, 9, 0, NULL),
+(4, 14, 0, NULL),
+(4, 17, 0, NULL),
+(4, 18, 0, NULL),
+(4, 19, 0, NULL),
+(4, 20, 0, NULL),
+(4, 21, 0, NULL),
+(5, 8, 0, NULL),
+(5, 18, 0, NULL),
+(5, 9, 0, NULL),
+(5, 19, 0, NULL),
+(5, 4, 0, NULL),
+(5, 5, 0, NULL),
+(5, 14, 0, NULL),
+(5, 21, 0, NULL),
+(6, 8, 0, NULL),
+(6, 18, 0, NULL),
+(6, 9, 0, NULL),
+(6, 19, 0, NULL),
+(6, 4, 0, NULL),
+(6, 5, 0, NULL),
+(6, 14, 0, NULL),
+(6, 21, 0, NULL),
+(7, 8, 0, NULL),
+(7, 18, 0, NULL),
+(7, 21, 0, NULL),
+(8, 8, 0, NULL),
+(8, 18, 0, NULL),
+(8, 21, 0, NULL),
+(9, 22, 0, NULL),
+(9, 23, 0, NULL),
+(9, 24, 0, NULL),
+(9, 25, 0, NULL),
+(9, 19, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -272,29 +296,32 @@ CREATE TABLE IF NOT EXISTS `faculty_staffs` (
   `position` int(10) UNSIGNED NOT NULL,
   `location` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `description` mediumtext COLLATE utf8mb4_unicode_ci,
+  `is_marked` tinyint(4) NOT NULL DEFAULT '0',
+  `reason` mediumtext COLLATE utf8mb4_unicode_ci,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `faculty_staffs_user_id_foreign` (`user_id`),
   KEY `faculty_staffs_position_foreign` (`position`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
 --
 -- Dumping data for table `faculty_staffs`
 --
 
-INSERT INTO `faculty_staffs` (`id`, `user_id`, `department`, `position`, `location`, `description`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 4, 'National University', 'Dr. Angelique D. Lacasandile is the Department Chair of the Computer Science Department at National University, Manila. She is also the Academe and Industry Linkage Coordinator, and a recipient of CHED Scholarship for Graduate Studies that enjoys full-privileges to earn doctorate degree. She graduated at Technological Institute of the Philippines – Manila with a degree of Doctor in Information Technology (DIT), her current research papers and system developed focused on the projects about the government.', '2022-06-11 07:41:25', '2022-06-11 07:41:25'),
-(2, 2, 1, 5, 'National University', NULL, '2022-06-11 07:41:25', '2022-06-11 07:41:25'),
-(3, 3, 1, 5, 'National University', 'A graduate student at De La Salle University under the MS Computer Science program. I am also a full-time faculty member of the Computer Science Department at National University-Manila. My research works are focused on applying Natural Language Processing (NLP) on Philippine languages using Machine Learning and Deep Learning methods.', '2022-06-11 07:41:25', '2022-06-11 07:41:25'),
-(4, 4, 1, 3, 'National University', 'Dr. Arlene Trillanes is the Dean of the College of Computing and Information Technologies at National University, Manila.', '2022-06-11 07:41:25', '2022-06-11 07:41:25'),
-(5, 5, 1, 5, 'National University', 'Susan S. Caluya is a holder of a degree in Master of Science in Computer Science from AMA Computer College, Makati City. She earned her Bachelor of Science in Computer Science from Eulogio Amang Rodriguez Institute of Technology. Currently, she is the Chair of the Information Technology department of TIP Manila.', '2022-06-11 07:41:25', '2022-06-11 07:41:25'),
-(6, 6, 2, 5, 'National University', 'With a decade of strong years of experience in the academe, I had the opportunity to excel in teaching, research and extension which paved the way for my three Faculty Excellence Awards (2015, 2017, 2018) and six Faculty Research Awards from 2015 to 2020 all obtained from National University-Manila.', '2022-06-11 07:41:25', '2022-06-11 07:41:25'),
-(7, 7, 2, 4, 'National University', NULL, '2022-06-11 07:41:25', '2022-06-11 07:41:25'),
-(8, 8, 1, 5, 'National University', NULL, '2022-06-11 07:41:25', '2022-06-11 07:41:25'),
-(9, 9, 3, 2, 'National University', 'Dr. Ria Liza C. Canlas is an engineer, technologist and Intellectual Property expert. She obtained her degrees in Bachelor of Science in Civil Engineering at the Mapua Institute of Technology, Master of Engineering Management major in Construction Management at the Pamantasan ng Lungsod ng Maynila, and Doctor of Technology at the Technological University of the Philippines. She had researches published and several completed studies, as project leader, including Grant-in-aid studies funded by the Commission on Higher Education (CHED), Department of Science and Technology (DOST), and various institutional research projects. Her expertise is in research, project management, engineering and technology, and intellectual property. Presently, she is one of the Consultants at Strategic Research and Development, Inc (STRAND, Inc) and the Principal at Po-lite Technology Incorporated, RPM Business Solutions and CACTech Construction. Futhermore, she is into innovations through engagement in various experimental researches, mentoring and Intellectual Property concept trainings. She is a licensed Civil Engineer, Certified Materials Engineer 1 and Registered Patent Agent. She is presently the Assistant Research Director at National University. Also connected as independent Patent Consultant and Technical Expert of Intellectual Property Office of the University of the Philippines, Diliman. She has ongoing inventions under different stages (for development, for patent drafting, and filed).', '2022-06-11 07:41:25', '2022-06-11 07:41:25'),
-(10, 10, 3, 5, 'National University', 'Experienced Technical Consultant with a demonstrated history of working in the education management industry. Skilled in Management, Training, Instrumentation, Leadership, and Programmable Logic Controller (PLC). Strong sales professional with a Masters of Engineering focused in Electrical and Electronics Engineering from Technological University of the Philippines.', '2022-06-11 07:41:25', '2022-06-11 07:41:25'),
-(11, 11, 1, 5, 'National University', NULL, '2022-06-11 07:41:25', '2022-06-11 07:41:25');
+INSERT INTO `faculty_staffs` (`id`, `user_id`, `department`, `position`, `location`, `description`, `is_marked`, `reason`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 5, 'National University', 'MASTER ADMIN ACCOUNT', 0, NULL, '2022-06-15 07:37:34', '2022-06-15 07:37:34'),
+(2, 2, 1, 4, 'National University', 'Dr. Angelique D. Lacasandile is the Department Chair of the Computer Science Department at National University, Manila. She is also the Academe and Industry Linkage Coordinator, and a recipient of CHED Scholarship for Graduate Studies that enjoys full-privileges to earn doctorate degree. She graduated at Technological Institute of the Philippines – Manila with a degree of Doctor in Information Technology (DIT), her current research papers and system developed focused on the projects about the government.', 0, NULL, '2022-06-15 07:37:34', '2022-06-15 07:37:34'),
+(3, 3, 1, 5, 'National University', NULL, 0, NULL, '2022-06-15 07:37:34', '2022-06-15 07:37:34'),
+(4, 4, 1, 5, 'National University', 'A graduate student at De La Salle University under the MS Computer Science program. I am also a full-time faculty member of the Computer Science Department at National University-Manila. My research works are focused on applying Natural Language Processing (NLP) on Philippine languages using Machine Learning and Deep Learning methods.', 0, NULL, '2022-06-15 07:37:34', '2022-06-15 07:37:34'),
+(5, 5, 1, 3, 'National University', 'Dr. Arlene Trillanes is the Dean of the College of Computing and Information Technologies at National University, Manila.', 0, NULL, '2022-06-15 07:37:34', '2022-06-15 07:37:34'),
+(6, 6, 1, 5, 'National University', 'Susan S. Caluya is a holder of a degree in Master of Science in Computer Science from AMA Computer College, Makati City. She earned her Bachelor of Science in Computer Science from Eulogio Amang Rodriguez Institute of Technology. Currently, she is the Chair of the Information Technology department of TIP Manila.', 0, NULL, '2022-06-15 07:37:34', '2022-06-15 07:37:34'),
+(7, 7, 2, 5, 'National University', 'With a decade of strong years of experience in the academe, I had the opportunity to excel in teaching, research and extension which paved the way for my three Faculty Excellence Awards (2015, 2017, 2018) and six Faculty Research Awards from 2015 to 2020 all obtained from National University-Manila.', 0, NULL, '2022-06-15 07:37:34', '2022-06-15 07:37:34'),
+(8, 8, 2, 4, 'National University', NULL, 0, NULL, '2022-06-15 07:37:34', '2022-06-15 07:37:34'),
+(9, 9, 1, 5, 'National University', NULL, 0, NULL, '2022-06-15 07:37:34', '2022-06-15 07:37:34'),
+(10, 10, 3, 2, 'National University', 'Dr. Ria Liza C. Canlas is an engineer, technologist and Intellectual Property expert. She obtained her degrees in Bachelor of Science in Civil Engineering at the Mapua Institute of Technology, Master of Engineering Management major in Construction Management at the Pamantasan ng Lungsod ng Maynila, and Doctor of Technology at the Technological University of the Philippines. She had researches published and several completed studies, as project leader, including Grant-in-aid studies funded by the Commission on Higher Education (CHED), Department of Science and Technology (DOST), and various institutional research projects. Her expertise is in research, project management, engineering and technology, and intellectual property. Presently, she is one of the Consultants at Strategic Research and Development, Inc (STRAND, Inc) and the Principal at Po-lite Technology Incorporated, RPM Business Solutions and CACTech Construction. Futhermore, she is into innovations through engagement in various experimental researches, mentoring and Intellectual Property concept trainings. She is a licensed Civil Engineer, Certified Materials Engineer 1 and Registered Patent Agent. She is presently the Assistant Research Director at National University. Also connected as independent Patent Consultant and Technical Expert of Intellectual Property Office of the University of the Philippines, Diliman. She has ongoing inventions under different stages (for development, for patent drafting, and filed).', 0, NULL, '2022-06-15 07:37:34', '2022-06-15 07:37:34'),
+(11, 11, 3, 5, 'National University', 'Experienced Technical Consultant with a demonstrated history of working in the education management industry. Skilled in Management, Training, Instrumentation, Leadership, and Programmable Logic Controller (PLC). Strong sales professional with a Masters of Engineering focused in Electrical and Electronics Engineering from Technological University of the Philippines.', 0, NULL, '2022-06-15 07:37:34', '2022-06-15 07:37:34'),
+(12, 12, 1, 5, 'National University', 'ADMIN ACCOUNT', 0, NULL, '2022-06-15 07:37:34', '2022-06-15 07:37:34');
 
 -- --------------------------------------------------------
 
@@ -316,27 +343,27 @@ CREATE TABLE IF NOT EXISTS `focus` (
 --
 
 INSERT INTO `focus` (`id`, `name`, `created_at`, `updated_at`) VALUES
-(1, 'e-government & e-governance', '2022-06-11 07:41:25', '2022-06-11 07:41:25'),
-(2, 'disaster preparedness', '2022-06-11 07:41:25', '2022-06-11 07:41:25'),
-(3, 'android technology', '2022-06-11 07:41:25', '2022-06-11 07:41:25'),
-(4, 'data mining', '2022-06-11 07:41:25', '2022-06-11 07:41:25'),
-(5, 'artificial intelligence', '2022-06-11 07:41:25', '2022-06-11 07:41:25'),
-(6, 'e-learning', '2022-06-11 07:41:25', '2022-06-11 07:41:25'),
-(7, 'adaptive learning', '2022-06-11 07:41:25', '2022-06-11 07:41:25'),
-(8, 'emphatic coding', '2022-06-11 07:41:25', '2022-06-11 07:41:25'),
-(9, 'machine learning', '2022-06-11 07:41:25', '2022-06-11 07:41:25'),
-(10, 'readability assessment', '2022-06-11 07:41:25', '2022-06-11 07:41:25'),
-(11, 'ai for education', '2022-06-11 07:41:25', '2022-06-11 07:41:25'),
-(12, 'natural language processing', '2022-06-11 07:41:25', '2022-06-11 07:41:25'),
-(13, 'computational linguistics', '2022-06-11 07:41:25', '2022-06-11 07:41:25'),
-(14, 'computing technology', '2022-06-11 07:41:25', '2022-06-11 07:41:25'),
-(15, 'social computing', '2022-06-11 07:41:25', '2022-06-11 07:41:25'),
-(16, 'm-learning', '2022-06-11 07:41:25', '2022-06-11 07:41:25'),
-(17, 'mobile game continuance', '2022-06-11 07:41:25', '2022-06-11 07:41:25'),
-(18, 'is success theories', '2022-06-11 07:41:25', '2022-06-11 07:41:25'),
-(19, 'Green Technology', '2022-06-11 07:41:25', '2022-06-11 07:41:25'),
-(20, 'Innovations', '2022-06-11 07:41:25', '2022-06-11 07:41:25'),
-(21, 'Construction Management', '2022-06-11 07:41:25', '2022-06-11 07:41:25');
+(1, 'e-government & e-governance', '2022-06-15 07:37:34', '2022-06-15 07:37:34'),
+(2, 'disaster preparedness', '2022-06-15 07:37:34', '2022-06-15 07:37:34'),
+(3, 'android technology', '2022-06-15 07:37:34', '2022-06-15 07:37:34'),
+(4, 'data mining', '2022-06-15 07:37:34', '2022-06-15 07:37:34'),
+(5, 'artificial intelligence', '2022-06-15 07:37:34', '2022-06-15 07:37:34'),
+(6, 'e-learning', '2022-06-15 07:37:34', '2022-06-15 07:37:34'),
+(7, 'adaptive learning', '2022-06-15 07:37:34', '2022-06-15 07:37:34'),
+(8, 'emphatic coding', '2022-06-15 07:37:34', '2022-06-15 07:37:34'),
+(9, 'machine learning', '2022-06-15 07:37:34', '2022-06-15 07:37:34'),
+(10, 'readability assessment', '2022-06-15 07:37:34', '2022-06-15 07:37:34'),
+(11, 'ai for education', '2022-06-15 07:37:34', '2022-06-15 07:37:34'),
+(12, 'natural language processing', '2022-06-15 07:37:34', '2022-06-15 07:37:34'),
+(13, 'computational linguistics', '2022-06-15 07:37:34', '2022-06-15 07:37:34'),
+(14, 'computing technology', '2022-06-15 07:37:34', '2022-06-15 07:37:34'),
+(15, 'social computing', '2022-06-15 07:37:34', '2022-06-15 07:37:34'),
+(16, 'm-learning', '2022-06-15 07:37:34', '2022-06-15 07:37:34'),
+(17, 'mobile game continuance', '2022-06-15 07:37:34', '2022-06-15 07:37:34'),
+(18, 'is success theories', '2022-06-15 07:37:34', '2022-06-15 07:37:34'),
+(19, 'Green Technology', '2022-06-15 07:37:34', '2022-06-15 07:37:34'),
+(20, 'Innovations', '2022-06-15 07:37:34', '2022-06-15 07:37:34'),
+(21, 'Construction Management', '2022-06-15 07:37:34', '2022-06-15 07:37:34');
 
 -- --------------------------------------------------------
 
@@ -366,11 +393,11 @@ CREATE TABLE IF NOT EXISTS `innovations` (
 --
 
 INSERT INTO `innovations` (`id`, `title`, `authors`, `description`, `posted_by`, `url`, `is_file_requestable`, `is_featured`, `date_published`, `created_at`, `updated_at`) VALUES
-(1, 'Development of an Information-Based Dashboard: Automation of Barangay Information Profiling System (BIPS) for Decision Support towards e-Governance', 'Lalaine P. Abad', 'The need to address societal issues of every community is a salient aspect that demands attention from the people in authority. These are important responsibilities of every barangay and its official in the Philippines. Profiling each household in the community using information and communication technology could achieve good governance through E-government as its core. Once profile data is aggregated, essential information could provide statistics in labor and employment, family income and expenditures, demography by (population) and (age), water and sanitation, type of housing and education. The focus is based on the profiling of Zone 42 and adding other facets as mentioned above was initiated, with the idea that educational institution around the barangay can help towards the areas included. This paper intends to aid barangay official in budget allocation and decision making in their respective governed …', 1, 'https://scholar.google.com/scholar?oi=bibs&cluster=13452525736665322785&btnI=1&hl=en', 1, 1, '2020-08-15', '2022-06-09 07:41:25', '2022-06-11 07:41:25'),
-(2, 'Barriers and challenges of computing students in an online learning environment: Insights from one private university in the Philippines', 'Jeshnile R. Sarmiento', 'While the literature presents various advantages of using blended learning, policymakers must identify the barriers and challenges faced by students that may cripple their online learning experience. Understanding these barriers can help academic institutions craft policies to advance and improve the students\' online learning experience. This study was conducted to determine the challenges of computing students in one private University in the Philippines during the period where the entire Luzon region was placed under the Enhanced Community Quarantine (ECQ) as a response to the COVID-19 pandemic. A survey through MS Forms Pro was performed to identify the experiences of students in online learning. The survey ran from March 16 to March 18, 2020, which yielded a total of 300 responses. Descriptive statistics revealed that the top three barriers and challenges encountered by students were 1. the difficulty of clarifying topics or discussions with the professors, 2. the lack of study or working area for doing online activities, and 3. the lack of a good Internet connection for participating in online activities. It can be concluded that both students and faculty members were not fully prepared to undergo full online learning. More so, some faculty members may have failed to adapt to the needs of the students in an online learning environment. While the primary data of the study mainly came from the students, it would also be an excellent addition to understand the perspective of the faculty members in terms of their experiences with their students. Their insights could help validate the responses in the survey and provide other barriers that may …', 4, 'https://arxiv.org/abs/2012.02121', 1, 1, '2020-11-20', '2022-06-11 07:41:25', '2022-06-11 07:41:25'),
-(3, 'Exploring Hybrid Linguistic Feature Sets to Measure Filipino Text Readability', 'Ethel Ong', 'Proper identification of the difficulty level of materials prescribed as required readings in an educational setting is key towards effective learning in children. Educators and publishers have relied on readability formulas in predicting text readability. While these formulas abound in the English language, limited work has been done on automatic readability assessment for the Filipino language. In this study, we build upon the previous works using traditional (TRAD) and lexical (LEX) linguistic features by incorporating language model (LM) features for possible improvement in identifying readability levels of Filipino storybooks. Results showed that combining LM predictors to TRAD and LEX, forming a hybrid feature set, increased the performances of readability models trained using Logistic Regression and Support Vector Machines by up to ≈ 25% – 32%. From the results of performing feature selection using …', 3, 'https://ieeexplore.ieee.org/abstract/document/9310473', 1, 0, '2020-12-04', '2022-06-11 07:41:25', '2022-06-11 07:41:25'),
-(4, 'Sample PDF Upload', 'これは例です。', 'A sample pdf upload for testing and presentation purposes.', 1, NULL, 1, 1, '2021-05-04', '2022-06-11 07:41:25', '2022-06-11 07:41:25'),
-(5, 'SYSTEM AND METHODS FOR INTEGRATED TRACKING OF PUBLIC TRANSIT VEHICLES AND REAL-TIME TRAFFIC CONGESTION', 'Leonila B. Valdez', 'The object of the present invention is to provide consolidated mobile/web applications for train passengers in order to aid them in finding the best route to their destinations and their connectivity like alternative mode of transportation per stations for train administrators to manage passenger congestion. Furthermore, the present invention enables the train passengers to view the following integrated information from trains: (a) fare matrix, (b) time matrix, (c) data analytics of passenger congestion, (d) video streaming per stations, (e) incident alerts, and (f) PWD assistance and other services and announcements from commuters and train management.', 9, 'http://121.58.254.45/PatGazette/IPASJournal/V24N4_Inv_1st.pdf', 1, 0, '2019-03-06', '2022-06-11 07:41:25', '2022-06-11 07:41:25');
+(1, 'Development of an Information-Based Dashboard: Automation of Barangay Information Profiling System (BIPS) for Decision Support towards e-Governance', 'Lalaine P. Abad', 'The need to address societal issues of every community is a salient aspect that demands attention from the people in authority. These are important responsibilities of every barangay and its official in the Philippines. Profiling each household in the community using information and communication technology could achieve good governance through E-government as its core. Once profile data is aggregated, essential information could provide statistics in labor and employment, family income and expenditures, demography by (population) and (age), water and sanitation, type of housing and education. The focus is based on the profiling of Zone 42 and adding other facets as mentioned above was initiated, with the idea that educational institution around the barangay can help towards the areas included. This paper intends to aid barangay official in budget allocation and decision making in their respective governed …', 2, 'https://scholar.google.com/scholar?oi=bibs&cluster=13452525736665322785&btnI=1&hl=en', 1, 1, '2020-08-15', '2022-06-15 07:37:34', '2022-06-15 07:37:34'),
+(2, 'Barriers and challenges of computing students in an online learning environment: Insights from one private university in the Philippines', 'Jeshnile R. Sarmiento', 'While the literature presents various advantages of using blended learning, policymakers must identify the barriers and challenges faced by students that may cripple their online learning experience. Understanding these barriers can help academic institutions craft policies to advance and improve the students\' online learning experience. This study was conducted to determine the challenges of computing students in one private University in the Philippines during the period where the entire Luzon region was placed under the Enhanced Community Quarantine (ECQ) as a response to the COVID-19 pandemic. A survey through MS Forms Pro was performed to identify the experiences of students in online learning. The survey ran from March 16 to March 18, 2020, which yielded a total of 300 responses. Descriptive statistics revealed that the top three barriers and challenges encountered by students were 1. the difficulty of clarifying topics or discussions with the professors, 2. the lack of study or working area for doing online activities, and 3. the lack of a good Internet connection for participating in online activities. It can be concluded that both students and faculty members were not fully prepared to undergo full online learning. More so, some faculty members may have failed to adapt to the needs of the students in an online learning environment. While the primary data of the study mainly came from the students, it would also be an excellent addition to understand the perspective of the faculty members in terms of their experiences with their students. Their insights could help validate the responses in the survey and provide other barriers that may …', 5, 'https://arxiv.org/abs/2012.02121', 1, 1, '2020-11-20', '2022-06-15 07:37:34', '2022-06-15 07:37:34'),
+(3, 'Exploring Hybrid Linguistic Feature Sets to Measure Filipino Text Readability', 'Ethel Ong', 'Proper identification of the difficulty level of materials prescribed as required readings in an educational setting is key towards effective learning in children. Educators and publishers have relied on readability formulas in predicting text readability. While these formulas abound in the English language, limited work has been done on automatic readability assessment for the Filipino language. In this study, we build upon the previous works using traditional (TRAD) and lexical (LEX) linguistic features by incorporating language model (LM) features for possible improvement in identifying readability levels of Filipino storybooks. Results showed that combining LM predictors to TRAD and LEX, forming a hybrid feature set, increased the performances of readability models trained using Logistic Regression and Support Vector Machines by up to ≈ 25% – 32%. From the results of performing feature selection using …', 4, 'https://ieeexplore.ieee.org/abstract/document/9310473', 1, 0, '2020-12-04', '2022-06-15 07:37:34', '2022-06-15 07:37:34'),
+(4, 'Sample PDF Upload', 'これは例です。', 'A sample pdf upload for testing and presentation purposes.', 2, NULL, 1, 1, '2021-05-04', '2022-06-15 07:37:34', '2022-06-15 07:37:34'),
+(5, 'SYSTEM AND METHODS FOR INTEGRATED TRACKING OF PUBLIC TRANSIT VEHICLES AND REAL-TIME TRAFFIC CONGESTION', 'Leonila B. Valdez', 'The object of the present invention is to provide consolidated mobile/web applications for train passengers in order to aid them in finding the best route to their destinations and their connectivity like alternative mode of transportation per stations for train administrators to manage passenger congestion. Furthermore, the present invention enables the train passengers to view the following integrated information from trains: (a) fare matrix, (b) time matrix, (c) data analytics of passenger congestion, (d) video streaming per stations, (e) incident alerts, and (f) PWD assistance and other services and announcements from commuters and train management.', 10, 'http://121.58.254.45/PatGazette/IPASJournal/V24N4_Inv_1st.pdf', 1, 0, '2019-03-06', '2022-06-15 07:37:34', '2022-06-15 07:37:34');
 
 -- --------------------------------------------------------
 
@@ -471,11 +498,11 @@ CREATE TABLE IF NOT EXISTS `materials` (
 --
 
 INSERT INTO `materials` (`id`, `topic_id`, `faculty_staff_id`, `material_name`, `description`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 'Logo Documentation', 'In this course material, I will be discussing on how to create a documentation for a logo or brand. This material would include the important information that should be in the documentation, formatting the document and detailed user instruction.', '2022-06-11 07:41:25', '2022-06-11 07:41:25'),
-(2, 2, 1, 'Basics of MS Powerpoint', 'PowerPoint presentations work like slide shows. To convey a message or a story, you break it down into slides. Think of each slide as a blank canvas for the pictures and words that help you tell your story. In this course material, I would be teaching you on how to', '2022-06-11 07:41:25', '2022-06-11 07:41:25'),
-(3, 3, 1, 'Getting started with GitLab', 'In this course material, I will be discussing on how to get started with GitLab to practice version control on all programming related projects. This course materials includes introduction to GitLab, setting up, creating a repository, etc.', '2022-06-11 07:41:25', '2022-06-11 07:41:25'),
-(4, 3, 1, 'Object-Oriented Programming', 'In this course material, I would be teaching object-oriented programming. It is used to structure a software program into simple, reusable pieces of code blueprints (usually called classes), which are used to create individual instances of objects', '2022-06-11 07:41:25', '2022-06-11 07:41:25'),
-(5, 4, 1, 'Developers Timeline', 'In this course material, I will be discussing on how to create a developer\'s timeline to track project timeline using Microsoft Excel. This material includes formatting of document and creating a Gantt chart. This material would ensure to increase productivity.', '2022-06-11 07:41:25', '2022-06-11 07:41:25');
+(1, 1, 2, 'Logo Documentation', 'In this course material, I will be discussing on how to create a documentation for a logo or brand. This material would include the important information that should be in the documentation, formatting the document and detailed user instruction.', '2022-06-15 07:37:34', '2022-06-15 07:37:34'),
+(2, 2, 2, 'Basics of MS Powerpoint', 'PowerPoint presentations work like slide shows. To convey a message or a story, you break it down into slides. Think of each slide as a blank canvas for the pictures and words that help you tell your story. In this course material, I would be teaching you on how to', '2022-06-15 07:37:34', '2022-06-15 07:37:34'),
+(3, 3, 2, 'Getting started with GitLab', 'In this course material, I will be discussing on how to get started with GitLab to practice version control on all programming related projects. This course materials includes introduction to GitLab, setting up, creating a repository, etc.', '2022-06-15 07:37:34', '2022-06-15 07:37:34'),
+(4, 3, 2, 'Object-Oriented Programming', 'In this course material, I would be teaching object-oriented programming. It is used to structure a software program into simple, reusable pieces of code blueprints (usually called classes), which are used to create individual instances of objects', '2022-06-15 07:37:34', '2022-06-15 07:37:34'),
+(5, 4, 2, 'Developers Timeline', 'In this course material, I will be discussing on how to create a developer\'s timeline to track project timeline using Microsoft Excel. This material includes formatting of document and creating a Gantt chart. This material would ensure to increase productivity.', '2022-06-15 07:37:34', '2022-06-15 07:37:34');
 
 -- --------------------------------------------------------
 
@@ -559,7 +586,8 @@ INSERT INTO `migrations` (`migration`, `batch`) VALUES
 ('2021_07_14_152754_create_innovation_files_table', 1),
 ('2021_07_22_121239_create_material_files_table', 1),
 ('2021_07_22_121414_create_material_links_table', 1),
-('2021_08_09_085937_create_var_table', 1);
+('2021_08_09_085937_create_var_table', 1),
+('2022_06_15_142116_create_activity_logs_table', 1);
 
 -- --------------------------------------------------------
 
@@ -616,7 +644,7 @@ CREATE TABLE IF NOT EXISTS `privileges` (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
 --
 -- Dumping data for table `privileges`
@@ -624,19 +652,38 @@ CREATE TABLE IF NOT EXISTS `privileges` (
 
 INSERT INTO `privileges` (`id`, `name`) VALUES
 (1, 'faculty_members'),
-(2, 'faculty_members_create'),
-(3, 'faculty_members_details'),
-(4, 'faculty_members_skills'),
-(5, 'faculty_members_contents'),
-(6, 'faculty_members_delete'),
-(7, 'announcements'),
-(8, 'announcements_create'),
-(9, 'announcements_details'),
-(10, 'announcements_delete'),
-(11, 'skills'),
-(12, 'skills_create'),
-(13, 'skills_edit'),
-(14, 'skills_delete');
+(2, 'faculty_members_view'),
+(3, 'faculty_members_create'),
+(4, 'faculty_members_edit'),
+(5, 'faculty_members_delete'),
+(6, 'faculty_members_mark'),
+(7, 'faculty_members_contents'),
+(8, 'faculty_members_contents_view'),
+(9, 'faculty_members_contents_create'),
+(10, 'faculty_members_contents_edit'),
+(11, 'faculty_members_contents_delete'),
+(12, 'faculty_members_contents_mark'),
+(13, 'faculty_members_skills'),
+(14, 'faculty_members_skills_view'),
+(15, 'faculty_members_skills_create'),
+(16, 'faculty_members_skills_edit'),
+(17, 'faculty_members_skills_delete'),
+(18, 'faculty_members_skills_mark'),
+(19, 'announcements'),
+(20, 'announcements_view'),
+(21, 'announcements_create'),
+(22, 'announcements_edit'),
+(23, 'announcements_delete'),
+(24, 'announcements_mark'),
+(25, 'skills'),
+(26, 'skills_create'),
+(27, 'skills_edit'),
+(28, 'skills_delete'),
+(29, 'skills_mark'),
+(30, 'activity_log'),
+(31, 'activity_log_view'),
+(32, 'activity_log_reset'),
+(33, 'activity_log_mark');
 
 -- --------------------------------------------------------
 
@@ -655,6 +702,8 @@ CREATE TABLE IF NOT EXISTS `research` (
   `is_file_requestable` tinyint(3) UNSIGNED NOT NULL DEFAULT '0',
   `is_featured` tinyint(3) UNSIGNED NOT NULL DEFAULT '0',
   `date_published` date NOT NULL,
+  `is_marked` tinyint(4) NOT NULL DEFAULT '0',
+  `reason` mediumtext COLLATE utf8mb4_unicode_ci,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -665,14 +714,14 @@ CREATE TABLE IF NOT EXISTS `research` (
 -- Dumping data for table `research`
 --
 
-INSERT INTO `research` (`id`, `title`, `authors`, `description`, `posted_by`, `url`, `is_file_requestable`, `is_featured`, `date_published`, `created_at`, `updated_at`) VALUES
-(1, 'Development of an Information-Based Dashboard: Automation of Barangay Information Profiling System (BIPS) for Decision Support towards e-Governance', 'Lalaine P. Abad', 'The need to address societal issues of every community is a salient aspect that demands attention from the people in authority. These are important responsibilities of every barangay and its official in the Philippines. Profiling each household in the community using information and communication technology could achieve good governance through E-government as its core. Once profile data is aggregated, essential information could provide statistics in labor and employment, family income and expenditures, demography by (population) and (age), water and sanitation, type of housing and education. The focus is based on the profiling of Zone 42 and adding other facets as mentioned above was initiated, with the idea that educational institution around the barangay can help towards the areas included. This paper intends to aid barangay official in budget allocation and decision making in their respective governed …', 1, 'https://scholar.google.com/scholar?oi=bibs&cluster=13452525736665322785&btnI=1&hl=en', 1, 1, '2020-08-15', '2022-06-10 07:41:25', '2022-06-11 07:41:25'),
-(2, 'Barriers and challenges of computing students in an online learning environment: Insights from one private university in the Philippines', 'Jeshnile R. Sarmiento', 'While the literature presents various advantages of using blended learning, policymakers must identify the barriers and challenges faced by students that may cripple their online learning experience. Understanding these barriers can help academic institutions craft policies to advance and improve the students\' online learning experience. This study was conducted to determine the challenges of computing students in one private University in the Philippines during the period where the entire Luzon region was placed under the Enhanced Community Quarantine (ECQ) as a response to the COVID-19 pandemic. A survey through MS Forms Pro was performed to identify the experiences of students in online learning. The survey ran from March 16 to March 18, 2020, which yielded a total of 300 responses. Descriptive statistics revealed that the top three barriers and challenges encountered by students were 1. the difficulty of clarifying topics or discussions with the professors, 2. the lack of study or working area for doing online activities, and 3. the lack of a good Internet connection for participating in online activities. It can be concluded that both students and faculty members were not fully prepared to undergo full online learning. More so, some faculty members may have failed to adapt to the needs of the students in an online learning environment. While the primary data of the study mainly came from the students, it would also be an excellent addition to understand the perspective of the faculty members in terms of their experiences with their students. Their insights could help validate the responses in the survey and provide other barriers that may …', 4, 'https://arxiv.org/abs/2012.02121', 1, 1, '2020-11-20', '2022-05-11 07:41:25', '2022-06-11 07:41:25'),
-(3, 'Exploring Hybrid Linguistic Feature Sets to Measure Filipino Text Readability', 'Ethel Ong', 'Proper identification of the difficulty level of materials prescribed as required readings in an educational setting is key towards effective learning in children. Educators and publishers have relied on readability formulas in predicting text readability. While these formulas abound in the English language, limited work has been done on automatic readability assessment for the Filipino language. In this study, we build upon the previous works using traditional (TRAD) and lexical (LEX) linguistic features by incorporating language model (LM) features for possible improvement in identifying readability levels of Filipino storybooks. Results showed that combining LM predictors to TRAD and LEX, forming a hybrid feature set, increased the performances of readability models trained using Logistic Regression and Support Vector Machines by up to ≈ 25% – 32%. From the results of performing feature selection using …', 3, 'https://ieeexplore.ieee.org/abstract/document/9310473', 1, 0, '2020-12-04', '2022-06-11 07:41:25', '2022-06-11 07:41:25'),
-(4, 'Sample PDF Upload', 'これは例です。', 'A sample pdf upload for testing and presentation purposes.', 1, NULL, 1, 1, '2021-05-04', '2022-06-11 07:41:25', '2022-06-11 07:41:25'),
-(5, 'Development of Load Moment Control and Monitoring System for Mobile Heavy Load Cranes', NULL, 'This study was conducted to develop a fully functional controlling and monitoring device to be used during the actual industrial operation of mobile heavy load cranes. The project aimed to provide a cost effective and user-friendly load moment indicator that meets the requirements of industry safety standards. The control system of the device measures and monitors the main parameters such as boom length, working radius, tip height, maximum load capacity based on crane load chart, actual load, efficiency and (actual load/maximum load) ratio. It was developed using the advanced application of Programmable Logic Controller (PLC) and latest technology of Human Machine Interface (HMI). The interface of Delta PLC and Delta HMI was able to replace the traditional controlling panels which need extensive wiring and the monitoring screen allows the user to complete settings through touchable keys on a user-friendly window. The performance of the implemented load moment control and monitoring system was evaluated and compared to the standard manufacturer rated lifting load chart. A series of tests was conducted and the results attest that the developed device successfully attained its functionality with an average of 99% accuracy on all the readings.', 10, NULL, 1, 0, '2022-06-11', '2022-06-11 07:41:25', '2022-06-11 07:41:25'),
-(6, '“How do people view the estuary and the technology management practices to rehabilitate it?”: The case of Estero de Paco in Manila', 'Rex P Bringula,Jovy M Afable,Roque Gajo,Ma Carmelita Santos,Arlen A Ancheta', 'This descriptive study determined the profile of the people living near Estero de Paco in Manila. It also determined their attitudes and perceptions towards the use and purpose of the estuary and the technology management practices employed to rehabilitate it. It was revealed that most of the respondents were male, young, high school graduate, born in CALABARZON and NCR, had no permanent occupation, belonged to lower income class family with five or six members, living in family owned houses made of wood and cement for at least 20 years and living near the estero. Proximity to work was the main purpose of living near the estero. It was also revealed that they participated in various ways to clean up the estero. They perceived that there were efforts to rehabilitate the estero and technology management practices were visible and important. However, they also perceived that these practices were temporary …', 9, 'https://ieeexplore.ieee.org/abstract/document/7011605/', 1, 0, '2014-08-19', '2022-06-11 07:41:25', '2022-06-11 07:41:25'),
-(7, 'Determinants of the best practices on practicum programs in engineering courses of selected higher education institutes in the Philippines', 'Miriam R Borja,Laarnie D Macapagal,Emerita Hinojales', 'In the attempt to identify the determinants of the best practices on practicum programs, this study looked at what is prevalent within the Philippine educational system and to surface information to evolve a more feasible concept of best practices on one of the popular courses which as engineering. The study employed descriptive - causal, explanatory and exploratory research. Data were gathered using Delphi-technique from representatives coming from institutions and industries and in-depth interview from students. The research instrument was validated by four experts. Reliability test was done by pre-testing the instrument on four Higher Education Institutions (HEI) in Luzon. Factor analysis was employed to determine the indicators of best practices while multiple regression was employed to identify the determinants of best practices and to test mediational relationships of variables. Seven indicators of best …', 9, 'https://ieeexplore.ieee.org/abstract/document/6654513', 1, 0, '2013-08-26', '2022-06-11 07:41:25', '2022-06-11 07:41:25');
+INSERT INTO `research` (`id`, `title`, `authors`, `description`, `posted_by`, `url`, `is_file_requestable`, `is_featured`, `date_published`, `is_marked`, `reason`, `created_at`, `updated_at`) VALUES
+(1, 'Development of an Information-Based Dashboard: Automation of Barangay Information Profiling System (BIPS) for Decision Support towards e-Governance', 'Lalaine P. Abad', 'The need to address societal issues of every community is a salient aspect that demands attention from the people in authority. These are important responsibilities of every barangay and its official in the Philippines. Profiling each household in the community using information and communication technology could achieve good governance through E-government as its core. Once profile data is aggregated, essential information could provide statistics in labor and employment, family income and expenditures, demography by (population) and (age), water and sanitation, type of housing and education. The focus is based on the profiling of Zone 42 and adding other facets as mentioned above was initiated, with the idea that educational institution around the barangay can help towards the areas included. This paper intends to aid barangay official in budget allocation and decision making in their respective governed …', 2, 'https://scholar.google.com/scholar?oi=bibs&cluster=13452525736665322785&btnI=1&hl=en', 1, 1, '2020-08-15', 0, NULL, '2022-06-15 07:37:34', '2022-06-15 07:37:34'),
+(2, 'Barriers and challenges of computing students in an online learning environment: Insights from one private university in the Philippines', 'Jeshnile R. Sarmiento', 'While the literature presents various advantages of using blended learning, policymakers must identify the barriers and challenges faced by students that may cripple their online learning experience. Understanding these barriers can help academic institutions craft policies to advance and improve the students\' online learning experience. This study was conducted to determine the challenges of computing students in one private University in the Philippines during the period where the entire Luzon region was placed under the Enhanced Community Quarantine (ECQ) as a response to the COVID-19 pandemic. A survey through MS Forms Pro was performed to identify the experiences of students in online learning. The survey ran from March 16 to March 18, 2020, which yielded a total of 300 responses. Descriptive statistics revealed that the top three barriers and challenges encountered by students were 1. the difficulty of clarifying topics or discussions with the professors, 2. the lack of study or working area for doing online activities, and 3. the lack of a good Internet connection for participating in online activities. It can be concluded that both students and faculty members were not fully prepared to undergo full online learning. More so, some faculty members may have failed to adapt to the needs of the students in an online learning environment. While the primary data of the study mainly came from the students, it would also be an excellent addition to understand the perspective of the faculty members in terms of their experiences with their students. Their insights could help validate the responses in the survey and provide other barriers that may …', 5, 'https://arxiv.org/abs/2012.02121', 1, 1, '2020-11-20', 0, NULL, '2022-06-15 07:37:34', '2022-06-15 07:37:34'),
+(3, 'Exploring Hybrid Linguistic Feature Sets to Measure Filipino Text Readability', 'Ethel Ong', 'Proper identification of the difficulty level of materials prescribed as required readings in an educational setting is key towards effective learning in children. Educators and publishers have relied on readability formulas in predicting text readability. While these formulas abound in the English language, limited work has been done on automatic readability assessment for the Filipino language. In this study, we build upon the previous works using traditional (TRAD) and lexical (LEX) linguistic features by incorporating language model (LM) features for possible improvement in identifying readability levels of Filipino storybooks. Results showed that combining LM predictors to TRAD and LEX, forming a hybrid feature set, increased the performances of readability models trained using Logistic Regression and Support Vector Machines by up to ≈ 25% – 32%. From the results of performing feature selection using …', 4, 'https://ieeexplore.ieee.org/abstract/document/9310473', 1, 0, '2020-12-04', 0, NULL, '2022-06-15 07:37:34', '2022-06-15 07:37:34'),
+(4, 'Sample PDF Upload', 'これは例です。', 'A sample pdf upload for testing and presentation purposes.', 2, NULL, 1, 1, '2021-05-04', 0, NULL, '2022-06-15 07:37:34', '2022-06-15 07:37:34'),
+(5, 'Development of Load Moment Control and Monitoring System for Mobile Heavy Load Cranes', NULL, 'This study was conducted to develop a fully functional controlling and monitoring device to be used during the actual industrial operation of mobile heavy load cranes. The project aimed to provide a cost effective and user-friendly load moment indicator that meets the requirements of industry safety standards. The control system of the device measures and monitors the main parameters such as boom length, working radius, tip height, maximum load capacity based on crane load chart, actual load, efficiency and (actual load/maximum load) ratio. It was developed using the advanced application of Programmable Logic Controller (PLC) and latest technology of Human Machine Interface (HMI). The interface of Delta PLC and Delta HMI was able to replace the traditional controlling panels which need extensive wiring and the monitoring screen allows the user to complete settings through touchable keys on a user-friendly window. The performance of the implemented load moment control and monitoring system was evaluated and compared to the standard manufacturer rated lifting load chart. A series of tests was conducted and the results attest that the developed device successfully attained its functionality with an average of 99% accuracy on all the readings.', 11, NULL, 1, 0, '2022-06-15', 0, NULL, '2022-06-15 07:37:34', '2022-06-15 07:37:34'),
+(6, '“How do people view the estuary and the technology management practices to rehabilitate it?”: The case of Estero de Paco in Manila', 'Rex P Bringula,Jovy M Afable,Roque Gajo,Ma Carmelita Santos,Arlen A Ancheta', 'This descriptive study determined the profile of the people living near Estero de Paco in Manila. It also determined their attitudes and perceptions towards the use and purpose of the estuary and the technology management practices employed to rehabilitate it. It was revealed that most of the respondents were male, young, high school graduate, born in CALABARZON and NCR, had no permanent occupation, belonged to lower income class family with five or six members, living in family owned houses made of wood and cement for at least 20 years and living near the estero. Proximity to work was the main purpose of living near the estero. It was also revealed that they participated in various ways to clean up the estero. They perceived that there were efforts to rehabilitate the estero and technology management practices were visible and important. However, they also perceived that these practices were temporary …', 10, 'https://ieeexplore.ieee.org/abstract/document/7011605/', 1, 0, '2014-08-19', 0, NULL, '2022-06-15 07:37:34', '2022-06-15 07:37:34'),
+(7, 'Determinants of the best practices on practicum programs in engineering courses of selected higher education institutes in the Philippines', 'Miriam R Borja,Laarnie D Macapagal,Emerita Hinojales', 'In the attempt to identify the determinants of the best practices on practicum programs, this study looked at what is prevalent within the Philippine educational system and to surface information to evolve a more feasible concept of best practices on one of the popular courses which as engineering. The study employed descriptive - causal, explanatory and exploratory research. Data were gathered using Delphi-technique from representatives coming from institutions and industries and in-depth interview from students. The research instrument was validated by four experts. Reliability test was done by pre-testing the instrument on four Higher Education Institutions (HEI) in Luzon. Factor analysis was employed to determine the indicators of best practices while multiple regression was employed to identify the determinants of best practices and to test mediational relationships of variables. Seven indicators of best …', 10, 'https://ieeexplore.ieee.org/abstract/document/6654513', 1, 0, '2013-08-26', 0, NULL, '2022-06-15 07:37:34', '2022-06-15 07:37:34');
 
 -- --------------------------------------------------------
 
@@ -762,16 +811,18 @@ CREATE TABLE IF NOT EXISTS `roles` (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
 --
 -- Dumping data for table `roles`
 --
 
 INSERT INTO `roles` (`id`, `name`) VALUES
-(1, 'admin'),
-(2, 'moderator'),
-(3, 'faculty');
+(1, 'master_admin'),
+(2, 'admin'),
+(3, 'moderator'),
+(4, 'supervisor'),
+(5, 'user');
 
 -- --------------------------------------------------------
 
@@ -806,14 +857,95 @@ INSERT INTO `role_privileges` (`role_id`, `privilege_id`) VALUES
 (1, 12),
 (1, 13),
 (1, 14),
+(1, 15),
+(1, 16),
+(1, 17),
+(1, 18),
+(1, 19),
+(1, 20),
+(1, 21),
+(1, 22),
+(1, 23),
+(1, 24),
+(1, 25),
+(1, 26),
+(1, 27),
+(1, 28),
+(1, 29),
+(1, 30),
+(1, 31),
+(1, 32),
+(1, 33),
 (2, 1),
+(2, 2),
 (2, 3),
 (2, 4),
 (2, 5),
+(2, 6),
 (2, 7),
 (2, 8),
 (2, 9),
-(2, 11);
+(2, 10),
+(2, 11),
+(2, 12),
+(2, 13),
+(2, 14),
+(2, 17),
+(2, 18),
+(2, 19),
+(2, 20),
+(2, 21),
+(2, 22),
+(2, 23),
+(2, 24),
+(2, 25),
+(2, 29),
+(2, 30),
+(2, 31),
+(2, 33),
+(3, 1),
+(3, 2),
+(3, 3),
+(3, 4),
+(3, 5),
+(3, 6),
+(3, 7),
+(3, 8),
+(3, 9),
+(3, 10),
+(3, 11),
+(3, 12),
+(3, 13),
+(3, 14),
+(3, 17),
+(3, 18),
+(3, 19),
+(3, 20),
+(3, 21),
+(3, 22),
+(3, 23),
+(3, 24),
+(3, 25),
+(3, 29),
+(3, 30),
+(3, 33),
+(4, 1),
+(4, 2),
+(4, 3),
+(4, 4),
+(4, 5),
+(4, 6),
+(4, 7),
+(4, 8),
+(4, 12),
+(4, 18),
+(4, 19),
+(4, 20),
+(4, 24),
+(4, 25),
+(4, 29),
+(4, 30),
+(4, 33);
 
 -- --------------------------------------------------------
 
@@ -825,6 +957,8 @@ DROP TABLE IF EXISTS `skills`;
 CREATE TABLE IF NOT EXISTS `skills` (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `skill` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `is_marked` tinyint(4) NOT NULL DEFAULT '0',
+  `reason` mediumtext COLLATE utf8mb4_unicode_ci,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -834,32 +968,32 @@ CREATE TABLE IF NOT EXISTS `skills` (
 -- Dumping data for table `skills`
 --
 
-INSERT INTO `skills` (`id`, `skill`, `created_at`, `updated_at`) VALUES
-(1, 'Business Management', '2022-06-11 07:41:25', '2022-06-11 07:41:25'),
-(2, 'Business Process Management', '2022-06-11 07:41:25', '2022-06-11 07:41:25'),
-(3, 'Consultancy', '2022-06-11 07:41:25', '2022-06-11 07:41:25'),
-(4, 'Curriculum Development', '2022-06-11 07:41:25', '2022-06-11 07:41:25'),
-(5, 'Event Management', '2022-06-11 07:41:25', '2022-06-11 07:41:25'),
-(6, 'Emphatic Computing', '2022-06-11 07:41:25', '2022-06-11 07:41:25'),
-(7, 'E-Business', '2022-06-11 07:41:25', '2022-06-11 07:41:25'),
-(8, 'Higher Education', '2022-06-11 07:41:25', '2022-06-11 07:41:25'),
-(9, 'Hosting Events', '2022-06-11 07:41:25', '2022-06-11 07:41:25'),
-(10, 'Information Technology', '2022-06-11 07:41:25', '2022-06-11 07:41:25'),
-(11, 'Information System Management', '2022-06-11 07:41:25', '2022-06-11 07:41:25'),
-(12, 'Information Management', '2022-06-11 07:41:25', '2022-06-11 07:41:25'),
-(13, 'Information Technology Management', '2022-06-11 07:41:25', '2022-06-11 07:41:25'),
-(14, 'IT Consulting', '2022-06-11 07:41:25', '2022-06-11 07:41:25'),
-(15, 'IT Project Management', '2022-06-11 07:41:25', '2022-06-11 07:41:25'),
-(16, 'Knowledge Management', '2022-06-11 07:41:25', '2022-06-11 07:41:25'),
-(17, 'MySQL', '2022-06-11 07:41:25', '2022-06-11 07:41:25'),
-(18, 'Programming', '2022-06-11 07:41:25', '2022-06-11 07:41:25'),
-(19, 'Project Management', '2022-06-11 07:41:25', '2022-06-11 07:41:25'),
-(20, 'Software Quality Assurance', '2022-06-11 07:41:25', '2022-06-11 07:41:25'),
-(21, 'Teaching', '2022-06-11 07:41:25', '2022-06-11 07:41:25'),
-(22, 'Patent Drafting', '2022-06-11 07:41:25', '2022-06-11 07:41:25'),
-(23, 'Materials Drafting', '2022-06-11 07:41:25', '2022-06-11 07:41:25'),
-(24, 'Technology Management', '2022-06-11 07:41:25', '2022-06-11 07:41:25'),
-(25, 'Intellectual Property Management', '2022-06-11 07:41:25', '2022-06-11 07:41:25');
+INSERT INTO `skills` (`id`, `skill`, `is_marked`, `reason`, `created_at`, `updated_at`) VALUES
+(1, 'Business Management', 0, NULL, '2022-06-15 07:37:34', '2022-06-15 07:37:34'),
+(2, 'Business Process Management', 0, NULL, '2022-06-15 07:37:34', '2022-06-15 07:37:34'),
+(3, 'Consultancy', 0, NULL, '2022-06-15 07:37:34', '2022-06-15 07:37:34'),
+(4, 'Curriculum Development', 0, NULL, '2022-06-15 07:37:34', '2022-06-15 07:37:34'),
+(5, 'Event Management', 0, NULL, '2022-06-15 07:37:34', '2022-06-15 07:37:34'),
+(6, 'Emphatic Computing', 0, NULL, '2022-06-15 07:37:34', '2022-06-15 07:37:34'),
+(7, 'E-Business', 0, NULL, '2022-06-15 07:37:34', '2022-06-15 07:37:34'),
+(8, 'Higher Education', 0, NULL, '2022-06-15 07:37:34', '2022-06-15 07:37:34'),
+(9, 'Hosting Events', 0, NULL, '2022-06-15 07:37:34', '2022-06-15 07:37:34'),
+(10, 'Information Technology', 0, NULL, '2022-06-15 07:37:34', '2022-06-15 07:37:34'),
+(11, 'Information System Management', 0, NULL, '2022-06-15 07:37:34', '2022-06-15 07:37:34'),
+(12, 'Information Management', 0, NULL, '2022-06-15 07:37:34', '2022-06-15 07:37:34'),
+(13, 'Information Technology Management', 0, NULL, '2022-06-15 07:37:34', '2022-06-15 07:37:34'),
+(14, 'IT Consulting', 0, NULL, '2022-06-15 07:37:34', '2022-06-15 07:37:34'),
+(15, 'IT Project Management', 0, NULL, '2022-06-15 07:37:34', '2022-06-15 07:37:34'),
+(16, 'Knowledge Management', 0, NULL, '2022-06-15 07:37:34', '2022-06-15 07:37:34'),
+(17, 'MySQL', 0, NULL, '2022-06-15 07:37:34', '2022-06-15 07:37:34'),
+(18, 'Programming', 0, NULL, '2022-06-15 07:37:34', '2022-06-15 07:37:34'),
+(19, 'Project Management', 0, NULL, '2022-06-15 07:37:34', '2022-06-15 07:37:34'),
+(20, 'Software Quality Assurance', 0, NULL, '2022-06-15 07:37:34', '2022-06-15 07:37:34'),
+(21, 'Teaching', 0, NULL, '2022-06-15 07:37:34', '2022-06-15 07:37:34'),
+(22, 'Patent Drafting', 0, NULL, '2022-06-15 07:37:34', '2022-06-15 07:37:34'),
+(23, 'Materials Drafting', 0, NULL, '2022-06-15 07:37:34', '2022-06-15 07:37:34'),
+(24, 'Technology Management', 0, NULL, '2022-06-15 07:37:34', '2022-06-15 07:37:34'),
+(25, 'Intellectual Property Management', 0, NULL, '2022-06-15 07:37:34', '2022-06-15 07:37:34');
 
 -- --------------------------------------------------------
 
@@ -928,7 +1062,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `contact_no` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `role` int(10) UNSIGNED DEFAULT NULL,
+  `role_id` int(10) UNSIGNED DEFAULT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -937,26 +1071,26 @@ CREATE TABLE IF NOT EXISTS `users` (
   UNIQUE KEY `users_username_unique` (`username`),
   UNIQUE KEY `users_email_unique` (`email`),
   UNIQUE KEY `users_contact_no_unique` (`contact_no`),
-  KEY `users_role_foreign` (`role`)
+  KEY `users_role_id_foreign` (`role_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `title`, `first_name`, `middle_name`, `last_name`, `suffix`, `avatar`, `isAvatarLink`, `email`, `username`, `contact_no`, `password`, `role`, `remember_token`, `created_at`, `updated_at`, `expiration_date`) VALUES
-(1, NULL, 'Angelique', 'D', 'Lacasandile', NULL, 'user1.jpg', 0, 'angelique.lacasandile@gmail.com', 'lacasandillea', '966 712 5676', '$2y$10$aPVxZ8eunnpyIaJiSc.GyOjDgPENAVDMAAvusW5qdzXx39zREwGOu', 1, NULL, '2022-06-11 07:41:24', '2022-06-11 07:41:24', NULL),
-(2, NULL, 'Mideth', 'B', 'Abisado', NULL, 'user2.jpg', 0, 'mbabisado@national-u.edu.ph', 'abisadomb', NULL, '$2y$10$FSvD4qhNQgoPwldCJCi3ZeUXXhBs7W2oa9oTm0xiugZjVw9BPQwvO', 3, NULL, '2022-06-11 07:41:25', '2022-06-11 07:41:25', NULL),
-(3, NULL, 'Joseph Marvin', NULL, 'Imperial', NULL, 'user3.jpg', 0, 'jrimperial@national-u.edu.ph', 'imperialjm', NULL, '$2y$10$M.wjHgaU5iqow6itunJQH.GK9JxyjgA0.bxoAP.ReJr74rCPu8hzq', 3, NULL, '2022-06-11 07:41:25', '2022-06-11 07:41:25', NULL),
-(4, NULL, 'Arlene', 'O', 'Trillanes', NULL, 'user4.jpg', 0, 'aotrillanes@national-u.edu.ph', 'trillanesao', NULL, '$2y$10$7fVmwCDasZiJl7So7TOPkOZEd.fL4.FWDM8EQPzqPAf7KsU7bWjt6', 1, NULL, '2022-06-11 07:41:25', '2022-06-11 07:41:25', NULL),
-(5, NULL, 'Susan', 'S', 'Caluya', NULL, 'user5.jpg', 0, 'sscaluya@national-u.edu.ph', 'caluyass', NULL, '$2y$10$Az1gznToLISgPdVZwf27t.BQpYT0Q43I.lHIxDgTnQyDT4hDJUoz.', 3, NULL, '2022-06-11 07:41:25', '2022-06-11 07:41:25', NULL),
-(6, NULL, 'Bernie', 'S', 'Fabito', NULL, 'user6.jpg', 0, 'bsfabito@national-u.edu.ph', 'fabitobs', NULL, '$2y$10$81XVZKZu6Fd46tr2TGOkXucSqXQBbh0pEO07LvB4Hf/8GLHskwecu', 3, NULL, '2022-06-11 07:41:25', '2022-06-11 07:41:25', NULL),
-(7, NULL, 'Jayson Raymund', 'D', 'Bermudez', NULL, 'user7.jpg', 0, 'jrdbermudez@national-u.edu.ph', 'bermudezjrd', NULL, '$2y$10$n5C4snGFmpEzTafb180mSunyl2vgcMgjSJNyJQytVuV3cvAjroD9G', 3, NULL, '2022-06-11 07:41:25', '2022-06-11 07:41:25', NULL),
-(8, NULL, 'Rogel', 'M', 'Labanan', NULL, 'user8.jpg', 0, NULL, 'labananrm', NULL, '$2y$10$j.CKtSEn0/nwdYnajcRlh.n5b43DewV4NXMgt7RHVgQwSR//uTd0y', 3, NULL, '2022-06-11 07:41:25', '2022-06-11 07:41:25', NULL),
-(9, NULL, 'Ria Liza', 'C', 'Canlas', NULL, 'user9.jpg', 0, 'rlccanlas@national-u.edu.ph', 'canlasrl', NULL, '$2y$10$JV.HVdE.S2nxQ9/1RhdlYeabW6srNyeab21rWS1Cq4GCb12Z4XjJC', 3, NULL, '2022-06-11 07:41:25', '2022-06-11 07:41:25', NULL),
-(10, NULL, 'Rafael', 'A', 'Dimaculangan', NULL, 'user10.jpg', 0, NULL, 'dimaculanganra', NULL, '$2y$10$yEkbLLLWz9B.F.VWm7p7ROBTTYPZ36sH4iNwzqJRoN2p6qGiuLUBW', 3, NULL, '2022-06-11 07:41:25', '2022-06-11 07:41:25', NULL),
-(11, NULL, 'Gabrielle Avelino', NULL, 'Sampedro', NULL, NULL, 0, NULL, 'sampedroga', NULL, '$2y$10$xw0uc2lhpbJpl1sBkdttbO37DW8IVGxC04A2gMh8XbEPTItN8z3QS', 3, NULL, '2022-06-11 07:41:25', '2022-06-11 07:41:25', NULL),
-(12, NULL, 'カール・サッチ', 'エスゲラ', 'ナビダ', NULL, 'https://avatars.githubusercontent.com/u/19548426?v=4', 1, 'satchi5600@gmail.com', 'navidake', '933 819 3519', '$2y$10$aPVxZ8eunnpyIaJiSc.GyOjDgPENAVDMAAvusW5qdzXx39zREwGOu', 1, 'exZaoxN1ea7yHJRZcAsPPesyzRkOmNGlKiTGU9bkORKidCxzZz1qvmnW17s4', '2022-06-11 08:06:49', '2022-06-11 08:08:25', NULL);
+INSERT INTO `users` (`id`, `title`, `first_name`, `middle_name`, `last_name`, `suffix`, `avatar`, `isAvatarLink`, `email`, `username`, `contact_no`, `password`, `role_id`, `remember_token`, `created_at`, `updated_at`, `expiration_date`) VALUES
+(1, NULL, 'Master', NULL, 'Admin', NULL, NULL, 0, 'ma@admin.admin', 'ma_admin', NULL, '$2y$10$wb9sHyOuWRtfSPOeQfFTGOZm.4WmqaI0fYroXGyZaBfiA8t0bAjsa', 1, NULL, '2022-06-15 07:37:33', '2022-06-15 07:37:33', NULL),
+(2, NULL, 'Angelique', 'D', 'Lacasandile', NULL, 'user2.jpg', 0, 'angelique.lacasandile@gmail.com', 'adlacasandile', '966 712 5676', '$2y$10$uL0afTpICkSO75ZtLbKQSuDPTn4Kbxrkn84aQfurfkJE0i1MISvLS', 4, NULL, '2022-06-15 07:37:33', '2022-06-15 07:37:33', NULL),
+(3, NULL, 'Mideth', 'B', 'Abisado', NULL, 'user3.jpg', 0, 'mbabisado@national-u.edu.ph', 'mbabisado', NULL, '$2y$10$D5uOUKBEE8jQamaIT54qEuBsXVuIXGXiarW./mECzfqF7JJ.uL5um', 5, NULL, '2022-06-15 07:37:33', '2022-06-15 07:37:33', NULL),
+(4, NULL, 'Joseph Marvin', NULL, 'Imperial', NULL, 'user4.jpg', 0, 'jrimperial@national-u.edu.ph', 'jrimperial', NULL, '$2y$10$vSNcGtZql7W5mwvPzHCFYu/2T2BKr0el1Nq01C5cW1HxXmGVWWUDi', 5, NULL, '2022-06-15 07:37:33', '2022-06-15 07:37:33', NULL),
+(5, NULL, 'Arlene', 'O', 'Trillanes', NULL, 'user5.jpg', 0, 'aotrillanes@national-u.edu.ph', 'aotrillanes', NULL, '$2y$10$7qo0NxErJc1fpqqnnI18SOMYI1byjma3dB19AJGZ7hyHXLO3dZeh.', 3, NULL, '2022-06-15 07:37:33', '2022-06-15 07:37:33', NULL),
+(6, NULL, 'Susan', 'S', 'Caluya', NULL, 'user6.jpg', 0, 'sscaluya@national-u.edu.ph', 'sscaluya', NULL, '$2y$10$M95ZTIOZSe5ie0c7cyYkDuFvtmr4Blr/qPfvjhrCPPG/pQ6tKI6/K', 5, NULL, '2022-06-15 07:37:33', '2022-06-15 07:37:33', NULL),
+(7, NULL, 'Bernie', 'S', 'Fabito', NULL, 'user7.jpg', 0, 'bsfabito@national-u.edu.ph', 'bsfabito', NULL, '$2y$10$wJ1Cztkxxh8s/nBJyruqYOR3bOLS4gm47xnkrmODMGN03ufGyBpQC', 5, NULL, '2022-06-15 07:37:33', '2022-06-15 07:37:33', NULL),
+(8, NULL, 'Jayson Raymund', 'D', 'Bermudez', NULL, 'user8.jpg', 0, 'jrdbermudez@national-u.edu.ph', 'jrdbermudez', NULL, '$2y$10$QcqY8wWRVEbqOg2nIycQdurbJfLMR1lKeemWeVlW2RnsGd8LID822', 3, NULL, '2022-06-15 07:37:34', '2022-06-15 07:37:34', NULL),
+(9, NULL, 'Rogel', 'M', 'Labanan', NULL, 'user9.jpg', 0, 'rmlabanan@national-u.edu.ph', 'rmlabanan', NULL, '$2y$10$lNckqd7KdiYnqnbv1rSJAukKJmDSuQlnuaR2YYyxcWZqmdkpHOjdi', 5, NULL, '2022-06-15 07:37:34', '2022-06-15 07:37:34', NULL),
+(10, NULL, 'Ria Liza', 'C', 'Canlas', NULL, 'user10.jpg', 0, 'rlccanlas@national-u.edu.ph', 'rlccanlas', NULL, '$2y$10$VRW3/c9tcwnLr3Pgh7wxIe2vWRMhCsPgAH/4eva9D.riUvg4xfRPq', 3, NULL, '2022-06-15 07:37:34', '2022-06-15 07:37:34', NULL),
+(11, NULL, 'Rafael', 'A', 'Dimaculangan', NULL, 'user11.jpg', 0, 'rdimaculangan@national-u.edu.ph', 'rdimaculangan', NULL, '$2y$10$bSLAs6SJkbbH1OoH/xUoC.6vIvClxp/g8K/j19iEldXP.xY0SsjKW', 4, NULL, '2022-06-15 07:37:34', '2022-06-15 07:37:34', NULL),
+(12, NULL, 'カール・サッチ', 'エスゲラ', 'ナビダ', NULL, 'https://avatars.githubusercontent.com/u/19548426?v=4', 1, 'satchi5600@gmail.com', 'navidake', '933 819 3519', '$2y$10$sNC1xnNYyKqG8lQUr7ewvOl5tjFXyviEzp7EQ97d/oRZaJgGzA3Xy', 1, NULL, '2022-06-15 07:37:34', '2022-06-15 07:37:34', NULL);
 
 -- --------------------------------------------------------
 
@@ -1103,7 +1237,7 @@ ALTER TABLE `role_privileges`
 -- Constraints for table `users`
 --
 ALTER TABLE `users`
-  ADD CONSTRAINT `users_role_foreign` FOREIGN KEY (`role`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `users_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -16,7 +16,9 @@ class Announcements extends Model
 		'title' ,
 		'source',
 		'content',
-		'author_id'
+		'author_id',
+		'is_marked',
+		'reason',
 	];
 
 	protected function author() {

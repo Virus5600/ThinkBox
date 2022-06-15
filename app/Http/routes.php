@@ -108,7 +108,7 @@ Route::group(['middleware' => ['auth']], function() {
 
 			Route::group(['middleware' => 'permission:faculty_members_view'], function() {
 				Route::get('/faculty-member/{$id}', 'FacultyStaffController@show')->name('admin.faculty-member.show');
-			}
+			});
 
 			Route::group(['middleware' => 'permission:faculty_members_create'], function() {
 				Route::get('/faculty-member/create', 'FacultyStaffController@create')->name('admin.faculty-member.create');
@@ -116,22 +116,23 @@ Route::group(['middleware' => ['auth']], function() {
 
 				Route::post('/faculty-member/store', 'FacultyStaffController@store')->name('admin.faculty-member.store');
 				Route::post('/faculty-member/generate/store', 'FacultyStaffController@storeGenerated')->name('admin.faculty-member.generate.store');
-			}
+			});
 
 			Route::group(['middleware' => 'permission:faculty_members_edit'], function() {
 				Route::get('/faculty-member/{$id}/edit', 'FacultyStaffController@edit')->name('admin.faculty-member.edit');
 				Route::post('faculty-member/{id}/update', 'FacultyStaffController@update')->name('admin.faculty-member.update');
-			}
+			});
 
 			Route::group(['middleware' => 'permission:faculty_members_delete'], function() {
 				Route::get('/faculty-member/{id}/delete', 'FacultyStaffController@delete')->name('admin.faculty-member.delete');
-			}
+			});
 
 			Route::group(['middleware' => 'permission:faculty_members_mark'], function() {
 				Route::post('/faculty-member/{$id}/mark', 'FacultyStaffController@mark')->name('admin.faculty-member.mark');
 				Route::post('/faculty-member/{$id}/unmark', 'FacultyStaffController@unmark')->name('admin.faculty-member.unmark');
-			}
+			});
 
+			// FM Contents
 			Route::group(['middleware' => 'permission:faculty_members_contents'], function() {
 				Route::get('/faculty-member/{id}/manage-content', 'FacultyStaffController@manageContents')->name('admin.faculty-member.manage-contents');
 				Route::get('/faculty-member/{id}/manage-content/{topicId}', 'FacultyStaffController@manageContentsShowTopic')->name('admin.faculty-member.manage-contents.topic');
@@ -157,6 +158,7 @@ Route::group(['middleware' => ['auth']], function() {
 				});
 			});
 
+			// FM Skills
 			Route::group(['middleware' => 'permission:faculty_members_skills'], function() {
 				Route::get('/faculty-member/{id}/skills', 'FacultyStaffController@skills')->name('admin.faculty-member.skills');
 
@@ -183,10 +185,79 @@ Route::group(['middleware' => ['auth']], function() {
 		});
 
 		// Announcements
-		Route::resource('announcements', 'AdminAnnouncementsController');
+		Route::group(['middleware' => 'permission:announcements'], function() {
+			Route::get('/announcements', 'AdminAnnouncementsController@index')->name('admin.announcements.index');
+
+			Route::group(['middleware' => 'permission:announcements_view'], function() {
+				Route::get('/announcements/{id}', 'AdminAnnouncementsController@show')->name('admin.announcements.show');
+			});
+
+			Route::group(['middleware' => 'permission:announcements_create'], function() {
+				Route::get('/announcements/create', 'AdminAnnouncementsController@create')->name('admin.announcements.create');
+				Route::post('/announcements/store', 'AdminAnnouncementsController@store')->name('admin.announcements.store');
+			});
+
+			Route::group(['middleware' => 'permission:announcements_edit'], function() {
+				Route::get('/announcements/{id}/edit', 'AdminAnnouncementsController@edit')->name('admin.announcements.edit');
+				Route::post('/announcements/{id}/update', 'AdminAnnouncementsController@update')->name('admin.announcements.update');
+			});
+
+			Route::group(['middleware' => 'permission:announcements_delete'], function() {
+				Route::get('/announcements/{id}/delete', 'AdminAnnouncementsController@delete')->name('admin.announcements.delete');
+			});
+
+			Route::group(['middleware' => 'permission:announcements_mark'], function() {
+				Route::post('/announcements/{id}/mark', 'AdminAnnouncementsController@mark')->name('admin.announcements.mark');
+				Route::post('/announcements/{id}/unmark', 'AdminAnnouncementsController@unmark')->name('admin.announcements.unmark');
+			});
+		});
+
 
 		// Skills
-		Route::resource('skills', 'SkillsController');
+		Route::group(['middleware' => 'permission:skills'], function() {
+			Route::get('/skills', 'SkillsController@index')->name('admin.skills.index');
+
+			Route::group(['middleware' => 'permission:skills_view'], function() {
+				Route::get('/skills/{id}', 'SkillsController@show')->name('admin.skills.show');
+			});
+
+			Route::group(['middleware' => 'permission:skills_create'], function() {
+				Route::get('/skills/create', 'SkillsController@create')->name('admin.skills.create');
+				Route::post('/skills/store', 'SkillsController@store')->name('admin.skills.store');
+			});
+
+			Route::group(['middleware' => 'permission:skills_edit'], function() {
+				Route::get('/skills/{id}/edit', 'SkillsController@edit')->name('admin.skills.edit');
+				Route::get('/skills/{id}/update', 'SkillsController@update')->name('admin.skills.update');
+			});
+
+			Route::group(['middleware' => 'permission:skills_delete'], function() {
+				Route::get('/skills/{id}/delete', 'SkillsController@delete')->name('admin.skills.delete');
+			});
+
+			Route::group(['middleware' => 'permission:skills_mark'], function() {
+				Route::post('/skills/{id}/mark', 'SkillsController@mark')->name('admin.skills.mark');
+				Route::post('/skills/{id}/unmark', 'SkillsController@unmark')->name('admin.skills.unmark');
+			});
+		});
+
+		// Activity Log
+		Route::group(['middleware' => 'permission:activity_log'], function() {
+			Route::get('/activity-log', 'ActivityLogController@index')->name('admin.activity-log.index');
+
+			Route::group(['middleware' => 'permission:activity_log_view'], function() {
+				Route::get('/activity-log/{id}', 'ActivityLogController@show')->name('admin.activity-log.show');
+			});
+
+			Route::group(['middleware' => 'permission:activity_log_reset'], function() {
+				Route::post('/activity-log/reset', 'ActivityLogController@reset')->name('admin.activity-log.reset');
+			});
+
+			Route::group(['middleware' => 'permission:activity_log_mark'], function() {
+				Route::post('/activity-log/{id}/mark', 'ActivityLogController@mark')->name('admin.activity-log.mark');
+				Route::post('/activity-log/{id}/unmark', 'ActivityLogController@unmark')->name('admin.activity-log.unmark');
+			});
+		});
 	});
 	// ----- ADMIN SIDE END
 	// NEEDS AUTH END -----

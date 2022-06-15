@@ -24,10 +24,22 @@ class Permissions
 
 		$user = Auth::user();
 
-		if($user->hasPrivilege($permissions))
+		if($user->hasPrivilege($permissions)) {
 			return $next($request);
-		else
-			return redirect()->back();
+		}
+		else {
+			if ($user->role_id == 5)
+				return redirect()
+					->back();
+			else
+				return redirect()
+					->back()
+					->with('flash_info', 'Permission Level Low')
+					->with('has_icon', 'true')
+					->with('message', 'Redirected back to previous page.')
+					->with('has_timer')
+					->with('duration', '5000');
+		}
 
 	}
 }

@@ -57,6 +57,10 @@ class User extends Authenticatable
 		return $this->belongsTo('App\Roles', 'role_id');
 	}
 
+	protected function activities() {
+		return $this->hasMany('App\ActivityLog', 'user_id');
+	}
+
 	protected function privileges() {
 		return $this->role->privileges;
 	}

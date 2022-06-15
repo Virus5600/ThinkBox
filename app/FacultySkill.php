@@ -8,7 +8,9 @@ class FacultySkill extends Model
 {
 	protected $fillable = [
 		'faculty_staff_id',
-		'skill_id'
+		'skill_id',
+		'is_marked',
+		'reason',
 	];
 
 	public $timestamps = false;

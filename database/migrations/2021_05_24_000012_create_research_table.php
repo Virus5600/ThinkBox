@@ -22,6 +22,8 @@ class CreateResearchTable extends Migration
 			$table->tinyInteger('is_file_requestable')->unsigned()->default(0);
 			$table->tinyInteger('is_featured')->unsigned()->default(0);
 			$table->date('date_published');
+			$table->tinyInteger('is_marked')->default(0);
+			$table->mediumText('reason')->nullable();
 			$table->timestamps();
 
 			$table->foreign('posted_by')->references('id')->on('faculty_staffs')->onDelete('cascade');

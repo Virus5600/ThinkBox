@@ -135,7 +135,7 @@
 
 					{{-- Navbar toggler for Profile Links (on small screens) --}}
 					@if (Auth::check())
-					<div class="d-block d-lg-none mr-md-5 text-truncate" id="authCollapser">
+					<div class="d-block d-lg-none ml-auto mr-md-5 text-truncate" id="authCollapser">
 						<a href="#authCollapse" class="nav-link custom-auth-link dynamic-size-lg-h6 text-truncate" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="authCollapse" style="font-size: 1.25rem;">
 							@if (!Auth::user()->isAvatarLink)
 							@if (Auth::user()->avatar == null)
@@ -148,6 +148,22 @@
 							@endif
 							{{Auth::user()->first_name}} {{Auth::user()->last_name}}
 						</a>
+					</div>
+					@else
+					<div class="d-block d-lg-none ml-auto mr-md-5 text-truncate">
+						<div class="col d-flex flex-d-row">
+							@if (\Request::is('login'))
+							<span class="nav-link active text-white py-1">LOGIN</span>
+							@else
+							<a href="{{route('login')}}" class="nav-link text-white py-1">LOGIN</a>
+							@endif
+
+							{{-- @if (\Request::is('register')) --}}
+							{{-- <span class="nav-link active text-white py-1">Register</span> --}}
+							{{-- @else --}}
+							{{-- <a href="{{route('register')}}" class="nav-link text-white py-1">Register</a> --}}
+							{{-- @endif --}}
+						</div>
 					</div>
 					@endif
 
@@ -223,8 +239,8 @@
 						</label>
 					</div>
 					@else
-					<div>
-						<div class="col d-flex flex-d-row">
+					<div class="d-none d-lg-block">
+						<div class="d-flex flex-d-row">
 							@if (\Request::is('login'))
 							<span class="nav-link active text-white py-1">LOGIN</span>
 							@else
@@ -249,7 +265,7 @@
 				<a class="custom-link d-block" href="{{ route('profile.topics.index') }}">Topics & Materials</a>
 				<a class="custom-link d-block" href="{{ route('profile.research.index') }}">Research</a>
 				<a class="custom-link d-block" href="{{ route('profile.innovations.index') }}">Innovations</a>
-				@if (Auth::user()->role == 1)
+				@if (Auth::user()->role_id <= 4)
 				<div class="dropdown-divider"></div>
 				<a class="custom-link d-block" href="{{ route('admin') }}">Admin Controls</a>
 				@endif
@@ -324,10 +340,10 @@
 					popup: `px-3`
 				},
 			});
-			@elseif (Session::has('flash_message'))
+			@elseif (Session::has('flash_message') || Session::has('flash_info'))
 			Swal.fire({
-				{!!Session::has('has_icon') && Session::get('has_icon') ? "icon: `info`," : ""!!}
-				title: `{{Session::get('flash_message')}}`,
+				{!!Session::has('has_icon') ? "icon: `info`," : ""!!}
+				title: `{{Session::has('flash_message') ? Session::get('flash_message') : Session::get('flash_info') }}`,
 				{!!Session::has('message') ? 'html: `' . Session::get('message') . '`,' : ''!!}
 				position: {!!Session::has('position') ? '`' . Session::get('position') . '`' : '`top`'!!},
 				showConfirmButton: false,

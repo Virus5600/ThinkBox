@@ -19,6 +19,8 @@ class CreateAnnouncementsTable extends Migration
 			$table->string('source')->nullable();
 			$table->mediumtext('content');
 			$table->integer('author_id')->unsigned()->nullable();
+			$table->tinyInteger('is_marked')->default(0);
+            $table->mediumText('reason')->nullable();
 			$table->timestamps();
 			
 			$table->foreign('author_id')->references('id')->on('users')->onDelete('cascade');

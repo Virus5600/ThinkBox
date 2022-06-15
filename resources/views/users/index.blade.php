@@ -340,15 +340,15 @@
 						<div class="col-12 col-md-3 my-3 my-0-lg mx-auto">
 							<div class="card dark-shadow h-100">
 								@if ($s->user->avatar == null)
-								<div class="card-header p-0" style="background: #fff url('/uploads/users/default.png') no-repeat center; background-size: cover;">
+								<div class="card-header p-0" style="background: #fff url('{{ asset('uploads/users/default.png') }}') no-repeat center; background-size: cover;">
 								@else
-								<div class="card-header p-0" style="background: #fff url('/uploads/users/user{{$s->user->id}}/{{$s->user->avatar}}') no-repeat center; background-size: cover;">
+								<div class="card-header p-0" style="background: #fff url('{{ asset('uploads/users/user' . $s->user->id . '/' . $s->user->avatar) }}') no-repeat center; background-size: cover;">
 									@endif
 									<div class="p-0 m-0 blur-backdrop">
 										@if ($s->user->avatar == null)
-										<img class="p-0 m-0 img-fluid faculty-img" src="/uploads/users/default.png">
+										<img class="p-0 m-0 img-fluid faculty-img" src="{{ asset('uploads/users/default.png') }}">
 										@else
-										<img class="p-0 m-0 img-fluid faculty-img" src="/uploads/users/user{{$s->user->id}}/{{$s->user->avatar}}">
+										<img class="p-0 m-0 img-fluid faculty-img" src="{{ asset('uploads/users/user' . $s->user->id . '/' . $s->user->avatar) }}">
 										@endif
 									</div>
 								</div>

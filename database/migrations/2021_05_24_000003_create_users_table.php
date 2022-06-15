@@ -30,7 +30,7 @@ class CreateUsersTable extends Migration
 			$table->timestamps();
 			$table->dateTime('expiration_date')->nullable();
 			
-			$table->foreign('role')->references('id')->on('roles')->onDelete('cascade');
+			$table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
 		});
 	}
 

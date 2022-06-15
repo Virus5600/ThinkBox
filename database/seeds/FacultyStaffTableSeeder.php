@@ -14,21 +14,20 @@ class FacultyStaffTableSeeder extends Seeder
 	public function run()
 	{
 		FS::create([
-			'id' => 1,
 			'user_id' => 1,
 			'department' => 1,
-			'position' => 4,
+			'position' => 5,
 			'location' => 'National University',
-			'description' => 'Dr. Angelique D. Lacasandile is the Department Chair of the Computer Science Department at National University, Manila. She is also the Academe and Industry Linkage Coordinator, and a recipient of CHED Scholarship for Graduate Studies that enjoys full-privileges to earn doctorate degree. She graduated at Technological Institute of the Philippines – Manila with a degree of Doctor in Information Technology (DIT), her current research papers and system developed focused on the projects about the government.'
+			'description' => 'MASTER ADMIN ACCOUNT'
 		]);
 
 		FS::create([
 			'id' => 2,
 			'user_id' => 2,
 			'department' => 1,
-			'position' => 5,
+			'position' => 4,
 			'location' => 'National University',
-			'description' => null
+			'description' => 'Dr. Angelique D. Lacasandile is the Department Chair of the Computer Science Department at National University, Manila. She is also the Academe and Industry Linkage Coordinator, and a recipient of CHED Scholarship for Graduate Studies that enjoys full-privileges to earn doctorate degree. She graduated at Technological Institute of the Philippines – Manila with a degree of Doctor in Information Technology (DIT), her current research papers and system developed focused on the projects about the government.'
 		]);
 
 		FS::create([
@@ -37,12 +36,21 @@ class FacultyStaffTableSeeder extends Seeder
 			'department' => 1,
 			'position' => 5,
 			'location' => 'National University',
-			'description' => 'A graduate student at De La Salle University under the MS Computer Science program. I am also a full-time faculty member of the Computer Science Department at National University-Manila. My research works are focused on applying Natural Language Processing (NLP) on Philippine languages using Machine Learning and Deep Learning methods.',
+			'description' => null
 		]);
 
 		FS::create([
 			'id' => 4,
 			'user_id' => 4,
+			'department' => 1,
+			'position' => 5,
+			'location' => 'National University',
+			'description' => 'A graduate student at De La Salle University under the MS Computer Science program. I am also a full-time faculty member of the Computer Science Department at National University-Manila. My research works are focused on applying Natural Language Processing (NLP) on Philippine languages using Machine Learning and Deep Learning methods.',
+		]);
+
+		FS::create([
+			'id' => 5,
+			'user_id' => 5,
 			'department' => 1,
 			'position' => 3,
 			'location' => 'National University',
@@ -50,8 +58,8 @@ class FacultyStaffTableSeeder extends Seeder
 		]);
 
 		FS::create([
-			'id' => 5,
-			'user_id' => 5,
+			'id' => 6,
+			'user_id' => 6,
 			'department' => 1,
 			'position' => 5,
 			'location' => 'National University',
@@ -59,8 +67,8 @@ class FacultyStaffTableSeeder extends Seeder
 		]);
 
 		FS::create([
-			'id' => 6,
-			'user_id' => 6,
+			'id' => 7,
+			'user_id' => 7,
 			'department' => 2,
 			'position' => 5,
 			'location' => 'National University',
@@ -71,8 +79,8 @@ class FacultyStaffTableSeeder extends Seeder
 		]);
 
 		FS::create([
-			'id' => 7,
-			'user_id' => 7,
+			'id' => 8,
+			'user_id' => 8,
 			'department' => 2,
 			'position' => 4,
 			'location' => 'National University',
@@ -81,8 +89,8 @@ class FacultyStaffTableSeeder extends Seeder
 		]);
 
 		FS::create([
-			'id' => 8,
-			'user_id' => 8,
+			'id' => 9,
+			'user_id' => 9,
 			'department' => 1,
 			'position' => 5,
 			'location' => 'National University',
@@ -90,8 +98,8 @@ class FacultyStaffTableSeeder extends Seeder
 		]);
 
 		FS::create([
-			'id' => 9,
-			'user_id' => 9,
+			'id' => 10,
+			'user_id' => 10,
 			'department' => 3,
 			'position' => 2,
 			'location' => 'National University',
@@ -99,25 +107,25 @@ class FacultyStaffTableSeeder extends Seeder
 		]);
 
 		FS::create([
-			'id' => 10,
-			'user_id' => 10,
+			'id' => 11,
+			'user_id' => 11,
 			'department' => 3,
 			'position' => 5,
 			'location' => 'National University',
 			'description' => 'Experienced Technical Consultant with a demonstrated history of working in the education management industry. Skilled in Management, Training, Instrumentation, Leadership, and Programmable Logic Controller (PLC). Strong sales professional with a Masters of Engineering focused in Electrical and Electronics Engineering from Technological University of the Philippines.'
 		]);
 
-		FS::create([
-			'id' => 11,
-			'user_id' => 11,
-			'department' => 1,
-			'position' => 5,
-			'location' => 'National University',
-			'description' => null
-		]);
+		// FS::create([
+		// 	'id' => 12,
+		// 	'user_id' => 12,
+		// 	'department' => 1,
+		// 	'position' => 5,
+		// 	'location' => 'National University',
+		// 	'description' => null
+		// ]);
 
 		// DEV ACCOUNT FOR LOCAL TESTING
-		if (env('APP_ENV') == 'local') {
+		if (app()->isLocal()) {
 			FS::create([
 				'user_id' => 12,
 				'department' => 1,

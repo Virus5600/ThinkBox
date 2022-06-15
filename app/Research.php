@@ -19,7 +19,9 @@ class Research extends Model
 		'url',
 		'is_file_requestable',
 		'is_featured',
-		'date_published'
+		'date_published',
+		'is_marked',
+		'reason',
 	];
 
 	protected function facultyStaff() {

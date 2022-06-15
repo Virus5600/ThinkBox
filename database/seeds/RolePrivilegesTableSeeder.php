@@ -14,16 +14,16 @@ class RolePrivilegesTableSeeder extends Seeder
 	public function run()
 	{
 		// MASTER ADMIN
-		$this->addPrivilege(1, array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26));
+		$this->addPrivilege(1, array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33));
 
 		// ADMIN
-		$this->addPrivilege(2, array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 17, 18, 19, 20, 21, 22, 23, 26));
+		$this->addPrivilege(2, array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 17, 18, 19, 20, 21, 22, 23, 24, 25, 29, 30, 31, 33));
 
 		// MODERATOR
-		$this->addPrivilege(3, array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24));
+		$this->addPrivilege(3, array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 17, 18, 19, 20, 21, 22, 23, 24, 25, 29, 30, 33));
 
 		// SUPERVISOR
-		$this->addPrivilege(4, array(1, 2, 3, 4, 5, 6, 7, 8, 12, 18, 19, 20));
+		$this->addPrivilege(4, array(1, 2, 3, 4, 5, 6, 7, 8, 12, 18, 19, 20, 24, 25, 29, 30, 33));
 	}
 
 	/**

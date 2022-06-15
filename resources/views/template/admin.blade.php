@@ -219,10 +219,10 @@
 					popup: `px-3`
 				},
 			});
-			@elseif (Session::has('flash_message'))
+			@elseif (Session::has('flash_message') || Session::has('flash_info'))
 			Swal.fire({
 				{!!Session::has('has_icon') ? "icon: `info`," : ""!!}
-				title: `{{Session::get('flash_message')}}`,
+				title: `{{Session::has('flash_message') ? Session::get('flash_message') : Session::get('flash_info') }}`,
 				{!!Session::has('message') ? 'html: `' . Session::get('message') . '`,' : ''!!}
 				position: {!!Session::has('position') ? '`' . Session::get('position') . '`' : '`top`'!!},
 				showConfirmButton: false,
