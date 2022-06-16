@@ -76,7 +76,7 @@
 				<div class="col-12 col-lg-6 my-3">
 					<div class="container-fluid dark-shadow invisiborder rounded overflow-hidden h-100 w-100">
 						<div class="row h-100">
-							<div class="col-12 col-md-4 pb-faculty-holder p-0">
+							<div class="col-12 col-sm-5 col-md-4 pb-faculty-holder p-0">
 								@if (!$s->user->isAvatarLink)
 								@if ($s->user->avatar == null)
 								<div class="pb-faculty text-center mx-auto h-100" style="background: #fff url('/uploads/users/default.png') no-repeat center; background-size: cover;"></div>
@@ -88,7 +88,7 @@
 								@endif
 							</div>
 
-							<div class="col-12 col-md-8 py-3">
+							<div class="col-12 col-sm-7 col-md-8 py-3">
 								<div class="text-center text-md-left">
 									<h3 class="font-weight-bold m-0">{{$s->getFullName()}}</h3>
 									<p class="font-weight-bold m-0">{{ucwords(preg_replace("/_/", " ", $s->positionAttr->type))}}, {{$s->location}}</p>

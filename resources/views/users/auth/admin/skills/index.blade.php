@@ -58,35 +58,17 @@
 
 					<td>{{$s->skill}}</td>
 					<td class="text-right">
-						<button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#edit{{$s->id}}">Edit</button>
-						<button class="btn btn-sm btn-danger">Delete</button>
+						@if (Auth::user()->hasPrivilege('skills_view'))
+						<a href="{{ route('admin.skills.show', [$s->id]) }}" class="btn btn-sm btn-primary">View</a>
+						@endif
 
-						<div class="modal fade" id="edit{{$s->id}}" role="dialog" aria-hidden="true">
-							<div class="modal-dialog modal-dialog-centered" role="document">
-								<form class="modal-content" action="" method="{{-- POST --}}" enctype="multipart/form-data">
-									<div class="modal-header">
-										<h5 class="modal-title">Edit Skill</h5>
-										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-											<span aria-hidden="true">&times;</span>
-										</button>
-									</div>
+						@if (Auth::user()->hasPrivilege('skills_edit'))
+						<button class="btn btn-sm btn-primary edit" data-skill="{{ $s->skill }}" data-uri-target="{{ route('admin.skills.update', [$s->id]) }}">Edit</button>
+						@endif
 
-									<div class="modal-body text-left">
-										<div class="form-group">
-											<label class="form-label" for='skill'>Skill Name</label>
-											<input class="form-control" type="text" name="skill" value="{{$s->skill}}">
-										</div>
-
-										{{ csrf_field() }}
-									</div>
-
-									<div class="modal-footer">
-										<button type="submit" class="btn btn-primary" data-action="update">Submit</button>
-										<input type="button" class="btn btn-secondary" data-dismiss="modal" value="Cancel"/>
-									</div>
-								</form>
-							</div>
-						</div>
+						@if (Auth::user()->hasPrivilege('skills_delete'))
+						@include('include.delete_btn', ['item' => $s->skill, 'route' => route('admin.skills.delete', [$s->id]), 'formClass' => 'd-inline-block', 'class' => 'btn btn-sm btn-danger delete-btn'])
+						@endif
 					</td>
 				</tr>
 				@endforeach
@@ -94,6 +76,10 @@
 
 			<tfoot></tfoot>
 		</table>
+		
+		<div class="d-flex flex-row">
+			<nav class="mx-auto">{{ $skills->links() }}</nav>
+		</div>
 	</div>
 </div>
 @endsection
@@ -101,6 +87,8 @@
 @section('script')
 <script type="text/javascript">
 	$(document).ready(function() {
+		@if (Auth::user()->hasPrivilege('skills_create'))
+		// ADDING
 		$('#addSkill').on('click', (e) => {
 			let obj = $(e.target);
 
@@ -120,7 +108,7 @@
 					}
 					else
 						if (!skill)
-							Swal.showValidationMessage(`Please provide the skill name`);
+							Swal.showValidationMessage(`Please provide a skill name`);
 						else if (skill.length <= 2)
 							Swal.showValidationMessage(`Skill name provided is too short`);
 
@@ -163,60 +151,104 @@
 							$('.swal2-confirm').trigger('click');
 						}
 						else {
-							if (response.is_info) {
-								Swal.fire({
-									title: `${response.message}`,
-									position: `top`,
-									showConfirmButton: false,
-									toast: true,
-									timer: 10000,
-									background: `#17a2b8`,
-									customClass: {
-										title: `text-white`,
-										content: `text-white`,
-										popup: `px-3`
-									},
-								});
-							}
-							else {
-								if (obj.hasClass('active')) {
-									obj.removeClass('active');
-									$(`.mark-affected[data-id=${response.id}]`).removeClass('btn-warning');
-								}
-								else {
-									obj.addClass('active');
-									$(`.mark-affected[data-id=${response.id}]`).addClass('btn-warning');
-								}
-
-								obj.attr('data-toggle', 'tooltip')
-									.attr('tabindex', '0')
-									.attr('data-html', 'true')
-									.attr('data-trigger', 'hover focus')
-									.attr('title', result.value.skill)
-									.attr('data-target-uri', response.uri)
-									.tooltip('dispose')
-									.tooltip();
-
-								Swal.fire({
-									title: `${response.message}`,
-									position: `top`,
-									showConfirmButton: false,
-									toast: true,
-									timer: 10000,
-									background: `#28a745`,
-									customClass: {
-										title: `text-white`,
-										content: `text-white`,
-										popup: `px-3`
-									},
-								});
-							}
+							localStorage.setItem('m', `${response.message}`);
+							window.location.reload();
 						}
 					});
 				}
 			});
-
 		});
+
+		if (localStorage.getItem('m') != null) {
+			Swal.fire({
+				title: `${localStorage.getItem('m')}`,
+				position: `top`,
+				showConfirmButton: false,
+				toast: true,
+				timer: 10000,
+				background: `#28a745`,
+				customClass: {
+					title: `text-white`,
+					content: `text-white`,
+					popup: `px-3`
+				},
+			});
+
+			localStorage.removeItem('m');
+		}
+		@endif
+
+		@if (Auth::user()->hasPrivilege('skills_edit'))
+		$('.edit').on('click', (e) => {
+			let obj = $(e.target);
+
+			Swal.fire({
+				title: `Edit Skill "${obj.attr('data-skill')}"`,
+				html: `<input class="swal2-input" type="text" name="skill" placeholder="Skill Name...">`,
+				confirmButtonText: 'Submit',
+				showCancelButton: true,
+				focusConfirm: false,
+				allowOutsideClick: false,
+				preConfirm: () => {
+					const skill = Swal.getPopup().querySelector('[name=skill]').value;
+
+					if (obj.attr('data-triggered-from-response')) {
+						Swal.showValidationMessage(obj.attr('data-validation-message'));
+						obj.removeAttr('data-triggered-from-response').removeAttr('data-validation-message');
+					}
+					else
+						if (!skill)
+							Swal.showValidationMessage(`Please provide a skill name`);
+						else if (skill.length <= 2)
+							Swal.showValidationMessage(`Skill name provided is too short`);
+
+					return {
+						skill: skill
+					}
+				}
+			}).then((result) => {
+				if (result.isConfirmed) {
+					$.ajaxSetup({
+						headers: {
+							'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+						}
+					});
+
+					$.post(`${obj.attr('data-uri-target')}`, {
+						_token: $('meta[name="csrf-token"]').attr('content'),
+						_method: 'POST',
+						skill: result.value.skill
+					}).done((response) => {
+						if (response.has_error) {
+							Swal.fire({
+								title: `${response.message}`,
+								position: `top`,
+								showConfirmButton: false,
+								toast: true,
+								timer: 10000,
+								background: `#dc3545`,
+								customClass: {
+									title: `text-white`,
+									content: `text-white`,
+									popup: `px-3`
+								},
+							});
+						}
+						else if (response.has_validation_error) {
+							obj.attr('data-validation-message', response.message);
+							obj.attr('data-triggered-from-response', 'true');
+							obj.trigger('click');
+							$('.swal2-confirm').trigger('click');
+						}
+						else {
+							localStorage.setItem('m', `${response.message}`);
+							window.location.reload();
+						}
+					});
+				}
+			});
+		});
+		@endif
 	});
 </script>
 @endsection

@@ -1003,8 +1003,8 @@ nav.position-sticky {
 
 	.pb-faculty {
 		padding-bottom: 37.5vw;
-		min-height: calc(100% * 2);
-		max-width: calc(50%);
+		min-height: calc(100%);
+		max-width: calc(100%);
 	}
 }
 

@@ -25,8 +25,13 @@ class Roles extends Model
 
 	// PUBLIC FUNCTIONS
 	public function hasPrivilege($privilege) {
+		$priv = Privileges::where('name', '=', $privilege)->first();
+
+		if ($priv == null)
+			return false;
+
 		$userRole = $this->id;
-		$targetPrivilege = Privileges::where('name', '=', $privilege)->first()->id;
+		$targetPrivilege = $priv->id;
 		$matches = RolePrivileges::where('role_id', '=', $userRole)->where('privilege_id', '=', $targetPrivilege)->get();
 
 		return count($matches) > 0 ? true : false;
@@ -36,8 +41,14 @@ class Roles extends Model
 		$targetPrivilege = array_filter($privileges, 'is_numeric');
 		
 		$strpriv = array_filter($privileges, 'is_string');
-		foreach ($strpriv as $s)
-			array_push($targetPrivilege, Privileges::where('name', '=', $s)->first()->id);
+		foreach ($strpriv as $s) {
+			$priv = Privileges::where('name', '=', $s)->first();
+
+			if ($priv == null)
+				continue;
+			
+			array_push($targetPrivilege, $priv->id);
+		}
 
 		$userRole = $this->id;
 		$matches = RolePrivileges::where('role_id', '=', $userRole)->whereIn('privilege_id', $targetPrivilege)->get();
@@ -49,8 +60,14 @@ class Roles extends Model
 		$targetPrivilege = array_filter($privileges, 'is_numeric');
 		
 		$strpriv = array_filter($privileges, 'is_string');
-		foreach ($strpriv as $s)
-			$targetPrivilege = array_push(Privileges::where('name', '=', $s)->first()->id);
+		foreach ($strpriv as $s) {
+			$priv = Privileges::where('name', '=', $s)->first();
+
+			if ($priv == null)
+				continue;
+
+			$targetPrivilege = array_push($priv->id);
+		}
 
 		$userRole = $this->id;
 		$matches = RolePrivileges::where('role_id', '=', $userRole)->whereIn('privilege_id', $targetPrivilege)->get();

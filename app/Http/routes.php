@@ -124,7 +124,7 @@ Route::group(['middleware' => ['auth']], function() {
 			});
 
 			Route::group(['middleware' => 'permission:faculty_members_delete'], function() {
-				Route::get('/faculty-member/{id}/delete', 'FacultyStaffController@delete')->name('admin.faculty-member.delete');
+				Route::delete('/faculty-member/{id}/delete', 'FacultyStaffController@delete')->name('admin.faculty-member.delete');
 			});
 
 			Route::group(['middleware' => 'permission:faculty_members_mark'], function() {
@@ -227,12 +227,11 @@ Route::group(['middleware' => ['auth']], function() {
 			});
 
 			Route::group(['middleware' => 'permission:skills_edit'], function() {
-				Route::get('/skills/{id}/edit', 'SkillsController@edit')->name('admin.skills.edit');
-				Route::get('/skills/{id}/update', 'SkillsController@update')->name('admin.skills.update');
+				Route::post('/skills/{id}/update', 'SkillsController@update')->name('admin.skills.update');
 			});
 
 			Route::group(['middleware' => 'permission:skills_delete'], function() {
-				Route::get('/skills/{id}/delete', 'SkillsController@delete')->name('admin.skills.delete');
+				Route::delete('/skills/{id}/delete', 'SkillsController@delete')->name('admin.skills.delete');
 			});
 
 			Route::group(['middleware' => 'permission:skills_mark'], function() {

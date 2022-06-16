@@ -147,43 +147,48 @@ class PrivilegesTableSeeder extends Seeder
 
 		P::create([
 			'id' => 26,
-			'name' => 'skills_create'
+			'name' => 'skills_view'
 		]);
 
 		P::create([
 			'id' => 27,
-			'name' => 'skills_edit'
+			'name' => 'skills_create'
 		]);
 
 		P::create([
 			'id' => 28,
-			'name' => 'skills_delete'
+			'name' => 'skills_edit'
 		]);
 
 		P::create([
 			'id' => 29,
+			'name' => 'skills_delete'
+		]);
+
+		P::create([
+			'id' => 30,
 			'name' => 'skills_mark'
 		]);
 		// SKILLS END
 
 		// ACTIVITY LOG
 		P::create([
-			'id' => 30,
+			'id' => 31,
 			'name' => 'activity_log'
 		]);
 
 		P::create([
-			'id' => 31,
+			'id' => 32,
 			'name' => 'activity_log_view'
 		]);
 
 		P::create([
-			'id' => 32,
+			'id' => 33,
 			'name' => 'activity_log_reset'
 		]);
 
 		P::create([
-			'id' => 33,
+			'id' => 34,
 			'name' => 'activity_log_mark'
 		]);
 		// ACTIVITY LOG END

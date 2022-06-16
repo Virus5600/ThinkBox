@@ -18,6 +18,15 @@ class Skills extends Model
 	];
 
 	protected function facultyStaff() {
-		$this->hasMany('App\FacultySkill');
+		return $this->belongsToMany('App\FacultyStaff', 'faculty_skills', 'skill_id', 'faculty_staff_id');
+	}
+
+	public function users() {
+		$staff = $this->facultyStaff;
+		$user = [];
+
+		foreach ($staff as $s) array_push($user, $s->user);
+		array_multisort(array_column($user, 'first_name'), SORT_ASC, $user);
+		return collect($user);
 	}
 }

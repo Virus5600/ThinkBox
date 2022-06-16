@@ -1,4 +1,4 @@
-<form class="w-100" action="{{ $route }}" method="POST" enctype="multipart/form-data">
+<form class="{{ $formClass }}" action="{{ $route }}" method="POST" enctype="multipart/form-data">
 	{{ csrf_field() }}
 	{{ method_field('DELETE') }}
 

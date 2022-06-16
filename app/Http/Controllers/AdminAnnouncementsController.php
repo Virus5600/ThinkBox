@@ -66,7 +66,7 @@ class AdminAnnouncementsController extends Controller
 				'author_id' => Auth::user()->id,
 			]);
 
-			ActivityLog::log('Added announcement (' . route('admin.announcements.show', [$announcement->id]) . ')');
+			ActivityLog::log('Added announcement (<a href="' . route('admin.announcements.show', [$announcement->id]) . '">' . $announcement->title . '</a>)');
 
 			DB::commit();
 		} catch (\Exception $e) {
@@ -122,6 +122,11 @@ class AdminAnnouncementsController extends Controller
 			DB::beginTransaction();
 
 			$announcement = Announcements::find($id);
+
+			if ($announcement == null)
+				return redirect()
+					->back()
+					->with('flash_info', 'Announcement has been deleted already. Please refresh the page if it still appears in the table.');
 			
 			if ($req->has('image')) {
 				File::delete(public_path() . '/uploads/announcements/' . $announcement->image);
@@ -140,7 +145,7 @@ class AdminAnnouncementsController extends Controller
 			$announcement->content = $req->content;
 			$announcement->save();
 
-			ActivityLog::log('Modified announcement (' . route('admin.announcements.show', [$announcement->id]) . ')');
+			ActivityLog::log('Modified announcement (<a href="' . route('admin.announcements.show', [$announcement->id]) . '">' . $announcement->title . '</a>)');
 
 			DB::commit();
 		} catch (Exception $e) {
@@ -170,7 +175,7 @@ class AdminAnnouncementsController extends Controller
 			DB::beginTransaction();
 			$announcement->delete();
 			File::delete(public_path() . '/uploads/announcements/' . $announcement->image);
-			ActivityLog::log('Deleted an Announcement (' . $announcement->title. ')');
+			ActivityLog::log('Deleted announcement (<a href="' . route('admin.announcements.show', [$announcement->id]) . '">' . $announcement->title . '</a>)');
 			DB::commit();
 		} catch (Exception $e) {
 			Log::error($e);
@@ -219,7 +224,7 @@ class AdminAnnouncementsController extends Controller
 			$announcement->reason = $req->reason;
 			$announcement->save();
 
-			ActivityLog::log('Marked announcement (' . route('admin.announcements.show', [$announcement->id]) . ')');
+			ActivityLog::log('Marked announcement (<a href="' . route('admin.announcements.show', [$announcement->id]) . '">' . $announcement->title . '</a>)');
 
 			DB::commit();
 		} catch (Exception $e) {
@@ -280,7 +285,7 @@ class AdminAnnouncementsController extends Controller
 			$announcement->reason = $req->reason;
 			$announcement->save();
 
-			ActivityLog::log('Unmarked announcement (' . route('admin.announcements.show', [$announcement->id]) . ')');
+			ActivityLog::log('Unmarked announcement (<a href="' . route('admin.announcements.show', [$announcement->id]) . '">' . $announcement->title . '</a>)');
 
 			DB::commit();
 		} catch (Exception $e) {
