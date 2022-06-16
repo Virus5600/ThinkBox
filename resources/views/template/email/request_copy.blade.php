@@ -1,6 +1,6 @@
 <html>
-	<body style="font-style: 'Arial';">
-		<div style="width: 100%; height: 5rem; background-color: #35408F; padding: 5px; text-align: center;">
+	<body style="font-family: 'Arial'; margin: 0; max-width: 100%; width: 100%">
+		<div style="height: 5rem; background-color: #35408F; padding: 5px; text-align: center;">
 			<img src="{!!$message->embed(public_path('images/UI/Branding.png'))!!}" style="width: auto; height: 100%;">
 		</div>
 
@@ -13,7 +13,7 @@
 			</div>
 		</div><br>
 
-		<div style="width: 100%; height: 2.5rem; background-color: #35408F; text-align: center; padding: 5px;">
+		<div style="height: 2.5rem; background-color: #35408F; text-align: center; padding: 5px;">
 			<p style="color: #cccccc; font-size: smaller; text-align: center; width: 100%;">
 				Please do not reply to this E-mail directly as this is just an automatic email and we will not receive your letter.
 			</p>

@@ -92,8 +92,6 @@ $(document).ready(function() {
 		let isContainer = obj.attr('data-is-container');
 		let item = obj.attr('data-item');
 
-		console.log(isContainer);
-
 		Swal.fire({
 			icon: 'warning',
 			html: '<h4>Proceed to delete?</h4>' + (isContainer ? '<p>You want to delete the container ' + item + ', along with all the items inside it?</p>' : '<p>You wanted to delete this item: ' + item +'</p>'),
@@ -101,8 +99,9 @@ $(document).ready(function() {
 			confirmButtonText: 'Yes',
 			denyButtonText: 'No'
 		}).then((result) => {
-			if (result.isConfirmed)
+			if (result.isConfirmed) {
 				obj.closest('form').submit();
+			}
 			else {
 				obj.removeClass('disabled');
 				obj.attr('data-clicked', 'false');

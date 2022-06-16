@@ -11,6 +11,7 @@
 		<div class="col-12 my-3">
 			<form action="{{route('admin.faculty-member.store')}}" method="POST" enctype="multipart/form-data">
 				{{csrf_field()}}
+				@php($username = str_random(10))
 
 				<div class="row">
 					{{-- PROFILE IMAGE --}}
@@ -19,7 +20,7 @@
 						<div class="form-group text-center collapse {{old('isAvatarLink') ? '' : 'show'}} avatar_holder" id="fileAvatar">
 							<label class="form-label font-weight-bold" for="avatar">Avatar</label><br>
 							<div class="hover-cam mx-auto avatar">
-								<img src="/uploads/users/default.png" class="hover-zoom img-fluid avatar circle-border" width="250" height="250" id="avatarContainer" alt="Profile Image">
+								<img src="{{ asset('uploads/users/default.png') }}" class="hover-zoom img-fluid avatar circle-border" width="250" height="250" id="avatarContainer" alt="Profile Image">
 								<span class="icon circle-border text-center" id="avatar">
 									<i class="fas fa-camera text-white hover-icon-2x"></i>
 								</span>
@@ -250,14 +251,12 @@
 				<div class="row">
 					<div class="col-12 col-md-6 form-group">
 						<label for='username' class="form-label font-weight-bold">Generated Username</label>
-						<input type="hidden" name="username" class="form-control" value="{{$username = str_random(10)}}" />
-						<input type="text" class="form-control" value="{{$username}}" disabled/>
+						<input type="text" name="username" class="form-control username-field" value="{{ old('username') ? old('username') : $username}}" readonly/>
 					</div>
 
 					<div class="col-12 col-md-6 form-group">
 						<label for="password" class="form-label font-weight-bold">Generated Password</label>
-						<input type="hidden" name="password" class="form-control" value="{{$password = str_random(10)}}" />
-						<input type="text" class="form-control" value="{{$password}}" disabled/>
+						<input type="text" name="password" class="form-control" value="{{$password = str_random(10)}}" readonly/>
 					</div>
 				</div>
 
@@ -465,7 +464,27 @@
 			}
 		});
 
+		// Changing Username
+		let name = {first: null, middle: null, last: null};
+		const username = '{{ $username }}';
+		$('[name=first_name], [name=middle_name], [name=last_name]').on('change', (e) => {
+			let obj = $(e.target);
+			let target = obj.attr('name').split('_')[0];
+
+			name[target] = target == 'last' ? obj.val() : obj.val()[0];
+
+			if (name.first != null && name.middle != null && name.last != null) {
+				$('[name=username]').val((name.first + name.middle + name.last).toLowerCase());
+				$('#credentials').val(`Username: ${(name.first + name.middle + name.last).toLowerCase()} - Password: ${$('[name=password]').val()}`)
+			}
+			else {
+				$('[name=username]').val(username);
+				$('#credentials').val(`Username: ${username} - Password: ${$('[name=password]').val()}`)
+			}
+		});
+
 		@if (old('recipient') != null)
+		// Re adding recepients
 		@for ($i = 1; $i < count(old('recipient')); $i++)
 		$("#email_field").append(
 			`<div class="row mt-2">` +
@@ -475,6 +494,11 @@
 			`</div>`
 		);
 		@endfor
+		@endif
+
+		@if (old('isAvatarLink'))
+		//Toggling prop value of checkbox for avatar link
+		$('#isAvatarLink').prop('checked', true);
 		@endif
 	});
 </script>

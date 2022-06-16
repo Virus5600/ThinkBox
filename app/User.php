@@ -74,7 +74,7 @@ class User extends Authenticatable
 				$middleName .= $w[0] . '. ';
 		}
 
-		return ($this->title == null ? '' : $this->title) . ' ' . $this->first_name . ' ' . ($this->middle_name == null ? '' : $middleName) . $this->last_name . ($this->suffix == null ? '' : ', ' . $this->suffix);
+		return trim(($this->title == null ? '' : $this->title) . ' ' . $this->first_name . ' ' . ($this->middle_name == null ? '' : $middleName) . $this->last_name . ($this->suffix == null ? '' : ', ' . $this->suffix));
 	}
 
 	public function hasPrivilege($privilege) {

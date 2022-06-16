@@ -37,8 +37,8 @@ class FacultyController extends Controller
 
 			// the focus is not equals to "all"...
 			if ($rf != 'all') {
-				// ...leftJoin tables faculty_staff and faculty_focus, then get all the distinct entries that will match with the selected focus. Lastly, get the columns from faculty_staff tables only,
-				$focus = FacultyFocus::leftJoin('faculty_staffs', 'faculty_staffs.id', '=', 'faculty_focus.faculty_staff_id')
+				// ...join tables faculty_staff and faculty_focus, then get all the distinct entries that will match with the selected focus. Lastly, get the columns from faculty_staff tables only,
+				$focus = FacultyFocus::join('faculty_staffs', 'faculty_staffs.id', '=', 'faculty_focus.faculty_staff_id')
 					->where('faculty_focus.focus_id', '=', Focus::where('name', '=', $rf)->first()->id)
 					->distinct()
 					->get(['faculty_staffs.*']);
@@ -81,22 +81,22 @@ class FacultyController extends Controller
 			$sortBy = \Request::get('sortBy');
 			// If the sorting is by last name...
 			if ($sortBy == 'lastName') {
-				// ...leftJoin tables users and faculty_staff, then order them ascendingly by their last name. Lastly, get all the columns from faculty_staff tables only.
-				$staff = $staff->leftJoin('users', 'users.id', '=', 'faculty_staffs.user_id')
+				// ...join tables users and faculty_staff, then order them ascendingly by their last name. Lastly, get all the columns from faculty_staff tables only.
+				$staff = $staff->join('users', 'users.id', '=', 'faculty_staffs.user_id')
 					->orderBy('users.last_name', 'ASC');
 					// ->get(['faculty_staffs.*']);
 			}
 			// If the sorting is by first name...
 			else if	($sortBy == 'firstName') {
-				// ...leftJoin tables users and faculty_staff, then order them ascendingly by their first name. Lastly, get all the columns from faculty_staff tables only.
-				$staff = $staff->leftJoin('users', 'users.id', '=', 'faculty_staffs.user_id')
+				// ...join tables users and faculty_staff, then order them ascendingly by their first name. Lastly, get all the columns from faculty_staff tables only.
+				$staff = $staff->join('users', 'users.id', '=', 'faculty_staffs.user_id')
 					->orderBy('users.first_name', 'ASC');
 					// ->get(['faculty_staffs.*']);
 			}
 			// If the sorting is by position...
 			else if ($sortBy == 'position') {
-				// ...leftJoin tables users and faculty_staff, then order them ascendingly by their position, then first name. Lastly, get all the columns from faculty_staff tables only.
-				$staff = $staff->leftJoin('users', 'users.id', '=', 'faculty_staffs.user_id')
+				// ...join tables users and faculty_staff, then order them ascendingly by their position, then first name. Lastly, get all the columns from faculty_staff tables only.
+				$staff = $staff->join('users', 'users.id', '=', 'faculty_staffs.user_id')
 					->orderBy('faculty_staffs.position', 'ASC')
 					->orderBy('users.first_name', 'ASC');
 					// ->get(['faculty_staffs.*']);
@@ -108,25 +108,30 @@ class FacultyController extends Controller
 			$search = \Request::get('search');
 
 			if (!\Request::has('sortBy') || $sortBy == 'none') {
-				$staff = $staff->leftJoin('users', 'users.id', '=', 'faculty_staffs.user_id');
+				$staff = $staff->join('users', 'users.id', '=', 'faculty_staffs.user_id');
 			}
-			$staff->leftJoin('staff_types', 'staff_types.id', '=', 'faculty_staffs.position')
-				// leftJoining the many-to-many tables faculty_focus, faculty_staff, and focus
-				->leftJoin('faculty_focus', 'faculty_staffs.id', '=', 'faculty_focus.faculty_staff_id')
-				->leftJoin('focus', 'faculty_focus.focus_id', '=', 'focus.id')
+			$staff->join('staff_types', 'staff_types.id', '=', 'faculty_staffs.position')
+				// joining the many-to-many tables faculty_focus, faculty_staff, and focus
+				->join('faculty_focus', 'faculty_staffs.id', '=', 'faculty_focus.faculty_staff_id')
+				->join('focus', 'faculty_focus.focus_id', '=', 'focus.id')
 				// Proceed to do the filtering
-				->where('staff_types.type', 'LIKE', '%'.preg_replace("/ /", "_", $search).'%')
-				->orWhere('faculty_staffs.location', 'LIKE', '%'.$search.'%')
-				->orWhere('faculty_staffs.description', 'LIKE', '%'.$search.'%')
-				->orWhere('users.first_name', 'LIKE', '%'.$search.'%')
-				->orWhere('users.middle_name', 'LIKE', '%'.$search.'%')
-				->orWhere('users.last_name', 'LIKE', '%'.$search.'%')
-				->orWhere('users.email', 'LIKE', '%'.$search.'%')
-				->orWhere('focus.name', 'LIKE', '%'.$search.'%');
+				->where('users.role_id', '>=', '3')
+				->where(function($q) use ($search) {
+					$q->where('staff_types.type', 'LIKE', '%'.preg_replace("/ /", "_", $search).'%')
+						->orWhere('faculty_staffs.location', 'LIKE', '%'.$search.'%')
+						->orWhere('faculty_staffs.description', 'LIKE', '%'.$search.'%')
+						->orWhere('users.first_name', 'LIKE', '%'.$search.'%')
+						->orWhere('users.middle_name', 'LIKE', '%'.$search.'%')
+						->orWhere('users.last_name', 'LIKE', '%'.$search.'%')
+						->orWhere('users.email', 'LIKE', '%'.$search.'%')
+						->orWhere('focus.name', 'LIKE', '%'.$search.'%');
+				});
 		}
-
-		// REMOVE ADMINS
-		$staff = $staff->where('position', '>', '1');
+		else {
+			// REMOVE ADMINS
+			$staff = $staff->join('users', 'faculty_staffs.user_id', '=', 'users.id')
+				->where('users.role_id', '>=', '3');
+		}
 
 		if (!\Request::has('sortBy') || \Request::get('sortBy') == 'none') {
 			$staff = $staff->orderBy('department', 'DESC');
@@ -187,9 +192,9 @@ class FacultyController extends Controller
 		if (\Request::has('search')) {
 			$search = \Request::get('search');
 			
-			// leftJoining the many-to-many tables research, research_focus, and focus
-			$research = $research->leftJoin('research_focus', 'research.id', '=', 'research_focus.research_id')
-				->leftJoin('focus', 'research_focus.focus_id', '=', 'focus.id');
+			// joining the many-to-many tables research, research_focus, and focus
+			$research = $research->join('research_focus', 'research.id', '=', 'research_focus.research_id')
+				->join('focus', 'research_focus.focus_id', '=', 'focus.id');
 
 			// Proceed to do the filtering
 			$research = $research->where('research.title', 'LIKE', "%".$search."%")
@@ -235,9 +240,9 @@ class FacultyController extends Controller
 		if (\Request::has('search')) {
 			$search = \Request::get('search');
 			
-			// leftJoining the many-to-many tables innovations, innovation_focus, and focus
-			$innovations = $innovations->leftJoin('innovation_focus', 'innovations.id', '=', 'innovation_focus.innovation_id')
-				->leftJoin('focus', 'innovation_focus.focus_id', '=', 'focus.id');
+			// joining the many-to-many tables innovations, innovation_focus, and focus
+			$innovations = $innovations->join('innovation_focus', 'innovations.id', '=', 'innovation_focus.innovation_id')
+				->join('focus', 'innovation_focus.focus_id', '=', 'focus.id');
 
 			// Proceed to do the filtering
 			$innovations = $innovations->where('innovations.title', 'LIKE', "%".$search."%")
@@ -284,8 +289,8 @@ class FacultyController extends Controller
 		if (\Request::has('search')) {
 			$search = \Request::get('search');
 			
-			// leftJoining the one-to-many tables topics to materials
-			$materials = $materials->leftJoin('topics', 'materials.topic_id', '=', 'topics.id');
+			// joining the one-to-many tables topics to materials
+			$materials = $materials->join('topics', 'materials.topic_id', '=', 'topics.id');
 
 			// Proceed to do the filtering
 			$materials = $materials->where('materials.material_name', 'LIKE', "%".$search."%")

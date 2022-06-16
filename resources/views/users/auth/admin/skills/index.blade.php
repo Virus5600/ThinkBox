@@ -59,11 +59,11 @@
 					<td>{{$s->skill}}</td>
 					<td class="text-right">
 						@if (Auth::user()->hasPrivilege('skills_view'))
-						<a href="{{ route('admin.skills.show', [$s->id]) }}" class="btn btn-sm btn-primary">View</a>
+						<a href="{{ route('admin.skills.show', [$s->id]) }}" class="btn btn-sm btn-primary {{ $s->is_marked ? 'btn-warning' : '' }} mark-affected" data-id="{{ $s->id }}">View</a>
 						@endif
 
 						@if (Auth::user()->hasPrivilege('skills_edit'))
-						<button class="btn btn-sm btn-primary edit" data-skill="{{ $s->skill }}" data-uri-target="{{ route('admin.skills.update', [$s->id]) }}">Edit</button>
+						<button class="btn btn-sm btn-primary edit {{ $s->is_marked ? 'btn-warning' : '' }} mark-affected" data-skill="{{ $s->skill }}" data-uri-target="{{ route('admin.skills.update', [$s->id]) }}" data-id="{{ $s->id }}">Edit</button>
 						@endif
 
 						@if (Auth::user()->hasPrivilege('skills_delete'))

@@ -66,7 +66,7 @@ class UserTableSeeder extends Seeder
 		U::create([
 			'title' => null,
 			'first_name' => 'Joseph Marvin',
-			'middle_name' => null,
+			'middle_name' => 'R',
 			'last_name' => 'Imperial',
 			'suffix' => null,
 			'avatar' => 'user4.jpg',

@@ -115,12 +115,12 @@ Route::group(['middleware' => ['auth']], function() {
 			});
 
 			Route::group(['middleware' => 'permission:faculty_members_view'], function() {
-				Route::get('/faculty-member/{$id}', 'FacultyStaffController@show')->name('admin.faculty-member.show');
+				Route::get('/faculty-member/{id}', 'FacultyStaffController@show')->name('admin.faculty-member.show');
 			});
 
 			Route::group(['middleware' => 'permission:faculty_members_edit'], function() {
-				Route::get('/faculty-member/{$id}/edit', 'FacultyStaffController@edit')->name('admin.faculty-member.edit');
-				Route::post('faculty-member/{id}/update', 'FacultyStaffController@update')->name('admin.faculty-member.update');
+				Route::get('/faculty-member/{id}/edit', 'FacultyStaffController@edit')->name('admin.faculty-member.edit');
+				Route::post('/faculty-member/{id}/update', 'FacultyStaffController@update')->name('admin.faculty-member.update');
 			});
 
 			Route::group(['middleware' => 'permission:faculty_members_delete'], function() {
@@ -128,8 +128,8 @@ Route::group(['middleware' => ['auth']], function() {
 			});
 
 			Route::group(['middleware' => 'permission:faculty_members_mark'], function() {
-				Route::post('/faculty-member/{$id}/mark', 'FacultyStaffController@mark')->name('admin.faculty-member.mark');
-				Route::post('/faculty-member/{$id}/unmark', 'FacultyStaffController@unmark')->name('admin.faculty-member.unmark');
+				Route::post('/faculty-member/{id}/mark', 'FacultyStaffController@mark')->name('admin.faculty-member.mark');
+				Route::post('/faculty-member/{id}/unmark', 'FacultyStaffController@unmark')->name('admin.faculty-member.unmark');
 			});
 
 			// FM Contents
@@ -212,13 +212,11 @@ Route::group(['middleware' => ['auth']], function() {
 			});
 		});
 
-
 		// Skills
 		Route::group(['middleware' => 'permission:skills'], function() {
 			Route::get('/skills', 'SkillsController@index')->name('admin.skills.index');
 
 			Route::group(['middleware' => 'permission:skills_create'], function() {
-				// Route::get('/skills/create', 'SkillsController@create')->name('admin.skills.create');
 				Route::post('/skills/store', 'SkillsController@store')->name('admin.skills.store');
 			});
 

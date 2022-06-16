@@ -92,6 +92,10 @@
 
 			<tfoot></tfoot>
 		</table>
+
+		<div class="d-flex flex-row">
+			<nav class="mx-auto">{{ $announcements->links() }}</nav>
+		</div>
 	</div>
 </div>
 @endsection

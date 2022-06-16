@@ -8,8 +8,8 @@ use App\Http\Requests;
 
 use App\Research;
 
-use Mail;
 use Log;
+use Mail;
 
 class ResearchController extends Controller
 {
@@ -25,7 +25,7 @@ class ResearchController extends Controller
 				array_push($recipientNames, $ra->user->getFullName());
 			}
 		}
-		Log::info($recipientNames);
+		
 		Mail::send(
 			'template.email.request_copy',
 			[

@@ -18,10 +18,6 @@ class StaffTypesTableSeeder extends Seeder
 		]);
 
 		ST::create([
-			'type' => 'other'
-		]);
-
-		ST::create([
 			'type' => 'director'
 		]);
 

@@ -19,7 +19,7 @@ class AdminAnnouncementsController extends Controller
 {
 	protected function index() {
 		return view("users.auth.admin.announcements.index", [
-			'announcements' => Announcements::get()
+			'announcements' => Announcements::paginate(10)
 		]);
 	}
 

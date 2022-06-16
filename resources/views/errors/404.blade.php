@@ -20,8 +20,8 @@
 		<meta name="og:type" content="website">
 		<meta name="og:title" content="{{ env('APP_NAME') }}">
 		<meta name="og:description" content="{{ env('APP_DESC') }}">
-		<meta name="og:image" content="images/UI/banners/faculty.jpg">
-		<meta name="og:image:alt" content="images/UI/banners/faculty.jpg">
+		<meta name="og:image" content="{{asset('images/UI/banners/faculty.jpg')}}">
+		<meta name="og:image:alt" content="{{asset('images/UI/banners/faculty.jpg')}}">
 
 		{{-- jQuery 3.6.0 --}}
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
@@ -37,10 +37,10 @@
 		<script src="https://kit.fontawesome.com/d4492f0e4d.js" crossorigin="anonymous"></script>
 
 		{{-- Local CSS --}}
-		<link rel="stylesheet" href="/css/style.css" type="text/css">
+		<link rel="stylesheet" href="{{asset('css/style.css')}}" type="text/css">
 
 		{{-- Favicon --}}
-		<link rel='icon' type='image/png' href='/images/UI/favicon.png'>
+		<link rel='icon' type='image/png' href='{{asset("images/UI/favicon.png")}}'>
 		
 		{{-- Title --}}
 		<title>{{ env('APP_NAME') }} | Page Not Found</title>
@@ -51,7 +51,7 @@
 			<div class="container-fluid my-auto mx-0 p-0">
 				<div class="row">
 					<div class="col-12 col-lg-6 offset-lg-3 text-center">
-						<img src="/images/UI/errors/404.png"/ height="100%">
+						<img src="{{asset('images/UI/errors/404.png')}}" height="100%">
 					</div>
 				</div>
 
