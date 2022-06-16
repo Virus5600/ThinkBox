@@ -80,7 +80,7 @@
 								@endif
 
 								@if (Auth::user()->hasPrivilege('announcements_delete'))
-								@include('include.delete_btn', ['item' => $a->title, 'route' => route('admin.announcements.delete', [$a->id]), 'formClass' => 'w-100, 'class' => 'dropdown-item delete-btn'])
+								@include('include.delete_btn', ['item' => $a->title, 'route' => route('admin.announcements.delete', [$a->id]), 'formClass' => 'w-100', 'class' => 'dropdown-item delete-btn'])
 								@endif
 							</div>
 						</div>
