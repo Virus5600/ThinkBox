@@ -223,7 +223,7 @@
 					<div>
 						<label class="py-0 my-0">
 							<div class="d-none d-lg-block" id="primaryAuthCollapser">
-								<a href="#authCollapse" class="nav-link custom-auth-link dynamic-size-lg-h6 text-truncate" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="authCollapse" style="font-size: 1.25rem;">
+								<a href="#authCollapse" class="nav-link custom-auth-link dynamic-size-lg-h6 text-truncate py-0" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="authCollapse" style="font-size: 1.25rem;">
 									@if (!Auth::user()->isAvatarLink)
 									@if (Auth::user()->avatar == null)
 									<img src="/uploads/users/default.png" class="circular-border" width='30' height='30' draggable='false' alt="User"/>

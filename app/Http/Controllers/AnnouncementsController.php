@@ -3,15 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
 
 use App\Announcements;
 
+use Log;
+
 class AnnouncementsController extends Controller
 {
 	protected function index($sortBy='date') {
-		$announcements = new announcements;
+		$announcements = Announcements::where('is_marked', '=', 0);
 
 		// SORT
 		if (\Request::has('sortBy')) {
@@ -28,11 +29,13 @@ class AnnouncementsController extends Controller
 		if (\Request::has('search')) {
 			$search = \Request::get('search');
 
-			$announcements->where('title', 'LIKE', "%".$search."%")
+			$announcements = $announcements->where('title', 'LIKE', "%".$search."%")
 				->orWhere('source', 'LIKE', "%".$search."%")
 				->orWhere('content', 'LIKE', "%".$search."%");
 		}
-		
+
+		Log::info($announcements->get());
+
 		if (!is_a($announcements, 'Illuminate\Pagination\LengthAwarePaginator')) {
 			$announcements = $announcements->paginate(9, ['announcements.*']);
 		}
@@ -45,9 +48,12 @@ class AnnouncementsController extends Controller
 	}
 
 	protected function show($id) {
+		if (Announcements::find($id)->is_marked)
+			abort(503);
+
 		return view('users.announcements.show', [
 			'announcements' => Announcements::find($id),
-			'otherAnnouncements' => Announcements::where('id', '<>', $id)->get()->random(3)->shuffle()
+			'otherAnnouncements' => Announcements::where('id', '<>', $id)->where('is_marked', '=', 0)->get()->random(3)->shuffle()
 		]);
 	}
 }

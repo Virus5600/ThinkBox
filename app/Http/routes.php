@@ -218,7 +218,7 @@ Route::group(['middleware' => ['auth']], function() {
 			Route::get('/skills', 'SkillsController@index')->name('admin.skills.index');
 
 			Route::group(['middleware' => 'permission:skills_create'], function() {
-				Route::get('/skills/create', 'SkillsController@create')->name('admin.skills.create');
+				// Route::get('/skills/create', 'SkillsController@create')->name('admin.skills.create');
 				Route::post('/skills/store', 'SkillsController@store')->name('admin.skills.store');
 			});
 

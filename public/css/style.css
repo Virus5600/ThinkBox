@@ -931,6 +931,56 @@ nav.position-sticky {
 	color: #dc3545!important;
 }
 
+/* FOR MARKERS */
+.mark-button {
+	width: 1.5rem!important;
+	height: 1.5rem!important;
+	cursor: pointer;
+	display: flex;
+	border-radius: .25rem;
+	border-color: #343a40;
+	border: 1px solid;
+	color: #343a40;
+	transition: 0.0625s ease-in-out;
+}
+
+.mark-button > .fa-exclamation {
+	margin: auto;
+}
+
+.mark-button:hover,
+.mark-button:focus {
+	transform: scale(1.125, 1.125);
+	border-color: #6c757d;
+	color: #6c757d;
+}
+
+.mark-button:active { 
+	transform: scale(1.125, 1.125);
+	border-color: #ffc107;
+	color: #ffc107;
+}
+
+/* For active markers */
+.mark-button.active {
+	border-color: #ffc107;
+	color: #ffc107;
+}
+
+.mark-button.active:hover,
+.mark-button.active:focus {
+	transform: scale(1.125, 1.125);
+	border-color: #d39e00;
+	color: #d39e00;
+}
+
+.mark-button.active:active { 
+	transform: scale(1.125, 1.125);
+	border-color: #343a40;
+	color: #343a40;
+}
+ /* FOR MARKERS END */
+
 /* BREAKPOINT RELATED CSS */
 @media (min-width: 388px) {
 	.banner-text-adjust {

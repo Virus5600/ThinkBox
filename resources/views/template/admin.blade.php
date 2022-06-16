@@ -4,6 +4,7 @@
 		{{-- META DATA --}}
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		@yield('meta-data')
 
 		{{-- SITE META --}}
 		<meta name="url" content="">
@@ -159,37 +160,35 @@
 					<a class="text-decoration-none text-dark" href="{{ route('dashboard') }}"><i class="fas fa-tachometer-alt mr-2"></i>Dashboard</a>
 					@endif
 
-					@if (\Request::is('admin/faculty-member'))
-					<span class="bg-custom text-white"><i class="fas fa-chalkboard-teacher mr-2"></i>Faculty Members</span>
-					@elseif (\Request::is('admin/faculty-member/*'))
-					<a class="text-decoration-none bg-custom text-white" href="{{ route('admin.faculty-member.index') }}"><i class="fas fa-chalkboard-teacher mr-2"></i>Faculty Members</a>
-					@else
-					<a class="text-decoration-none text-dark" href="{{ route('admin.faculty-member.index') }}"><i class="fas fa-chalkboard-teacher mr-2"></i>Faculty Members</a>
+					@if (Auth::user()->hasPrivilege('faculty_members'))
+						@if (\Request::is('admin/faculty-member'))
+						<span class="bg-custom text-white"><i class="fas fa-chalkboard-teacher mr-2"></i>Faculty Members</span>
+						@elseif (\Request::is('admin/faculty-member/*'))
+						<a class="text-decoration-none bg-custom text-white" href="{{ route('admin.faculty-member.index') }}"><i class="fas fa-chalkboard-teacher mr-2"></i>Faculty Members</a>
+						@else
+						<a class="text-decoration-none text-dark" href="{{ route('admin.faculty-member.index') }}"><i class="fas fa-chalkboard-teacher mr-2"></i>Faculty Members</a>
+						@endif
 					@endif
 
-					@if (\Request::is('admin/users'))
-					<!-- <span class="bg-custom text-white"><i class="fas fa-users mr-2"></i>Users</span> -->
-					@elseif (\Request::is('admin/users/*'))
-					<!-- <a class="text-decoration-none bg-custom text-white" href="{{ route('admin.faculty-member.index') }}"><i class="fas fa-users mr-2"></i>Users</a> -->
-					@else
-					<!-- <a class="text-decoration-none text-dark" href="{{ route('admin.faculty-member.index') }}"><i class="fas fa-users mr-2"></i>Users</a> -->
+					@if (Auth::user()->hasPrivilege('announcements'))
+						@if (\Request::is('admin/announcements'))
+						<span class="bg-custom text-white"><i class="fas fa-bullhorn mr-2"></i>Announcements</span>
+						@elseif (\Request::is('admin/announcements/*'))
+						<a class="text-decoration-none bg-custom text-white" href="{{ route('admin.announcements.index') }}"><i class="fas fa-bullhorn mr-2"></i>Announcements</a>
+						@else
+						<a class="text-decoration-none text-dark" href="{{ route('admin.announcements.index') }}"><i class="fas fa-bullhorn mr-2"></i>Announcements</a>
+						@endif
 					@endif
 
-					@if (\Request::is('admin/announcements'))
-					<span class="bg-custom text-white"><i class="fas fa-bullhorn mr-2"></i>Announcements</span>
-					@elseif (\Request::is('admin/announcements/*'))
-					<a class="text-decoration-none bg-custom text-white" href="{{ route('admin.announcements.index') }}"><i class="fas fa-bullhorn mr-2"></i>Announcements</a>
-					@else
-					<a class="text-decoration-none text-dark" href="{{ route('admin.announcements.index') }}"><i class="fas fa-bullhorn mr-2"></i>Announcements</a>
+					@if (Auth::user()->hasPrivilege('skills'))
+						@if (\Request::is('admin/skills'))
+						<span class="bg-custom text-white"><i class="fas fa-pencil-ruler mr-2"></i>Skills</span>
+						@else
+						<a class="text-decoration-none text-dark" href="{{ route('admin.skills.index') }}"><i class="fas fa-pencil-ruler mr-2"></i>Skills</a>
+						@endif
 					@endif
 
-					@if (\Request::is('admin/skills'))
-					<span class="bg-custom text-white"><i class="fas fa-pencil-ruler mr-2"></i>Skills</span>
-					@else
-					<a class="text-decoration-none text-dark" href="{{ route('admin.skills.index') }}"><i class="fas fa-pencil-ruler mr-2"></i>Skills</a>
-					@endif
-
-					<a class="text-decoration-none text-dark" href="#"><i class="fas fa-sign-out-alt mr-2"></i>Sign Out</a>
+					<a class="text-decoration-none text-dark" href="{{ route('logout') }}"><i class="fas fa-sign-out-alt mr-2"></i>Sign Out</a>
 				</div>
 
 				{{-- Page Contents --}}

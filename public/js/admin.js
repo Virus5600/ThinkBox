@@ -110,6 +110,122 @@ $(document).ready(function() {
 		});
 	});
 
+	// Marking and Unmarking stuff
+	$('.mark-button').on('click', (e) => {
+		let obj = $(e.target);
+
+		Swal.fire({
+			title: `${(obj.hasClass('active') ? 'Unm' : 'M')}ark "${obj.attr('data-target-item')}"${obj.hasClass('active') ? '?' : ' for reviewing?'}`,
+			html: `<textarea id="reason" class="swal2-input not-resizable" style="height: 10rem;" placeholder="State your reason..."></textarea>`,
+			confirmButtonText: 'Submit',
+			showCancelButton: true,
+			focusConfirm: false,
+			allowOutsideClick: false,
+			preConfirm: () => {
+				const reason = Swal.getPopup().querySelector('#reason').value;
+
+				if (obj.attr('data-triggered-from-response')) {
+					Swal.showValidationMessage(obj.attr('data-validation-message'));
+					obj.removeAttr('data-triggered-from-response').removeAttr('data-validation-message');
+				}
+				else
+					if (!reason || reason.length <= 2)
+						Swal.showValidationMessage(`Please provide a proper reason why this item is being marked`);
+
+				return {
+					reason: reason
+				}
+			}
+		}).then((result) => {
+			if (result.isConfirmed) {
+				$.ajaxSetup({
+					headers: {
+						'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+					}
+				});
+
+				$.post(obj.attr('data-target-uri'), {
+					_token: $('meta[name="csrf-token"]').attr('content'),
+					_method: 'POST',
+					reason: result.value.reason
+				}).done((response) => {
+					if (response.has_error) {
+						Swal.fire({
+							title: `${response.message}`,
+							position: `top`,
+							showConfirmButton: false,
+							toast: true,
+							timer: 10000,
+							background: `#dc3545`,
+							customClass: {
+								title: `text-white`,
+								content: `text-white`,
+								popup: `px-3`
+							},
+						});
+					}
+					else if (response.has_validation_error) {
+						obj.attr('data-validation-message', response.message);
+						obj.attr('data-triggered-from-response', 'true');
+						obj.trigger('click');
+						$('.swal2-confirm').trigger('click');
+					}
+					else {
+						if (response.is_info) {
+							Swal.fire({
+								title: `${response.message}`,
+								position: `top`,
+								showConfirmButton: false,
+								toast: true,
+								timer: 10000,
+								background: `#17a2b8`,
+								customClass: {
+									title: `text-white`,
+									content: `text-white`,
+									popup: `px-3`
+								},
+							});
+						}
+						else {
+							if (obj.hasClass('active')) {
+								obj.removeClass('active');
+								$(`.mark-affected[data-id=${response.id}]`).removeClass('btn-warning');
+							}
+							else {
+								obj.addClass('active');
+								$(`.mark-affected[data-id=${response.id}]`).addClass('btn-warning');
+							}
+
+							obj.attr('data-toggle', 'tooltip')
+								.attr('tabindex', '0')
+								.attr('data-html', 'true')
+								.attr('data-trigger', 'hover focus')
+								.attr('title', result.value.reason)
+								.attr('data-target-uri', response.uri)
+								.tooltip('dispose')
+								.tooltip();
+
+							Swal.fire({
+								title: `${response.message}`,
+								position: `top`,
+								showConfirmButton: false,
+								toast: true,
+								timer: 10000,
+								background: `#28a745`,
+								customClass: {
+									title: `text-white`,
+									content: `text-white`,
+									popup: `px-3`
+								},
+							});
+						}
+					}
+				});
+			}
+		});
+
+	});
+
 	// Disables an input while animation is in progress
 	$(document).on('change', '.disable-while-animating', function(e) {
 		let obj = $(e.currentTarget);

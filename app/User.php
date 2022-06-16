@@ -61,7 +61,8 @@ class User extends Authenticatable
 		return $this->hasMany('App\ActivityLog', 'user_id');
 	}
 
-	protected function privileges() {
+	// CUSTOM FUNCTIONS
+	public function privileges() {
 		return $this->role->privileges;
 	}
 
@@ -77,10 +78,14 @@ class User extends Authenticatable
 	}
 
 	public function hasPrivilege($privilege) {
-		$userRole = $this->role_id;
-		$targetPrivilege = Privileges::where('name', '=', $privilege)->first()->id;
-		$matches = RolePrivileges::where('role_id', '=', $userRole)->where('privilege_id', '=', $targetPrivilege)->get();
+		return $this->role->hasPrivilege($privilege);
+	}
 
-		return count($matches) > 0 ? true : false;
+	public function hasOneOfPrivileges($privileges) {
+		return $this->role->hasOneOfPrivileges($privileges);
+	}
+
+	public function hasAllPrivileges($privileges) {
+		return $this->role->hasAllPrivileges($privileges);
 	}
 }
