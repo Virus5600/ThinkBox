@@ -25,7 +25,7 @@ class PageController extends Controller
 {
 	// USER SIDE (AUTH AND UNAUTH)
 	protected function index() {
-		$staff = FacultyStaff::leftJoin('users', 'users.id', '=', 'faculty_staffs.user_id')->orderBy('users.last_name')->get(['faculty_staffs.*'])->take(8);
+		$staff = FacultyStaff::join('users', 'users.id', '=', 'faculty_staffs.user_id')->where('role_id', '>=', 3)->orderBy('users.last_name')->get(['faculty_staffs.*'])->take(8);
 		$announcements = Announcements::latest()->get()->take(3);
 		$research = Auth::check() ? Research::orderBy('date_published', 'DESC')->get()->take(3) : Research::where('is_featured', 1)->orderBy('date_published', 'DESC')->get()->take(3);
 		$innovations = Auth::check() ? Innovation::orderBy('date_published', 'DESC')->get()->take(3) : Innovation::where('is_featured', 1)->orderBy('date_published', 'DESC')->get()->take(3);
