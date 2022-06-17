@@ -1,10 +1,10 @@
 @extends('template.admin')
 
-@section('title', 'Skills')
-
 @section('meta-data')
 <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
+
+@section('title', 'Skills')
 
 @section('body')
 <div class="container-fluid px-2 px-lg-6 py-2">

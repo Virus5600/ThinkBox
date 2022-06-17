@@ -44,6 +44,10 @@ class FacultyStaff extends Model
 		return $this->user->hasMany('App\OtherProfile');
 	}
 
+	protected function materials() {
+		return $this->hasMany('App\Material');
+	}
+
 	public function getDepartment() {
 		return Departments::find($this->department);
 	}

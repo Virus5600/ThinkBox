@@ -134,15 +134,16 @@ Route::group(['middleware' => ['auth']], function() {
 
 			// FM Contents
 			Route::group(['middleware' => 'permission:faculty_members_contents'], function() {
-				Route::get('/faculty-member/{id}/manage-content', 'FacultyStaffController@manageContents')->name('admin.faculty-member.manage-contents');
-				Route::get('/faculty-member/{id}/manage-content/{topicId}', 'FacultyStaffController@manageContentsShowTopic')->name('admin.faculty-member.manage-contents.topic');
+				Route::get('/faculty-member/{id}/manage-content', 'FacultyStaffController@contents')->name('admin.faculty-member.contents');
+				Route::get('/faculty-member/{id}/manage-content/topic/{topicId}', 'AdminMaterialContentController@index')->name('admin.faculty-member.contents.topic.index');
 
 				Route::group(['middleware' => 'permission:faculty_members_contents_view'], function() {
-					// TBA
+					Route::get('/faculty-member/{id}/manage-content/topic/{topicId}/{materialId}', 'AdminMaterialContentController@show')->name('admin.faculty-member.manage-contents.topic.show');
 				});
 
 				Route::group(['middleware' => 'permission:faculty_members_contents_create'], function() {
-					// TBA
+					Route::get('/faculty-member/{id}/manage-content/topic/{topicId}/create', 'AdminMaterialContentController@create')->name('admin.faculty-member.manage-contents.topic.create');
+					Route::post('/faculty-member/{id}/manage-content/topic/{topicId}/store', 'AdminMaterialContentController@store')->name('admin.faculty-member.manage-contents.topic.store');
 				});
 
 				Route::group(['middleware' => 'permission:faculty_members_contents_edit'], function() {

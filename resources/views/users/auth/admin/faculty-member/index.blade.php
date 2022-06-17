@@ -100,7 +100,7 @@
 								@endif
 
 								@if (Auth::user()->hasPrivilege('faculty_members_contents'))
-								<a href="{{ route('admin.faculty-member.manage-contents', [$s->id]) }}" class="dropdown-item">Manage Contents</a>
+								<a href="{{ route('admin.faculty-member.contents', [$s->id]) }}" class="dropdown-item">Manage Contents</a>
 								@endif
 
 								@if (Auth::user()->hasPrivilege('faculty_members_delete'))

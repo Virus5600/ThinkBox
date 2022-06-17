@@ -1,5 +1,9 @@
 @extends('template.admin')
 
+@section('meta-data')
+<meta name="csrf-token" content="{{ csrf_token() }}">
+@endsection
+
 @section('title', 'Faculty Staff')
 
 @section('body')
@@ -37,34 +41,11 @@ if(\Request::has('tab')) {
 						<h2 class="font-weight-bold">Course Materials</h2>
 					</div>
 
+					@if (Auth::user()->hasPrivilege('skills_create'))
 					<div class="col-12 col-md-6 col-lg my-2 text-center text-md-left text-lg-right">
-						<button class="btn btn-success" data-toggle="modal" data-target="#addTopic"><i class="fas fa-plus-circle mr-2"></i>Add Item</button>
-						
-						<div class="modal fade" id="addTopic" role="dialog" aria-hidden="true">
-							<div class="modal-dialog modal-dialog-centered" role="document">
-								<form class="modal-content" action="" method="{{-- POST --}}" enctype="multipart/form-data">
-									<div class="modal-header">
-										<h5 class="modal-title">Create Topic</h5>
-										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-											<span aria-hidden="true">&times;</span>
-										</button>
-									</div>
-
-									<div class="modal-body text-left">
-										<div class="form-group">
-											<label class="form-label" for='topic_name'>Topic Name</label>
-											<input class="form-control" type="text" name="topic_name" value="{{old('topic_name')}}">
-										</div>
-									</div>
-
-									<div class="modal-footer">
-										<button type="submit" class="btn btn-primary" data-action="submit">Submit</button>
-										<input type="button" class="btn btn-secondary" data-dismiss="modal" value="Cancel"/>
-									</div>
-								</form>
-							</div>
-						</div>
+						<a href="#" class="btn btn-success"><i class="fas fa-plus-circle mr-2"></i>Add Material</a>
 					</div>
+					@endif
 
 					<div class="col-12 col-md-6 col-lg my-2 text-center text-lg-right">
 						<div class="input-group">
@@ -90,21 +71,38 @@ if(\Request::has('tab')) {
 							</thead>
 
 							<tbody>
+								@foreach($topics as $t)
+								
+								@php
+								$added = App\Material::where('topic_id', '=', $t->id)
+									->where('faculty_staff_id', '=', $staff->id)
+									->orderBy('created_at', 'asc')
+									->first()
+									->created_at;
+
+								$updated = App\Material::where('topic_id', '=', $t->id)
+									->where('faculty_staff_id', '=', $staff->id)
+									->orderBy('updated_at', 'desc')
+									->first()
+									->updated_at;
+
+									$added = Carbon\Carbon::parse($added)->format('M d, Y');
+									$updated = Carbon\Carbon::parse($updated)->format('M d, Y');
+								@endphp
+
 								<tr>
-									<td>Topic 1</td>
-									<td>2</td>
-									<td>Apr 1, 2021</td>
-									<td>Apr 5, 2021</td>
+									<td>{{ $t->topic_name }}</td>
+									<td>{{ count($t->materials) }}</td>
+									<td>{{ $added }}</td>
+									<td>{{ $updated }}</td>
 									<td>
 										<div class="dropdown">
-											<button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" id="dropdown1" aria-haspopup="true" aria-expanded="false">
-												Action
-											</button>
+											<button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" id="dropdown1" aria-haspopup="true" aria-expanded="false">Action</button>
 
 											<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown1">
-												<a href="{{ route('admin.faculty-member.manage-contents.topic', [$staff->id, 1]) }}" class="dropdown-item">View</a>
+												<a href="{{ route('admin.faculty-member.contents.topic.index', [$staff->id, $t->id]) }}" class="dropdown-item">View</a>
 												<button class="dropdown-item" data-toggle="modal" data-target="#editTopic1">Edit</button>
-												<a href="" class="dropdown-item">Delete</a>
+												<a href="#" class="dropdown-item">Delete</a>
 											</div>
 										</div>
 
@@ -134,6 +132,7 @@ if(\Request::has('tab')) {
 										</div>
 									</td>
 								</tr>
+								@endforeach
 							</tbody>
 						</table>
 					</div>
@@ -217,9 +216,7 @@ if(\Request::has('tab')) {
 									<td>Jan 4, 2021</td>
 									<td>
 										<div class="dropdown">
-											<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="dropdown1" aria-haspopup="true" aria-expanded="false">
-												Action
-											</button>
+											<button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" id="dropdown1" aria-haspopup="true" aria-expanded="false">Action</button>
 
 											<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown1">
 												<a href="#" class="dropdown-item">View</a>
@@ -347,9 +344,7 @@ if(\Request::has('tab')) {
 									<td>Jan 4, 2021</td>
 									<td>
 										<div class="dropdown">
-											<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="dropdown1" aria-haspopup="true" aria-expanded="false">
-												Action
-											</button>
+											<button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" id="dropdown1" aria-haspopup="true" aria-expanded="false">Action</button>
 
 											<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown1">
 												<a href="#" class="dropdown-item">View</a>

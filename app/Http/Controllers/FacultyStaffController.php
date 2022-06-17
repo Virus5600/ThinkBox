@@ -7,16 +7,17 @@ use App\Http\Requests;
 
 use App\ActivityLog;
 use App\Affiliation;
-use App\OtherProfile;
-use App\FacultyStaff;
-use App\Research;
-use App\Innovation;
-use App\Material;
-use App\Skills;
-use App\User;
 use App\College;
 use App\Departments;
+use App\FacultyStaff;
+use App\Innovation;
+use App\Material;
+use App\OtherProfile;
+use App\Research;
+use App\Skills;
 use App\StaffTypes;
+use App\Topic;
+use App\User;
 
 use Auth;
 use DB;
@@ -588,26 +589,6 @@ class FacultyStaffController extends Controller
 			->with('has_icon', true);
 	}
 
-	protected function skills($id) {
-		$staff = FacultyStaff::find($id);
-		return view('users.auth.admin.faculty-member.skills', [
-			'staff' => $staff,
-			'skills' => Skills::get(),
-		]);
-	}
-
-	protected function manageContents($id) {
-		return view('users.auth.admin.faculty-member.manage-content', [
-			'staff' => User::find($id)
-		]);
-	}
-
-	protected function manageContentsShowTopic($id, $topicId) {
-		return view('users.auth.admin.faculty-member.manage-content-topic', [
-			'id' => $id
-		]);
-	}
-
 	protected function delete($id) {
 		$fs = FacultyStaff::find($id);
 
@@ -759,4 +740,28 @@ class FacultyStaffController extends Controller
 			]);
 	}
 
+	// SKILLS
+	protected function skills($id) {
+		$staff = FacultyStaff::find($id);
+		return view('users.auth.admin.faculty-member.skills', [
+			'staff' => $staff,
+			'skills' => Skills::get(),
+		]);
+	}
+
+	// CONTENTS
+	protected function contents($id) {
+		$staff = FacultyStaff::find($id);
+		$materials = $staff->materials;
+		$distinct_topics = [];
+
+		foreach ($materials as $m) array_push($distinct_topics, $m->topic_id);
+		$distinct_topics = array_unique($distinct_topics);
+		$topics = Topic::whereIn('id', $distinct_topics)->get();
+
+		return view('users.auth.admin.faculty-member.content', [
+			'staff' => $staff,
+			'topics' => $topics
+		]);
+	}
 }
