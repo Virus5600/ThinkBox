@@ -6,3 +6,5 @@ Homestead.json
 .env
 SQL COMMANDS.txt
 BASH COMMANDS.txt
+db-management.sh
+*.sql
