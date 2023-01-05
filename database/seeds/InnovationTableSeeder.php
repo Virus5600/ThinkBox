@@ -63,7 +63,7 @@ class InnovationTableSeeder extends Seeder
 			10,
 			'http://121.58.254.45/PatGazette/IPASJournal/V24N4_Inv_1st.pdf',
 			\Carbon\Carbon::parse('2019-3-6'),
-			1,
+			1
 		);
 
 		// $this->addInnovation();
