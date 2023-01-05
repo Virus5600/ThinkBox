@@ -13,6 +13,8 @@ class ExampleTest extends TestCase
      */
     public function testBasicExample()
     {
+        $this->withoutExceptionHandling();
+        
         $response = $this->call('GET', '/');
         $this->assertEquals(200, $response->status());
     }
