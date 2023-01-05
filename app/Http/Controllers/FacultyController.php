@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Input;
 
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
 
 use App\FacultyStaff;
@@ -25,13 +24,13 @@ use Log;
 
 class FacultyController extends Controller
 {
-	protected function index($dept='All',$sortBy='none',$rf='all') {
+	protected function index(Request $req, $dept='All',$sortBy='none',$rf='all') {
 		$staff = new FacultyStaff;
 		$college = College::get();
 
 		// RESEARCH FOCUS
-		if (\Request::has('researchFocus')) {
-			$rf = \Request::get('researchFocus');
+		if ($req->has('researchFocus')) {
+			$rf = $req->researchFocus;
 			$rfArr = array();
 			$focus = array();
 
@@ -54,8 +53,8 @@ class FacultyController extends Controller
 		}
 
 		// FILTER
-		if (\Request::has('dept')) {
-			$dept = \Request::get('dept');
+		if ($req->has('dept')) {
+			$dept = $req->dept;
 			if ($dept != 'All') {
 				$deptArr = array();
 				
@@ -77,8 +76,8 @@ class FacultyController extends Controller
 		}
 
 		// SORT
-		if (\Request::has('sortBy')) {
-			$sortBy = \Request::get('sortBy');
+		if ($req->has('sortBy')) {
+			$sortBy = $req->sortBy;
 			// If the sorting is by last name...
 			if ($sortBy == 'lastName') {
 				// ...join tables users and faculty_staff, then order them ascendingly by their last name. Lastly, get all the columns from faculty_staff tables only.
@@ -104,38 +103,41 @@ class FacultyController extends Controller
 		}
 
 		// SEARCH
-		if (\Request::has('search')) {
-			$search = \Request::get('search');
+		if ($req->has('search')) {
+			$search = preg_replace("/ /", "_", '%'.$req->search.'%');
 
-			if (!\Request::has('sortBy') || $sortBy == 'none') {
+			if (!$req->has('sortBy') || $sortBy == 'none') {
 				$staff = $staff->join('users', 'users.id', '=', 'faculty_staffs.user_id');
 			}
+
 			$staff->join('staff_types', 'staff_types.id', '=', 'faculty_staffs.position')
 				// joining the many-to-many tables faculty_focus, faculty_staff, and focus
 				->join('faculty_focus', 'faculty_staffs.id', '=', 'faculty_focus.faculty_staff_id')
 				->join('focus', 'faculty_focus.focus_id', '=', 'focus.id')
 				// Proceed to do the filtering
-				->where('users.role_id', '>=', '3')
+				->where('users.role_id', '>=', 3)
 				->where(function($q) use ($search) {
-					$q->where('staff_types.type', 'LIKE', '%'.preg_replace("/ /", "_", $search).'%')
-						->orWhere('faculty_staffs.location', 'LIKE', '%'.$search.'%')
-						->orWhere('faculty_staffs.description', 'LIKE', '%'.$search.'%')
-						->orWhere('users.first_name', 'LIKE', '%'.$search.'%')
-						->orWhere('users.middle_name', 'LIKE', '%'.$search.'%')
-						->orWhere('users.last_name', 'LIKE', '%'.$search.'%')
-						->orWhere('users.email', 'LIKE', '%'.$search.'%')
-						->orWhere('focus.name', 'LIKE', '%'.$search.'%');
+					$q->orWhere('faculty_staffs.location', 'LIKE', $search)
+						->orWhere('faculty_staffs.description', 'LIKE', $search)
+						->orWhere('users.first_name', 'LIKE', $search)
+						->orWhere('users.middle_name', 'LIKE', $search)
+						->orWhere('users.last_name', 'LIKE', $search)
+						->orWhere('users.email', 'LIKE', $search)
+						->orWhere('focus.name', 'LIKE', $search);
 				});
+
 		}
 		else {
 			// REMOVE ADMINS
 			$staff = $staff->join('users', 'faculty_staffs.user_id', '=', 'users.id')
-				->where('users.role_id', '>=', '3');
+				->where('users.role_id', '>=', 3);
 		}
 
 		if (!\Request::has('sortBy') || \Request::get('sortBy') == 'none') {
 			$staff = $staff->orderBy('department', 'DESC');
 		}
+		
+		Log::info($staff->toSql());
 		
 		if (!is_a($staff, 'Illuminate\Pagination\LengthAwarePaginator')) {
 			$staff = $staff->distinct()->paginate(10, ['faculty_staffs.*']);

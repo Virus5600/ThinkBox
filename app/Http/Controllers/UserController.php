@@ -43,22 +43,22 @@ class UserController extends Controller
 		return view('user.register');
 	}
 
-	protected function authenticate() {
+	protected function authenticate(Request $req) {
 		$credentialsE = [
-			'email' => Input::get('email'),
-			'password' => Input::get('password')
+			'email' => $req->email,
+			'password' => $req->password
 		];
 		$credentialsU = [
-			'username' => Input::get('email'),
-			'password' => Input::get('password')
+			'username' => $req->email,
+			'password' => $req->password
 		];
 
-		if (Auth::attempt($credentialsE, (Input::get('remember_me') != null ? true : false)) || Auth::attempt($credentialsU, (Input::get('remember_me') != null ? true : false))) {
+		if (Auth::attempt($credentialsE, ($req->remember_me != null ? true : false)) || Auth::attempt($credentialsU, ($req->rememeber_me != null ? true : false))) {
 			return redirect()->intended('/')->with('flash_success', 'Logged in!');
 		}
 		else {
 			auth()->logout();
-			return redirect()->back()->with('flash_error', 'Wrong email/password!')->withInput(Input::all());
+			return redirect()->back()->with('flash_error', 'Wrong email/password!')->withInput($req->all());
 		}
 	}
 

@@ -28,7 +28,7 @@ body {
 }
 /* CUSTOM SCROLLER END */
 
-/* サイドバースタート */
+/* サイドバールタート */
 .sidebar-toggler {
 	color: rgba(0,0,0,.5);
 	border-color: rgba(0,0,0,.1);
@@ -91,7 +91,7 @@ body {
 .sidebar > a:hover {
 	background-color: #EAEAEA;
 }
-/* サイドバーエンドー */
+/* サイドバールエンドー */
 
 /* SWITCH SIZE START */
 .custom-switch.custom-switch-md .custom-control-label {
@@ -1088,7 +1088,7 @@ nav.position-sticky {
 		display: none!important;
 	}
 
-	.d-sm-initial: {
+	.d-sm-initial {
 		display: initial!important;
 	}
 

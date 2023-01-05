@@ -5,7 +5,7 @@
 @section('body')
 <div class="row p-3 py-lg-5 px-lg-0">
 	<div class="col col-lg-4 offset-lg-4">
-		<form class="card" action="{{route('authenticate')}}" method="POST" enctype="multipart/form-data">
+		<form class="card" action="{{ route('authenticate') }}" method="POST" enctype="multipart/form-data">
 			<h3 class="h3 h4-lg card-header text-center">Login</h4>
 
 			<div class="card-body">
