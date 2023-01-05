@@ -29,6 +29,6 @@ class CreateInnovationFilesTable extends Migration
 	 */
 	public function down()
 	{
-		Schema::drop('research_files');
+		Schema::dropIfExists('innovation_files');
 	}
 }

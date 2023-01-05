@@ -28,6 +28,6 @@ class CreateRolePrivilegesTable extends Migration
 	 */
 	public function down()
 	{
-		Schema::drop('role_privileges');
+		Schema::dropIfExists('role_privileges');
 	}
 }

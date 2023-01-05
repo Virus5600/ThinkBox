@@ -12,8 +12,6 @@ class ResearchFile extends Model
 		'file'
 	];
 
-	public $timestamps = false;
-
 	protected function research() {
 		return $this->belongsTo('App\Research', 'research_id', 'id');
 	}

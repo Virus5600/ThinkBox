@@ -35,6 +35,6 @@ class CreateFacultyStaffTable extends Migration
 	 */
 	public function down()
 	{
-		Schema::drop('faculty_staffs');
+		Schema::dropIfExists('faculty_staffs');
 	}
 }

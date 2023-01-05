@@ -27,6 +27,6 @@ class CreateMaterialFilesTable extends Migration
 	 */
 	public function down()
 	{
-		Schema::drop('material_files');
+		Schema::dropIfExists('material_files');
 	}
 }

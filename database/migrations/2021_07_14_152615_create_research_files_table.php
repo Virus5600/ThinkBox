@@ -17,6 +17,7 @@ class CreateResearchFilesTable extends Migration
 			$table->integer('research_id')->unsigned();
 			$table->string('original_name');
 			$table->string('file');
+			$table->timestamps();
 
 			$table->foreign('research_id')->references('id')->on('research')->onDelete('cascade');
 		});
@@ -29,6 +30,6 @@ class CreateResearchFilesTable extends Migration
 	 */
 	public function down()
 	{
-		Schema::drop('research_files');
+		Schema::dropIfExists('research_files');
 	}
 }

@@ -28,6 +28,6 @@ class CreateResearchAuthorsTable extends Migration
 	 */
 	public function down()
 	{
-		Schema::drop('research_authors');
+		Schema::dropIfExists('research_authors');
 	}
 }

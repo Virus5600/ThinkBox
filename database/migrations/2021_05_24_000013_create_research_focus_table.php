@@ -28,6 +28,6 @@ class CreateResearchFocusTable extends Migration
 	 */
 	public function down()
 	{
-		Schema::drop('research_focus');
+		Schema::dropIfExists('research_focus');
 	}
 }

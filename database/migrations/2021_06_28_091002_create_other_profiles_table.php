@@ -28,6 +28,6 @@ class CreateOtherProfilesTable extends Migration
 	 */
 	public function down()
 	{
-		Schema::down('other_profiles');
+		Schema::dropIfExists('other_profiles');
 	}
 }

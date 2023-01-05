@@ -35,6 +35,6 @@ class CreateInnovationTable extends Migration
 	 */
 	public function down()
 	{
-		Schema::drop('innovations');
+		Schema::dropIfExists('innovations');
 	}
 }

@@ -25,6 +25,6 @@ class CreateStaffTypesTable extends Migration
 	 */
 	public function down()
 	{
-		Schema::drop('staff_types');
+		Schema::dropIfExists('staff_types');
 	}
 }

@@ -26,6 +26,6 @@ class CreateFocusTable extends Migration
      */
     public function down()
     {
-        Schema::drop('focus');
+        Schema::dropIfExists('focus');
     }
 }

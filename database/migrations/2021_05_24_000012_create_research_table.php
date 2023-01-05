@@ -37,6 +37,6 @@ class CreateResearchTable extends Migration
 	 */
 	public function down()
 	{
-		Schema::drop('research');
+		Schema::dropIfExists('research');
 	}
 }

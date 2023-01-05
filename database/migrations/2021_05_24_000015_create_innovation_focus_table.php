@@ -28,6 +28,6 @@ class CreateInnovationFocusTable extends Migration
 	 */
 	public function down()
 	{
-		Schema::drop('innovation_focus');
+		Schema::dropIfExists('innovation_focus');
 	}
 }

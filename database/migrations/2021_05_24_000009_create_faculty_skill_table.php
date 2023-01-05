@@ -30,6 +30,6 @@ class CreateFacultySkillTable extends Migration
 	 */
 	public function down()
 	{
-		Schema::drop('faculty_skills');
+		Schema::dropIfExists('faculty_skills');
 	}
 }

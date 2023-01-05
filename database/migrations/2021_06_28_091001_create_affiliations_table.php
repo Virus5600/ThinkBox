@@ -28,6 +28,6 @@ class CreateAffiliationsTable extends Migration
 	 */
 	public function down()
 	{
-		Schema::down('affiliations');
+		Schema::dropIfExists('affiliations');
 	}
 }

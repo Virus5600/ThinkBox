@@ -37,6 +37,6 @@ class CreateAnnouncementsTable extends Migration
 	 */
 	public function down()
 	{
-		Schema::drop('announcements');
+		Schema::dropIfExists('announcements');
 	}
 }
