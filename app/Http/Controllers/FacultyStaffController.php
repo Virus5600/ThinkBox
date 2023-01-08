@@ -599,10 +599,12 @@ class FacultyStaffController extends Controller
 
 		try {
 			DB::beginTransaction();
+			
 			$user = User::find($fs->user_id);
 			$user->delete();
 			File::delete(public_path() . '/uploads/users/user' . $user->id . '/' . $user->avatar);
 			ActivityLog::log('Deleted a user (<a href="' . route('admin.faculty-member.show', [$user->id]) . '">' . $user->getFullName() . '</a>)');
+			
 			DB::commit();
 		} catch (Exception $e) {
 			Log::error($e);

@@ -7,7 +7,7 @@
 @endsection
 
 @section('body')
-<div class="px-0 mx-0" style="max-width: 100vw!important; width: auto!important; height: 70vh!important; background: #fff url('/images/UI/banners/index.jpg') no-repeat center; background-size: cover;">
+<div class="px-0 mx-0" style="max-width: 100vw!important; width: auto!important; height: 70vh!important; background: #fff url('{{ asset("images/UI/banners/index.jpg") }}') no-repeat center; background-size: cover;">
 	<div class="row h-100 darken-backdrop m-0" style="width: 100%;">
 		<div class="col-6 ml-5 banner-text-adjust">
 			<h1 class="text-light h3 h1-md" style="font-family: Arial Narrow;">

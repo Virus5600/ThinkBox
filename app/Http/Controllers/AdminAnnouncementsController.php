@@ -173,9 +173,11 @@ class AdminAnnouncementsController extends Controller
 
 		try {
 			DB::beginTransaction();
+			
 			$announcement->delete();
 			File::delete(public_path() . '/uploads/announcements/' . $announcement->image);
 			ActivityLog::log('Deleted announcement (<a href="' . route('admin.announcements.show', [$announcement->id]) . '">' . $announcement->title . '</a>)');
+			
 			DB::commit();
 		} catch (Exception $e) {
 			Log::error($e);
