@@ -47,6 +47,10 @@ class AnnouncementsController extends Controller
 		]);
 	}
 
+	// create
+
+	// store
+
 	protected function show($id) {
 		if (Announcements::find($id)->is_marked)
 			abort(503);
@@ -56,4 +60,10 @@ class AnnouncementsController extends Controller
 			'otherAnnouncements' => Announcements::where('id', '<>', $id)->where('is_marked', '=', 0)->get()->random(3)->shuffle()
 		]);
 	}
+
+	// edit
+
+	// update
+
+	// delete
 }

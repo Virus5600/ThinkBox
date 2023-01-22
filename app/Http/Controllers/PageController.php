@@ -162,8 +162,7 @@ class PageController extends Controller
 		]);
 	}
 
-	protected function researchShow($id) {
-
+	protected function researchShow(Request $req, $id) {
 		if (Research::find($id) == null)
 			abort(404);
 
